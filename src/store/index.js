@@ -1,8 +1,15 @@
 import {createStore} from 'vuex'
+import getters from './getters'
+import category from "./modules/category";
+import industryList from "./modules/industryList";
+import industryDetail from "./modules/industryDetail";
+import createPersistedState from 'vuex-persistedstate'
 
-export default createStore({
-    state: {
-        token: '',
+
+
+const store =createStore({
+    state:{
+        token:'',
     },
     mutations: {
         //存储token方法
@@ -12,17 +19,22 @@ export default createStore({
             localStorage.token = token //同步存储token至localStorage
         },
     },
-    getters : {
-        //获取token方法
-        //判断是否有token,如果没有重新赋值，返回给state的token
-        getToken(state) {
-            if (!state.token) {
-                state.token = localStorage.getItem('token')
-            }
-            return state.token
-        }
+    getters,
+    modules:{
+        category,
+        industryList,
+        industryDetail,
     },
     actions: {},
-    modules: {}
+    plugins: [
+        createPersistedState({
+            // 保存到 localStorage 中的 key
+            key: 'imooc-front',
+            // 需要保存的模块
+            paths: ['industryList','industryDetail']
+        })
+    ]
+
 })
+export default store
 

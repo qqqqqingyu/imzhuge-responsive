@@ -1,34 +1,13 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-// import Login from '../views/Login.vue'
-import MainPage from '../views/MainPage.vue'
-import Classify from "@/views/Classify";
-// import PublishActivity from "@/views/PublishActivity";
-import Trade from "@/views/Trade";
+import { createRouter, createWebHistory } from 'vue-router'
+import { isMobileTerminal } from '@/utils/flexible'
+import mobileTerminalRoutes from './modules/mobile-routes'
+import pcTerminalRoutes from './modules/pc-routes'
 
-
-
-const routes = [
-  {
-    path: '/',
-    name: 'Trade',
-    component: Trade
-  },
-  {
-    path: '/MainPage',
-    name: 'MainPage',
-    component: MainPage
-  },
-  {
-    path: '/Classify',
-    name: 'Classify',
-    component: Classify
-  },
-
-]
-
+// 创建 vueRouter 实例
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
+  history: createWebHistory(),
+  routes: isMobileTerminal.value ? mobileTerminalRoutes : pcTerminalRoutes
 })
 
 export default router
+

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:animation-name="http://www.w3.org/1999/xhtml" xmlns:visibility="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <title>嗨皮诸葛 - 爱诸葛知未来</title>
+    <meta name="keywords" content="嗨皮诸葛"/>
+    <meta name="description" content="嗨皮诸葛"/>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">-->
+    <meta http-equiv="mobile-agent" content="format=xhtml;url=http://m.imzhuge.com">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="https://cdn.dowebok.com/98/css/animate.min.css">
+    <link rel="shortcut icon" href="images/head_logo.png"/>
+    <link rel="stylesheet" href="css/common.css?">
+    <link rel="stylesheet" href="css/index.css?1">
+
+</head>
+<body>
+<script src="https://cdn.bootcss.com/wow/1.1.2/wow.js"></script>
+<script type="application/javascript">
+    var url = window.location.href;  //获取url
+    if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE|Nubia/.test(navigator.userAgent))) {
+// alert('移动');
+        if (url.indexOf("680") >= 0) {
+            window.location.href = 'http://www.imzhuge.com/680/';
+        } else {
+            window.location.href = 'http://m.imzhuge.com';
+        }
+    }
+    //声明一个对象来配置动画效果参数
+    wow = new WOW(
+        {
+            boxClass: 'wow',      // default
+            animateClass: 'animated', // default
+            offset: 150,          // default
+            mobile: false,       // default
+            live: false        // default
+        }
+    )
+    wow.init();
+
+    window.onscroll = function () {
+        var scrollTop = document.documentElement.scrollTop;
+        console.log(scrollTop)
+
+        function clear() {
+            idBox = ["nav_top", "nav_fun", "nav_qst", "nav_about_us", "nav_coop"];
+            for (let i = 0; i < idBox.length; i++) {
+                document.getElementById(idBox[i]).classList.remove("navcurr")
+            }
+        }
+
+        if (scrollTop < 680) {
+            clear()
+            document.getElementById("nav_top").classList.add("navcurr")
+        } else if (scrollTop > 680 && scrollTop < 2388) {
+            clear()
+            document.getElementById("nav_fun").classList.add("navcurr")
+        } else if (scrollTop > 2388 && scrollTop < 3700) {
+            clear()
+            document.getElementById("nav_qst").classList.add("navcurr")
+        } else if (scrollTop > 3700 && scrollTop < 5608) {
+            clear()
+            document.getElementById("nav_about_us").classList.add("navcurr")
+        } else if (scrollTop > 5608) {
+            clear()
+            document.getElementById("nav_coop").classList.add("navcurr")
+        }
+    }
+
+    function showUnderline(id) {
+        const idBox = ["nav_top", "nav_fun", "nav_qst", "nav_about_us", "nav_coop"];
+        for (let i = 0; i < idBox.length; i++) {
+            document.getElementById(idBox[i]).classList.remove("navcurr")
+        }
+
+        document.getElementById(id).classList.add("navcurr")
+
+    }
+</script>
+<div class="header">
+    <div class="pgw hdbar">
+        <a href="/" class="logobox" title="嗨皮诸葛"><img src="images/logo.png" alt="嗨皮诸葛"/></a>
+        <ul class="hdnav clear">
+            <li><a href="#top" id="nav_top" onclick="showUnderline(this.id)" class="navhome navcurr">首页</a></li>
+            <li><a href="#fun" id="nav_fun" onclick="showUnderline(this.id)">功能介绍</a></li>
+            <li><a href="#qst" id="nav_qst" onclick="showUnderline(this.id)">常见问题</a></li>
+            <li><a href="#about_us" id="nav_about_us" onclick="showUnderline(this.id)">研究团队</a></li>
+            <li><a href="#cooperation" id="nav_coop" onclick="showUnderline(this.id)">合作交流</a></li>
+            <li><a href="http://m.imzhuge.com/login" class="navregbtn wow  animated" data-wow-iteration="300"
+                   data-wow-duration="0.7s" data-wow-delay="0.2s" style=" visibility: visible; animation-name: pulse;">前往登录</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="top" class="border"></div>
+<div class="bn">
+    <div class="bnat pgw">
+        <div class="bntextbox">
+            <div class="wow bounceInLeft animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
+                 style=" visibility: visible; animation-name: bounceInLeft;">
+                <div>
+                    <img class="web_url_logo" src="images/web_url_logo.png">
+                    <div class="bntext_t">集体智慧预测平台<br></div>
+                </div>
+                <div class="bntext_d">"嗨皮诸葛"预测平台，利用集体智慧成就您的预测</div>
+                <div class="bntext_act clear">
+                </div>
+                <a href="http://m.imzhuge.com/login" class="joinbtn fl wow  animated" data-wow-iteration="300"
+                   data-wow-duration="0.7s" data-wow-delay="0.2s" style=" visibility: visible; animation-name: pulse;">前往登录</a>
+            </div>
+        </div>
+        <div class="wow bounceInRight animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
+             style=" visibility: visible; animation-name: bounceInRight;">
+            <div class="contact_box clear">
+                <div class="sec fl">
+                    <img src="images/wx_fuwu.jpg"/>
+                    <p style="font-weight: bold;font-size: 1.2em"><br>扫码关注+免费注册</p>
+                </div>
+                <div class="sec fl">
+                    <img src="images/companyWechat.svg"/>
+                    <p style="font-weight: bold;font-size: 1.2em;"><span style="line-height: 20px!important;">加入活动微信群</span><br>第一时间了解最新有奖预测活动</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bnbt"></div>
+</div>
+
+<a id="fun"></a>
+<div class="sys_info wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
+    <strong class="second_title">集体智慧预测系统</strong>
+    <div class="sys_info_d">欢迎来到预测市场。您可以基于自己对事件结果的判断，对相应事件的合约进行购入或出售。</div>
+    <div class="sys_info_item pgw">
+        <ul class="clear">
+            <li class=" sys_img wow bounceInLeft animated" data-wow-duration="0.7s"
+                style="visibility: visible; animation-name: bounceInLeft;"><img src="images/市场准入.svg"/>
+                <span>基于预测市场</span>
+                <p>聚合集体预测概率，提供精准预测服务<br>实时追踪大众预测</p>
+            </li>
+            <li class=" sys_img wow bounceInUp animated" data-wow-duration="0.7s"
+                style="visibility: visible; animation-name: bounceInUp;"><img src="images/知识.svg"/>
+                <span>分享预测经验</span>
+                <p>分享个人经验，提升预测效率<br>助力形成集体智慧</p>
+            </li>
+            <li class=" sys_img wow slideInRight animated" data-wow-duration="0.5s"
+                style="visibility: visible; animation-name: slideInRight;"><img src="images/智慧创新.svg"/>
+                <span>聚集大众智慧</span>
+                <p>公开预测平台，聚集大众智慧<br>合理分析事件结果</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="sharepart wow bounceInLeft animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
+     style=" visibility: visible; animation-name: bounceInLeft;">
+    <div class="pgw sharebg clear">
+        <div class="sharer fr">
+            <strong>知识+分享</strong>
+            <p>新一代知识分享，知识驱动创新增长</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="likepart wow bounceInRight animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
+     style=" visibility: visible; animation-name: bounceInRight;">
+    <div class="pgw likebg" style="color: white!important;">
+        <img class="fr" src="images/liker.png" style="display: inline">
+        <strong style="float: left">爱好+圈子</strong>
+        <br><br>
+        <br>
+        <p>在这里你能和志同道合的朋友一起预测世界的变化</p>
+
+    </div>
+</div>
+<div class="sharepart wow bounceInLeft animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
+     style=" visibility: visible; animation-name: bounceInLeft;">
+    <div class="pgw learnbg clear">
+        <div class="sharer fr">
+            <strong>预测+学习</strong>
+            <p>在这里你能通过预测不同领域未知事件，学习更多专业知识</p>
+
+        </div>
+    </div>
+</div>
+
+<a id="qst"></a>
+<div class="pgw question clear wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"
+     style=" visibility: visible; animation-name: bounceInUp;">
+    <strong>常见问题解析</strong>
+    <ul class="clear">
+        <li>
+            <span>1. 参与资格</span>
+            <p>活动可供所有用户参与，需在个人中心填写'平台测验'小测验，3分以上可以参与活动。</p>
+        </li>
+        <li>
+            <span>2. 合约交易</span>
+            <p>用户进入活动界面，购买（出售）某合约10份，所持该合约增加（减少）10份，合约价格越高，成本（收益）越高。</p>
+        </li>
+        <li>
+            <span>3. 盈利方式</span>
+            <p>活动的盈利方式有两种方式，一是买入自己认为会发生的结果对应的合约，二是卖出自己不看好的结果对应的合约，使自己在活动中累积获取更多的诸葛贝。活动结束后根据诸葛贝的多少决定奖金的分配。</p>
+        </li>
+        <li>
+            <span>4. 结果揭晓</span>
+            <p>若某事件结果为真，则该事件对应合约清算价格为1，清算时持有10份该合约，则可获得10个诸葛贝收益。反之没有收益。</p>
+        </li>
+        <li>
+            <span>5. 活动结束后奖金兑付</span>
+            <p>用户可凭活动结束后诸葛贝数进行现金兑换，若参与的活动总奖金为30元人民币，所有用户总财富为1000个诸葛币，您的财富为100个诸葛币，占总财富的10%，最终获取现金3元。</p>
+        </li>
+        <li>
+            <span>6. 财富排名</span>
+            <p>每次活动结束后会更新一次财富排名，用户可以在首页中查看总排名、活跃度、周排名，也可以到已经清算后的预测活动页面查看自己在该活动的排名。</p>
+        </li>
+    </ul>
+</div>
+
+<div class="mission pgw clear lightSpeedIn wow  animated" data-wow-duration="0.7s" data-wow-delay="0.2s"
+     style=" visibility: visible; animation-name: lightSpeedIn;">
+    <div class="mis_l fl">
+        <strong>使命</strong>
+        <p>Mission</p>
+        <div class="mis_note">开发高质量的集体智慧预测系统，提供精准、快速、高效的预测服务</div>
+        <div class="mis_act"><a href="https://m.imzhuge.com/login">前往登录</a></div>
+    </div>
+    <div class="mis_r fr">
+        <ul class="clear">
+            <li class="mis_1"><i></i>
+                <strong>平等</strong>
+                <p>融合个人智慧预测未来趋势</p>
+            </li>
+            <li class="mis_2"><i></i>
+                <strong>共创</strong>
+                <p>携手大众共预未来</p>
+            </li>
+            <li class="mis_3"><i></i>
+                <strong>共享</strong>
+                <p>提前预知、共享预知、展望未来</p>
+            </li>
+            <li class="mis_4">
+                <i></i><strong>提升</strong>
+                <p>精确、快速、高效预知未来</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<a id="about_us"></a>
+<div class="sys_info sys_about_us wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"
+     style=" visibility: visible; animation-name: bounceInUp;">
+    <strong>研究团队</strong>
+    <div class="sys_info_d sys_about_us">
+        <p class="sys_intro">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“嗨皮诸葛”（www.imzhuge.com）是一个预测领域的研究平台。目前该平台重点关注预测市场（prediction
+            market），基于市场机制汇集大众的集体智慧，预测未来的事件。
+        </p>
+        <br>
+        <p class="sys_intro">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;气候变化、技术潮流、传染病爆发、股市波动、国际竞争与合作等事件与每个人息息相关。扔硬币和算命不是好方法，数学模型也有失效的时候。“嗨皮诸葛”聚焦挖掘人的集体智慧在预测中的价值。如何汇集大众的集体智慧呢？在线投票会出现拉票，网络评论也有虚假的。
+            诺贝尔经济学奖获得者阿罗于2008年在<a href="https://science.sciencemag.org/content/320/5878/877">《Science》的刊出论文</a>
+            认为：“越来越多的证据表明，与传统的预测方法相比，预测市场有助于以更低的误差来预测将来的事件……因为信息通常广泛地散布于经济活动参与者之中，
+            所以需要一种机制来收集并汇总这些信息。自由市场通常能很好地管理这一过程，因为任何人都可以参与其中，市场交易带来的潜在利润或损失激励人们搜寻更多有用的信息” 。
+        </p>
+        <br>
+        <p class="sys_intro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“嗨皮诸葛”的使命是：基于预测市场、人工智能、大数据等理论技术，持续研发高质量的集体智慧预测系统，为大众提供快速、高效的预测服务。</p>
+        <br>
+        <p class="sys_intro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了实现该使命，我们组建了一个稳定的研究团队，主要成员如下：</p>
+        <br>
+        <div class="staff_info ">
+            <div class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"
+                 style=" visibility: visible; animation-name: bounceInLeft;">
+                <div class="staff_box">
+                    <strong><a target="_blank" href="https://it.swufe.edu.cn/info/1105/4621.htm"> 郑海超 </a></strong>
+                    西南财经大学经济信息工程学院教授。研究兴趣包括众包、金融科技、人机混合预测系统。
+                    主持2个国家自科基金项目和2个教育部人文社科项目。
+                    在Information Systems Journal, European Journal of Information Systems, Decision Support Systems
+                    等信息系统类期刊发表多篇论文。
+                </div>
+                <div class="staff_box">
+                    <strong> <a target="_blank" href="https://it.swufe.edu.cn/info/1105/3823.htm">徐赟</a></strong>
+                    西南财经大学经济信息工程学院教授，博士生导师，院长助理。目前主要从事金融科技，管理信息系统，和电子商务方面的研究。
+                    他于2010年入选阿里巴巴研究院的“青年学者支持计划”， 2011年入选“四川省学术和技术带头人后备人选”，2014年获西南财经大学优秀科研成果奖。
+                </div>
+
+            </div>
+
+            <div class="wow bounceInRight animated" data-wow-iteration="1" data-wow-duration="2s"
+                 style=" visibility: visible; animation-name: bounceInRight;">
+                <div class="staff_box">
+                    <strong><a target="_blank" href="https://it.swufe.edu.cn/info/1105/7485.htm ">王涛</a></strong>
+                    西南财经大学经济信息工程学院信息管理与信息系统系主任。主要研究方向包括互联网金融与信息披露、金融科技与用户行为、企业智能与知识管理等。
+                    现为四川省华侨华人学会理事、成都市新侨联常任理事、西南财经大学新侨联理事、国家自然科学基金项目评议人、四川省海外高层次留学人才。
+                </div>
+
+                <div class="staff_box">
+                    <strong><a target="_blank" href="http://ceba.cqu.edu.cn/info/2247/1599.htm "> 邵家兵 </a></strong>
+                    重庆大学二级教授、博士生导师、管理学博士、工商管理博士后、市场学系原系主任（2012-2020）。
+                    学术兼职有国家自然科学基金同行评议专家、国家社会科学基金通讯评审专家、全国电子商务数字教育发展联盟副理事长、中国工业经济学会常务理事等。
+                </div>
+            </div>
+            <div class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"
+                 style=" visibility: visible; animation-name: bounceInLeft;">
+                <div class="staff_box">
+                    <strong><a target="_blank" href="https://it.swufe.edu.cn/info/1105/3821.htm "> 伍晶</a></strong>
+                    西南财经大学经济信息学院教授，2009年获得新加坡国立大学信息系统博士学位，2004年获得香港科技大学经济学硕士学位，2002年获得西北工业大学电子工程学士学位。
+                    研究兴趣包括信息系统经济学，电子商务，开放创新以及大数据经济学。
+                </div>
+                <div class="staff_box">
+                    <strong><a target="_blank" href="https://it.swufe.edu.cn/info/1106/7305.htm "> 王俊</a></strong>
+                    西南财经大学经济信息工程学院副教授。致力于从大数据分析视角，通过大机器学习、数据分析、人工智能等方法解决金融市场的重要问题。
+                    主要研究包括多源数据对证券市场的影响性分析，大数据视角的数字化互动媒体对股票市场的影响性研究、基于大数据的证券市场量化分析研究、基于海量数据的媒体信息识别与情感量化分析研究等。
+                </div>
+
+                <div class="staff_box">
+                    <strong><a target="_blank" href="http://sxy.lcu.edu.cn/szdw/197893.htm">郝琳娜</a></strong>
+                    聊城大学副教授，2015年毕业于南开大学管理科学与工程专业，获管理学博士学位。
+                    研究方向包括众包与价值工程。
+                    在《系统工程理论与实践》、《科研管理》、《管理工程学报》、《运筹与管理》、《系统工程》等刊物发表论文10余篇，并在科学出版社出版专著《众包模式——企业创新的新助力》。
+                </div>
+            </div>
+            <div class="wow bounceInRight animated" data-wow-iteration="1" data-wow-duration="2s"
+                 style=" visibility: visible; animation-name: bounceInRight;">
+                <div class="staff_box">
+                    <strong><a target="_blank" href="https://www.fdsm.fudan.edu.cn/AboutUs/preview.html?uid=012062">
+                        许博</a></strong>
+                    复旦大学管理学院副教授，美国德克萨斯理工大学取得管理信息系统博士，瑞士苏黎世大学和美国麻省理工学院斯隆管理学院访问学者。
+                    研究方向包括信息系统开发与管理，虚拟社区，电子商务。
+                </div>
+                <div class="staff_box">
+                    <strong><a target="_blank" href="http://web.suda.edu.cn/chendongyu/"> 陈冬宇</a></strong>
+                    苏州大学管理信息系统教授。
+                    长期从事信息管理学术研究工作，着重研究P2P网络借贷等新兴互联网金融模式，获得多项被国际同行认可的成果，相关论文发表在MIS Quarterly, Communications of AIS,
+                    Electronic Commerce Research等高水平期刊。
+                </div>
+                <div class="staff_box">
+                    <strong><a target="_blank"
+                               href="https://bs.nankai.edu.cn/2019/0513/c13106a140588/page.htm">李凯</a></strong>
+                    南开大学商学院教授，国际合作办学项目主任，数字商务研究中心主任。
+                    研究方向包括电子商务、信息管理、大数据与商务智能。
+                    天津市131创新型人才培养第二层次人才。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="cooperation"></div>
+
+
+<div class="cooperation">
+    <strong>合作交流</strong><br>
+    <div class="sys_info wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
+        <!--        <strong class="second_title">合作机会</strong>-->
+        <div class="sys_info_item pgw">
+            <div class="opportunity clear">
+                <div class="contact_us_box teach sys_img wow bounceInLeft animated" data-wow-duration="0.7s"
+                     style="visibility: visible; animation-name: bounceInLeft;"><img src="images/keyanxiangmu.svg"/><br>
+                    <span style="color: #000000;font-weight: bold">科研教学</span>
+                    <p><span>实验平台：</span>为学者提供实验研究和教学实训平台；<br>
+                        <span>适合学科：</span>经济学、行为金融、预测科学、人工智能、人机交互。
+                    </p>
+                </div>
+                <div class=" contact_us_box company sys_img wow bounceInUp animated" data-wow-duration="0.7s"
+                     style="visibility: visible; animation-name: bounceInUp;"><img src="images/qiye.svg"/><br>
+                    <span style="color: #000000;font-weight: bold">企业管理</span>
+                    <p><span>获取优势：</span>基于预测结果来管理运营风险、提升决策效率、获取竞争优势<br>
+                        <span>捕捉商机：</span>基于动态的预测结果，快速而准确地捕捉潜在机遇，从而超越竞争对手。
+                    </p>
+                </div>
+                <div class="contact_us_box media sys_img wow slideInRight animated" data-wow-duration="0.5s"
+                     style="visibility: visible; animation-name: slideInRight;"><img src="images/meitijihuo.svg"/><br>
+                    <span style="color: #000000;font-weight: bold">财经媒体</span>
+                    <p><span>新闻选题：</span>辅助财经媒体选择新闻话题、开设财经专栏；<br>
+                        <span>财经动态：</span>辅助财经媒体跟踪财经事件和重要指标的动态趋势。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="secd contact_us2">
+<!--        <span class="feedback"><a href="http://m.imzhuge.com/selfcenter/write_feedback/">联系我们</a></span><br><br>-->
+        <span class="feedback"><a href="#">联系我们</a></span><br><br>
+        <p>您可以给我们发送邮件：<a href="mailto:haichao_zheng@163.com">haichao_zheng@163.com</a></p>
+        <p>也可以扫码<span>微信直接交流</span>
+<!--            或<span>加入企业微信群</span>-->
+        </p>
+        <div class=" secbox clear">
+            <div class=" contact_us wow bounceInUp animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
+                 style=" visibility: visible; animation-name: bounceInUp;">
+                <img src="images/contactus.png"/>
+<!--                <img src="images/companyWechat.svg"/>-->
+                <p style="font-weight: bold;font-size: 1.2em">期待与您的合作交流！</p>
+            </div>
+        </div>
+    </div>
+    <div class="partner">
+        <div class="second_title">合作伙伴</div>
+        <p><a href="https://www.680.com"> <img src="images/680.png"></a></p>
+    </div>
+</div>
+
+<div class="foot">
+
+    <p> 爱诸葛，知未来 | 蜀ICP备2020026052号-1 copyright@2020 | <span class="res_deceleration"
+                                                            onclick="res_deceleration()">免责声明</span></p>
+</div>
+
+<div class="detail__board" id="detail-board-front">
+    <div class="detail__inner">
+        <div onclick="res_close()"><a class="detail__close"><img style="width: 30px;height: 30px"
+                                                                 src="images/关闭.svg"
+                                                                 alt="close"></a></div>
+        <div class="detail__article">
+            <h3 class="detail__header">免责声明</h3>
+            <div class="detail__content">
+                <p>“嗨皮诸葛”（https://m.imzhuge.com）是预测领域的研究平台，不收取任何服务佣金，目前该平台重点关注预测市场（prediction
+                    market），基于市场机制汇集大众的集体智慧，预测未来的事件。预测信息不对任何投资人及/或任何交易提供任何担保，无论是明示、默示或法定的。“嗨皮诸葛”提供的各种信息及资料（包括但不限于文字、数据、图表及超链接）仅供参考（例如：对未来趋势的预测不代表实际会发发生），不作为任何法律文件，亦不构成任何邀约、投资建议或承诺，投资人应依其独立判断做出决策。投资人据此进行投资交易而产生的风险等后果请自行承担，“嗨皮诸葛”不承担任何责任。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function res_deceleration() {
+        document.getElementById("detail-board-front").style.display = "block"
+    }
+
+    function res_close() {
+        document.getElementById("detail-board-front").style.display = "none"
+    }
+</script>
+</body>
+</html>
+
