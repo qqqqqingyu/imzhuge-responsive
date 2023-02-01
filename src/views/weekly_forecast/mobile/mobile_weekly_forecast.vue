@@ -32,10 +32,7 @@
                     <span style="font-size: 17px;color:#333333;font-weight: bold">{{item.name}}</span>
                   </el-col>
                   <el-col :span="3" :offset="1">
-<!--                    <el-button size="medium" type="text"-->
-<!--                        style="color: #ff697b;font-weight: bold;padding:0px" v-on:click="todetail(item.id,item.name)">-->
-<!--                      查看 >-->
-<!--                    </el-button>-->
+
                     <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
                       <span style="color: #ff697b;font-weight: bold;">查看 ></span>
                     </router-link>
@@ -103,7 +100,6 @@
 </template>
 
 <script>
-//import {pictures} from '@/constants/industryList'
 
 
 
