@@ -41,7 +41,7 @@ request.interceptors.request.use(config => {
     // 判断是yd还是pc
     // 添加cda请求标识头
     if (isMobileTerminal.value){
-        config.headers['X-CDA-LOGIN-SIGN'] = 'yd';
+        config.headers['X-CDA-LOGIN-SIGN'] = 'phone';
     }
     else{
         config.headers['X-CDA-LOGIN-SIGN'] = 'pc';

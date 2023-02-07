@@ -51,8 +51,6 @@
                       border
                       :tree-props="{children: 'list', hasChildren: 'hasChildren'}"
                       :header-cell-style="tdstyle"
-
-
             >
               <el-table-column
                   prop="id"
@@ -107,35 +105,40 @@
 <script>
 import Myheader from "@/components/myheader";
 import myaside from "@/components/myaside";
-import {
-  getIndustryList,/*获取我发布的活动*/
-} from '@/api/month_redict'
+// import {
+//   getIndustryList,/*获取我发布的活动*/
+// } from '@/api/month_redict'
 export default {
   name: "pc_weekly_forecast",
   components: {Myheader, myaside},
   data() {
     return{
-      industryList:[],
-      myList:'',
-
     }
   },
-  mounted() {
-    this.getIndustryListMethod()
+  computed:{
+    industryList(){
+      //转换字段名
+      return JSON.parse(JSON.stringify(this.$store.getters.industryList).replace(/name/g,"company"))
+    },
+
+
   },
+
   methods: {
     tdstyle({row,column,rowIndex}){
       if(rowIndex===0){
         return "background-color:RGB(248,248,248)"
       }
     },
-    getIndustryListMethod(){
-      getIndustryList().then((res) => {
-        this.myList=res.data
-//转换字段名
-        this.industryList = JSON.parse(JSON.stringify(this.myList).replace(/name/g,"company"))
-      })
-    },
+
+
+//     getIndustryListMethod(){
+//       getIndustryList().then((res) => {
+//         this.myList=res.data
+// //转换字段名
+//         this.industryList = JSON.parse(JSON.stringify(this.myList).replace(/name/g,"company"))
+//       })
+//     },
 
     todetail(id,company){
       /*传值*/
@@ -155,7 +158,6 @@ export default {
 
 .container{
   height: 100%;
-  width: 100%;
 }
 
 .header {

@@ -142,7 +142,6 @@
         </el-card>
       </el-col>
     </el-row>
-    {{industryDetailData}}
   </div>
 </template>
 

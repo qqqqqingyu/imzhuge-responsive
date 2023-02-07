@@ -115,9 +115,11 @@ export default {
   computed:{
     industryList(){
       return this.$store.getters.industryList
-    }
+    },
+
   },
   methods:{
+
     // 为表格加上行号
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row.id

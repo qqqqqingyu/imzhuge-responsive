@@ -1,7 +1,7 @@
 import {getIndustryList} from '@/api/month_redict'
 
 /**
- * 处理navigationBar中的数据categorys
+ * 处理行业列表中的数据industryList
  */
 export default {
     //独立作用域
@@ -14,7 +14,7 @@ export default {
     },
     mutations: {
         /**
-         * 为 categorys 赋值
+         * 为 industryList赋值
          */
         setIndustryList(state, newData) {
             state.industryList =newData
@@ -22,7 +22,7 @@ export default {
     },
     actions: {
         /**
-         * 获取 category 数据，并自动保存到 vuex 中
+         * 获取 industryList 数据，并自动保存到 vuex 中
          */
         async useIndustryListData(context) {
             const IndustryList = await getIndustryList().then((res) => {
