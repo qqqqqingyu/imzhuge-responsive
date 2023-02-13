@@ -19,6 +19,15 @@ import home from "@/views/home";
 // import navigation from "../views/main/components/navigation/navigation";
 export default [
     {
+        path: '/personal_center',
+        name: 'personal_center',
+        component: () => import('@/views/personal_center/personal_center.vue'),
+        meta: {
+            title: '个人中心',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+    {
         path: '/',
         name: 'weekly_forecast',
         component: () => import('@/views/weekly_forecast/weekly_forecast.vue'),
@@ -27,6 +36,7 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+
     {
         path: '/weekly_forecast_details',
         name: 'weekly_forecast_details',

@@ -120,8 +120,6 @@ export default {
       //转换字段名
       return JSON.parse(JSON.stringify(this.$store.getters.industryList).replace(/name/g,"company"))
     },
-
-
   },
 
   methods: {
@@ -130,8 +128,6 @@ export default {
         return "background-color:RGB(248,248,248)"
       }
     },
-
-
 //     getIndustryListMethod(){
 //       getIndustryList().then((res) => {
 //         this.myList=res.data

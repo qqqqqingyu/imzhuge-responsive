@@ -9,9 +9,19 @@ export default [
         }
     },
     {
+        path: '/personal_center',
+        name: 'personal_center',
+        component: () => import('@/views/personal_center/personal_center.vue'),
+        meta: {
+            title: '个人中心',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+
+    {
         path: '/',
         name: 'weekly_forecast',
-        component: () => import('@/views/weekly_forecast/weekly_forecast'),
+        component: () => import('@/views/weekly_forecast/weekly_forecast.vue'),
         meta: {
             title: '行业个股收益率预测',
             keepAlive: true, // 需要被缓存
