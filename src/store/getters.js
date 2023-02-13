@@ -1,7 +1,7 @@
 export default  {
     //简单访问
     /**
-     * navigationBar 数据源
+     *  数据源
      */
     categorys:(state)=>state.category.categorys,
     industryList:(state)=>state.industryList.industryList,
