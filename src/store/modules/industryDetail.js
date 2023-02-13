@@ -1,4 +1,4 @@
-import {getIndustryDetail} from "../../api/month_redict";
+import {getIndustryDetail, submitTransactionApply } from "../../api/month_redict";
 
 /**
  * 处理行业详情数据
@@ -9,6 +9,7 @@ export default {
     state:() => {
         return {
             //相当于数据唯一的公共数据源，共享的数据存放在这
+            industryDetail:[]
         }
     },
     mutations:{
@@ -23,11 +24,21 @@ export default {
         /**
          * 获取数据，并自动保存在vuex中
          */
-        async useIndustryDetailsData(context){
-            const industryDetailData = await getIndustryDetail(1).then((res) =>{
+        async useIndustryDetailsData(context,industryId){
+            // 调用接口取数据
+            const industryDetail = await getIndustryDetail(industryId).then((res) =>{
                 return res.data
+            }).catch((res) => {
+                console.log(res);
             });
-            context.commit('setIndustryDetail',industryDetailData)
-        }
+            // 为state中的industryDetail赋值
+            context.commit('setIndustryDetail',industryDetail)
+        },
+
+        // 提交
+        async transactionApply(context,payload) {
+            return await submitTransactionApply(payload.industryId,...payload)
+        },
+
     }
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!--    返回图标垂直居中只是设置了padding，感觉没完全解决。-->
 
     <el-row style="margin-top: 20px;">
       <el-col :span="1" :offset="1">
@@ -14,26 +13,28 @@
     </el-row>
 
     <el-row class="industry-box">
-      <el-col :span="15" :offset="1">
-        <span class="box-title">{{ industry }}行业</span>
+      <el-col :span="9" :offset="1">
+        <span class="box-title">{{ industryDetail.industry }}行业</span>
       </el-col>
-      <el-col :span="7" class="industry-month">
-        {{ month }}
+      <el-col :span="13" class="industry-month">
+        {{ industryDetail.start_day }}至{{ industryDetail.end_day }}
       </el-col>
     </el-row>
 
     <el-row>
       <el-col :span="22" :offset="1" class="industry-tab">
-        <el-tabs v-model="activeName">
+        <el-tabs @tab-click="handleClick" v-model="activeName">
           <el-tab-pane label="整体情况" name="first">
-            <el-card>
+            <el-card class="chart-and-table">
               <el-row>
                 <el-col :span="20">
-                  <el-radio-group v-model="barRadio" class="radio-bg">
-                    <el-radio-button class="industry-radio" label="价格"></el-radio-button>
-                    <el-radio-button class="industry-radio" label="合约"></el-radio-button>
+                  <el-radio-group v-model="barRadio" class="radio-bg" v-if="chartOrTable=='chart'">
+                    <el-radio-button class="industry-radio" label="价格" @click="toPrice"></el-radio-button>
+                    <el-radio-button class="industry-radio" label="合约" @click="toContract"></el-radio-button>
                   </el-radio-group>
                 </el-col>
+
+                <!--                图标切换圆形按钮-->
                 <el-col :span="4" v-if="chartOrTable=='table'" style="text-align: right">
                   <el-button type="danger" icon="el-icon-s-data" circle @click="toChart"
                              class="changed-btn"></el-button>
@@ -42,13 +43,54 @@
                   <el-button type="danger" icon="el-icon-document" circle @click="toTable"
                              class="changed-btn"></el-button>
                 </el-col>
+
+                <!--                表格-->
+                <el-col :span="24" v-if="chartOrTable=='table'" style="margin-top: 5px">
+                  <el-table :data="companyRankData"
+                            :default-sort="{prop:'price',order:'descending'}"
+                            border
+                            style="width: 100%"
+                            size="mini"
+                            :header-cell-style="tdstyle"
+                            :row-style="{height:'20px'}"
+                            :cell-style="{padding: '0'}"
+                  >
+                    <el-table-column
+                        prop="company_name"
+                        label="  "
+                        min-width="70%">
+                    </el-table-column>
+                    <el-table-column
+                        sortable
+                        predict_share="price"
+                        prop="price"
+                        label="价格"
+                        min-width="70%">
+                      <template v-slot="scope">
+                        {{ numFilter(scope.row.price, 4) }}
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                        sortable
+                        column-key="predict_share"
+                        prop="predict_share"
+                        label="拥有的合约数"
+                        min-width="100%">
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+                <!--                图-->
+                <el-col :span="22" offset="1" v-else style="margin-top: 20px">
+                  <div id="priceBar" v-if="priceOrContract=='price'"></div>
+                  <div id="contractBar" v-else></div>
+                </el-col>
               </el-row>
             </el-card>
           </el-tab-pane>
 
           <el-tab-pane label="历史走势" name="second">
-            <el-card>
-
+            <el-card class="chart-and-table">
+              <div id="history"></div>
             </el-card>
           </el-tab-pane>
         </el-tabs>
@@ -67,21 +109,28 @@
           <el-row>
             <el-col :span="24">
             <span>
-              活动可用诸葛贝：
-              <!--              {{numFilter(userCurrentMoney,2)}}-->
+              活动可用诸葛贝：{{ numFilter(userCurrentMoney, 2) }}
             </span>
             </el-col>
 
             <el-col :span="24">
-              <span>请选择您预测排名第一的公司：</span>
-              <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
-                <el-option
-                    v-for="item in companyRankData"
-                    :key="item.company_contract_id"
-                    :label="item.company_name"
-                    :value="item.company_contract_id">
-                </el-option>
-              </el-select>
+              <el-row>
+                <el-col :span="16">
+                  <span>请选择您预测排名第一的公司：</span>
+                </el-col>
+                <el-col :span="8">
+                  <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
+                    <el-option
+                        v-for="item in companyRankData"
+                        :key="item.company_contract_id"
+                        :label="item.company_name"
+                        :value="item.company_contract_id"
+                        style="width:inherit">
+                    </el-option>
+                  </el-select>
+                </el-col>
+              </el-row>
+
             </el-col>
 
             <el-col :span="8">
@@ -146,26 +195,32 @@
 </template>
 
 <script>
-
+// import store from "../../../store";
+import {submitTransactionApply} from "../../../api/month_redict";
 
 export default {
   name: "mobile_weekly_forecast_details",
   data() {
     return {
-      industry: '金融',
-      month: '2022年11月',
       activeName: 'first', //用于切换el-tabs
       barRadio: '价格', //用于切换价格和合约图的图标
-      chartOrTable: 'table', //用于切换图和表的图标
-      // 数据，共用
+      chartOrTable: 'chart', //用于切换图和表的图标
+      priceOrContract: 'price',
+      getId: '', //获取从前一界面传来的id
+      companyRankData: '', //整体情况表的数据
+      userCurrentMoney: '', //活动可用诸葛贝
       inputNo1: '', //预测排名第一的公司的id
       tradeProb: 50, //预测的概率
       tradeCount: '', //交易的数量
       tradeType: '', //交易类型
       tradeConfidence: '', //交易信心
       note: '', //交易的笔记
-      companyRankData: '', //整体情况表的数据
-
+      graphX: [], //x轴数据，时间
+      graphY: [], //y轴数据
+      historyLegend: '', //图例，公司名
+      barCompanyArr: '',//直方图公司名数据
+      barPriceArr: '',//直方图价格数据
+      barContractArr: '',//直方图合约数据
     }
   },
   // 设置背景
@@ -178,29 +233,155 @@ export default {
   beforeUnmount() {
     document.body.removeAttribute('style')
   },
-
-
-  computed:{
-    details(){
-      return this.$store.getters.industryDetailData;
-    }
+  mounted() {
+    //获取整体情况表的数据
+    this.companyRankData = this.industryDetail.company_rank
+    //活动可用诸葛贝
+    this.userCurrentMoney = this.industryDetail.user_current_money
+    //获取历史数据表x轴数据
+    this.graphX = this.industryDetail.graph_x
+    //价格直方图数据转换
+    this.barPriceChange();
+    // 历史数据图y轴数据对应的对象数组样式转换
+    this.graphYChange(this.industryDetail.graph_y);
+    this.myEcharts1()//价格作图
+  },
+  computed: {
+    // 获取数据
+    industryDetail() {
+      return this.$store.getters.industryDetail;
+    },
   },
   methods: {
-
     //切换图表
     toChart() {
       this.chartOrTable = 'chart'
-      // this.myEcharts1()//价格作图
-      // this.myEcharts2()//合约作图
+      this.myEcharts1()//价格作图
     },
     toTable() {
       this.chartOrTable = 'table'
     },
+    //切换价格图和合约图
+    toPrice() {
+      this.priceOrContract = 'price'
+      this.myEcharts1()//价格作图
+    },
+    toContract() {
+      this.priceOrContract = 'contract'
+      this.myEcharts2()//合约作图
+    },
+    //点击切换tab时调用该方法
+    handleClick(tab) {
+      if (tab.index == '1')
+        this.myEcharts3();
+    },
+    tdstyle({row, column, rowIndex}) {
+      if (rowIndex === 0) {
+        return "background-color:RGB(248,248,248);height:20px;padding:1px"
+      }
+    },
+
+    // 提交数据
+    submitTransactionApplyMethod() {
+      let industry = {};
+      industry.count = this.tradeCount
+      industry.trade_type = this.tradeType
+      industry.trade_prob = this.tradeProb / 100
+      industry.contract_id = this.inputNo1
+      industry.trade_confidence = this.tradeConfidence
+      industry.note = this.note
+      this.getId = this.$route.query.id;
+
+      // 法一：用store调用接口，提交数据。不能用也不报错，还没找到解决办法
+      // store.dispatch('industryDetail/transactionApply',{
+      //   industryId:this.getId,
+      //   payload:industry
+      // }).then(() => {
+      //   this.$message({
+      //     type: 'success',
+      //     message: '提交成功！'
+      //   });
+      //       //刷新
+      //       location.reload();
+      //   }).catch(() => {
+      //     this.$message({
+      //       type: 'info',
+      //       message: '提交失败，请重试'
+      //     });
+      //   })
+
+      // 法二：本页面调用接口，提交数据
+      submitTransactionApply(this.getId, industry).then(() => {
+        this.$message({
+          type: 'success',
+          message: '提交成功！'
+        });
+        //刷新
+        location.reload();
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '提交失败，请重试'
+        });
+      })
+    },
+
+    // 数据转换方法
+    // 历史数据图y轴数据对应的对象数组样式转换
+    graphYChange(YData) {
+      let legendstr = '';
+      for (const item of YData) {
+        // y轴数据的转化
+        this.graphY.push({
+          type: 'line',
+          name: item.contract_text,
+          data: item.contract_price,
+          areaStyle: {}
+        })
+        // 图例的转化
+        legendstr += item.contract_text + ",";
+      }
+      legendstr = legendstr.substring(0, legendstr.length - 1);
+      this.historyLegend = legendstr.split(",");
+    },
+    // 直方图价格数据转换
+    barPriceChange() {
+      //公司名数据
+      let companyStr = '';
+      //价格数据
+      let priceStr = '';
+      //合约数量数据
+      let contractStr = '';
+      //数据转换先为string字符串
+      this.companyRankData.forEach(function (e) {
+        companyStr += e.company_name + ","; //公司名
+        priceStr += e.price + ","; //价格
+        contractStr += e.predict_share + ","; //拥有的合约数
+      });
+
+      //公司名转换为数组
+      companyStr = companyStr.substring(0, companyStr.length - 1);
+      this.barCompanyArr = companyStr.split(",");
+      //价格转换为数组
+      priceStr = priceStr.substring(0, priceStr.length - 1);
+      this.barPriceArr = priceStr.split(",");
+      //对价格排序
+      this.barPriceArr.sort(function (a, b) {
+        return a - b;
+      })//括号里不写回调函数则默认按照字母逐位升序排列
+      //合约数量转换为数组
+      contractStr = contractStr.substring(0, contractStr.length - 1);
+      this.barContractArr = contractStr.split(",");
+      //对合约数量排序
+      this.barContractArr.sort(function (a, b) {
+        return a - b;
+      })//括号里不写回调函数则默认按照字母逐位升序排列
+    },
     // 保留n位小数
     numFilter(value, n) {
-      const realVal = parseFloat(value).toFixed(n)
-      return realVal
+      return parseFloat(value).toFixed(n)
     },
+
     //作图方法，还没设置数据
     //价格数据作图方法
     myEcharts1() {
@@ -215,11 +396,6 @@ export default {
         // 基于准备好的dom，初始化echarts实例
         var myChart1 = echarts.init(document.getElementById('priceBar'));
         var option1 = {
-          title: {
-            text: '价格',
-            top: '3%',
-            left: 'center'
-          },
           xAxis: {
             type: 'value'
           },
@@ -229,22 +405,30 @@ export default {
           },
           // 图表移动位置
           grid: {
-            left: '2%',
+            left: '1%',
             right: '4%',
             bottom: '3%',
-            top: '12%',
+            top: '1%',
             containLabel: true //true表示这些比例包括了坐标轴标签在内所形成的矩形的位置。false则不包括坐标轴
+          },
+
+          legend: {
+            textStyle: {
+              color: '#FFF'
+            }
           },
           series: [
             {
               data: this.barPriceArr,
               type: 'bar',
+              color: '#FF8383',
               showBackground: true,
               backgroundStyle: {
                 color: 'rgba(180, 180, 180, 0.2)'
               },
               label: {
-                show: true
+                show: true,
+                color: '#FAF8FF'
               }
             }
           ]
@@ -259,19 +443,14 @@ export default {
         let echarts = require('echarts');
         //柱状图
         let contractBarBox = document.getElementById('contractBar');
-        // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。更改了原来的写法，暂时不知道能不能行
+        // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
+
         contractBarBox.removeAttribute('_echarts_instance_');
         // 基于准备好的dom，初始化echarts实例
         var myChart2 = echarts.init(document.getElementById('contractBar'));
         var option2 = {
-          title: {
-            text: '拥有的合约数',
-            top: '3%',
-            left: 'center'
-          },
           xAxis: {
             type: 'value',
-            inverse: true //反转坐标轴
           },
           yAxis: {
             type: 'category',
@@ -282,7 +461,7 @@ export default {
             left: '1%',
             right: '4%',
             bottom: '3%',
-            top: '12%',
+            top: '1%',
             containLabel: true //true表示这些比例包括了坐标轴标签在内所形成的矩形的位置。false则不包括坐标轴
           },
           series: [
@@ -294,7 +473,8 @@ export default {
                 color: 'rgba(180, 180, 180, 0.2)'
               },
               label: {
-                show: true
+                show: true,
+                color: '#FAF8FF'
               }
             }
           ]
@@ -307,9 +487,12 @@ export default {
     myEcharts3() {
       let echarts = require('echarts');
       let historyBox = document.getElementById('history');
-      historyBox.style.width = window.innerWidth * 0.58 + 'px'
-      // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。更改了原来的写法，暂时不知道能不能行
+      // 保证宽度正常显示的方法。
+      historyBox.style.width = window.innerWidth * 0.8 + 'px'
+
+      // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       historyBox.removeAttribute('_echarts_instance_');
+
       // 基于准备好的dom，初始化echarts实例
       var myChart3 = echarts.init(document.getElementById('history'));
       var option3 = {
@@ -418,7 +601,7 @@ export default {
 }
 
 .company-select {
-  width: 90px;
+  width: 100%;
 }
 
 .submit-btn {
@@ -426,10 +609,30 @@ export default {
   margin-top: 10px;
 }
 
+#priceBar {
+  width: 100%;
+  height: 180px;
+}
+
+#contractBar {
+  width: 100%;
+  height: 180px;
+}
+
+#history {
+  width: 100%;
+  height: 180px;
+}
+
 /*覆盖element原有的样式开始*/
+
 /*切换活动项的字体颜色*/
 .industry-tab /deep/ .el-tabs__item.is-active {
   color: #FA605F !important;
+}
+
+.chart-and-table >>> .el-card {
+  height: 260px;
 }
 
 /*切换活动项的长条颜色*/
@@ -471,9 +674,11 @@ export default {
 }
 
 /*选择器*/
-/*.company-select >>> .el-input__inner {*/
-/*  height: 30px;*/
-/*}*/
+.company-select >>> .el-input__inner {
+  /*height: 30px;*/
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 /*图标*/
 /*.company-select >>> .el-input__icon {*/
