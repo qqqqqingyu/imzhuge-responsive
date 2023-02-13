@@ -55,6 +55,9 @@
             </el-row>
           </div>
           <div class="act_info">
+            <el-row>
+              
+            </el-row>
 
           </div>
 
@@ -62,10 +65,7 @@
       </el-col>
 
     </el-row>
-<!--    此处是测试，尝试从后台获取数据-->
-    <el-button v-on:click="getCdaActivitySquareMethod()">
-      dianwo
-    </el-button>
+
 
   </div>
 
@@ -84,9 +84,12 @@ import bottomNav from "../../../components/bottomNav";
 export default {
   name: "mobile_personal_center",
   components:{bottomNav},
+  mounted() {
+    this.getMyActivityMethod()
+  },
   methods:{
     // 此处是测试，尝试从后台获取数据
-    getCdaActivitySquareMethod() {
+    getMyActivityMethod() {
       getMyActivity().then(res => {
         console.log(1111,res.data)
       })
@@ -134,5 +137,11 @@ export default {
   padding-right: 5px;
   font-size: small;
   color:#7F7F7F;
+}
+.act_info{
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>

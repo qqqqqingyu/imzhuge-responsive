@@ -113,7 +113,6 @@ export default {
 
   computed:{
     industryList(){
-      console.log(111,this.$store.getters.industryList)
       return this.$store.getters.industryList
     },
 
