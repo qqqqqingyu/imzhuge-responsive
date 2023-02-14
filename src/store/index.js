@@ -3,9 +3,9 @@ import getters from './getters'
 import category from "./modules/category";
 import industryList from "./modules/industryList";
 import industryDetail from "./modules/industryDetail";
+import userName from "./modules/myActivity"
+import myActivity from "./modules/myActivity"
 import createPersistedState from 'vuex-persistedstate'
-
-
 
 const store =createStore({
     state:{
@@ -24,14 +24,16 @@ const store =createStore({
         category,
         industryList,
         industryDetail,
+        userName,
+        myActivity,
     },
     actions: {},
     plugins: [
         createPersistedState({
             // 保存到 localStorage 中的 key
-            key: 'imooc-front',
+            key: 'imzhuge',
             // 需要保存的模块
-            paths: ['industryList','industryDetail']
+            paths: ['industryList','industryDetail','myActivity','userName']
         })
     ]
 

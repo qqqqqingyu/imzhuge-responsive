@@ -6,9 +6,10 @@
 
 <script>
 import { isMobileTerminal }  from '@/utils/flexible'
-
 import mobile_personal_center from "./mobile/mobile_personal_center";
 import pc_personal_center from "./pc/pc_personal_center";
+import {useStore} from "vuex";
+
 export default {
   name: "personal_center",
   components:{mobile_personal_center,pc_personal_center},
@@ -17,6 +18,12 @@ export default {
       isMobile:isMobileTerminal.value
     }
   },
+  // mounted() {
+  //   const store = useStore()
+  //   // 触发 category 数据获取动作
+  //   store.dispatch('myActivity/useMyActivityData')
+  //   store.dispatch('myActivity/useUserNameData')
+  // },
 }
 </script>
 

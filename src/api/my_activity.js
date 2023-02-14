@@ -11,12 +11,20 @@ export function getMyActivity() {
     })
 }
 /**
- * 3.3 编辑个人资料
+ * 3.4 查看个人资料
  **/
-export function getMyActivityDetails() {
+export function getMyInfoDetails() {
     return request({
         method:'get',
         url:'/api/selfcenter/my_activity/details'
-
+    })
+}
+/**
+ * 3.4 编辑个人资料
+ **/
+export function editMyInfo() {
+    return request({
+        url:'/api/selfcenter/my_activity/details',
+        method:'post',
     })
 }

@@ -97,13 +97,9 @@
 
 <script>
 import bottomNav from "../../../components/bottomNav";
-
-
-
 export default {
   name: "mobile_weekly_forecast",
   components:{bottomNav},
-
   data() {
     return {
       //pictureList:pictures,

@@ -9,7 +9,6 @@ import { isMobileTerminal }  from '@/utils/flexible'
 import mobile_weekly_forecast from "./mobile/mobile_weekly_forecast";
 import pc_weekly_forecast from "./pc/pc_weekly_forecast";
 import {useStore} from "vuex";
-//import {useStore} from "vuex";
 
 export default {
   name: "weekly_forecast",
