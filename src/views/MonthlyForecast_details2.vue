@@ -190,7 +190,6 @@
             </div>
           </el-col>
         </el-row>
-
       </el-main>
     </el-container>
   </el-container>
@@ -347,8 +346,7 @@ export default {
     },
     // 保留n位小数
     numFilter(value,n) {
-      const realVal = parseFloat(value).toFixed(n)
-      return realVal
+      return parseFloat(value).toFixed(n)
     },
 
   //作图方法
@@ -359,7 +357,7 @@ export default {
       let echarts = require('echarts');
       //柱状图
       let barBox = document.getElementById('priceBar');
-      // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。更改了原来的写法，暂时不知道能不能行
+      // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       barBox.removeAttribute('_echarts_instance_');
 
       // 基于准备好的dom，初始化echarts实例

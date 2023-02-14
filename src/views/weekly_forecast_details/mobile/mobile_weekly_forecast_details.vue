@@ -1,10 +1,10 @@
 <template>
   <div class="container">
 
-    <el-row style="margin-top: 20px;">
+    <el-row class="title-box">
       <el-col :span="1" :offset="1">
         <router-link to="/">
-          <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
+          <img src="../../../assets/images/return.svg" alt="返回" class="return-img">
         </router-link>
       </el-col>
       <el-col :span="20" class="title">
@@ -550,17 +550,9 @@ export default {
   color: #FA605F;
 }
 
-.title {
-  text-align: center;
-  font-size: 16px;
-  font-weight: bolder;
-  color: #2e2e2e;
-}
-
 .industry-box {
   display: flex;
   align-items: flex-end;
-  margin-top: 20px;
 }
 
 .box-title {

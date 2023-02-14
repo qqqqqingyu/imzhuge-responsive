@@ -36,7 +36,6 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
-
     {
         path: '/weekly_forecast_details',
         name: 'weekly_forecast_details',
@@ -46,6 +45,16 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/personal_info',
+        name: 'personal_info',
+        component: () => import('@/views/personal_info/personal_info.vue'),
+        meta: {
+            title: '个人信息',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+
 
     // {
     //     path: '/',
