@@ -3,11 +3,10 @@ export default  {
     /**
      *  数据源
      */
-    categorys:(state)=>state.category.categorys,
     industryList:(state)=>state.industryList.industryList,
     industryDetail:(state)=>state.industryDetail.industryDetail,
-    userName:(state)=>state.myActivity.userName,
     myActivity:(state)=>state.myActivity.myActivity,
+    myInfoDetails:(state)=>state.myInfoDetails.myInfoDetails,
     //获取token方法
     //判断是否有token,如果没有重新赋值，返回给state的token
     getToken(state) {

@@ -28,7 +28,7 @@ export default [
         }
     },
     {
-        path: '/',
+        path: '/weekly_forecast',
         name: 'weekly_forecast',
         component: () => import('@/views/weekly_forecast/weekly_forecast.vue'),
         meta: {
@@ -54,6 +54,16 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/',
+        name: 'home_page',
+        component: () => import('@/views/home_page/home_page.vue'),
+        meta: {
+            title: '首页',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+
 
 
     // {

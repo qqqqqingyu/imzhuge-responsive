@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-
     <el-row class="title-box">
       <el-col :span="1" :offset="1">
-        <router-link to="/">
+        <router-link to="/weekly_forecast">
           <img src="../../../assets/images/return.svg" alt="返回" class="return-img">
         </router-link>
       </el-col>
@@ -14,10 +13,10 @@
 
     <el-row class="industry-box">
       <el-col :span="9" :offset="1">
-        <span class="box-title">{{ industryDetail.industry }}行业</span>
+        <span class="box-title">{{industryDetailData.industry}}行业</span>
       </el-col>
       <el-col :span="13" class="industry-month">
-        {{ industryDetail.start_day }}至{{ industryDetail.end_day }}
+        {{industryDetailData.start_day}}至{{industryDetailData.end_day}}
       </el-col>
     </el-row>
 
@@ -109,7 +108,7 @@
           <el-row>
             <el-col :span="24">
             <span>
-              活动可用诸葛贝：{{ numFilter(userCurrentMoney, 2) }}
+              活动可用诸葛贝：{{numFilter(userCurrentMoney,2)}}
             </span>
             </el-col>
 
@@ -119,6 +118,7 @@
                   <span>请选择您预测排名第一的公司：</span>
                 </el-col>
                 <el-col :span="8">
+<!--                  这里还不太确定-->
                   <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
                     <el-option
                         v-for="item in companyRankData"
@@ -146,8 +146,10 @@
               <span>交易份额：</span>
             </el-col>
             <el-col :span="15" :offset="1">
-              <el-input type="text" v-model.number="tradeCount" placeholder="请输入正数"
-                        oninput="value=value.replace(/[^\d]/g,'')" class="input-bar"></el-input>
+              <el-input type="text" v-model.number="tradeCount"
+                        placeholder="请输入正数"
+                        oninput="value=value.replace(/[^\d]/g,'')"
+                        class="input-bar"></el-input>
             </el-col>
 
             <el-col :span="8">
@@ -177,7 +179,7 @@
             </el-col>
 
             <el-col :span="24">
-              <span>交易类型：</span>
+              <span>交易理由：</span>
             </el-col>
             <el-col :span="24">
               <el-input :rows="3" type="textarea" v-model="note" placeholder="可以说说您为什么要这么交易吗"/>
@@ -196,7 +198,7 @@
 
 <script>
 // import store from "../../../store";
-import {submitTransactionApply} from "../../../api/month_redict";
+import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 
 export default {
   name: "mobile_weekly_forecast_details",
@@ -221,6 +223,7 @@ export default {
       barCompanyArr: '',//直方图公司名数据
       barPriceArr: '',//直方图价格数据
       barContractArr: '',//直方图合约数据
+      industryDetailData:'',
     }
   },
   // 设置背景
@@ -234,24 +237,10 @@ export default {
     document.body.removeAttribute('style')
   },
   mounted() {
-    //获取整体情况表的数据
-    this.companyRankData = this.industryDetail.company_rank
-    //活动可用诸葛贝
-    this.userCurrentMoney = this.industryDetail.user_current_money
-    //获取历史数据表x轴数据
-    this.graphX = this.industryDetail.graph_x
-    //价格直方图数据转换
-    this.barPriceChange();
-    // 历史数据图y轴数据对应的对象数组样式转换
-    this.graphYChange(this.industryDetail.graph_y);
-    this.myEcharts1()//价格作图
+    // 获取数据的方法。数据转化及作图的方法在该方法中
+    this.getIndustryDetailMethod();
   },
-  computed: {
-    // 获取数据
-    industryDetail() {
-      return this.$store.getters.industryDetail;
-    },
-  },
+
   methods: {
     //切换图表
     toChart() {
@@ -291,25 +280,6 @@ export default {
       industry.trade_confidence = this.tradeConfidence
       industry.note = this.note
       this.getId = this.$route.query.id;
-
-      // 法一：用store调用接口，提交数据。不能用也不报错，还没找到解决办法
-      // store.dispatch('industryDetail/transactionApply',{
-      //   industryId:this.getId,
-      //   payload:industry
-      // }).then(() => {
-      //   this.$message({
-      //     type: 'success',
-      //     message: '提交成功！'
-      //   });
-      //       //刷新
-      //       location.reload();
-      //   }).catch(() => {
-      //     this.$message({
-      //       type: 'info',
-      //       message: '提交失败，请重试'
-      //     });
-      //   })
-
       // 法二：本页面调用接口，提交数据
       submitTransactionApply(this.getId, industry).then(() => {
         this.$message({
@@ -324,6 +294,26 @@ export default {
           message: '提交失败，请重试'
         });
       })
+    },
+    //获取数据
+    getIndustryDetailMethod() {
+      this.getId=this.$route.query.id;
+      getIndustryDetail(this.getId).then((res) => {
+        this.industryDetailData = res.data
+        //获取整体情况表的数据
+        this.companyRankData = this.industryDetailData.company_rank
+        //活动可用诸葛贝
+        this.userCurrentMoney =  this.industryDetailData.user_current_money
+        //获取历史数据表x轴数据
+        this.graphX = this.industryDetailData.graph_x
+        //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
+        this.graphYChange(this.industryDetailData.graph_y)
+        //价格直方图数据转换
+        this.barPriceChange();
+      })
+          .catch((res) => {
+            console.log(res);
+          });
     },
 
     // 数据转换方法

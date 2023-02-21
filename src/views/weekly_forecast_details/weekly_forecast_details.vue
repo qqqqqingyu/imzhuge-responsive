@@ -7,7 +7,7 @@
 import {isMobileTerminal} from '@/utils/flexible'
 import mobile_weekly_forecast_details from "./mobile/mobile_weekly_forecast_details";
 import pc_weekly_forecast_details from "./pc/pc_weekly_forecast_details";
-import {useStore} from "vuex";
+// import {useStore} from "vuex";
 
 
 export default {
@@ -26,10 +26,10 @@ export default {
     },
   },
   mounted() {
-    const store = useStore()
-
-    // 触发数据获取动作，获取行业详情数据
-    store.dispatch('industryDetail/useIndustryDetailsData',this.$route.query.id)
+    // const store = useStore()
+    //
+    // // 触发数据获取动作，获取行业详情数据
+    // store.dispatch('industryDetail/useIndustryDetailsData',this.$route.query.id)
   },
 }
 </script>

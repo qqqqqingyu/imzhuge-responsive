@@ -18,12 +18,12 @@ export default {
       isMobile:isMobileTerminal.value
     }
   },
-  // mounted() {
-  //   const store = useStore()
-  //   // 触发 category 数据获取动作
-  //   store.dispatch('myActivity/useMyActivityData')
-  //   store.dispatch('myActivity/useUserNameData')
-  // },
+  mounted() {
+    const store = useStore()
+    // 触发 category 数据获取动作
+    store.dispatch('myActivity/useMyActivityData')
+    store.dispatch('myInfoDetails/useMyInfoDetailsData')
+  },
 }
 </script>
 

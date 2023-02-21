@@ -2,7 +2,7 @@
   <div class="container">
     <el-row class="title-box">
       <el-col :span="1" :offset="1">
-        <router-link to="/">
+        <router-link to="/personal_center">
           <img src="../../../assets/images/return.svg" alt="返回" class="return-img">
         </router-link>
       </el-col>
@@ -20,7 +20,7 @@
                 用户名：
               </el-col>
               <el-col :span="16" class="user-info">
-                {{userName}}
+                {{myInfoDetails.username}}
               </el-col>
             </el-row>
           </el-col>
@@ -31,7 +31,7 @@
                 手机号码：
               </el-col>
               <el-col :span="16" class="user-info">
-                {{telephoneNumber}}
+                {{myInfoDetails.phone_number}}
               </el-col>
             </el-row>
           </el-col>
@@ -42,7 +42,7 @@
                 电子邮箱：
               </el-col>
               <el-col :span="16" class="user-info">
-                {{email}}
+                {{myInfoDetails.email}}
               </el-col>
             </el-row>
           </el-col>
@@ -53,7 +53,7 @@
                 我的邀请码：
               </el-col>
               <el-col :span="16" class="user-info">
-                {{inviteCode}}
+                {{myInfoDetails.invite_code}}
               </el-col>
             </el-row>
           </el-col>
@@ -62,19 +62,17 @@
       </el-col>
     </el-row>
   </div>
+
 </template>
 
 <script>
 export default {
   name: "mobile_personal_info",
-  data(){
-    return{
-      userName:'用户1',
-      telephoneNumber:'13600000000',
-      email:'12345@qq.com',
-      inviteCode:'无',
+  computed:{
+    myInfoDetails(){
+      return this.$store.getters.myInfoDetails
+    },
 
-    }
   },
   // 设置背景
   beforeCreate() {

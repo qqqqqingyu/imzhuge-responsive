@@ -1,10 +1,10 @@
 export default [
     {
-        path: '/main',
-        name: 'main',
-        component: () => import('@/views/main/main.vue'),
+        path: '/',
+        name: 'home_page',
+        component: () => import('@/views/home_page/home_page'),
         meta: {
-            title: '测试',
+            title: '首页',
             keepAlive: true, // 需要被缓存
         }
     },
@@ -28,7 +28,7 @@ export default [
     },
 
     {
-        path: '/',
+        path: '/weekly_forecast',
         name: 'weekly_forecast',
         component: () => import('@/views/weekly_forecast/weekly_forecast.vue'),
         meta: {

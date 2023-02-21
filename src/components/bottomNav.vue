@@ -7,7 +7,7 @@
             <i class="el-icon-s-home"></i>
           </el-row>
           <el-row style="justify-content: center;">
-            <span>预测</span>
+            <span>首页</span>
           </el-row>
         </router-link>
       </el-col>

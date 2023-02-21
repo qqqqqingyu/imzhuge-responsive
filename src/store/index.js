@@ -1,10 +1,10 @@
 import {createStore} from 'vuex'
 import getters from './getters'
-import category from "./modules/category";
 import industryList from "./modules/industryList";
 import industryDetail from "./modules/industryDetail";
-import userName from "./modules/myActivity"
 import myActivity from "./modules/myActivity"
+import myInfoDetails from "./modules/myInfoDetails"
+
 import createPersistedState from 'vuex-persistedstate'
 
 const store =createStore({
@@ -21,19 +21,19 @@ const store =createStore({
     },
     getters,
     modules:{
-        category,
         industryList,
         industryDetail,
-        userName,
+        myInfoDetails,
         myActivity,
     },
     actions: {},
+    //如果有获取不到数据的情况，可能是这里的原因
     plugins: [
         createPersistedState({
             // 保存到 localStorage 中的 key
-            key: 'imzhuge',
+            key: 'imzhuge-2',
             // 需要保存的模块
-            paths: ['industryList','industryDetail','myActivity','userName']
+            paths: ['industryList','industryDetail','myActivity','myInfoDetails']
         })
     ]
 
