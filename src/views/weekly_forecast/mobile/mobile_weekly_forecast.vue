@@ -178,12 +178,13 @@ export default {
   background-color: #FFFFFF;
 
 }
-/deep/.el-rate__icon {
 
-}
 .buttom-part{
   border-radius: 18px;
   margin-bottom: 10px;
+}
+a {
+  text-decoration: none;
 }
 
 
