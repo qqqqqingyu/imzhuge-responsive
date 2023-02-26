@@ -1,7 +1,6 @@
 <template>
   <mobile_personal_center v-if="isMobile"></mobile_personal_center>
   <pc_personal_center v-else></pc_personal_center>
-
 </template>
 
 <script>

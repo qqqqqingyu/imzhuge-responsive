@@ -1,8 +1,8 @@
 <template>
   <div class="homepage_header">
     <div class="pgw hdbar" :style="topBannerNavBg">
-      <a href="https://www.imzhuge.com/" class="logobox" title="嗨皮诸葛" style="margin-left: 2.5%"><img
-          src="../assets/images/logo.png" alt="嗨皮诸葛"/></a>
+      <a href="https://www.imzhuge.com/" title="嗨皮诸葛" style="margin-left: 2.5%">
+        <img src="../assets/images/logo.png" alt="嗨皮诸葛"/></a>
       <ul class="hdnav clear" style="margin-right: 2.5%;">
         <li>
           <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页

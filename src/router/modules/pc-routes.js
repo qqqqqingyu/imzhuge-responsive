@@ -36,10 +36,23 @@ export default [
                 path: '/personal_center',
                 name: 'personal_center',
                 component: () => import('@/views/personal_center/personal_center.vue'),
+                redirect:'/pc_my_activities', //初始加载的子组件
                 meta: {
                     title: '个人中心',
                     keepAlive: true, // 需要被缓存
-                }
+                },
+                children:[
+                    {
+                        path:'/pc_my_activities',
+                        name:'pc_my_activities',
+                        component: () => import('@/views/personal_center/pc/pc_my_activities'),
+                    },
+                    {
+                        path:'/pc_personal_info',
+                        name:'pc_personal_info',
+                        component: () => import('@/views/personal_center/pc/pc_personal_info'),
+                    }
+                ]
             },
             {
                 path: '/weekly_forecast',
@@ -56,15 +69,6 @@ export default [
                 component: () => import('@/views/weekly_forecast_details/weekly_forecast_details.vue'),
                 meta: {
                     title: '行业个股收益率预测详情',
-                    keepAlive: true, // 需要被缓存
-                }
-            },
-            {
-                path: '/personal_info',
-                name: 'personal_info',
-                component: () => import('@/views/personal_info/personal_info.vue'),
-                meta: {
-                    title: '个人信息',
                     keepAlive: true, // 需要被缓存
                 }
             },
