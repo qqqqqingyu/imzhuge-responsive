@@ -165,9 +165,7 @@ export default {
         })`;
         this.headStyle.color = `rgba(0, 0, 0,${scrollTop / (scrollTop + 80)})`;
       } else if (scrollTop > 200) {
-        this.headStyle.background = `rgba(255, 134, 126,${
-            scrollTop / (scrollTop + 80)
-        })`;
+        this.headStyle.background = `rgba(255, 134, 126,1)`;
         this.headStyle.color = `rgba(0, 0, 0,${scrollTop / (scrollTop + 80)})`;
       } else if (scrollTop == 0) {
         this.headStyle.background = "rgba(0, 0, 0, 0)";
@@ -193,7 +191,8 @@ export default {
 }
 
 .my-bar {
-  padding-top: 10px;
+  padding-top: 7px;
+  padding-bottom: 3px;
   position: relative;
   z-index: 1;
 }

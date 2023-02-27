@@ -1,31 +1,34 @@
 <template>
   <div class="homepage_header">
-    <div class="pgw hdbar" :style="topBannerNavBg">
-      <a href="https://www.imzhuge.com/" class="logobox" title="嗨皮诸葛" style="margin-left: 2.5%"><img
-          src="@/assets/images/logo.png" alt="嗨皮诸葛"/></a>
-      <ul class="hdnav clear" style="margin-right: 2.5%;">
-        <li>
-          <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页
-          </router-link>
-        </li>
-        <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li>
-        <!--        <li><a id="nav_activity" onclick="showUnderline(this.id,'activity')" class="hand">热门活动</a></li>-->
-        <!--        <li><a id="nav_qst" onclick="showUnderline(this.id,'qst')" class="hand">常见问题</a></li>-->
-        <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
-        <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
-        <!--        活动广场不在本页，需跳转-->
-        <!--        <li><router-link to="/MonthlyForecast_introduce" id="nav_square"  class="hand">活动广场</router-link></li>-->
-        <li></li>
-        <li></li>
-        <li></li>
-        <li v-if="loginState==true"><a v-on:click="homelogin" class="navregbtn animated" style=" visibility: visible;">登录</a>
-        </li>
-        <li v-if="loginState==false"><a v-on:click="toPersonalCenter" class="navpersonalbtn"
-                                       style=" visibility: visible;">个人中心</a>
-        </li>
-      </ul>
+    <el-row class="pgw hdbar" :style="topBannerNavBg">
+      <el-col :span="4" :offset="2">
+        <a href="https://www.imzhuge.com/" class="logobox" title="嗨皮诸葛" style="margin-left: 2.5%">
+          <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>
+        </a>
+      </el-col>
+      <el-col :span="16" style="position: relative">
+        <ul class="hdnav clear">
+          <li>
+            <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页
+            </router-link>
+          </li>
+          <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li>
+          <!--        <li><a id="nav_activity" onclick="showUnderline(this.id,'activity')" class="hand">热门活动</a></li>-->
+          <!--        <li><a id="nav_qst" onclick="showUnderline(this.id,'qst')" class="hand">常见问题</a></li>-->
+          <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
+          <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
+          <!--        活动广场不在本页，需跳转-->
+          <!--        <li><router-link to="/MonthlyForecast_introduce" id="nav_square"  class="hand">活动广场</router-link></li>-->
+          <li v-if="loginState==false"><a v-on:click="homelogin" class="navregbtn animated"
+                                          style=" visibility: visible;">登录</a>
+          </li>
+          <li v-if="loginState==true"><a v-on:click="toPersonalCenter">个人中心</a>
+          </li>
+        </ul>
+      </el-col>
 
-    </div>
+
+    </el-row>
   </div>
   <!--  用于定位，没有内容的div-->
   <div id="hp"></div>
@@ -77,21 +80,37 @@
         <!--    三个模块结束-->
 
         <!--      典型应用版块-->
-
+        <div id="typical_use"></div>
         <el-row>
-          <div id="typical_use"></div>
-          <el-col :span="24" class="part_title" style="margin-bottom: 70px">典型应用</el-col>
-          <el-col :span="10" :offset="2" class="typical_content wow bounceInLeft animated">
-            <h3>企业收益率排序预测</h3>
-            <p>基于人机融合做细分行业收益率排序</p>
-            <h3>全球经济不确定性预警</h3>
-            <p>融合领域专家与机器智慧做全球经济与政策不确定性评估和预警。
-            </p>
-            <el-button type="danger" class="more" v-on:click="more">查看更多</el-button>
-            <!--            <p style="color:#ee7e64;font-size: 25px;font-weight:bolder;">即将发布 . . .</p>-->
+          <el-col :span="24" class="part_title">典型应用</el-col>
+          <el-col :span="24" style="text-align: center">
+            <el-radio-group v-model="typical_filter" class="my-radio-group">
+              <el-radio-button class="filter-radio" label=0>企业收益率排序预测</el-radio-button>
+              <el-radio-button class="filter-radio" label=1>全球经济不确定性预警</el-radio-button>
+            </el-radio-group>
           </el-col>
-          <el-col :span="12" class="wow bounceInRight animated">
-            <img src="@/assets/images/typical_img1.png" class="typical_img">
+          <el-col :span="22" :offset="1" class="typical-filter">
+            <el-row v-if="typical_filter==0">
+              <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
+                <p>基于人机融合</p>
+                <p>做细分行业收益率排序</p>
+                <el-button type="danger" class="more" v-on:click="more">立即使用</el-button>
+              </el-col>
+              <el-col :span="11" class="wow bounceInRight animated" style="position: relative">
+                <img src="@/assets/images/yield.png" alt="收益率排序预测" width="600">
+              </el-col>
+            </el-row>
+            <el-row v-if="typical_filter==1">
+              <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
+                <p>融合领域专家与机器智慧</p>
+                <p>做全球经济与政策不确定性评估和预警</p>
+                <el-button type="info" disabled>即将发布</el-button>
+              </el-col>
+              <el-col :span="11" class="wow bounceInRight animated" style="z-index: 2;position: relative">
+                <img src="@/assets/images/map.png" alt="全球经济不确定性预警" width="600"
+                     style="margin-top: 80px">
+              </el-col>
+            </el-row>
           </el-col>
         </el-row>
         <!--      典型应用结束-->
@@ -563,6 +582,7 @@ export default {
         {id: 2, src: require('@/assets/images/carousel_31.png')}
       ],
       loginState: false, //登录状态，初始时设为未登录
+      typical_filter: 0
     }
   },
   created: function () {
@@ -698,6 +718,7 @@ export default {
 }
 
 .part_title {
+  margin-top: 50px;
   font-family: "microsoft yahei";
   font-size: 36px;
   text-align: center;
@@ -707,11 +728,16 @@ export default {
 
 .typical_content {
   font-family: "microsoft yahei";
-  line-height: 3;
+  text-align: left;
+  padding-top: 120px;
 }
 
 .typical_content p {
-  font-size: 18px;
+  font-size: 26px;
+}
+
+.typical_content button {
+  margin-top: 20px;
 }
 
 .typical_content h3 {
@@ -877,5 +903,36 @@ export default {
 .mlar {
   margin-left: 5%;
   margin-right: 5%;
+}
+
+/*被选后的单选框颜色*/
+.filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  color: #FF697B;
+  background: rgba(255, 105, 123, 0.2);
+}
+
+/*单选框样式*/
+.filter-radio >>> .el-radio-button__inner {
+  margin-right: 20px;
+  margin-left: 20px;
+  background: #F5F8FA;
+  color: #7F7F7F;
+  border: 0;
+  border-radius: 25px;
+  padding: 15px 30px;
+}
+
+/*单选框覆盖原有阴影*/
+.filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  box-shadow: none;
+}
+
+.my-radio-group {
+  margin-bottom: 5px;
+  margin-top: 40px;
+}
+
+.typical-filter {
+  height: 453px;
 }
 </style>
