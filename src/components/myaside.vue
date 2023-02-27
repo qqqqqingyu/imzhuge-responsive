@@ -28,10 +28,10 @@
       <!--      </el-submenu>-->
       <el-submenu index="3">
         <template  v-slot:title="title"><router-link to="/weekly_forecast" ><span><i class="el-icon-setting"></i>行业收益率周度预测</span></router-link></template>
-<!--        <el-menu-item-group >-->
-<!--          <router-link to="/weekly_forecast_details"><el-menu-item index="3-1"><span>行业个股收益率预测</span></el-menu-item></router-link>-->
-<!--          &lt;!&ndash;          <router-link to="/MonthlyForecast_industrialchain"><el-menu-item index="3-2"><span>产业链分析</span></el-menu-item></router-link>&ndash;&gt;-->
-<!--        </el-menu-item-group>-->
+        <el-menu-item-group >
+          <router-link to="/weekly_forecast_details"><el-menu-item index="3-1"><span>行业个股收益率预测</span></el-menu-item></router-link>
+          <!--          <router-link to="/MonthlyForecast_industrialchain"><el-menu-item index="3-2"><span>产业链分析</span></el-menu-item></router-link>-->
+        </el-menu-item-group>
       </el-submenu>
       <!--      <el-submenu index="3">
               <template  v-slot:title="title"><i class="el-icon-setting"></i><router-link to="/MonthlyForecast_introduce">周度收益率预测</router-link></template>
