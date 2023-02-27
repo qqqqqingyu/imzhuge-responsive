@@ -72,7 +72,6 @@ export default {
     myInfoDetails(){
       return this.$store.getters.myInfoDetails
     },
-
   },
   // 设置背景
   beforeCreate() {

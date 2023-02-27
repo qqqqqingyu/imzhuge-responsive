@@ -18,9 +18,9 @@
         <li></li>
         <li></li>
         <li></li>
-        <li v-if="loginState==false"><a v-on:click="homelogin" class="navregbtn animated" style=" visibility: visible;">登录</a>
+        <li v-if="loginState==true"><a v-on:click="homelogin" class="navregbtn animated" style=" visibility: visible;">登录</a>
         </li>
-        <li v-if="loginState==true"><a v-on:click="toPersonalCenter" class="navpersonalbtn"
+        <li v-if="loginState==false"><a v-on:click="toPersonalCenter" class="navpersonalbtn"
                                        style=" visibility: visible;">个人中心</a>
         </li>
       </ul>
@@ -53,21 +53,21 @@
           <ul class="clear">
             <li class=" sys_img wow bounceInLeft animated" data-wow-duration="0.7s"
                 style="visibility: visible; animation-name: bounceInLeft;">
-              <!--              <img src="../assets/images/市场准入.svg"/>-->
+              <!--              <img src="@/assets/images/市场准入.svg"/>-->
               <img :src="require('@/assets/images/market_access.svg')">
               <span>应用场景丰富</span>
               <p>针对经济政策不确定性事件、财经指标、公司价值进行预测</p>
             </li>
             <li class=" sys_img wow bounceInUp animated" data-wow-duration="0.7s"
                 style="visibility: visible; animation-name: bounceInUp;">
-              <!--              <img src="../assets/images/知识.svg"/>-->
+              <!--              <img src="@/assets/images/知识.svg"/>-->
               <img :src="require('@/assets/images/zhishi.svg')">
               <span>聚集人机智慧</span>
               <p>机器模型通过财经大数据的潜在模式做预测，参与人基于私有信息和财经知识做判断</p>
             </li>
             <li class=" sys_img wow slideInRight animated" data-wow-duration="0.5s"
                 style="visibility: visible; animation-name: slideInRight;">
-              <!--              <img src="../assets/images/智慧创新.svg"/>-->
+              <!--              <img src="@/assets/images/智慧创新.svg"/>-->
               <img :src="require('@/assets/images/smart_innovation.svg')">
               <span>提供数据支持</span>
               <p>提供开源数据API，助力资产管理企业投资决策和政府财经部门政策制定</p>
@@ -192,7 +192,7 @@
   <!--      </el-row>-->
   <!--      <el-row style="justify-content: center" >-->
   <!--        <el-col :span="2" >-->
-  <!--          <img src="../assets/images/questions.png" alt="questions">-->
+  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
   <!--        </el-col>-->
   <!--        <el-col :span="9">-->
   <!--          <el-row class="questiontitle">1. 参与资格</el-row>-->
@@ -202,7 +202,7 @@
   <!--        </el-col>-->
 
   <!--        <el-col :span="2" :offset="1">-->
-  <!--          <img src="../assets/images/questions.png" alt="questions">-->
+  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
   <!--        </el-col>-->
   <!--        <el-col :span="9">-->
   <!--          <el-row class="questiontitle">2. 合约交易</el-row>-->
@@ -212,7 +212,7 @@
   <!--      </el-row>-->
   <!--      <el-row style="margin-top: 50px;justify-content: center" >-->
   <!--        <el-col :span="2">-->
-  <!--          <img src="../assets/images/questions.png" alt="questions">-->
+  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
   <!--        </el-col>-->
   <!--        <el-col :span="9">-->
   <!--          <el-row class="questiontitle">3. 盈利方式</el-row>-->
@@ -222,7 +222,7 @@
   <!--        </el-col>-->
 
   <!--        <el-col :span="2" :offset="1">-->
-  <!--          <img src="../assets/images/questions.png" alt="questions">-->
+  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
   <!--        </el-col>-->
   <!--        <el-col :span="9">-->
   <!--          <el-row class="questiontitle">4. 结果揭晓</el-row>-->
@@ -232,7 +232,7 @@
   <!--      </el-row>-->
   <!--      <el-row style="margin-top: 50px;justify-content: center">-->
   <!--        <el-col :span="2">-->
-  <!--          <img src="../assets/images/questions.png" alt="questions">-->
+  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
   <!--        </el-col>-->
   <!--        <el-col :span="9">-->
   <!--          <el-row class="questiontitle">5. 活动结束后奖金兑付</el-row>-->
@@ -242,7 +242,7 @@
   <!--        </el-col>-->
 
   <!--        <el-col :span="2" :offset="1">-->
-  <!--          <img src="../assets/images/questions.png" alt="questions">-->
+  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
   <!--        </el-col>-->
   <!--        <el-col :span="9">-->
   <!--          <el-row class="questiontitle">6. 财富排名</el-row>-->
@@ -549,7 +549,7 @@ import {login, loginStatus} from "@/api/login";
 import config from '@/config'
 
 export default {
-  name: "home",
+  name: "pc_home_page",
 
   data() {
     return {
@@ -602,7 +602,10 @@ export default {
     },
     // 跳转个人中心
     toPersonalCenter() {
-      window.open(config.serverUrl + '/selfcenter/', '_blank')
+      this.$router.push({
+        path: '/personal_center',
+      })
+      // window.open(config.serverUrl + '/selfcenter/', '_blank')
     },
     //查看周度收益率界面
     more() {
@@ -671,7 +674,9 @@ export default {
 </script>
 
 <style scoped>
-
+@import '../../../assets/CSS/homepage_style.css';
+@import '../../../assets/CSS/homepage_common.css';
+@import 'https://cdn.dowebok.com/98/css/animate.min.css';
 
 /*.banner_bg{*/
 /*  background: #ff867e;*/
