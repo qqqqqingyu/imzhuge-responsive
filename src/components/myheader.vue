@@ -24,7 +24,6 @@
 import {
   getCSRFToken
 } from '@/api/token'
-import config from '@/config'
 export default {
   name: "myheader",
   mounted() {
@@ -36,7 +35,9 @@ export default {
       getCSRFToken();
     },
     toMy(){
-      window.open(config.serverUrl+'/selfcenter/','_blank')
+      this.$router.push({
+        path:'/personal_center',
+      })
     }
   }
 }

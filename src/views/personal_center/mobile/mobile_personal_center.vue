@@ -13,7 +13,7 @@
                 <span style="font-size:17px;font-weight: bolder;color: #2e2e2e">{{userName}}</span>
               </el-row>
               <el-row style="margin-top: 5px">
-                <router-link to="/">
+                <router-link to="/personal_info">
                   <span style="color: #7F7F7F;">查看并编辑个人资料</span>
                 </router-link>
               </el-row>
@@ -199,5 +199,9 @@ export default {
   /*padding: 10px;*/
   font-size: small;
 }
+a {
+  text-decoration: none;
+}
+
 
 </style>
