@@ -22,9 +22,10 @@ export function getMyInfoDetails() {
 /**
  * 3.4 编辑个人资料
  **/
-export function editMyInfo() {
+export function editMyInfo(data) {
     return request({
         url:'/api/selfcenter/my_activity/details',
         method:'post',
+        data:data
     })
 }

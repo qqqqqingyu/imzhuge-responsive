@@ -95,7 +95,7 @@ export default {
       })
     },
     toActivitySquare(){
-      window.open(config.serverUrl+'/activity/','_blank')
+      window.location.href = config.serverUrl+'/activity/'
     }
   },
   // 设置背景

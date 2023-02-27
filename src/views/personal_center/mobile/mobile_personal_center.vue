@@ -125,7 +125,7 @@ export default {
     },
     //去提现
     toWithdraw(){
-      window.open(config.serverUrl+'/selfcenter/tocash/','_blank')
+      window.location.href = config.serverUrl+'/selfcenter/tocash/'
     }
   },
   // 设置背景
