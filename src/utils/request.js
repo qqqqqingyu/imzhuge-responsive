@@ -62,13 +62,14 @@ request.interceptors.response.use(
             let loginRedirectUrl = response.data.content;
             window.open(loginRedirectUrl, "_self" )
         } else {
-            if (res.code !== '200' && !(res.code == '20000')) {
+            if (res.code !== '200' && res.code != 20000) {
                 // 后期可优化为响应一个MessageBox
-                // this.$message({
-                //     type: 'warning',
-                //     message: res.msg
-                // });
-                window.alert(res.msg)
+                this.$message({
+                    type: 'warning',
+                    message: res.msg
+                });
+                console.log(res.code+' : '+res.msg)
+                // window.alert(res.msg)
                 return Promise.reject('error')
             } else {
                 return response.data

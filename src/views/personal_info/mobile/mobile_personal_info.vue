@@ -23,7 +23,7 @@
               && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.username}}
               </el-col>
-              <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
+              <el-col :span="15" :offset="1" class="user-info" v-if="modifiedStatus == 1">
                 <el-input :size="inputSize" placeholder="请输入" style="width: 100%"
                     v-model="changeData.username" clearable>
                 </el-input>
@@ -40,7 +40,7 @@
               && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.phone_number}}
               </el-col>
-              <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
+              <el-col :span="15" :offset="1" class="user-info" v-if="modifiedStatus == 1">
                 <el-input :size="inputSize" placeholder="请输入" style="width: 100%"
                           v-model="changeData.phone_number"  clearable
                           oninput ="value=value.replace(/[^0-9.]/g,'')" >
@@ -58,7 +58,7 @@
               && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.email}}
               </el-col>
-              <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
+              <el-col :span="15" :offset="1"  class="user-info" v-if="modifiedStatus == 1">
                 <el-input :size="inputSize" placeholder="请输入" style="width: 100%"
                           v-model="changeData.email" clearable>
                 </el-input>
@@ -75,7 +75,7 @@
               && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.invite_code}}
               </el-col>
-              <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
+              <el-col :span="15" :offset="1" class="user-info" v-if="modifiedStatus == 1">
                 <el-input :size="inputSize" placeholder="请输入" style="width: 100%"
                           v-model="changeData.invite_code" clearable>
                 </el-input>
@@ -107,11 +107,11 @@ export default {
   computed:{
 
     myInfoDetails(){
-      console.log('computed中获取数据 this.$store.getters.myInfoDetails：'+JSON.stringify(this.$store.getters.myInfoDetails))
-      console.log('是否为空：')
-      console.log(Object.keys(this.$store.getters.myInfoDetails).length === 0 )
-      console.log('长度：'+Object.keys(this.$store.getters.myInfoDetails).length )
-
+      //测试数据是否获取
+      console.log('computed中获取数据：'+JSON.stringify(this.$store.getters.myInfoDetails))
+      // console.log('是否为空：')
+      // console.log(Object.keys(this.$store.getters.myInfoDetails).length === 0 )
+      // console.log('长度：'+Object.keys(this.$store.getters.myInfoDetails).length )
       return this.$store.getters.myInfoDetails
     },
   },
