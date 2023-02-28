@@ -310,6 +310,8 @@ export default {
         this.graphYChange(this.industryDetailData.graph_y)
         //价格直方图数据转换
         this.barPriceChange();
+        //价格作图
+        this.myEcharts1()
       })
           .catch((res) => {
             console.log(res);
