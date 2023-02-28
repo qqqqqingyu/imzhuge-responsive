@@ -292,7 +292,7 @@ export default {
         });
         return;
       }
-      if(industry.count.inputTitle.length==0){
+      if(industry.count.length==0){
         this.$message({
           type: 'warning',
           message: '请输入交易份额'
@@ -548,7 +548,8 @@ export default {
         grid: {
           left: '3%',
           right: '3%',
-          bottom: '3%',
+          bottom: '0%',
+          top:'20%',
           containLabel: true
         },
         xAxis: {
@@ -647,7 +648,7 @@ export default {
 
 #history {
   width: 100%;
-  height: 220px;
+  height: 230px;
 }
 
 /*覆盖element原有的样式开始*/

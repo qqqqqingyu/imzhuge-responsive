@@ -64,11 +64,11 @@ request.interceptors.response.use(
         } else {
             if (res.code !== '200' && !(res.code == '20000')) {
                 // 后期可优化为响应一个MessageBox
-                this.$message({
-                    type: 'warning',
-                    message: res.msg
-                });
-                // window.alert(res.msg)
+                // this.$message({
+                //     type: 'warning',
+                //     message: res.msg
+                // });
+                window.alert(res.msg)
                 return Promise.reject('error')
             } else {
                 return response.data
