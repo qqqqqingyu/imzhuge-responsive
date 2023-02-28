@@ -19,7 +19,8 @@
               <el-col :span="8">
                 用户名：
               </el-col>
-              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0">
+              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0
+              && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.username}}
               </el-col>
               <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
@@ -35,12 +36,14 @@
               <el-col :span="8">
                 手机号码：
               </el-col>
-              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0">
+              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0
+              && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.phone_number}}
               </el-col>
               <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
                 <el-input :size="inputSize" placeholder="请输入" style="width: 100%"
-                          v-model="changeData.phone_number" clearable>
+                          v-model="changeData.phone_number"  clearable
+                          oninput ="value=value.replace(/[^0-9.]/g,'')" >
                 </el-input>
               </el-col>
             </el-row>
@@ -51,7 +54,8 @@
               <el-col :span="8">
                 电子邮箱：
               </el-col>
-              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0">
+              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0
+              && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.email}}
               </el-col>
               <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
@@ -67,7 +71,8 @@
               <el-col :span="8">
                 我的邀请码：
               </el-col>
-              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0">
+              <el-col :span="16" class="user-info" v-if="modifiedStatus == 0
+              && Object.keys(myInfoDetails).length !== 0">
                 {{myInfoDetails.invite_code}}
               </el-col>
               <el-col :span="11" :offset="5" class="user-info" v-if="modifiedStatus == 1">
@@ -77,7 +82,6 @@
               </el-col>
             </el-row>
           </el-col>
-
         </el-row>
       </el-col>
 
@@ -90,15 +94,24 @@
       </el-col>
     </el-row>
   </div>
+  <bottom-nav></bottom-nav>
 </template>
 
 <script>
 import {editMyInfo} from "../../../api/my_activity";
+import bottomNav from "../../../components/bottomNav";
 
 export default {
   name: "mobile_personal_info",
+  components:{bottomNav},
   computed:{
+
     myInfoDetails(){
+      console.log('computed中获取数据 this.$store.getters.myInfoDetails：'+JSON.stringify(this.$store.getters.myInfoDetails))
+      console.log('是否为空：')
+      console.log(Object.keys(this.$store.getters.myInfoDetails).length === 0 )
+      console.log('长度：'+Object.keys(this.$store.getters.myInfoDetails).length )
+
       return this.$store.getters.myInfoDetails
     },
   },
@@ -144,31 +157,34 @@ export default {
           message: '请修改后提交'
         });
         this.modifiedStatus = 1;
-      } else if(isNaN(info.username)){
-        this.$message({
-          type: 'warning',
-          message: '用户名不得为空'
-        });
-        this.modifiedStatus = 1;
-      } else if(isNaN(info.phone_number)){
-        this.$message({
-          type: 'warning',
-          message: '手机号码不得为空'
-        });
-        this.modifiedStatus = 1;
-      } else if(isNaN(info.email)){
-        this.$message({
-          type: 'warning',
-          message: '电子邮箱不得为空'
-        });
-        this.modifiedStatus = 1;
-      } else if(isNaN(info.invite_code)){
-        this.$message({
-          type: 'warning',
-          message: '邀请码不得为空'
-        });
-        this.modifiedStatus = 1;
-      } else {
+      }
+      // else if(typeof info.username === 'undefined'){
+      //   console.log('info.username'+info.username)
+      //   this.$message({
+      //     type: 'warning',
+      //     message: '请输入用户名'
+      //   });
+      //   this.modifiedStatus = 1;
+      // } else if(typeof info.phone_number === 'undefined'){
+      //   this.$message({
+      //     type: 'warning',
+      //     message: '请输入手机号码'
+      //   });
+      //   this.modifiedStatus = 1;
+      // } else if(typeof info.email === 'undefined'){
+      //   this.$message({
+      //     type: 'warning',
+      //     message: '请输入电子邮箱'
+      //   });
+      //   this.modifiedStatus = 1;
+      // } else if(typeof info.invite_code === 'undefined'){
+      //   this.$message({
+      //     type: 'warning',
+      //     message: '请输入邀请码'
+      //   });
+      //   this.modifiedStatus = 1;
+      // }
+      else {
         editMyInfo(info).then(() => {
           this.$message({
             type: 'success',

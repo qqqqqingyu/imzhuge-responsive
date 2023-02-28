@@ -257,7 +257,31 @@ export default {
       industry.contract_id = this.inputNo1
       industry.trade_confidence = this.tradeConfidence
       industry.note = this.note
+
+      // 数据校验，若不符合条件则终止
+      if(industry.contract_id.length==0){
+        alert("未选择公司");
+        return;
+      }
+      if(industry.count.inputTitle.length==0){
+        alert("未输入交易份额");
+        return;
+      }
+      if(industry.trade_type.length==0){
+        alert("未输入交易类型");
+        return;
+      }
+      if(industry.trade_confidence.length == 0){
+        alert("未选择交易信心");
+        return;
+      }
+      if(industry.note.length < 5){
+        alert("请至少输入5个字的描述内容！");
+        return;
+      }
+
       this.getId=this.$route.query.id;
+
       submitTransactionApply(this.getId,industry).then(() => {
         this.$message({
           type: 'success',

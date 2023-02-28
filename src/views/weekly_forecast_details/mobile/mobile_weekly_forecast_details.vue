@@ -194,14 +194,17 @@
       </el-col>
     </el-row>
   </div>
+  <bottom-nav></bottom-nav>
 </template>
 
 <script>
 // import store from "../../../store";
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
+import bottomNav from "../../../components/bottomNav";
 
 export default {
   name: "mobile_weekly_forecast_details",
+  components:{bottomNav},
   data() {
     return {
       activeName: 'first', //用于切换el-tabs
@@ -273,14 +276,52 @@ export default {
     // 提交数据
     submitTransactionApplyMethod() {
       let industry = {};
+
+      industry.contract_id = this.inputNo1
+      industry.trade_prob = this.tradeProb / 100
       industry.count = this.tradeCount
       industry.trade_type = this.tradeType
-      industry.trade_prob = this.tradeProb / 100
-      industry.contract_id = this.inputNo1
       industry.trade_confidence = this.tradeConfidence
       industry.note = this.note
+
+      // 数据校验，若不符合条件则终止
+      if(industry.contract_id.length==0){
+        this.$message({
+          type: 'warning',
+          message: '请选择公司'
+        });
+        return;
+      }
+      if(industry.count.inputTitle.length==0){
+        this.$message({
+          type: 'warning',
+          message: '请输入交易份额'
+        });
+        return;
+      }
+      if(industry.trade_type.length==0){
+        this.$message({
+          type: 'warning',
+          message: '请选择交易类型'
+        });
+        return;
+      }
+      if(industry.trade_confidence.length == 0){
+        this.$message({
+          type: 'warning',
+          message: '请选择四种自信程度其中的一种'
+        });
+        return;
+      }
+      if(industry.note.length < 5){
+        this.$message({
+          type: 'warning',
+          message: '请至少输入5个字的描述内容！'
+        });
+        return;
+      }
       this.getId = this.$route.query.id;
-      // 法二：本页面调用接口，提交数据
+      // 本页面调用接口，提交数据
       submitTransactionApply(this.getId, industry).then(() => {
         this.$message({
           type: 'success',
@@ -460,6 +501,7 @@ export default {
             {
               data: this.barContractArr,
               type: 'bar',
+              color: '#FF8383',
               showBackground: true,
               backgroundStyle: {
                 color: 'rgba(180, 180, 180, 0.2)'
@@ -605,7 +647,7 @@ export default {
 
 #history {
   width: 100%;
-  height: 180px;
+  height: 220px;
 }
 
 /*覆盖element原有的样式开始*/
