@@ -27,7 +27,7 @@ const store =createStore({
         myActivity,
     },
     actions: {},
-    //如果有获取不到数据的情况，可能是这里的原因
+    //如果数据修改之后，没有及时更新，可能是这里的原因
     plugins: [
         createPersistedState({
             // 保存到 localStorage 中的 key

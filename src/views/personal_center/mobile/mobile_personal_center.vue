@@ -8,10 +8,11 @@
       <el-col :offset="1" :span="22">
         <div class="user_info_box">
           <el-row class="user_info">
-            <el-col :offset="1" :span="22">
-              <el-row>
-                <span style="font-size:17px;font-weight: bolder;color: #2e2e2e">{{userName}}</span>
-              </el-row>
+            <el-col :offset="1" :span="23">
+<!--              验证是否一个页面只能有一个-->
+<!--              <el-row>-->
+<!--                <span style="font-size:17px;font-weight: bolder;color: #2e2e2e">{{userName}}</span>-->
+<!--              </el-row>-->
               <el-row style="margin-top: 5px">
                 <router-link to="/personal_info">
                   <span style="color: #7F7F7F;">查看并编辑个人资料</span>
@@ -19,14 +20,14 @@
               </el-row>
               <el-row style="margin-top: 10px">
                 <el-col :span="5">
-                  <span>个人财富</span>
+                  <span>个人财富 </span>
                 </el-col>
-                <el-col :offset="1" :span="8">
+                <el-col  :span="9">
                   <span style="color: #ff697b;font-weight: bold;font-size: medium ">{{numFilter(myActivity.coin,2)}}</span>
-                  <span>   诸葛贝</span>
+                  <span> 诸葛贝</span>
                 </el-col>
-                <el-col :offset="1" :span="8">
-                  <span>交易次数  </span>
+                <el-col :offset="1" :span="9">
+                  <span>交易次数 </span>
                   <span style="color: #2e2e2e;font-weight: bold;font-size: medium ">{{myActivity.trade_times}}</span>
                 </el-col>
               </el-row>
@@ -34,13 +35,13 @@
                 <el-button  class="withdraw" size="small" v-on:click="toWithdraw">
                   <span style="color: #FFFFFF;font-size: 12px">提现</span>
                 </el-button>
-
               </el-row>
             </el-col>
           </el-row>
         </div>
       </el-col>
     </el-row>
+
     <!--    我参与的活动-->
     <el-row style="margin-top: 20px">
       <el-col :offset="2" :span="22">
@@ -56,7 +57,7 @@
               <el-col :offset="1" :span="18">
                 <span>{{item.title}}</span>
               </el-col>
-              <el-col :offset="1" :span="4">
+              <el-col  :span="5">
                 <span class="over_state" v-if="item.status">已结束</span>
                 <span class="ing_state" v-else>进行中</span>
               </el-col>
@@ -66,27 +67,27 @@
             <el-row>
               <el-col :offset="1" :span="23">
                 <el-row>
-                  <el-col :span="4">
+                  <el-col :span="5">
                     <span>活动名称</span>
                   </el-col>
-                  <el-col :span="18" :offset="1">
+                  <el-col :span="16" :offset="1">
                     <span>{{item.title}}</span>
                   </el-col>
                 </el-row>
                 <el-row style="margin-top: 8px">
-                  <el-col :span="4">
+                  <el-col :span="5">
                     <span>活动状态</span>
                   </el-col>
-                  <el-col :span="18" :offset="1">
+                  <el-col :span="16" :offset="1">
                     <span class="over_state" v-if="item.status">已结束</span>
                     <span class="ing_state" v-else>进行中</span>
                   </el-col>
                 </el-row>
                 <el-row style="margin-top: 8px">
-                  <el-col :span="4">
+                  <el-col :span="5">
                     <span>活动收益</span>
                   </el-col>
-                  <el-col :span="18" :offset="1">
+                  <el-col :span="16" :offset="1">
                     <span v-if="item.status">{{numFilter(item.earnings,2)}}</span>
                     <span style="color:#7F7F7F;" v-else>活动进行中</span>
                   </el-col>
@@ -110,10 +111,13 @@ export default {
   name: "mobile_personal_center",
   components:{bottomNav},
   computed:{
-    userName(){
-      return this.$store.getters.myInfoDetails.username
-    },
+    // userName(){
+    //   console.log("userName",this.$store.getters.myInfoDetails.username)
+    //   return this.$store.getters.myInfoDetails.username
+    //
+    // },
     myActivity(){
+      console.log("myActivity",this.$store.getters.myActivity)
       return this.$store.getters.myActivity
     }
   },

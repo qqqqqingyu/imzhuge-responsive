@@ -12,7 +12,7 @@
           <el-col :span="10">
             <img src="@/assets/images/left-picture.png" style="width: 100%"/>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="13" :offset="1">
             <el-row class="head-part-info">
               <span>
                 做财经领域高水平的<br>人机融合预测平台
@@ -20,15 +20,18 @@
             </el-row>
 <!--            这里写的不太好-->
             <el-row style="margin-top: 10px;">
-              <el-button round class="to-activitySquare"  size="small" v-on:click="toActivitySquare">
-                <el-col :span="16" :offset="2">
-                  <el-row class="to-activitySquare-contain" >体验预测市场</el-row>
-                  <el-row class="to-activitySquare-contain" style="font-size: 12px;margin-top: 5px">（原活动广场）</el-row>
-                </el-col>
-                <el-col :span="4" :offset="2">
-                  <img src="@/assets/images/two-right-arrow.svg" style="width: 150%"/>
-                </el-col>
-              </el-button>
+              <el-col :span="19">
+                <el-button round class="to-activitySquare"  size="small" v-on:click="toActivitySquare">
+                  <el-col :span="16" :offset="2">
+                    <el-row class="to-activitySquare-contain" >体验预测市场</el-row>
+                    <el-row class="to-activitySquare-contain" style="font-size: 12px;margin-top: 5px">（原活动广场）</el-row>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <img src="@/assets/images/two-right-arrow.svg" style="width: 150%"/>
+                  </el-col>
+                </el-button>
+              </el-col>
+
             </el-row>
           </el-col>
         </el-row>
@@ -112,6 +115,7 @@ export default {
 </script>
 
 <style scoped>
+
 /*头部部分*/
 .head-part{
   padding-top: 10px;
@@ -121,7 +125,7 @@ export default {
   background: linear-gradient(to left, #EC716C, #F4AB46); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .head-part-info{
-  font-size: 18px;
+  font-size: 16px;
   color: #FFFFFF;
 }
 .typical-application-title{
@@ -159,6 +163,7 @@ export default {
 /*不确定性预警*/
 .economic-uncertainty-warning-part{
   border-radius: 10px;
+  margin-bottom: 20px;
   margin-top: 10px;
   padding-top: 40px;
   padding-bottom: 20px;

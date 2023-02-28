@@ -46,7 +46,7 @@
                     text-color="#ff9900">
                 </el-rate>
               </el-col>
-              <el-col :span="8" :offset="2">
+              <el-col :span="9" :offset="1">
                 <span style="color: #AAAAAA;margin-right: 5px;font-size: medium">NO.1</span>
                 <span style="color: #FFFFFF;
                     font-size:14px;padding: 8px;background-color: #F75C4F;border-radius: 8px;">{{item.no1}}</span>
@@ -88,10 +88,6 @@
     </el-row>
   </div>
   <bottom-nav></bottom-nav>
-
-
-
-
 
 </template>
 
