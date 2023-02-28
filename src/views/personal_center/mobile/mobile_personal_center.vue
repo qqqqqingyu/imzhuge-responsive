@@ -9,10 +9,9 @@
         <div class="user_info_box">
           <el-row class="user_info">
             <el-col :offset="1" :span="23">
-<!--              验证是否一个页面只能有一个-->
-<!--              <el-row>-->
-<!--                <span style="font-size:17px;font-weight: bolder;color: #2e2e2e">{{userName}}</span>-->
-<!--              </el-row>-->
+              <el-row>
+                <span style="font-size:17px;font-weight: bolder;color: #2e2e2e">{{userName}}</span>
+              </el-row>
               <el-row style="margin-top: 5px">
                 <router-link to="/personal_info">
                   <span style="color: #7F7F7F;">查看并编辑个人资料</span>
@@ -111,13 +110,10 @@ export default {
   name: "mobile_personal_center",
   components:{bottomNav},
   computed:{
-    // userName(){
-    //   console.log("userName",this.$store.getters.myInfoDetails.username)
-    //   return this.$store.getters.myInfoDetails.username
-    //
-    // },
+    userName(){
+      return this.$store.getters.myInfoDetails.username
+    },
     myActivity(){
-      console.log("myActivity",this.$store.getters.myActivity)
       return this.$store.getters.myActivity
     }
   },

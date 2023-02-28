@@ -21,7 +21,7 @@ export default {
     const store = useStore()
     // 触发myActivity以及myInfoDetails 数据获取动作
     store.dispatch('myActivity/useMyActivityData')
-    // store.dispatch('myInfoDetails/useMyInfoDetailsData')
+    store.dispatch('myInfoDetails/useMyInfoDetailsData')
   },
 }
 </script>

@@ -160,7 +160,6 @@ export default {
 <style scoped>
 .container{
   margin-bottom: 40px;
-
 }
 .head-part{
   background-color: #FFFFFF;
