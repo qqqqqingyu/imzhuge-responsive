@@ -42,7 +42,7 @@
     </el-row>
 
     <!--    我参与的活动-->
-    <el-row style="margin-top: 20px">
+    <el-row style="margin-top: 20px;margin-bottom: 15px">
       <el-col :offset="2" :span="22">
         <span style="font-size:19px;font-weight: bolder;color: #2e2e2e">我参与的活动</span>
       </el-col>
@@ -51,17 +51,6 @@
       <el-col :offset="1" :span="22">
         <div class="my_join_act" v-for="item in myActivity.my_project_list"
              :key="item">
-          <div class="act_title">
-            <el-row>
-              <el-col :offset="1" :span="18">
-                <span>{{item.title}}</span>
-              </el-col>
-              <el-col  :span="5">
-                <span class="over_state" v-if="item.status">已结束</span>
-                <span class="ing_state" v-else>进行中</span>
-              </el-col>
-            </el-row>
-          </div>
           <div class="act_info">
             <el-row>
               <el-col :offset="1" :span="23">
@@ -95,6 +84,7 @@
             </el-row>
           </div>
         </div>
+
       </el-col>
     </el-row>
 
@@ -144,6 +134,7 @@ export default {
 <style scoped>
 .container{
   margin-top: 20px;
+  margin-bottom:25px;
 }
 .user_info_box{
   background-color: #ffffff;
@@ -166,14 +157,8 @@ export default {
   margin-top: 5px;
   margin-bottom: 20px;
   color: rgba(0, 0, 0, 0.98);
+}
 
-}
-.act_title{
-  background-color: #ffffff;
-  border-radius: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
 .over_state{
   border: 1.1px solid #7F7F7F;
   border-radius: 5px;
