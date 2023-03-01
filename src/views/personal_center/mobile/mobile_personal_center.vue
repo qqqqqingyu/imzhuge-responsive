@@ -22,12 +22,12 @@
                   <span>个人财富 </span>
                 </el-col>
                 <el-col  :span="9">
-                  <span style="color: #ff697b;font-weight: bold;font-size: medium ">{{numFilter(myActivity.coin,2)}}</span>
-                  <span> 诸葛贝</span>
+                  <span style="color: #ff697b;font-weight: bold;font-size: medium;margin-left: 5px ">11111.11</span>
+                  <span>诸葛贝</span>
                 </el-col>
-                <el-col :offset="1" :span="9">
-                  <span>交易次数 </span>
-                  <span style="color: #2e2e2e;font-weight: bold;font-size: medium ">{{myActivity.trade_times}}</span>
+                <el-col :span="9">
+                  <span style="margin-left: 5px">交易次数 </span>
+                  <span style="color: #2e2e2e;font-weight: bold;font-size: medium; ">123243</span>
                 </el-col>
               </el-row>
               <el-row style="margin-top: 10px">
@@ -49,7 +49,7 @@
     </el-row>
     <el-row>
       <el-col :offset="1" :span="22">
-        <div class="my_join_act" v-for="item in myActivity.project_list"
+        <div class="my_join_act" v-for="item in myActivity.my_project_list"
              :key="item">
           <div class="act_title">
             <el-row>

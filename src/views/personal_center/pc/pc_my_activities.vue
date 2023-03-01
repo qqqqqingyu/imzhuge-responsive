@@ -10,7 +10,7 @@
         <el-radio-button class="filter-radio" label=1>已结束</el-radio-button>
       </el-radio-group>
     </el-col>
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in project_list" :key="item">
+    <el-col :span="11" :offset="1" class="activity-box" v-for="item in my_project_list" :key="item">
       <el-row>
         <el-col :span="24">
           <h4 style="margin-bottom: 2px">
@@ -46,8 +46,8 @@ export default {
     }
   },
   computed: {
-    project_list() {
-      let project = this.$store.getters.myActivity.project_list
+    my_project_list() {
+      let project = this.$store.getters.myActivity.my_project_list
       if (project) {
         return project.filter((item) => {
           if ((this.screen == 2 || this.screen == item.status)) {
@@ -55,7 +55,7 @@ export default {
           }
         })
       } else {
-        return this.$store.getters.myActivity.project_list
+        return this.$store.getters.myActivity.my_project_list
       }
     }
   },
