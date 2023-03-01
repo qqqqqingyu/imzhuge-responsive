@@ -40,7 +40,6 @@
         </div>
       </el-col>
     </el-row>
-
     <!--    我参与的活动-->
     <el-row style="margin-top: 20px;margin-bottom: 15px">
       <el-col :offset="2" :span="22">
