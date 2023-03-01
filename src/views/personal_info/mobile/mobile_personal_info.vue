@@ -108,7 +108,7 @@ export default {
 
     myInfoDetails(){
       //测试数据是否获取
-      console.log('computed中获取数据：'+JSON.stringify(this.$store.getters.myInfoDetails))
+      // console.log('computed中获取数据：'+JSON.stringify(this.$store.getters.myInfoDetails))
       // console.log('是否为空：')
       // console.log(Object.keys(this.$store.getters.myInfoDetails).length === 0 )
       // console.log('长度：'+Object.keys(this.$store.getters.myInfoDetails).length )
