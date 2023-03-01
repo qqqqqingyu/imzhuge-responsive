@@ -222,10 +222,11 @@ export default {
       note: '', //交易的笔记
       graphX: [], //x轴数据，时间
       graphY: [], //y轴数据
-      historyLegend: '', //图例，公司名
-      barCompanyArr: '',//直方图公司名数据
-      barPriceArr: '',//直方图价格数据
-      barContractArr: '',//直方图合约数据
+      historyLegend: [], //图例，公司名
+      barCompanyArr: [],//直方图公司名数据
+      barPriceArr: [],//直方图价格数据
+      barContractArr: [],//直方图合约数据
+      yMin : '', //y轴最低值
       industryDetailData:'',
     }
   },
@@ -248,7 +249,11 @@ export default {
     //切换图表
     toChart() {
       this.chartOrTable = 'chart'
-      this.myEcharts1()//价格作图
+      if(this.priceOrContract == 'price'){
+        this.myEcharts1()//价格作图
+      } else{
+        this.myEcharts2()//合约作图
+      }
     },
     toTable() {
       this.chartOrTable = 'table'
@@ -354,16 +359,25 @@ export default {
         //价格作图
         this.myEcharts1()
       })
-          .catch((res) => {
-            console.log(res);
-          });
+      .catch((res) => {
+        console.log(res);
+      });
     },
 
     // 数据转换方法
     // 历史数据图y轴数据对应的对象数组样式转换
     graphYChange(YData) {
       let legendstr = '';
+      let yMinTemp;
+      //给y的最大值设置初值值
+      this.yMin = Math.max.apply(null, YData[0].contract_price)
+
       for (const item of YData) {
+        yMinTemp =  Math.max.apply(null, item.contract_price)
+        //获得y的最小值
+        if( yMinTemp < this.yMin){
+          this.yMin = yMinTemp
+        }
         // y轴数据的转化
         this.graphY.push({
           type: 'line',
@@ -374,41 +388,36 @@ export default {
         // 图例的转化
         legendstr += item.contract_text + ",";
       }
+      // 为获得更好的作图效果，用y最小值的85%作为y轴最小值
+      this.yMin = (this.yMin* 0.85).toFixed(2)
+
       legendstr = legendstr.substring(0, legendstr.length - 1);
       this.historyLegend = legendstr.split(",");
     },
-    // 直方图价格数据转换
+    // 直方图及表格的价格数据转换
     barPriceChange() {
       //公司名数据
-      let companyStr = '';
+      let company = [];
       //价格数据
-      let priceStr = '';
+      let barPrice = [];
       //合约数量数据
-      let contractStr = '';
-      //数据转换先为string字符串
-      this.companyRankData.forEach(function (e) {
-        companyStr += e.company_name + ","; //公司名
-        priceStr += e.price + ","; //价格
-        contractStr += e.predict_share + ","; //拥有的合约数
+      let contract = [];
+
+      //数组排序
+      this.companyRankData.sort(function(a, b) {
+        return a.price - b.price;
       });
 
-      //公司名转换为数组
-      companyStr = companyStr.substring(0, companyStr.length - 1);
-      this.barCompanyArr = companyStr.split(",");
-      //价格转换为数组
-      priceStr = priceStr.substring(0, priceStr.length - 1);
-      this.barPriceArr = priceStr.split(",");
-      //对价格排序
-      this.barPriceArr.sort(function (a, b) {
-        return a - b;
-      })//括号里不写回调函数则默认按照字母逐位升序排列
-      //合约数量转换为数组
-      contractStr = contractStr.substring(0, contractStr.length - 1);
-      this.barContractArr = contractStr.split(",");
-      //对合约数量排序
-      this.barContractArr.sort(function (a, b) {
-        return a - b;
-      })//括号里不写回调函数则默认按照字母逐位升序排列
+      //数据放入数组
+      this.companyRankData.forEach(function (e) {
+        company.push(e.company_name) //公司名
+        barPrice.push(parseFloat(e.price).toFixed(4)) //价格
+        contract.push(parseFloat(e.predict_share)) //拥有的合约数
+      });
+
+      this.barCompanyArr = company
+      this.barPriceArr = barPrice
+      this.barContractArr = contract
     },
     // 保留n位小数
     numFilter(value, n) {
@@ -450,8 +459,7 @@ export default {
               color: '#FFF'
             }
           },
-          series: [
-            {
+          series: [{
               data: this.barPriceArr,
               type: 'bar',
               color: '#FF8383',
@@ -463,8 +471,8 @@ export default {
                 show: true,
                 color: '#FAF8FF'
               }
-            }
-          ]
+            },
+          ],
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart1.setOption(option1);
@@ -538,7 +546,9 @@ export default {
             label: {
               backgroundColor: '#6a7985'
             }
-          }
+          },
+          // 将提示框限制在图表的区域内
+          confine: true,
         },
         // 图例
         legend: {
@@ -548,8 +558,8 @@ export default {
         grid: {
           left: '3%',
           right: '3%',
-          bottom: '0%',
-          top:'20%',
+          bottom: '1%',
+          top:'37%',
           containLabel: true
         },
         xAxis: {
@@ -559,6 +569,7 @@ export default {
         },
         yAxis: {
           type: 'value',
+          min:this.yMin, //设置y轴最小值
           splitLine: { //修改背景线条样式
             show: true,//是否展示
             lineStyle: {
