@@ -4,20 +4,21 @@
  * @since 2022.12.02
  * **/
 import request from '@/utils/request'
+import {serverUrl} from "../config";
 
 /**
  * login
  **/
 export function login() {
     return request({
-        url:'/api/login',
+        url:serverUrl+'/api/login',
         method:'get'
     })
 }
 
 export function loginStatus() {
     return request({
-        url:'/api/get_login_status',
+        url:serverUrl+'/api/get_login_status',
         method:'get'
     })
 }
