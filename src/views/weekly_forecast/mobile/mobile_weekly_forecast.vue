@@ -24,14 +24,14 @@
           <div class="head-part" v-on:click="isOpen(index)" >
             <el-row>
               <el-col :span="2" class="arrow">
-                <img :src="require('@/assets/images/uc_rarr.png')"  alt="right-arrow" v-if="openOrClose[index]==true">
+                <img  :src="require('@/assets/images/uc_rarr.png')"  alt="right-arrow" v-if="openOrClose[index]==true">
                 <img :src="require('@/assets/images/arrdn.png')"  alt="down-arrow" v-else>
               </el-col>
               <el-col :span="21">
                 <el-row>
                   <el-col :span="3" >
-                    <img :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                    <img :src="require('@/assets/images/industry2.png')" alt="industry-icon" v-else>
+                    <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
+                    <img class="image-size" :src="require('@/assets/images/industry2.png')" alt="industry-icon" v-else>
                   </el-col>
                   <el-col :span="15" >
                     <span style="font-size: 17px;color:#333333;font-weight: bold;">{{item.name}}</span>
@@ -188,6 +188,9 @@ export default {
   line-height: 60px;
   padding-left: 5px;
   margin-right: 5px;
+}
+.image-size{
+  width: 60%;
 }
 /deep/ .el-icon-arrow-right{
 
