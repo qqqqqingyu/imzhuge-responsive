@@ -1,245 +1,250 @@
 <!--行业个股收益率预测-->
 <template>
-  <el-container class="container">
+  <div>
+    <!--    导航栏开始-->
+    <el-row class="my-nav-bar nav-pos nav-bg">
+      <el-col :span="4" :offset="2">
+        <a href="https://www.imzhuge.com/" title="嗨皮诸葛" style="margin-left: 2.5%">
+          <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>
+        </a>
+      </el-col>
+      <el-col :span="16" style="position: relative">
+        <ul class="my-nav">
+          <li>
+            <router-link to="/">首页</router-link>
+          </li>
+          <li>
+            <router-link to="/">典型应用</router-link>
+          </li>
+          <li>
+            <router-link to="/personal_center" class="navcurr">个人中心</router-link>
+          </li>
+        </ul>
+      </el-col>
+    </el-row>
+    <!--    导航栏结束-->
 
-    <!--header开始-->
-    <el-header class="header" height="120px">
-      <myheader></myheader>
-    </el-header>
-    <!--header结束-->
-    <el-container>
-      <el-aside class="aside">
-        <myaside></myaside>
-      </el-aside>
-
-      <el-main class="main">
-        <el-row >
-          <el-col :span="9" class="box1">
-            <span>简介</span>
-          </el-col>
-          <el-col :span="14" :offset="1" class="box2">
-            <el-row class="one">
-              <el-col  :span="4" ><div>状态：</div></el-col>
-              <el-col :span="4"><div>全部</div></el-col>
-              <el-col :span="4"><div>进行中</div></el-col>
-              <el-col :span="4"><div>已结束</div></el-col>
-              <el-col :span="4"><div>结果待揭晓</div></el-col>
-              <el-col :span="4"><div>已结算</div></el-col>
+    <el-row style="margin-top: 80px">
+      <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
+        <span>您当前的位置：</span>
+        <span style="font-size: 20px;margin-left: 5px;color:#555555">行业个股收益率预测</span>
+      </el-col>
+    </el-row>
+    <el-row style="margin-top: 20px">
+      <el-col :span="9" :offset="2">
+        <span class="box-title">行业列表</span>
+      </el-col>
+    </el-row>
+    <el-row class="industry">
+      <el-col :span="20" :offset="2">
+        <div  v-for="(item,index) in industryList"
+             :key="index">
+          <div class="head-part" v-on:click="isOpen(index)" >
+            <el-row>
+              <el-col :span="1" :offset="1" class="arrow" >
+                <img :src="require('@/assets/images/uc_rarr.png')" alt="right-arrow" v-if="openOrClose[index]==true">
+                <img :src="require('@/assets/images/arrdn.png')" alt="down-arrow" v-else>
+              </el-col>
+              <el-col :span="1" >
+                <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
+                <img class="image-size" :src="require('@/assets/images/industry2.png')" alt="industry-icon" v-else>
+              </el-col>
+              <el-col :span="4" :offset="1">
+                <span style="font-size: 19px;color:#333333;font-weight: 700;">{{item.name}}</span>
+              </el-col>
+              <el-col  :span="1">
+                <span style="color:#AAAAAA;font-size: 18px">热度</span>
+              </el-col>
+              <el-col :span="6" >
+                <el-rate
+                    v-model=item.hot
+                    disabled
+                    text-color="#ff9900">
+                </el-rate>
+              </el-col>
+              <el-col :span="5" >
+                <span style="color: #AAAAAA;margin-right: 5px;font-size: 18px">NO.1</span>
+                <span class="no1-company">{{item.no1}}</span>
+              </el-col>
+              <el-col :span="2" :offset="1">
+                <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
+                  <span style="color: #ff697b;font-weight: bold;padding: 0px;font-size: 15px">查看 ></span>
+                </router-link>
+              </el-col>
             </el-row>
+          </div>
 
-            <el-row class="two" >
-              <el-col :span="4"><div>我的：</div></el-col>
-              <el-col :span="4"><div>已审核</div></el-col>
-              <el-col :span="4"><div>待审核</div></el-col>
+          <div class="buttom-part" v-if="openOrClose[index]==true">
+            <el-row>
+              <el-table
+                  class="el-table"
+                  :data=item.list
+                  :show-header=false
+                  :row-class-name="rowClassName"
+                  :cell-style="cellStyle">
+                <el-table-column
+                    prop="id"
+                    label="序列"
+                >
+                </el-table-column>
+                <el-table-column
+                    prop="company"
+                    label="公司">
+                </el-table-column>
+                <el-table-column
+                    prop="stock_id"
+                    label="股票代码"
+                >
+                </el-table-column>
+
+              </el-table>
             </el-row>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
 
-            <el-row class="three">
-              <el-col  :span="24"><div>搜索：</div></el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3" >
-            <div class="title-box2">
-              行业列表
-            </div>
-          </el-col>
-        </el-row>
-        <el-row style="margin-top: 30px">
-          <el-col :offset="1">
-            <el-table :data="industryList" row-key="company"
-                      border
-                      :tree-props="{children: 'list', hasChildren: 'hasChildren'}"
-                      :header-cell-style="tdstyle"
-            >
-              <el-table-column
-                  prop="id"
-                  label=" "
-                  v-if="false"
-              >
-              </el-table-column>
-              <el-table-column
-                  prop="company"
-                  label="  "
-              >
-              </el-table-column>
-              <el-table-column
-                  prop="stock_id"
-                  label="股票代码"
-              >
-              </el-table-column>
-              <el-table-column
-                  prop="hot"
-                  label="热度"
-              >
-                <template v-slot="scope" >
-                  <el-rate v-model="scope.row.hot" :allow-half="true"  disabled v-if="scope.row.id!=null"
-                           show-score score-template="{value}" text-color="#ff9900" ></el-rate>
-                </template>
-              </el-table-column>
-              <el-table-column
-                  prop="no1"
-                  label="当前第一名"
-              >
-              </el-table-column>
-              <el-table-column
-                  label=" "
-              >
-                <template v-slot="scope">
-                  <el-button @click="todetail(scope.row.id,scope.row.company)" type="text" size="small" v-if="scope.row.id!=null">查看详情</el-button>
-                </template>
-
-              </el-table-column>
-
-            </el-table>
-          </el-col>
-
-        </el-row>
-
-      </el-main>
-
-    </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
-import Myheader from "@/components/myheader";
-import myaside from "@/components/myaside";
-import {getCSRFToken} from '@/api/token'
-// import {
-//   getIndustryList,/*获取我发布的活动*/
-// } from '@/api/month_redict'
 export default {
   name: "pc_weekly_forecast",
-  components: {Myheader, myaside},
   data() {
     return{
+      openOrClose:[false],
     }
   },
   computed:{
     industryList(){
-      //转换字段名
-      return JSON.parse(JSON.stringify(this.$store.getters.industryList).replace(/name/g,"company"))
+      return this.$store.getters.industryList
     },
+
   },
-  mounted() {
-    this.getCSRFTokenMethod()
+  // 设置背景
+  beforeCreate() {
+    this.$nextTick(() => {
+      document.body.setAttribute('style', 'background:rgb(253,243,239)')
+    })
   },
+  //实例销毁之前钩子，移除body标签的属性style
+  beforeUnmount() {
+    document.body.removeAttribute('style')
+  },
+
   methods: {
-    // 获取csrftoken 确保受保护接口不会响应403
-    getCSRFTokenMethod() {
-      getCSRFToken();
+    isOpen : function(index) {
+      this.openOrClose[index]=!this.openOrClose[index]
+      console.log(index,this.openOrClose[index])
     },
-    tdstyle({row,column,rowIndex}){
-      if(rowIndex===0){
-        return "background-color:RGB(248,248,248)"
+    // 为表格加上行号
+    rowClassName({row, rowIndex}) {
+      //把每一行的索引放进row.id
+      row.id = rowIndex+1;
+    },
+    // 表格单列颜色
+    cellStyle ({columnIndex }) {
+      // 状态列字体颜色
+      if(columnIndex === 2){
+        return 'color: #7F7F7F'
+      }
+      if(columnIndex === 0){
+        return 'color:  #333333;text-align: center;width:50%'
+      }
+      else{
+        return 'color:  #333333'
       }
     },
-//     getIndustryListMethod(){
-//       getIndustryList().then((res) => {
-//         this.myList=res.data
-// //转换字段名
-//         this.industryList = JSON.parse(JSON.stringify(this.myList).replace(/name/g,"company"))
-//       })
-//     },
 
-    todetail(id,company){
-      /*传值*/
-      this.$router.push({
-        path:'/weekly_forecast_details',
-        query:{
-          id:id,
-          name:company
-        },
-      })
-    }
+
+
+
   }
 }
 </script>
 
 <style scoped>
-
-.container{
-  height: 100%;
+@import '../../../assets/CSS/responsive_style.css';
+.nav-bg{
+  background-image: linear-gradient(to right, #f59a23, #fe8d46, #ff8461, #f98079, #ec808d);
 }
 
-.header {
-  background-color: white;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
+.my-breadcrumb{
+  color: #7F7F7F;
+  font-size: 18px;
 }
 
-.aside {
-  text-align: left;
-  line-height: 200px;
-  height: 100%;
+.my-breadcrumb a{
+  color: #555555;
+  text-decoration: none;
 }
 
-.main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
+.my-breadcrumb a:hover{
+  color: #f98079;
+  text-decoration: none;
+}
 
-  position: relative;
+.my-breadcrumb a:active{
+  color: #fe8d46;
+  text-decoration: none;
 }
-.box1{
-  height: 100px;
-  color: #606266;
+
+.center-vertically{
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
 }
-.box2{
-  height: 100px;
-  /*right: 50px;*/
-  text-align: left;
-}
-.one{
-  color: #606266;
-  margin-top: 1px;
-}
-.two{
-  color: #606266;
-  margin-top: 1px;
-}
-.three{
-  color: #606266;
-  margin-top: 1px;
-}
-.title-box2{
-  background-color: #fdf6ec;
-  border-color: #faecd8;
-  color: #fba414;
+.box-title {
   margin-top: 20px;
-  text-align: center;
-  height: 35px;
-  display: inline-block;
-  padding: 0px 10px;
-  line-height: 30px;
-  font-size: 19px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 2px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  white-space: nowrap;
+  font-size: 30px;
+  font-weight: bolder;
 }
-.box4{
+/*行业列表部分*/
+.industry{
   margin-top: 20px;
+  margin-bottom: 10px;
+}
+.head-part{
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  margin-bottom: 10px;
+  line-height: 40px;
+
+  /*padding-bottom: px;*/
+  padding-top: 10px;
+}
+.arrow{
+  text-align: center;
+  /*line-height: 60px;*/
+  padding-left: 5px;
+  margin-right: 5px;
+}
+.image-size{
+  width: 85%;
+}
+/deep/ .el-rate__icon{
+  font-size: 25px;
+  margin-top: 8px;
+}
+.no1-company{
+  color: #FFFFFF;
+  font-size:15px;
+  padding: 5px 10px;
+  background-color: #F75C4F;
+  border-radius: 8px;
 }
 
-body > .el-container {
-  /*margin-bottom: 40px;*/
-  margin-bottom: 100%;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
 .el-table{
-  background-color: RGB(248,248,248);
+  border-radius: 18px;
+  background-color: #FFFFFF;
+  font-size: 15px;
+}
+
+.buttom-part{
+  border-radius: 18px;
+  margin-bottom: 10px;
+}
+a {
+  text-decoration: none;
 }
 </style>

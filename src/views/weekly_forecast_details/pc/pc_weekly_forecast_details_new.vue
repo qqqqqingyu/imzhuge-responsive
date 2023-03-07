@@ -221,7 +221,7 @@ import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import {getCSRFToken} from '@/api/token'
 
 export default {
-  name: "pc_weekly_forecast_details",
+  name: "pc_weekly_forecast_details_new",
   data() {
     return {
       // 导航栏样式

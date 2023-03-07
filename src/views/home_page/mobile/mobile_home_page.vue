@@ -10,7 +10,7 @@
         </el-row>
         <el-row style="margin-top: 20px">
           <el-col :span="10">
-            <img src="@/assets/images/left-picture.png" style="width: 100%"/>
+            <img src="@/assets/images/left-picture.png" alt="背景图片" style="width: 100%"/>
           </el-col>
           <el-col :span="13" :offset="1">
             <el-row class="head-part-info">
@@ -27,7 +27,7 @@
                     <el-row class="to-activitySquare-contain" style="font-size: 12px;margin-top: 5px">（原活动广场）</el-row>
                   </el-col>
                   <el-col :span="4" :offset="2">
-                    <img src="@/assets/images/two-right-arrow.svg" style="width: 150%"/>
+                    <img src="@/assets/images/two-right-arrow.svg" alt="前往原活动广场" style="width: 150%"/>
                   </el-col>
                 </el-button>
               </el-col>

@@ -19,44 +19,53 @@
     </el-row>
     <el-row style="margin-top: 10px;margin-bottom: 10px;">
       <el-col :span="22" :offset="1">
-        <div class="industry" v-for="item in industryList"
-             :key="item">
-          <div class="head-part">
-            <el-row style="padding-top: 20px">
-              <el-col :span="3" :offset="1">
-                <img :src="require('@/assets/images/industry1.jpg')">
+        <div class="industry" v-for="(item,index) in industryList"
+             :key="index">
+          <div class="head-part" v-on:click="isOpen(index)" >
+            <el-row>
+              <el-col :span="2" class="arrow">
+                <img :src="require('@/assets/images/uc_rarr.png')"  alt="right-arrow" v-if="openOrClose[index]==true">
+                <img :src="require('@/assets/images/arrdn.png')"  alt="down-arrow" v-else>
               </el-col>
-              <el-col :span="15" >
-                <span style="font-size: 17px;color:#333333;font-weight: bold">{{item.name}}</span>
-              </el-col>
-              <el-col :span="4" :offset="1">
-                <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
-                  <span style="color: #ff697b;font-weight: bold;">查看 ></span>
-                </router-link>
+              <el-col :span="21">
+                <el-row>
+                  <el-col :span="3" >
+                    <img :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
+                    <img :src="require('@/assets/images/industry2.png')" alt="industry-icon" v-else>
+                  </el-col>
+                  <el-col :span="15" >
+                    <span style="font-size: 17px;color:#333333;font-weight: bold;">{{item.name}}</span>
+                    <!--                <i class="el-icon-caret-bottom" ></i>-->
+                  </el-col>
+                  <el-col :span="4" :offset="1">
+                    <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
+                      <span style="color: #ff697b;font-weight: bold;">查看 ></span>
+                    </router-link>
+                  </el-col>
+                </el-row>
+                <el-row style="margin-top: 10px;">
+                  <el-col  :span="3">
+                    <span style="color:#AAAAAA;font-size: 15px">热度</span>
+                  </el-col>
+                  <el-col :span="11" >
+                    <el-rate
+                        v-model=item.hot
+                        disabled
+                        text-color="#ff9900">
+                    </el-rate>
+                  </el-col>
+                  <el-col :span="10" >
+                    <span style="color: #AAAAAA;margin-right: 5px;font-size: medium">NO.1</span>
+                    <span style="color: #FFFFFF;
+                    font-size:12px;padding: 8px;background-color: #F75C4F;border-radius: 8px;">{{item.no1}}</span>
+                  </el-col>
+                </el-row>
               </el-col>
             </el-row>
-            <el-row style="margin-top: 10px;">
-              <el-col  :span="3" :offset="1">
-                <span style="color:#AAAAAA;font-size: 15px">热度</span>
-              </el-col>
-              <el-col :span="10" >
-                <el-rate
-                    v-model=item.hot
-                    disabled
-                    text-color="#ff9900">
-                </el-rate>
-              </el-col>
-              <el-col :span="9" :offset="1">
-                <span style="color: #AAAAAA;margin-right: 5px;font-size: medium">NO.1</span>
-                <span style="color: #FFFFFF;
-                    font-size:14px;padding: 8px;background-color: #F75C4F;border-radius: 8px;">{{item.no1}}</span>
-              </el-col>
 
-
-            </el-row>
           </div>
 
-          <div class="buttom-part">
+          <div class="buttom-part" v-if="openOrClose[index]==true">
             <el-row>
               <el-table
                   class="el-table"
@@ -102,6 +111,8 @@ export default {
     return {
       //pictureList:pictures,
       pictureTree:'',
+      openOrClose:[false],
+      openId:0,
     }
   },
 
@@ -137,17 +148,11 @@ export default {
         return 'color:  #333333'
       }
     },
-    // 传值到详情页
-    todetail(id,company){
-      /*传值*/
-      this.$router.push({
-        path:'/weekly_forecast_details',
-        query:{
-          id:id,
-          name:company
-        },
-      })
-    }
+
+    isOpen : function(index) {
+      this.openOrClose[index]=!this.openOrClose[index]
+      console.log(index,this.openOrClose[index])
+    },
 
   },
   // 设置背景
@@ -176,11 +181,20 @@ export default {
   margin-bottom: 10px;
   /*padding-top: 10px;*/
   padding-bottom: 10px;
+  padding-top: 20px
+}
+.arrow{
+  text-align: center;
+  line-height: 60px;
+  padding-left: 5px;
+  margin-right: 5px;
+}
+/deep/ .el-icon-arrow-right{
+
 }
 .el-table{
   border-radius: 18px;
   background-color: #FFFFFF;
-
 }
 
 .buttom-part{
