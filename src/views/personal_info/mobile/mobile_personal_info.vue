@@ -100,6 +100,7 @@
 <script>
 import {editMyInfo} from "../../../api/my_activity";
 import bottomNav from "../../../components/bottomNav";
+import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "mobile_personal_info",
@@ -127,7 +128,14 @@ export default {
       inputSize:'small'
     }
   },
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods:{
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     editInfo(){
       this.modifiedStatus = 1;
       this.changeData.username = this.myInfoDetails.username;

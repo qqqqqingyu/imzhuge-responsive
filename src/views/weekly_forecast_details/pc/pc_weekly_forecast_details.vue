@@ -199,6 +199,7 @@
 import Myheader from "@/components/myheader";
 import myaside from "@/components/myaside";
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
+import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "pc_weekly_forecast_details",
@@ -226,10 +227,15 @@ export default {
     }
   },
   mounted() {
+    this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
     this.getIndustryDetailMethod();
   },
   methods : {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     //点击切换tab时调用该方法
     handleClick(tab) {
       if(tab.index == '1')

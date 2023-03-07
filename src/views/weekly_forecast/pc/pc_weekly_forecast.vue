@@ -105,6 +105,7 @@
 <script>
 import Myheader from "@/components/myheader";
 import myaside from "@/components/myaside";
+import {getCSRFToken} from '@/api/token'
 // import {
 //   getIndustryList,/*获取我发布的活动*/
 // } from '@/api/month_redict'
@@ -121,8 +122,14 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.industryList).replace(/name/g,"company"))
     },
   },
-
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     tdstyle({row,column,rowIndex}){
       if(rowIndex===0){
         return "background-color:RGB(248,248,248)"

@@ -88,10 +88,18 @@
 <script>
 import bottomNav from "../../../components/bottomNav";
 import config from '@/config'
+import {getCSRFToken} from '@/api/token'
 export default {
   name: "mobile_home_page",
   components:{bottomNav},
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods:{
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     toWeeklyForecast(){
       this.$router.push({
         path:'/weekly_forecast',

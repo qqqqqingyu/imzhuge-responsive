@@ -2,6 +2,7 @@ import axios from 'axios'
 import { isMobileTerminal } from './flexible'
 // 创建axios实例
 const request = axios.create({
+    withCredentials: true,
     timeout: 15000
 })
 

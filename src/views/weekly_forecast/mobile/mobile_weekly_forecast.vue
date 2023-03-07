@@ -93,6 +93,8 @@
 
 <script>
 import bottomNav from "../../../components/bottomNav";
+import {getCSRFToken} from '@/api/token'
+
 export default {
   name: "mobile_weekly_forecast",
   components:{bottomNav},
@@ -109,7 +111,14 @@ export default {
     },
 
   },
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods:{
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 为表格加上行号
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row.id

@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import {getCSRFToken} from '@/api/token'
+
 export default {
   name: "pc_my_activities",
   data() {
@@ -59,7 +61,14 @@ export default {
       }
     }
   },
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 保留n位小数
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)

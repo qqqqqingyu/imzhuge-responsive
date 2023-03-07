@@ -218,6 +218,7 @@
 
 <script>
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
+import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "pc_weekly_forecast_details",
@@ -252,8 +253,9 @@ export default {
     }
   },
   mounted() {
+    this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
-    // this.getIndustryDetailMethod();
+    this.getIndustryDetailMethod();
   },
   // 设置背景
   beforeCreate() {
@@ -266,6 +268,10 @@ export default {
     document.body.removeAttribute('style')
   },
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     //切换图表
     toChart() {
       this.chartOrTable = 'chart'

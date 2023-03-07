@@ -565,7 +565,8 @@
 <script>
 import {WOW} from 'wowjs'
 import {login, loginStatus} from "@/api/login";
-import config from '@/config'
+import {getCSRFToken} from '@/api/token'
+// import config from '@/config'
 
 export default {
   name: "pc_home_page",
@@ -594,6 +595,10 @@ export default {
     })
   },
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 滚动页面时触发导航变色
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -667,6 +672,7 @@ export default {
     }
   },
   mounted() {
+    this.getCSRFTokenMethod();
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
     this.getLoginState();
     // this.imgLoad();

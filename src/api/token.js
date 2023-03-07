@@ -7,6 +7,17 @@ import axios from "axios";
 import config from '@/config'
 
 export function getCSRFToken() {
+    let reg = new RegExp("(^|&)" + "session_id" + "=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg);
+    let sessionId = null;
+    if (r != null) {
+        sessionId = decodeURIComponent(r[2]);
+    }
+    reg = null;
+    r = null;
+    if (sessionId !== null && sessionId !== undefined && sessionId !== '') {
+        document.cookie = "sessionid=" + sessionId;
+    }
     let csrftoken = '';
     // 判断cookie中是否有csrftoken 有的话更新storage
     let cookies = document.cookie

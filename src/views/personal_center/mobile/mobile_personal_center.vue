@@ -95,6 +95,7 @@
 <script>
 import config from '@/config'
 import bottomNav from "../../../components/bottomNav";
+import {getCSRFToken} from '@/api/token'
 export default {
   name: "mobile_personal_center",
   components:{bottomNav},
@@ -106,8 +107,14 @@ export default {
       return this.$store.getters.myActivity
     }
   },
-
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods:{
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 保留n位小数
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)

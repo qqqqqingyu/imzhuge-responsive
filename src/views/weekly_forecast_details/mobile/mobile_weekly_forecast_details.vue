@@ -201,6 +201,7 @@
 // import store from "../../../store";
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import bottomNav from "../../../components/bottomNav";
+import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "mobile_weekly_forecast_details",
@@ -241,11 +242,16 @@ export default {
     document.body.removeAttribute('style')
   },
   mounted() {
+    this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
     this.getIndustryDetailMethod();
   },
 
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     //切换图表
     toChart() {
       this.chartOrTable = 'chart'

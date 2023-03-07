@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import {getCSRFToken} from '@/api/token'
+
 export default {
   name: "pc_personal_center",
   computed: {
@@ -110,6 +112,7 @@ export default {
     }
   },
   mounted() {
+    this.getCSRFTokenMethod();
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
 
     // 初始加载时判断左侧按钮选择的样式
@@ -148,6 +151,10 @@ export default {
   },
 
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 保留n位小数
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)
