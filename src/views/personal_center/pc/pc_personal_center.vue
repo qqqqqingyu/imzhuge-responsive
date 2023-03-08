@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="bg" :style="{ minHeight: screenHeight + 'px' }">
     <!--    导航栏开始-->
     <el-row class="my-nav-bar nav-pos" :style="headStyle">
       <el-col :span="4" :offset="2">
@@ -77,7 +77,7 @@
       <!--      左部导航栏结束-->
 
       <!--      右侧内容开始-->
-      <el-col :span="13" :offset="1" class="pc-card right-box">
+      <el-col :span="13" :offset="1" class="pc-card right-box"  :style="{ minHeight: screenHeight-260 + 'px' }">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -109,10 +109,13 @@ export default {
         background: "rgba(255, 255, 255, 0)",
         color: "rgba(255, 255, 255, 1)",
       },
+      screenHeight:window.innerHeight,
     }
   },
   mounted() {
+    console.log(this.screenHeight)
     this.getCSRFTokenMethod();
+    window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
 
     // 初始加载时判断左侧按钮选择的样式
@@ -179,10 +182,14 @@ export default {
         this.headStyle.color = "#FFFFFF";
       }
     },
+    handleResize() {
+      this.screenHeight = window.innerHeight
+    }
   },
   // 滚动之前重置
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
   },
 }
 </script>
