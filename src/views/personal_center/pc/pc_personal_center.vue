@@ -13,7 +13,7 @@
             <router-link to="/">首页</router-link>
           </li>
           <li>
-            <router-link to="/">典型应用</router-link>
+            <router-link to="/weekly_forecast">典型应用</router-link>
           </li>
           <li>
             <router-link to="/personal_center" class="navcurr">个人中心</router-link>

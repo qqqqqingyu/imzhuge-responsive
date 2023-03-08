@@ -13,10 +13,10 @@
             <router-link to="/">首页</router-link>
           </li>
           <li>
-            <router-link to="/">典型应用</router-link>
+            <router-link to="/weekly_forecast" class="navcurr">典型应用</router-link>
           </li>
           <li>
-            <router-link to="/personal_center" class="navcurr">个人中心</router-link>
+            <router-link to="/personal_center">个人中心</router-link>
           </li>
         </ul>
       </el-col>
@@ -25,24 +25,20 @@
 
     <el-row style="margin-top: 80px">
       <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
-        <span>您当前的位置：</span>
-        <router-link to="/">行业个股收益率预测</router-link>
+        您当前的位置：
+        <router-link to="/weekly_forecast">行业个股收益率预测</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="25">
-<!--        {{industryDetailData.industry}}-->
-        行业个股收益率预测
+        <span>{{industryDetailData.industry}}行业个股收益率预测</span>
       </el-col>
     </el-row>
 
     <el-row class="industry-box title-box">
       <el-col :span="9" :offset="2">
         <span class="box-title">
-<!--          {{industryDetailData.industry}}-->
-          行业</span>
+          {{industryDetailData.industry}}行业</span>
       </el-col>
-      <el-col :span="13" class="industry-month">
-<!--        {{industryDetailData.start_day}}-->
-        至
-<!--        {{industryDetailData.end_day}}-->
+      <el-col :span="11" class="industry-month">
+        {{industryDetailData.start_day}}至{{industryDetailData.end_day}}
       </el-col>
     </el-row>
 
@@ -50,8 +46,7 @@
       <el-col :span="20" :offset="2" class="industry-tab">
         <el-tabs @tab-click="handleClick" v-model="activeName">
           <el-tab-pane label="整体情况" name="first">
-            <el-card class="chart-and-table">
-              <el-row>
+              <el-row class="chart-and-table pc-card">
                 <!--                图标切换圆形按钮-->
                 <el-col :span="23" v-if="chartOrTable=='table'" style="text-align: right">
                   <el-button type="danger" icon="el-icon-s-data" circle @click="toChart"
@@ -63,19 +58,19 @@
                 </el-col>
 
 <!--                表格-->
-                <el-col :span="22" :offset="1" v-if="chartOrTable=='table'" style="margin-top: 20px">
+                <el-col :span="22" :offset="1" v-if="chartOrTable=='table'" class="price-contact-table">
                   <el-table :data="companyRankData"
                             :default-sort="{prop:'price',order:'descending'}"
-                            border
                             style="width: 100%"
-                            size="mini"
+                            size="medium"
                             :header-cell-style="tdstyle"
-                            :row-style="{height:'20px'}"
+                            :row-style="{height:'35px'}"
                             :cell-style="{padding: '0'}"
+                            class="my-table"
                   >
                     <el-table-column
                         prop="company_name"
-                        label="  "
+                        label="股票名称"
                         min-width="70%">
                     </el-table-column>
                     <el-table-column
@@ -98,20 +93,19 @@
                   </el-table>
                 </el-col>
 <!--                图-->
-                <el-col :span="22" :offset="1" v-else style="margin-top: 20px">
+                <el-col :span="22" :offset="1" v-else style="margin-top: 15px">
                   <el-row>
                     <el-col :span="12" id="priceBar"></el-col>
                     <el-col :span="12" id="contractBar"></el-col>
                   </el-row>
                 </el-col>
               </el-row>
-            </el-card>
           </el-tab-pane>
 
           <el-tab-pane label="历史走势" name="second">
-            <el-card class="chart-and-table">
+            <el-row class="chart-and-table pc-card">
               <div id="history"></div>
-            </el-card>
+            </el-row>
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -206,7 +200,9 @@
             </el-col>
 
             <el-col :span="24" class="submit-btn">
-              <el-button type="danger" @click="submitTransactionApplyMethod">提交</el-button>
+              <el-button type="danger" @click="submitTransactionApplyMethod">
+                提交
+              </el-button>
             </el-col>
         </el-row>
 
@@ -294,7 +290,7 @@ export default {
     },
     tdstyle({row, column, rowIndex}) {
       if (rowIndex === 0) {
-        return "background-color:RGB(248,248,248);height:20px;padding:1px"
+        return "background-color:RGB(245,248,250);height:40px;padding:1px;color:#555555";
       }
     },
 
@@ -460,7 +456,8 @@ export default {
         var myChart1 = echarts.init(document.getElementById('priceBar'));
         var option1 = {
           xAxis: {
-            type: 'value'
+            type: 'value',
+            position: 'top'
           },
           yAxis: {
             type: 'category',
@@ -470,17 +467,17 @@ export default {
           grid: {
             left: '1%',
             right: '4%',
-            bottom: '3%',
+            bottom: '13%',
             top: '1%',
             containLabel: true //true表示这些比例包括了坐标轴标签在内所形成的矩形的位置。false则不包括坐标轴
           },
-
           legend: {
-            textStyle: {
-              color: '#FFF'
-            }
+            show:true,
+            left:'center',
+            bottom:'0'
           },
           series: [{
+            name:'价格（按降序排列）',
             data: this.barPriceArr,
             type: 'bar',
             color: '#FF8383',
@@ -511,8 +508,14 @@ export default {
         // 基于准备好的dom，初始化echarts实例
         var myChart2 = echarts.init(document.getElementById('contractBar'));
         var option2 = {
+          legend: {
+            show:true,
+            left:'center',
+            bottom:'0'
+          },
           xAxis: {
             type: 'value',
+            position: 'top'
           },
           yAxis: {
             type: 'category',
@@ -522,12 +525,13 @@ export default {
           grid: {
             left: '1%',
             right: '4%',
-            bottom: '3%',
+            bottom: '13%',
             top: '1%',
             containLabel: true //true表示这些比例包括了坐标轴标签在内所形成的矩形的位置。false则不包括坐标轴
           },
           series: [
             {
+              name:'合约（按降序排列）',
               data: this.barContractArr,
               type: 'bar',
               color: '#FF8383',
@@ -580,13 +584,13 @@ export default {
           left: '3%',
           right: '3%',
           bottom: '1%',
-          top:'37%',
+          top:'20%',
           containLabel: true
         },
         xAxis: {
           type: 'category',
           // boundaryGap: false,
-          data: this.graphX
+          data: this.graphX,
         },
         yAxis: {
           type: 'value',
@@ -628,6 +632,12 @@ export default {
 .my-breadcrumb a{
   color: #555555;
   text-decoration: none;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.my-breadcrumb span{
+  font-size: 20px;
 }
 
 .my-breadcrumb a:hover{
@@ -660,7 +670,7 @@ export default {
 .industry-month {
   color: #AAAAAA;
   text-align: right;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .predict-card {
@@ -682,7 +692,8 @@ export default {
 
 /*用于覆盖element原有按钮高度的自定义类*/
 .changed-btn {
-  min-height: 0;
+  min-height: 40px;
+  min-width: 40px;
 }
 
 .participation-box {
@@ -698,19 +709,32 @@ export default {
   margin-top: 10px;
 }
 
+.submit-btn .el-button--danger{
+  background-color: rgb(255,131,131);
+  border-color: rgb(255,131,131);
+}
+
+.submit-btn .el-button--danger:hover{
+  background-color: #F56C6C;
+  border-color:#F56C6C;
+}
+
 #priceBar {
-  width: 100%;
-  height: 180px;
+  width: 98%;
+  height: 280px;
+  padding-right: 2%;
 }
 
 #contractBar {
-  width: 100%;
-  height: 180px;
+  width: 98%;
+  height: 280px;
+  padding-left: 2%;
 }
 
 #history {
+  margin-top: 20px;
   width: 100%;
-  height: 230px;
+  height: 290px;
 }
 
 /*覆盖element原有的样式开始*/
@@ -725,8 +749,10 @@ export default {
   color: #FA605F !important;
 }
 
-.chart-and-table >>> .el-card {
-  height: 260px;
+.chart-and-table{
+  height: 380px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 /*切换活动项的长条颜色*/
@@ -781,5 +807,11 @@ export default {
 
 .predict-radio >>> .el-radio__input.is-checked + .el-radio__label {
   color: #f56c6c !important;
+}
+
+.price-contact-table{
+  margin-top: 10px;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 </style>

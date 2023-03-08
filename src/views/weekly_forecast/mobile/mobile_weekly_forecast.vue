@@ -24,14 +24,14 @@
           <div class="head-part" v-on:click="isOpen(index)" >
             <el-row>
               <el-col :span="2" class="arrow">
-                <img  :src="require('@/assets/images/uc_rarr.png')"  alt="right-arrow" v-if="openOrClose[index]==true">
-                <img :src="require('@/assets/images/arrdn.png')"  alt="down-arrow" v-else>
+                <img  :src="require('@/assets/images/arrdn.svg')" width="16" alt="right-arrow" v-if="openOrClose[index]==true">
+                <img :src="require('@/assets/images/arrdn.svg')" width="16" style="transform: rotate(270deg);"  alt="down-arrow" v-else>
               </el-col>
               <el-col :span="21">
                 <el-row>
                   <el-col :span="3" >
                     <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                    <img class="image-size" :src="require('@/assets/images/industry2.png')" alt="industry-icon" v-else>
+                    <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
                   </el-col>
                   <el-col :span="15" >
                     <span style="font-size: 17px;color:#333333;font-weight: bold;">{{item.name}}</span>

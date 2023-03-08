@@ -14,10 +14,10 @@
             <router-link to="/">首页</router-link>
           </li>
           <li>
-            <router-link to="/">典型应用</router-link>
+            <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>
           </li>
           <li>
-            <router-link to="/personal_center" class="navcurr">个人中心</router-link>
+            <router-link to="/personal_center">个人中心</router-link>
           </li>
         </ul>
       </el-col>
@@ -42,12 +42,14 @@
           <div class="head-part" v-on:click="isOpen(index)" >
             <el-row>
               <el-col :span="1" :offset="1" class="arrow" >
-                <img :src="require('@/assets/images/uc_rarr.png')" alt="right-arrow" v-if="openOrClose[index]==true">
-                <img :src="require('@/assets/images/arrdn.png')" alt="down-arrow" v-else>
+                <img :src="require('@/assets/images/arrdn.svg')" alt="right-arrow" width="16"
+                     v-if="openOrClose[index]==true" >
+                <img :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" width="16"
+                     style="transform: rotate(270deg);" v-else>
               </el-col>
               <el-col :span="1" >
                 <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                <img class="image-size" :src="require('@/assets/images/industry2.png')" alt="industry-icon" v-else>
+                <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
               </el-col>
               <el-col :span="4" :offset="1">
                 <span style="font-size: 19px;color:#333333;font-weight: 700;">{{item.name}}</span>
