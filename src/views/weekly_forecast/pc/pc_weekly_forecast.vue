@@ -16,7 +16,11 @@
           <li>
             <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>
           </li>
-          <li>
+
+          <li v-if="loginState==false"><a v-on:click="homelogin" class="navregbtn"
+                                          style=" visibility: visible;">登录</a>
+          </li>
+          <li v-else>
             <router-link to="/personal_center">个人中心</router-link>
           </li>
         </ul>
@@ -110,11 +114,14 @@
 </template>
 
 <script>
+import {login, loginStatus} from "../../../api/login";
+
 export default {
   name: "pc_weekly_forecast",
   data() {
     return{
       openOrClose:[false],
+      loginState: false, //登录状态，初始时设为未登录
     }
   },
   computed:{
@@ -157,10 +164,16 @@ export default {
         return 'color:  #333333'
       }
     },
-
-
-
-
+    //登录
+    homelogin() {
+      login()
+    },
+    // 判断登录状态
+    getLoginState() {
+      loginStatus().then(res => {
+        this.loginState = res.login_status;
+      });
+    },
   }
 }
 </script>
@@ -248,5 +261,24 @@ export default {
 }
 a {
   text-decoration: none;
+}
+
+a.navregbtn {
+  color: #f94446;
+  padding: 0;
+  background: #fff;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: block;
+  border-radius: 20px;
+  animation-name: pulse;
+  font-weight: bold;
+}
+
+a.navregbtn:hover {
+  color: #fb6770;
+  border-bottom: none;
 }
 </style>

@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { isMobileTerminal } from './flexible'
+import { ElMessage } from 'element-plus'
+
 // 创建axios实例
 const request = axios.create({
     withCredentials: true,
@@ -63,14 +65,21 @@ request.interceptors.response.use(
             let loginRedirectUrl = response.data.content;
             window.open(loginRedirectUrl, "_self" )
         } else {
-            console.log(res.code+' : '+res.msg)
-            if (res.code !== '200' && res.code != 20000) {
-                // 后期可优化为响应一个MessageBox
-                this.$message({
-                    type: 'warning',
-                    message: res.msg
-                });
-                console.log('res.code不为200或20000')
+            if (res.code !== '200' && res.code !== 20000) {
+                console.log('res.code:'+res.code+',res.msg:'+res.msg)
+                if(res.msg === undefined){
+                    // 后期可优化为响应一个MessageBox
+                    ElMessage({
+                        type: 'warning',
+                        message: 'res.code:'+res.code
+                    });
+                } else{
+                    // 后期可优化为响应一个MessageBox
+                    ElMessage({
+                        type: 'warning',
+                        message: res.msg
+                    });
+                }
                 // window.alert(res.msg)
                 return Promise.reject('error')
             } else {
