@@ -117,7 +117,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.screenHeight)
     this.getCSRFTokenMethod();
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动

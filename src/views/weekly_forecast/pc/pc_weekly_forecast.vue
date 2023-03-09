@@ -17,7 +17,7 @@
             <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>
           </li>
 
-          <li v-if="loginState==false"><a v-on:click="homelogin" class="navregbtn"
+          <li v-if="loginState===false"><a v-on:click="homelogin" class="navregbtn"
                                           style=" visibility: visible;">登录</a>
           </li>
           <li v-else>
@@ -116,6 +116,7 @@
 <script>
 import { loginStatus} from "../../../api/login";
 import config from '@/config'
+import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "pc_weekly_forecast",
@@ -141,8 +142,15 @@ export default {
   beforeUnmount() {
     document.body.removeAttribute('style')
   },
-
+  mounted() {
+    this.getCSRFTokenMethod();
+    this.getLoginState();
+  },
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     isOpen : function(index) {
       this.openOrClose[index]=!this.openOrClose[index]
       console.log(index,this.openOrClose[index])

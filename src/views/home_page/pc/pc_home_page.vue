@@ -19,10 +19,10 @@
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
           <!--        活动广场不在本页，需跳转-->
           <li><a v-on:click="toActivitySquare" id="nav_square"  class="hand">活动广场</a></li>
-          <li v-if="loginState==false"><a v-on:click="homelogin" class="navregbtn animated"
+          <li v-if="loginState===false"><a v-on:click="homelogin" class="navregbtn animated hand"
                                           style=" visibility: visible;">登录</a>
           </li>
-          <li v-if="loginState==true"><a v-on:click="toPersonalCenter">个人中心</a>
+          <li v-else><a v-on:click="toPersonalCenter" class="hand">个人中心</a>
           </li>
         </ul>
       </el-col>

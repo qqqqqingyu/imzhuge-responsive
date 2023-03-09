@@ -110,6 +110,7 @@ export default {
   border-radius: 18px;
   border: solid rgba(215, 215, 215, 1) 1px;
   padding: 15px 10px 15px;
+  margin-bottom: 20px;
 }
 
 .over_state {
