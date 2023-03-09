@@ -564,7 +564,7 @@
 
 <script>
 import {WOW} from 'wowjs'
-import {login, loginStatus} from "@/api/login";
+import { loginStatus} from "@/api/login";
 import {getCSRFToken} from '@/api/token'
 import config from '@/config'
 
@@ -617,7 +617,7 @@ export default {
 
     //登录
     homelogin() {
-      login()
+      window.location.href = config.serverUrl+'/login?from_server=new'
     },
     // 判断登录状态
     getLoginState() {
