@@ -18,7 +18,7 @@
           <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
           <!--        活动广场不在本页，需跳转-->
-          <!--        <li><router-link to="/MonthlyForecast_introduce" id="nav_square"  class="hand">活动广场</router-link></li>-->
+          <li><a v-on:click="toActivitySquare" id="nav_square"  class="hand">活动广场</a></li>
           <li v-if="loginState==false"><a v-on:click="homelogin" class="navregbtn animated"
                                           style=" visibility: visible;">登录</a>
           </li>
@@ -566,7 +566,7 @@
 import {WOW} from 'wowjs'
 import {login, loginStatus} from "@/api/login";
 import {getCSRFToken} from '@/api/token'
-// import config from '@/config'
+import config from '@/config'
 
 export default {
   name: "pc_home_page",
@@ -624,6 +624,10 @@ export default {
       loginStatus().then(res => {
         this.loginState = res.login_status;
       });
+    },
+    //跳转活动广场
+    toActivitySquare(){
+      window.location.href = config.serverUrl+'/activity/'
     },
     // 跳转个人中心
     toPersonalCenter() {

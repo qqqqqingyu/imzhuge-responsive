@@ -81,7 +81,7 @@
     </el-row>
 <!--    免责声明-->
     <el-row>
-      <el-col :span="5" :offset="10">
+      <el-col :span="20" :offset="2" style="text-align: center;">
         <span class="res_deceleration" onclick="res_deceleration()">
         免责声明
       </span>
@@ -220,8 +220,9 @@ export default {
 }
 /*免责声明*/
 .res_deceleration{
-  bottom: 60px;
-  position: fixed;
+  /*bottom: 60px;*/
+  /*position: fixed;*/
+  padding-bottom: 60px;
 }
 .detail__inner{
   padding-top:45%;

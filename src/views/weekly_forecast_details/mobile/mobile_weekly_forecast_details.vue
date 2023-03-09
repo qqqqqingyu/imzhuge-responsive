@@ -29,7 +29,7 @@
                 <el-col :span="20">
                   <el-radio-group v-model="barRadio" class="radio-bg" v-if="chartOrTable=='chart'">
                     <el-radio-button class="industry-radio" label="价格" @click="toPrice"></el-radio-button>
-                    <el-radio-button class="industry-radio" label="合约" @click="toContract"></el-radio-button>
+                    <el-radio-button class="industry-radio" label="拥有合约数" @click="toContract"></el-radio-button>
                   </el-radio-group>
                 </el-col>
 

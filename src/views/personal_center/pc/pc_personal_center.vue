@@ -34,19 +34,22 @@
       <el-col :span="1" :offset="6">
         <img src="@/assets/images/wealth.svg" height="40" alt="财富">
       </el-col>
-      <el-col :span="2" class="info-box">
-        <p>个人财富</p>
+      <el-col :span="3" class="info-box right-line">
+        <p class="center-vertically">
+          <span>个人财富</span>
+          <button class="cash-withdrawal-btn" v-on:click="toWithdraw">提现</button>
+        </p>
         <p><span class="value">{{ numFilter(myActivity.coin, 2) }}</span> <span class="unit">诸葛贝</span></p>
       </el-col>
 
-      <el-col :span="1">
-        <div class="right-line"></div>
-      </el-col>
+<!--      <el-col :span="1">-->
+<!--        <div class="right-line"></div>-->
+<!--      </el-col>-->
 
-      <el-col :span="1">
+      <el-col :span="1" style="padding-left: 3%">
         <img src="@/assets/images/transactions.svg" height="40" alt="交易次数">
       </el-col>
-      <el-col :span="3" class="info-box">
+      <el-col :span="3" class="info-box" style="padding-left: 4%;">
         <p>交易次数</p>
         <p><span class="value">{{ myActivity.trade_times }}</span></p>
       </el-col>
@@ -86,6 +89,7 @@
 
 <script>
 import {getCSRFToken} from '@/api/token'
+import config from '@/config'
 
 export default {
   name: "pc_personal_center",
@@ -184,6 +188,10 @@ export default {
     },
     handleResize() {
       this.screenHeight = window.innerHeight
+    },
+    //去提现
+    toWithdraw(){
+      window.location.href = config.serverUrl+'/selfcenter/tocash/'
     }
   },
   // 滚动之前重置
@@ -220,6 +228,7 @@ export default {
   color: #FFFFFF;
   line-height: 25px;
   transform: translateY(-5%);
+
 }
 
 .info-box p {
@@ -239,7 +248,7 @@ export default {
 .right-line {
   border-right: solid 1px #fff;
   height: 50px;
-  width: 50%;
+  /*width: 50%;*/
 }
 
 .left-content {
@@ -285,5 +294,37 @@ export default {
 
 #link-activity {
   color: #FF697B;
+}
+
+.cash-withdrawal-btn{
+  display: inline-block;
+  line-height: 1;
+  min-height: 27px;
+  white-space: nowrap;
+  cursor: pointer;
+  background: rgba(255,255,255,0.9);
+  color: #FA605F;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: 0;
+  margin-left: 10px;
+  -webkit-transition: .1s;
+  transition: .1s;
+  font-weight: 500;
+  padding: 0 4px;
+  font-size: 12px;
+  border-radius: 4px;
+  text-align: center;
+  border: 1px solid #DCDFE6;
+}
+
+.cash-withdrawal-btn:hover{
+  background-color: rgba(255,246,245,0.9);
+  border: 1px solid #FA605F;
+}
+
+.cash-withdrawal-btn:active{
+  border: 1px solid #C8313A;
 }
 </style>
