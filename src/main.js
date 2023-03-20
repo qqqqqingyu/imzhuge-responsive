@@ -16,5 +16,12 @@ createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
 router.beforeEach((to, from, next) => {
     //路由发生改变时,触发
     window.document.title = to.meta.title == undefined ? '默认标题' : to.meta.title
+    // // chrome
+    // document.body.scrollTop = 0
+    // // firefox
+    // document.documentElement.scrollTop = 0
+    // // safari
+    // window.pageYOffset = 0
     next();
 })
+

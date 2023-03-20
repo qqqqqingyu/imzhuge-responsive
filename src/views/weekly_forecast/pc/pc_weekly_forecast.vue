@@ -28,7 +28,7 @@
     </el-row>
     <!--    导航栏结束-->
 
-    <el-row style="margin-top: 80px">
+    <el-row style="padding-top: 80px">
       <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
         <span>您当前的位置：</span>
         <span style="font-size: 20px;margin-left: 5px;color:#555555">行业个股收益率预测</span>
@@ -171,6 +171,7 @@ export default {
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
+    // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
     },
@@ -198,8 +199,11 @@ export default {
     },
     // 判断登录状态
     getLoginState() {
+      // 获取登录状态
+      console.log('获取登录状态')
       loginStatus().then(res => {
         this.loginState = res.login_status;
+        console.log('登录状态：'+this.loginState)
       });
     },
   }
