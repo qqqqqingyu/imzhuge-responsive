@@ -62,19 +62,19 @@
                   </el-col>
                 </el-row>
                 <el-row style="margin-top: 8px">
-                  <el-col :span="5">
+                  <el-col :span="10">
                     <span>活动状态</span>
                   </el-col>
-                  <el-col :span="16" :offset="1">
+                  <el-col :span="12" :offset="1">
                     <span class="over_state" v-if="item.status">已结束</span>
                     <span class="ing_state" v-else>进行中</span>
                   </el-col>
                 </el-row>
                 <el-row style="margin-top: 8px">
-                  <el-col :span="5">
-                    <span>活动收益</span>
+                  <el-col :span="10">
+                    <span>活动净收益（诸葛贝）</span>
                   </el-col>
-                  <el-col :span="16" :offset="1">
+                  <el-col :span="12" :offset="1">
                     <span v-if="item.status">{{numFilter(item.earnings,2)}}</span>
                     <span style="color:#7F7F7F;" v-else>活动进行中</span>
                   </el-col>
@@ -140,7 +140,7 @@ export default {
 <style scoped>
 .container{
   margin-top: 20px;
-  margin-bottom:25px;
+  padding-bottom:60px;
 }
 .user_info_box{
   background-color: #ffffff;

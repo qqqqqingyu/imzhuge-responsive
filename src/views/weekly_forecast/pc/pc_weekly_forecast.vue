@@ -68,11 +68,11 @@
                     text-color="#ff9900">
                 </el-rate>
               </el-col>
-              <el-col :span="5" >
-                <span style="color: #AAAAAA;margin-right: 5px;font-size: 18px">NO.1</span>
-                <span class="no1-company">{{item.no1}}</span>
-              </el-col>
-              <el-col :span="2" :offset="1">
+<!--              <el-col :span="5" >-->
+<!--                <span style="color: #AAAAAA;margin-right: 5px;font-size: 18px">NO.1</span>-->
+<!--                <span class="no1-company">{{item.no1}}</span>-->
+<!--              </el-col>-->
+              <el-col :span="2" :offset="6">
                 <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
                   <span style="color: #ff697b;font-weight: bold;padding: 0px;font-size: 15px">查看 ></span>
                 </router-link>
@@ -86,13 +86,9 @@
                   class="el-table"
                   :data=item.list
                   :show-header=false
-                  :row-class-name="rowClassName"
+
                   :cell-style="cellStyle">
-                <el-table-column
-                    prop="id"
-                    label="序列"
-                >
-                </el-table-column>
+
                 <el-table-column
                     prop="company"
                     label="公司">
@@ -155,16 +151,12 @@ export default {
       this.openOrClose[index]=!this.openOrClose[index]
       console.log(index,this.openOrClose[index])
     },
-    // 为表格加上行号
-    rowClassName({row, rowIndex}) {
-      //把每一行的索引放进row.id
-      row.id = rowIndex+1;
-    },
+
     // 表格单列颜色
     cellStyle ({columnIndex }) {
       // 状态列字体颜色
-      if(columnIndex === 2){
-        return 'color: #7F7F7F'
+      if(columnIndex === 1){
+        return 'color: #7F7F7F;text-align: center;width:50%'
       }
       if(columnIndex === 0){
         return 'color:  #333333;text-align: center;width:50%'

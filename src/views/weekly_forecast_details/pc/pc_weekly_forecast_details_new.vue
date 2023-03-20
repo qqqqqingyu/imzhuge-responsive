@@ -87,7 +87,7 @@
                         sortable
                         column-key="predict_share"
                         prop="predict_share"
-                        label="拥有的合约数"
+                        label="我拥有的合约数"
                         min-width="100%">
                     </el-table-column>
                   </el-table>
@@ -531,7 +531,7 @@ export default {
           },
           series: [
             {
-              name:'合约（按降序排列）',
+              name:'我拥有的合约数（按降序排列）',
               data: this.barContractArr,
               type: 'bar',
               color: '#FF8383',

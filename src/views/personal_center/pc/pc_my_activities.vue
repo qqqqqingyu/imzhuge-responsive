@@ -21,8 +21,8 @@
           <span class="over_state" v-if="item.status">已结束</span>
           <span class="ing_state" v-else>进行中</span>
         </el-col>
-        <el-col :span="6">
-          <span style="font-size: 13px">活动收益</span>
+        <el-col :span="12">
+          <span style="font-size: 13px">活动净收益（诸葛贝）</span>
         </el-col>
         <el-col :span="10" :offset="1">
           <span v-if="item.status" style="font-size: 13px">

@@ -29,7 +29,7 @@
                 <el-col :span="20">
                   <el-radio-group v-model="barRadio" class="radio-bg" v-if="chartOrTable=='chart'">
                     <el-radio-button class="industry-radio" label="价格" @click="toPrice"></el-radio-button>
-                    <el-radio-button class="industry-radio" label="拥有合约数" @click="toContract"></el-radio-button>
+                    <el-radio-button class="industry-radio" label="我拥有的合约数" @click="toContract"></el-radio-button>
                   </el-radio-group>
                 </el-col>
 
@@ -73,7 +73,7 @@
                         sortable
                         column-key="predict_share"
                         prop="predict_share"
-                        label="拥有的合约数"
+                        label="我拥有的合约数"
                         min-width="100%">
                     </el-table-column>
                   </el-table>
@@ -651,6 +651,7 @@ export default {
 .submit-btn {
   text-align: center;
   margin-top: 10px;
+  padding-bottom: 30px;
 }
 
 #priceBar {
