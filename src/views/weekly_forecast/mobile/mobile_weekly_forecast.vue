@@ -12,85 +12,113 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-row style="margin-top: 20px">
-      <el-col :offset="1" :span="23">
-        <p style="font-size: 21px;font-weight: bold;color: #333333">行业列表</p>
-      </el-col>
-    </el-row>
-    <el-row style="margin-top: 10px;margin-bottom: 10px;">
-      <el-col :span="22" :offset="1">
-        <div class="industry" v-for="(item,index) in industryList"
-             :key="index">
-          <div class="head-part" v-on:click="isOpen(index)" >
+    <div class="activity_introduction">
+      <el-row style="margin-top: 20px">
+        <el-col :offset="1" :span="23">
+          <p style="font-size: 21px;font-weight: bold;color: #333333">活动简介</p>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 10px;margin-bottom: 10px;">
+        <el-col :span="22" :offset="1">
+          <div class="introduction">
             <el-row>
-              <el-col :span="2" class="arrow">
-                <img  :src="require('@/assets/images/arrdn.svg')" width="16" alt="right-arrow" v-if="openOrClose[index]==true">
-                <img :src="require('@/assets/images/arrdn.svg')" width="16" style="transform: rotate(270deg);"  alt="down-arrow" v-else>
-              </el-col>
-              <el-col :span="21">
-                <el-row>
-                  <el-col :span="3" >
-                    <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                    <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
-                  </el-col>
-                  <el-col :span="15" >
-                    <span style="font-size: 17px;color:#333333;font-weight: bold;">{{item.name}}</span>
-                    <!--                <i class="el-icon-caret-bottom" ></i>-->
-                  </el-col>
-                  <el-col :span="4" :offset="1">
-                    <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
-                      <span style="color: #ff697b;font-weight: bold;">查看 ></span>
-                    </router-link>
-                  </el-col>
-                </el-row>
-                <el-row style="margin-top: 10px;">
-                  <el-col  :span="3">
-                    <span style="color:#AAAAAA;font-size: 15px">热度</span>
-                  </el-col>
-                  <el-col :span="11" >
-                    <el-rate
-                        v-model=item.hot
-                        disabled
-                        text-color="#ff9900">
-                    </el-rate>
-                  </el-col>
-<!--                  <el-col :span="10" >-->
-<!--                    <span style="color: #AAAAAA;margin-right: 5px;font-size: medium">NO.1</span>-->
-<!--                    <span style="color: #FFFFFF;-->
-<!--                    font-size:12px;padding: 8px;background-color: #F75C4F;border-radius: 8px;">{{item.no1}}</span>-->
-<!--                  </el-col>-->
-                </el-row>
-              </el-col>
+              <p>该应用中AI算法和您共同完成对每个行业中的7家上市公司个股收盘价周度百分比变动从大到小进行排序。请您预测收盘价周度变动百分比哪一家上市公司会排第一？</p>
+            </el-row>
+            <el-row style="margin-top: 10px">
+              <p>个股收盘价周度百分比计算公式</p>
+            </el-row>
+            <el-row>
+              <img :src="require('@/assets/images/formula-weekly.png')" style="width: 100%;margin-top: 10px">
             </el-row>
 
           </div>
+        </el-col>
 
-          <div class="buttom-part" v-if="openOrClose[index]==true">
-            <el-row>
-              <el-table
-                  class="el-table"
-                  :data=item.list
-                  style="font-size: 13px;"
-                  :show-header=false
+      </el-row>
+    </div>
+<!--    行业列表部分-->
+    <div class="industry_list">
+      <el-row style="margin-top: 20px">
+        <el-col :offset="1" :span="23">
+          <p style="font-size: 21px;font-weight: bold;color: #333333">行业列表</p>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 10px;margin-bottom: 10px;">
+        <el-col :span="22" :offset="1">
+          <div class="industry" v-for="(item,index) in industryList"
+               :key="index">
+            <div class="head-part" v-on:click="isOpen(index)" >
+              <el-row>
+                <el-col :span="2" class="arrow">
+                  <img  :src="require('@/assets/images/arrdn.svg')" width="16" alt="right-arrow" v-if="openOrClose[index]==true">
+                  <img :src="require('@/assets/images/arrdn.svg')" width="16" style="transform: rotate(270deg);"  alt="down-arrow" v-else>
+                </el-col>
+                <el-col :span="21">
+                  <el-row>
+                    <el-col :span="3" >
+                      <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
+                      <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
+                    </el-col>
+                    <el-col :span="15" >
+                      <span style="font-size: 17px;color:#333333;font-weight: bold;">{{item.name}}</span>
+                      <!--                <i class="el-icon-caret-bottom" ></i>-->
+                    </el-col>
+                    <el-col :span="4" :offset="1">
+                      <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
+                        <span style="color: #ff697b;font-weight: bold;">查看 ></span>
+                      </router-link>
+                    </el-col>
+                  </el-row>
+                  <el-row style="margin-top: 10px;">
+                    <el-col  :span="3">
+                      <span style="color:#AAAAAA;font-size: 15px">热度</span>
+                    </el-col>
+                    <el-col :span="11" >
+                      <el-rate
+                          v-model=item.hot
+                          disabled
+                          text-color="#ff9900">
+                      </el-rate>
+                    </el-col>
+                    <!--                  <el-col :span="10" >-->
+                    <!--                    <span style="color: #AAAAAA;margin-right: 5px;font-size: medium">NO.1</span>-->
+                    <!--                    <span style="color: #FFFFFF;-->
+                    <!--                    font-size:12px;padding: 8px;background-color: #F75C4F;border-radius: 8px;">{{item.no1}}</span>-->
+                    <!--                  </el-col>-->
+                  </el-row>
+                </el-col>
+              </el-row>
 
-                  :cell-style="cellStyle">
+            </div>
 
-                <el-table-column
-                    prop="company"
-                    label="公司">
-                </el-table-column>
-                <el-table-column
-                    prop="stock_id"
-                    label="股票代码"
-                >
-                </el-table-column>
+            <div class="buttom-part" v-if="openOrClose[index]==true">
+              <el-row>
+                <el-table
+                    class="el-table"
+                    :data=item.list
+                    style="font-size: 13px;"
+                    :show-header=false
 
-              </el-table>
-            </el-row>
+                    :cell-style="cellStyle">
+
+                  <el-table-column
+                      prop="company"
+                      label="公司">
+                  </el-table-column>
+                  <el-table-column
+                      prop="stock_id"
+                      label="股票代码"
+                  >
+                  </el-table-column>
+
+                </el-table>
+              </el-row>
+            </div>
           </div>
-        </div>
-      </el-col>
-    </el-row>
+        </el-col>
+      </el-row>
+    </div>
+
   </div>
   <bottom-nav></bottom-nav>
 
@@ -198,6 +226,15 @@ export default {
 }
 a {
   text-decoration: none;
+}
+.introduction{
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  /*padding-top: 10px;*/
+  padding: 10px 15px;
+  color:#555555;
+  font-size: 15px;
+  margin-bottom: 0px;
 }
 
 

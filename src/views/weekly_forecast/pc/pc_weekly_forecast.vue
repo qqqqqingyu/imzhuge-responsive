@@ -34,77 +34,104 @@
         <span style="font-size: 20px;margin-left: 5px;color:#555555">行业个股收益率预测</span>
       </el-col>
     </el-row>
-    <el-row style="margin-top: 20px">
-      <el-col :span="9" :offset="2">
-        <span class="box-title">行业列表</span>
-      </el-col>
-    </el-row>
-    <el-row class="industry">
-      <el-col :span="20" :offset="2">
-        <div  v-for="(item,index) in industryList"
-             :key="index">
-          <div class="head-part" v-on:click="isOpen(index)" >
+    <div class="activity_introduction">
+      <el-row style="margin-top: 20px">
+        <el-col :offset="2" :span="9">
+          <p class="box-title">活动简介</p>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 10px;margin-bottom: 10px;">
+        <el-col :span="20" :offset="2">
+          <div class="introduction">
             <el-row>
-              <el-col :span="1" :offset="1" class="arrow" >
-                <img :src="require('@/assets/images/arrdn.svg')" alt="right-arrow" width="16"
-                     v-if="openOrClose[index]==true" >
-                <img :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" width="16"
-                     style="transform: rotate(270deg);" v-else>
-              </el-col>
-              <el-col :span="1" >
-                <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
-              </el-col>
-              <el-col :span="4" :offset="1">
-                <span style="font-size: 19px;color:#333333;font-weight: 700;">{{item.name}}</span>
-              </el-col>
-              <el-col  :span="1">
-                <span style="color:#AAAAAA;font-size: 18px">热度</span>
-              </el-col>
-              <el-col :span="6" >
-                <el-rate
-                    v-model=item.hot
-                    disabled
-                    text-color="#ff9900">
-                </el-rate>
-              </el-col>
-<!--              <el-col :span="5" >-->
-<!--                <span style="color: #AAAAAA;margin-right: 5px;font-size: 18px">NO.1</span>-->
-<!--                <span class="no1-company">{{item.no1}}</span>-->
-<!--              </el-col>-->
-              <el-col :span="2" :offset="6">
-                <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
-                  <span style="color: #ff697b;font-weight: bold;padding: 0px;font-size: 15px">查看 ></span>
-                </router-link>
-              </el-col>
+              <p>该应用中AI算法和您共同完成对每个行业中的7家上市公司个股收盘价周度百分比变动从大到小进行排序。请您预测收盘价周度变动百分比哪一家上市公司会排第一？</p>
             </el-row>
-          </div>
-
-          <div class="buttom-part" v-if="openOrClose[index]==true">
+            <el-row style="margin-top: 10px">
+              <p>个股收盘价周度百分比计算公式</p>
+            </el-row>
             <el-row>
-              <el-table
-                  class="el-table"
-                  :data=item.list
-                  :show-header=false
-
-                  :cell-style="cellStyle">
-
-                <el-table-column
-                    prop="company"
-                    label="公司">
-                </el-table-column>
-                <el-table-column
-                    prop="stock_id"
-                    label="股票代码"
-                >
-                </el-table-column>
-
-              </el-table>
+              <img :src="require('@/assets/images/formula-weekly.png')" style="width: 70%;margin: auto">
             </el-row>
+
           </div>
-        </div>
-      </el-col>
-    </el-row>
+        </el-col>
+
+      </el-row>
+    </div>
+    <div class="industry_list">
+      <el-row style="margin-top: 20px">
+        <el-col :span="9" :offset="2">
+          <span class="box-title">行业列表</span>
+        </el-col>
+      </el-row>
+      <el-row class="industry">
+        <el-col :span="20" :offset="2">
+          <div  v-for="(item,index) in industryList"
+                :key="index">
+            <div class="head-part" v-on:click="isOpen(index)" >
+              <el-row>
+                <el-col :span="1" :offset="1" class="arrow" >
+                  <img :src="require('@/assets/images/arrdn.svg')" alt="right-arrow" width="16"
+                       v-if="openOrClose[index]==true" >
+                  <img :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" width="16"
+                       style="transform: rotate(270deg);" v-else>
+                </el-col>
+                <el-col :span="1" >
+                  <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
+                  <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
+                </el-col>
+                <el-col :span="4" :offset="1">
+                  <span style="font-size: 19px;color:#333333;font-weight: 700;">{{item.name}}</span>
+                </el-col>
+                <el-col  :span="1">
+                  <span style="color:#AAAAAA;font-size: 18px">热度</span>
+                </el-col>
+                <el-col :span="6" >
+                  <el-rate
+                      v-model=item.hot
+                      disabled
+                      text-color="#ff9900">
+                  </el-rate>
+                </el-col>
+                <!--              <el-col :span="5" >-->
+                <!--                <span style="color: #AAAAAA;margin-right: 5px;font-size: 18px">NO.1</span>-->
+                <!--                <span class="no1-company">{{item.no1}}</span>-->
+                <!--              </el-col>-->
+                <el-col :span="2" :offset="6">
+                  <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
+                    <span style="color: #ff697b;font-weight: bold;padding: 0px;font-size: 15px">查看 ></span>
+                  </router-link>
+                </el-col>
+              </el-row>
+            </div>
+
+            <div class="buttom-part" v-if="openOrClose[index]==true">
+              <el-row>
+                <el-table
+                    class="el-table"
+                    :data=item.list
+                    :show-header=false
+
+                    :cell-style="cellStyle">
+
+                  <el-table-column
+                      prop="company"
+                      label="公司">
+                  </el-table-column>
+                  <el-table-column
+                      prop="stock_id"
+                      label="股票代码"
+                  >
+                  </el-table-column>
+
+                </el-table>
+              </el-row>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+
 
   </div>
 </template>
@@ -282,4 +309,14 @@ a.navregbtn:hover {
   color: #fb6770;
   border-bottom: none;
 }
+.introduction{
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  padding: 20px 15px 10px;
+  /*line-height: 25px !important;*/
+  color:#555555;
+  font-size: 17px;
+  margin-bottom: 0px;
+}
+
 </style>
