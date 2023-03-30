@@ -575,7 +575,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          min:this.yMin, //设置y轴最小值
+          // min:this.yMin, //设置y轴最小值
           splitLine: { //修改背景线条样式
             show: true,//是否展示
             lineStyle: {

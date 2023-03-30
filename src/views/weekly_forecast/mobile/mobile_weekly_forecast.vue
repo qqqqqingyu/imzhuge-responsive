@@ -21,14 +21,25 @@
       <el-row style="margin-top: 10px;margin-bottom: 10px;">
         <el-col :span="22" :offset="1">
           <div class="introduction">
-            <el-row>
-              <p>该应用中AI算法和您共同完成对每个行业中的7家上市公司个股收盘价周度百分比变动从大到小进行排序。请您预测收盘价周度变动百分比哪一家上市公司会排第一？</p>
-            </el-row>
-            <el-row style="margin-top: 10px">
-              <p>个股收盘价周度百分比计算公式</p>
-            </el-row>
-            <el-row>
-              <img :src="require('@/assets/images/formula-weekly.png')" style="width: 100%;margin-top: 10px">
+            <el-row class="introduction-content">
+              <el-col>
+                <p>该应用中AI算法和您共同完成对每个行业中的7家上市公司个股收盘价周度百分比变动从大到小进行排序。请您预测收盘价周度变动百分比哪一家上市公司会排第一？</p>
+              </el-col>
+              <el-col style="margin-top: 10px">
+                <p>个股收盘价周度百分比计算公式</p>
+              </el-col>
+            </el-row >
+            <el-row  class="my-formula center-vertically">
+              <el-col :span="10" class="right" style="max-width: 40%">个股收盘价周度百分比=</el-col>
+              <el-col :span="14" class="center">
+                <el-row>
+                  <el-col>
+                    {{startDay}}收盘价-{{endDay}}收盘价
+                  </el-col>
+                  <el-divider></el-divider>
+                  <el-col>{{endDay}}收盘价</el-col>
+                </el-row>
+              </el-col>
             </el-row>
 
           </div>
@@ -136,15 +147,20 @@ export default {
       //pictureList:pictures,
       pictureTree:'',
       openOrClose:[false],
-      openId:0,
+      openId:0
     }
   },
 
   computed:{
     industryList(){
-      return this.$store.getters.industryList
+      return this.$store.getters.industryList.data
     },
-
+    startDay(){
+      return this.$store.getters.industryList.start_day
+    },
+    endDay(){
+      return this.$store.getters.industryList.end_day
+    }
   },
   mounted() {
     this.getCSRFTokenMethod()
@@ -171,7 +187,7 @@ export default {
 
     isOpen : function(index) {
       this.openOrClose[index]=!this.openOrClose[index]
-      console.log(index,this.openOrClose[index])
+      // console.log(index,this.openOrClose[index])
     },
 
   },
@@ -230,12 +246,36 @@ a {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  /*padding-top: 10px;*/
-  padding: 10px 15px;
   color:#555555;
   font-size: 15px;
   margin-bottom: 0px;
 }
 
+.introduction-content{
+  padding-left: 10px;
+  padding-right:  10px;
+  padding-top: 10px;
+}
+
+.my-formula{
+  font-size: 9px;
+  text-align: center;
+  margin-top: 5px;
+  padding-left: 0;
+  padding-right: 6px;
+  padding-bottom: 10px;
+  margin-left: 3px;
+  color: #7F7F7F;
+}
+
+.my-formula >>> .el-divider--horizontal{
+  margin-top: 1px;
+  margin-bottom: 1px;
+  font-weight: 300;
+}
+
+.my-formula >>> .el-divider{
+  background: #7F7F7F;
+}
 
 </style>

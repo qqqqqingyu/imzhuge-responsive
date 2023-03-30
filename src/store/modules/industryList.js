@@ -26,9 +26,9 @@ export default {
          */
         async useIndustryListData(context) {
             const IndustryList = await getIndustryList().then((res) => {
-                return res.data
+                return res
             });
             context.commit('setIndustryList', IndustryList)
-        }
+        },
     }
 }

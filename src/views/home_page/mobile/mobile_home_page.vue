@@ -1,42 +1,81 @@
 <template>
   <div class="container">
 <!--    头部导航-->
-    <el-row class="head-part">
-      <el-col :offset="1" span="23">
-        <el-row>
-          <a href="https://www.imzhuge.com/" title="嗨皮诸葛" >
-            <img src="@/assets/images/logo.png" alt="嗨皮诸葛" style="width:60% "/>
-          </a>
-        </el-row>
-        <el-row style="margin-top: 20px">
-          <el-col :span="10">
-            <img src="@/assets/images/left-picture.png" alt="背景图片" style="width: 100%"/>
-          </el-col>
-          <el-col :span="13" :offset="1">
-            <el-row class="head-part-info">
+  <!--        interval计时器，轮播图展示时间-->
+    <el-carousel :interval="4000" class="carousel" height="200px">
+      <el-carousel-item>
+<!--        <img ref="bannerHeight" :src="item.src" style="width:100%" @load="imgLoad" />-->
+        <el-row  class="head-part">
+          <el-col :offset="1" span="23">
+            <el-row>
+              <a href="https://www.imzhuge.com/" title="嗨皮诸葛" >
+                <img src="@/assets/images/logo.png" alt="嗨皮诸葛" style="width:60% "/>
+              </a>
+            </el-row>
+            <el-row style="margin-top: 20px">
+              <el-col :span="10">
+                <img src="@/assets/images/left-picture.png" alt="背景图片" style="width: 100%"/>
+              </el-col>
+              <el-col :span="13" :offset="1">
+                <el-row class="head-part-info">
               <span>
                 做财经领域高水平的<br>人机融合预测平台
               </span>
-            </el-row>
-<!--            这里写的不太好-->
-            <el-row style="margin-top: 10px;">
-              <el-col :span="19">
-                <el-button round class="to-activitySquare"  size="small" v-on:click="toActivitySquare">
-                  <el-col :span="16" :offset="2">
-                    <el-row class="to-activitySquare-contain" >体验预测市场</el-row>
-                    <el-row class="to-activitySquare-contain" style="font-size: 12px;margin-top: 5px">（原活动广场）</el-row>
+                </el-row>
+                <!--            这里写的不太好-->
+                <el-row style="margin-top: 10px;">
+                  <el-col :span="19">
+                    <el-button round class="to-activitySquare"  size="small" v-on:click="toActivitySquare">
+                      <el-col :span="16" :offset="2">
+                        <el-row class="to-activitySquare-contain" >体验预测市场</el-row>
+                        <el-row class="to-activitySquare-contain" style="font-size: 12px;margin-top: 5px">（原活动广场）</el-row>
+                      </el-col>
+                      <el-col :span="4" :offset="2">
+                        <img src="@/assets/images/two-right-arrow.svg" alt="前往原活动广场" style="width: 150%"/>
+                      </el-col>
+                    </el-button>
                   </el-col>
-                  <el-col :span="4" :offset="2">
-                    <img src="@/assets/images/two-right-arrow.svg" alt="前往原活动广场" style="width: 150%"/>
-                  </el-col>
-                </el-button>
-              </el-col>
 
+                </el-row>
+              </el-col>
             </el-row>
           </el-col>
         </el-row>
-      </el-col>
-    </el-row>
+      </el-carousel-item>
+      <el-carousel-item>
+        <!--        <img ref="bannerHeight" :src="item.src" style="width:100%" @load="imgLoad" />-->
+        <el-row  class="head-part">
+          <el-col :offset="1" :span="23">
+            <el-row>
+              <a href="https://www.imzhuge.com/" title="嗨皮诸葛" >
+                <img src="@/assets/images/logo.png" alt="嗨皮诸葛" style="width:60% "/>
+              </a>
+            </el-row>
+            <el-row>
+              <el-col :span="14" :offset="1" class="introduction">
+                <span>
+                  小诸葛带你<br>秒懂平台操作与奖金分配
+                </span>
+              </el-col>
+              <el-col :span="4">
+                <img src="@/assets/images/web_logo.png" height="80" alt="logo">
+              </el-col>
+            </el-row>
+            <el-row style="margin-top: 5px">
+              <el-col :span="11" :offset="3" class="banner-btn center" @click="toProcess()">
+                一图了解活动流程 >>
+              </el-col>
+              <el-col :span="7" :offset="1" class="banner-btn center" @click="toGuide">
+                新人引导 >>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
+
+
+
+      </el-carousel-item>
+    </el-carousel>
 <!--    典型应用-->
     <el-row>
       <el-col :span="22" :offset="1">
@@ -115,6 +154,11 @@ import {getCSRFToken} from '@/api/token'
 export default {
   name: "mobile_home_page",
   components:{bottomNav},
+  data(){
+    return{
+      bannerHeight:200,
+    }
+  },
   mounted() {
     this.getCSRFTokenMethod()
   },
@@ -127,6 +171,9 @@ export default {
     })
   },
   methods:{
+    toGuide(){
+      window.location.href = 'https://m.imzhuge.com/new/'
+    },
     res_deceleration() {
       document.getElementById("detail-board-front").style.display = "block"
     },
@@ -144,6 +191,11 @@ export default {
     },
     toActivitySquare(){
       window.location.href = config.serverUrl+'/activity/'
+    },
+    toProcess(){
+      this.$router.push({
+        path:'/process',
+      })
     }
   },
   // 设置背景
@@ -164,6 +216,7 @@ export default {
 @import '../../../assets/CSS/homepage_common.css';
 /*头部部分*/
 .head-part{
+  height: 200px;
   padding-top: 10px;
   padding-bottom: 20px;
   background: #F4AB46;  /* fallback for old browsers */
@@ -226,5 +279,18 @@ export default {
 }
 .detail__inner{
   padding-top:45%;
+}
+
+.introduction{
+  font-size: 18px;
+  color: #FFFFFF;
+  padding-top: 30px;
+}
+
+.banner-btn{
+  background: rgb(254,250,245);
+  color: rgb(236,115,109);
+  border-radius: 20px;
+  padding: 5px 8px;
 }
 </style>

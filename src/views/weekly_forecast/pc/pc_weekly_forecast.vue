@@ -49,10 +49,19 @@
             <el-row style="margin-top: 10px">
               <p>个股收盘价周度百分比计算公式</p>
             </el-row>
-            <el-row>
-              <img :src="require('@/assets/images/formula-weekly.png')" style="width: 70%;margin: auto">
+            <el-row  class="my-formula center-vertically">
+              <el-col :span="10" class="right" >个股收盘价周度百分比&nbsp;=&nbsp;</el-col>
+              <el-col :span="10" class="center">
+                <el-row>
+                  <el-col>
+                    {{startDay}}收盘价&nbsp;-&nbsp;{{endDay}}收盘价
+                  </el-col>
+                  <el-divider></el-divider>
+                  <el-col>{{endDay}}收盘价</el-col>
+                </el-row>
+              </el-col>
             </el-row>
-
+<!--            <img :src="require('@/assets/images/formula-weekly.png')" style="width: 70%;margin: auto">-->
           </div>
         </el-col>
 
@@ -146,14 +155,19 @@ export default {
   data() {
     return{
       openOrClose:[false],
-      loginState: false, //登录状态，初始时设为未登录
+      loginState: '', //登录状态，初始时设为未登录
     }
   },
   computed:{
     industryList(){
-      return this.$store.getters.industryList
+      return this.$store.getters.industryList.data
     },
-
+    startDay(){
+      return this.$store.getters.industryList.start_day
+    },
+    endDay(){
+      return this.$store.getters.industryList.end_day
+    }
   },
   // 设置背景
   beforeCreate() {
@@ -200,10 +214,8 @@ export default {
     // 判断登录状态
     getLoginState() {
       // 获取登录状态
-      console.log('获取登录状态')
       loginStatus().then(res => {
         this.loginState = res.login_status;
-        console.log('登录状态：'+this.loginState)
       });
     },
   }
@@ -323,4 +335,23 @@ a.navregbtn:hover {
   margin-bottom: 0px;
 }
 
+
+.my-formula{
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 0;
+  color: #7F7F7F;
+}
+
+.my-formula >>> .el-divider--horizontal{
+  margin-top: 1px;
+  margin-bottom: 1px;
+  font-weight: 300;
+}
+
+.my-formula >>> .el-divider{
+  background: #7F7F7F;
+}
 </style>

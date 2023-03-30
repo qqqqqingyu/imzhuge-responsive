@@ -45,6 +45,15 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/process',
+        name: 'process',
+        component: () => import('@/views/process/process.vue'),
+        meta: {
+            title: '交易流程',
+            keepAlive: true, // 需要被缓存
+        }
+    },
 
 
 
