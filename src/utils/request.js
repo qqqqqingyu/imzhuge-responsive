@@ -88,7 +88,11 @@ request.interceptors.response.use(
         }
     },
     error => {
-        console.log('err: ' + error)
+        if (error.response.status === 401) {
+            window.location.href = error.response.headers.location
+            return
+        }
+        // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe8f44e9ecc5eb254&redirect_uri=http://m.imzhuge.com/wechat/weChatLogin?from_url=http://www.imzhuge.com&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
         return Promise.reject(error)
     }
 )

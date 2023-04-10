@@ -19,7 +19,7 @@
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
           <!--        活动广场不在本页，需跳转-->
           <li><a v-on:click="toActivitySquare" id="nav_square"  class="hand">活动广场</a></li>
-          <li v-if="loginState===false"><a v-on:click="homelogin" class="navregbtn animated hand"
+          <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn wow pulse animated hand"
                                           style=" visibility: visible;">登录</a>
           </li>
           <li v-else><a v-on:click="toPersonalCenter" class="hand">个人中心</a>
@@ -557,14 +557,12 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 
 <script>
 import {WOW} from 'wowjs'
-import { loginStatus} from "@/api/login";
 import {getCSRFToken} from '@/api/token'
 import config from '@/config'
 
@@ -582,11 +580,15 @@ export default {
         // {id: 2, src: require('@/assets/images/carousel_2.png')},
         {id: 2, src: require('@/assets/images/carousel_31.png')}
       ],
-      loginState: false, //登录状态，初始时设为未登录
       typical_filter: 0
     }
   },
-  created: function () {
+  computed:{
+    loginStatus(){
+      return this.$store.getters.loginStatus
+    },
+  },
+  created() {
     window.showUnderline = this.showUnderline;
     window.res_deceleration = this.res_deceleration;
     window.res_close = this.res_close;
@@ -618,12 +620,6 @@ export default {
     //登录
     homelogin() {
       window.location.href = config.serverUrl+'/login?from_server=new'
-    },
-    // 判断登录状态
-    getLoginState() {
-      loginStatus().then(res => {
-        this.loginState = res.login_status;
-      });
     },
     //跳转活动广场
     toActivitySquare(){
@@ -678,7 +674,7 @@ export default {
   mounted() {
     this.getCSRFTokenMethod();
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
-    this.getLoginState();
+
     // this.imgLoad();
     // 视口发生变化时，高度赋值给bannerHeight
     window.addEventListener('resize', () => {

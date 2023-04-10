@@ -16,7 +16,7 @@ export function login() {
     })
 }
 
-export function loginStatus() {
+export function getLoginStatus() {
     return request({
         url:serverUrl+'/api/get_login_status',
         method:'get'

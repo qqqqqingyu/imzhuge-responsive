@@ -20,7 +20,8 @@ export default {
   },
   mounted() {
     const store = useStore()
-    // 触发 category 数据获取动作
+    // 触发数据获取动作
+    store.dispatch('loginStatus/useLoginStatusData')
     store.dispatch('industryList/useIndustryListData')
   },
   methods: {
@@ -28,7 +29,6 @@ export default {
     isMobileTerminal() {
       isMobileTerminal();
     },
-
   },
 
 }

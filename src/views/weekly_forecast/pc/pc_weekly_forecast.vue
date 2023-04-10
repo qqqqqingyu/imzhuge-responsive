@@ -17,7 +17,7 @@
             <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>
           </li>
 
-          <li v-if="loginState===false"><a v-on:click="homelogin" class="navregbtn"
+          <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"
                                           style=" visibility: visible;">登录</a>
           </li>
           <li v-else>
@@ -54,10 +54,10 @@
               <el-col :span="10" class="center">
                 <el-row>
                   <el-col>
-                    {{startDay}}收盘价&nbsp;-&nbsp;{{endDay}}收盘价
+                    {{endDay}}收盘价&nbsp;-&nbsp;{{startDay}}收盘价
                   </el-col>
                   <el-divider></el-divider>
-                  <el-col>{{endDay}}收盘价</el-col>
+                  <el-col>{{startDay}}收盘价</el-col>
                 </el-row>
               </el-col>
             </el-row>
@@ -146,19 +146,21 @@
 </template>
 
 <script>
-import { loginStatus} from "../../../api/login";
 import config from '@/config'
 import {getCSRFToken} from '@/api/token'
+import {WOW} from "wowjs";
 
 export default {
   name: "pc_weekly_forecast",
   data() {
     return{
       openOrClose:[false],
-      loginState: '', //登录状态，初始时设为未登录
     }
   },
   computed:{
+    loginStatus(){
+      return this.$store.getters.loginStatus
+    },
     industryList(){
       return this.$store.getters.industryList.data
     },
@@ -181,7 +183,18 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod();
-    this.getLoginState();
+    new WOW().init();
+    //声明一个对象来配置动画效果参数
+    var wow = new WOW(
+        {
+          boxClass: 'wow',      // default
+          animateClass: 'animated', // default
+          offset: 150,          // default
+          mobile: false,       // default
+          live: false        // default
+        }
+    )
+    wow.init();
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -210,13 +223,6 @@ export default {
     //登录
     homelogin() {
       window.location.href = config.serverUrl+'/login?from_server=new'
-    },
-    // 判断登录状态
-    getLoginState() {
-      // 获取登录状态
-      loginStatus().then(res => {
-        this.loginState = res.login_status;
-      });
     },
   }
 }

@@ -7,6 +7,7 @@ export default  {
     industryDetail:(state)=>state.industryDetail.industryDetail,
     myActivity:(state)=>state.myActivity.myActivity,
     myInfoDetails:(state)=>state.myInfoDetails.myInfoDetails,
+    loginStatus:(state)=>state.loginStatus.loginStatus,
     //获取token方法
     //判断是否有token,如果没有重新赋值，返回给state的token
     getToken(state) {

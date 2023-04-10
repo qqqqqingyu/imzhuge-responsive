@@ -34,10 +34,10 @@
               <el-col :span="14" class="center">
                 <el-row>
                   <el-col>
-                    {{startDay}}收盘价-{{endDay}}收盘价
+                    {{endDay}}收盘价-{{startDay}}收盘价
                   </el-col>
                   <el-divider></el-divider>
-                  <el-col>{{endDay}}收盘价</el-col>
+                  <el-col>{{startDay}}收盘价</el-col>
                 </el-row>
               </el-col>
             </el-row>

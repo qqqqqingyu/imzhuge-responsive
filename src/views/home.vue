@@ -545,7 +545,7 @@
 
 <script>
 import {WOW} from 'wowjs'
-import {login, loginStatus} from "@/api/login";
+import {login, getLoginStatus} from "@/api/login";
 import config from '@/config'
 
 export default {
@@ -596,7 +596,7 @@ export default {
     },
     // 判断登录状态
     getLoginState() {
-      loginStatus().then(res => {
+      getLoginStatus().then(res => {
         this.loginState = res.login_status;
       });
     },
