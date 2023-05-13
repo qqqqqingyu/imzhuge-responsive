@@ -32,9 +32,9 @@
       </el-col>
     </el-row>
 
-    <el-row class="industry-box title-box">
-      <el-col :span="9" :offset="2">
-        <span class="box-title">
+    <el-row class="industry-box">
+      <el-col :span="9" :offset="2" class="box-title">
+        <span>
           {{industryDetailData.industry}}行业</span>
       </el-col>
       <el-col :span="11" class="industry-month">
@@ -43,8 +43,8 @@
     </el-row>
 
     <el-row>
-      <el-col :span="20" :offset="2" class="industry-tab">
-        <el-tabs @tab-click="handleClick" v-model="activeName">
+      <el-col :span="20" :offset="2" class="my-tab">
+        <el-tabs @tab-click="handleClick" v-model="activeName1">
           <el-tab-pane label="整体情况" name="first">
               <el-row class="chart-and-table pc-card">
                 <!--                图标切换圆形按钮-->
@@ -111,15 +111,87 @@
       </el-col>
     </el-row>
 
-    <el-row class="participation-box">
-      <el-col :span="20" :offset="2">
-        <span class="box-title">参与交易</span>
+    <el-row class="box-title">
+      <el-col :span="9" :offset="2">
+        <span >
+          行业信息
+        </span>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="20" :offset="2" class="my-tab">
+        <el-tabs @tab-click="infoClick" v-model="activeName2">
+          <el-tab-pane label="指标排名" name="first">
+            <el-row class="pc-card my-card-pd">
+              <el-col class="grey-border" :span="8">
+                <el-row>
+                  <el-col class="center-vertically">
+                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                    <span class="part-title">指标</span>
+                  </el-col>
+
+                  <el-col class="my-tip">
+                    选择热力图展示的指标
+                  </el-col>
+
+                </el-row>
+              </el-col>
+              <el-col :span="16" ></el-col>
+            </el-row>
+          </el-tab-pane>
+
+          <el-tab-pane label="股票信息" name="second">
+            <el-row class="pc-card my-card-pd">
+              <el-col class="grey-border" :span="24">
+                <el-row>
+                  <el-col class="center-vertically">
+                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                    <span class="part-title">公司列表</span>
+                  </el-col>
+
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-tab-pane>
+
+          <el-tab-pane label="其他指标" name="third">
+            <el-row class="pc-card my-card-pd">
+              <el-col class="grey-border" :span="24">
+                <el-row>
+                  <el-col class="center-vertically">
+                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                    <span class="part-title">公司</span>
+                  </el-col>
+                  <el-col class="my-tip">
+                    选择展示的公司
+                  </el-col>
+
+                  <el-col class="center-vertically">
+                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                    <span class="part-title">指标</span>
+                  </el-col>
+                  <el-col class="my-tip">
+                    选择展示的指标
+                  </el-col>
+
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-tab-pane>
+        </el-tabs>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="20" :offset="2" class="box-title">
+        <span >参与交易</span>
       </el-col>
     </el-row>
 
     <el-row class="predict-form">
-      <el-col :span="20" :offset="2" class="pc-card">
-        <el-row style="padding: 20px 30px">
+      <el-col :span="20" :offset="2" class="pc-card my-card-pd">
+        <el-row>
             <el-col :span="24" class="predict-card ">
             <span>
               活动可用诸葛贝：{{numFilter(userCurrentMoney,2)}}
@@ -225,7 +297,8 @@ export default {
         background: "rgba(255, 255, 255, 0)",
         color: "rgba(255, 255, 255, 1)",
       },
-      activeName: 'first', //用于切换el-tabs
+      activeName1: 'first', //用于切换行业el-tabs
+      activeName2: 'first', //用于切换行业信息el-tabs
       barRadio: '价格', //用于切换价格和合约图的图标
       chartOrTable: 'chart', //用于切换图和表的图标
       priceOrContract: 'price',
@@ -251,7 +324,7 @@ export default {
   mounted() {
     this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
-    this.getIndustryDetailMethod();
+    // this.getIndustryDetailMethod();
   },
   // 设置背景
   beforeCreate() {
@@ -277,7 +350,7 @@ export default {
     toTable() {
       this.chartOrTable = 'table'
     },
-    //点击切换tab时调用该方法
+    //点击切换行业tab时调用该方法
     handleClick(tab) {
       if (tab.index == '0'){
         this.myEcharts1()//价格作图
@@ -286,7 +359,15 @@ export default {
       else if(tab.index == '1'){
         this.myEcharts3();
       }
+    },
+    //点击切换行业信息tab时调用该方法
+    infoClick(tab) {
+      if (tab.index == '0'){
 
+      }
+      else if(tab.index == '1'){
+
+      }
     },
     tdstyle({row, column, rowIndex}) {
       if (rowIndex === 0) {
@@ -665,6 +746,7 @@ export default {
 .box-title {
   font-size: 30px;
   font-weight: bolder;
+  margin-top: 20px;
 }
 
 .industry-month {
@@ -694,10 +776,6 @@ export default {
 .changed-btn {
   min-height: 40px;
   min-width: 40px;
-}
-
-.participation-box {
-  margin-top: 60px;
 }
 
 .company-select {
@@ -737,15 +815,19 @@ export default {
   height: 290px;
 }
 
+.my-tab{
+  margin-top: 10px;
+}
+
 /*覆盖element原有的样式开始*/
 
 /*切换活动项的字体颜色*/
-.industry-tab /deep/ .el-tabs__item.is-active {
+.my-tab /deep/ .el-tabs__item.is-active {
   color: #FA605F !important;
 }
 
 /*切换活动项的字体颜色*/
-.industry-tab /deep/ .el-tabs__item:hover {
+.my-tab /deep/ .el-tabs__item:hover {
   color: #FA605F !important;
 }
 
@@ -756,7 +838,7 @@ export default {
 }
 
 /*切换活动项的长条颜色*/
-.industry-tab /deep/ .el-tabs__active-bar {
+.my-tab /deep/ .el-tabs__active-bar {
   background-color: #FA605F !important;
 }
 
@@ -813,5 +895,25 @@ export default {
   margin-top: 10px;
   padding-left: 1%;
   padding-right: 1%;
+}
+
+.grey-border{
+  border: #DCDFE6 solid 1px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.my-card-pd{
+  padding: 30px;
+}
+
+.my-tip{
+  color: #7F7F7F;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.part-title{
+  font-size: 18px;
 }
 </style>

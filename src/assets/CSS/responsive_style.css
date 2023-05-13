@@ -83,6 +83,10 @@
     vertical-align: middle;
 }
 
+.my-icon{
+    margin-right: 5px;
+}
+
 .left{
     text-align: left;
 }
