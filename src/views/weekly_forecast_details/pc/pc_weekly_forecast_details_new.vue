@@ -134,17 +134,42 @@
                     选择热力图展示的指标
                   </el-col>
 
-                  <el-col>
-                    <el-checkbox-group v-model="heatFactors" class="my-checkbox predict-radio">
-                      <el-checkbox-button v-for="heatShowFactors in heatShowFactors" :label="heatShowFactors" :key="heatShowFactors" >{{heatShowFactors}}</el-checkbox-button>
-                    </el-checkbox-group>
+                  <el-col class="choose">
+                    <el-scrollbar style="height: 105px" class="my-scroll">
+                      <el-checkbox-group v-model="heatFactors" class="my-checkbox predict-radio">
+                        <el-checkbox-button v-for="heatShowFactors in heatShowFactors" :label="heatShowFactors" :key="heatShowFactors" >{{heatShowFactors}}</el-checkbox-button>
+                      </el-checkbox-group>
+                    </el-scrollbar>
+                    <el-divider></el-divider>
+                  </el-col>
+
+                  <el-col :span="16" style="line-height: 25px">
+                    <span style="font-size: 17px">{{ factorEng }}</span>
+                    <span style="font-size: 12px;color: #606266;margin-left: 10px">{{ factorTitle }}</span>
+                  </el-col>
+
+                  <el-col :span="8" class="right">
+                    <el-select v-model="factorEng" placeholder="请选择" size="mini">
+                      <el-option
+                          v-for="item in heatShowFactors"
+                          :key="item"
+                          :label="item"
+                          :value="item">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+
+                  <el-col class="info-part">
+                    <el-scrollbar style="height: 80px" class="my-scroll">
+                      {{factorInfo}}
+                    </el-scrollbar>
                   </el-col>
                 </el-row>
               </el-col>
 
               <el-col :span="15">
                 <div class="grey-border" style="margin-left: 2%">
-                  <div id="my-heatmap"></div>
+                  <div id="my-heat-map"></div>
                 </div>
               </el-col>
             </el-row>
@@ -157,6 +182,11 @@
                   <el-col class="center-vertically">
                     <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
                     <span class="part-title">公司列表</span>
+                  </el-col>
+
+                  <el-col :span="8"></el-col>
+                  <el-col :span="16">
+                      <div id="my-candle-stick"></div>
                   </el-col>
 
                 </el-row>
@@ -296,12 +326,13 @@
 <script>
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import {getCSRFToken} from '@/api/token'
-import echarts from "echarts";
+
 
 export default {
   name: "pc_weekly_forecast_details_new",
   data() {
     return {
+      echarts:'',
       // 导航栏样式
       headStyle: {
         background: "rgba(255, 255, 255, 0)",
@@ -327,13 +358,25 @@ export default {
       barCompanyArr: [],//直方图公司名数据
       barPriceArr: [],//直方图价格数据
       barContractArr: [],//直方图合约数据
-      yMin : '', //y轴最低值
+      factorTitle:'开盘价', // 选择查看含义的指标
+      factorEng:'Open', //指标中文
+      factorInfo:'开盘价的决定：在每个开盘日九点到九点二十五分期间是集合竞价时间，竞价者们会根据前一天的收盘价和对当日股市的预测来输入股票价格，而在这段时间里输入计算机主机的所有价格都是平等的，不需要按照时间优先和价格优先的原则交易，而是按最大成交量的原则来定出股票的价位。',
       industryDetailData:'',
-      heatFactors:['MACD','MOM', 'Stochastic_K'],
-      heatShowFactors:['MACD', 'MOM', 'Stochastic_K', 'WILLIAM_R','RSI','CCI','AD_Oscillator']
+      heatFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10'],
+      heatShowFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10','ema_20','K_5',
+      'D_3','K_10','D_5','K_20','D_10','R_5','R_10','R_20','mom_5','mom_10','mom_20','ROC_5','ROC_10','ROC_20',
+      'cci_5','cci_10','cci_20','wma_5','wma_10','wma_20'],
+
+    }
+  },
+  watch: {
+    // 每当 heatFactors 改变时，这个函数就会执行
+    heatFactors() {
+      this.myHeatMap()
     }
   },
   mounted() {
+    this.echarts = require('echarts')
     this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
     // this.getIndustryDetailMethod();
@@ -377,10 +420,9 @@ export default {
     //点击切换行业信息tab时调用该方法
     infoClick(tab) {
       if (tab.index == '0'){
-
       }
       else if(tab.index == '1'){
-
+        this.myCandleStick();
       }
     },
     tdstyle({row, column, rowIndex}) {
@@ -480,16 +522,8 @@ export default {
     // 历史数据图y轴数据对应的对象数组样式转换
     graphYChange(YData) {
       let legendstr = '';
-      let yMinTemp;
-      //给y的最大值设置初值值
-      this.yMin = Math.max.apply(null, YData[0].contract_price)
 
       for (const item of YData) {
-        yMinTemp =  Math.max.apply(null, item.contract_price)
-        //获得y的最小值
-        if( yMinTemp < this.yMin){
-          this.yMin = yMinTemp
-        }
         // y轴数据的转化
         this.graphY.push({
           type: 'line',
@@ -500,8 +534,6 @@ export default {
         // 图例的转化
         legendstr += item.contract_text + ",";
       }
-      // 为获得更好的作图效果，用y最小值的85%作为y轴最小值
-      this.yMin = (this.yMin* 0.85).toFixed(2)
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
       this.historyLegend = legendstr.split(",");
@@ -541,14 +573,13 @@ export default {
     myEcharts1() {
       this.$nextTick(() => {
 
-        let echarts = require('echarts');
         //柱状图
         let barBox = document.getElementById('priceBar');
         // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。更改了原来的写法，暂时不知道能不能行
         barBox.removeAttribute('_echarts_instance_');
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart1 = echarts.init(document.getElementById('priceBar'));
+        var myChart1 = this.echarts.init(document.getElementById('priceBar'));
         var option1 = {
           xAxis: {
             type: 'value',
@@ -594,14 +625,13 @@ export default {
     //合约数量作图方法
     myEcharts2() {
       this.$nextTick(() => {
-        let echarts = require('echarts');
         //柱状图
         let contractBarBox = document.getElementById('contractBar');
         // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
 
         contractBarBox.removeAttribute('_echarts_instance_');
         // 基于准备好的dom，初始化echarts实例
-        var myChart2 = echarts.init(document.getElementById('contractBar'));
+        var myChart2 = this.echarts.init(document.getElementById('contractBar'));
         var option2 = {
           legend: {
             show:true,
@@ -647,7 +677,6 @@ export default {
     },
     //历史数据图作图方法
     myEcharts3() {
-      let echarts = require('echarts');
       let historyBox = document.getElementById('history');
       // 保证宽度正常显示的方法。
       historyBox.style.width = window.innerWidth * 0.8 + 'px'
@@ -656,7 +685,7 @@ export default {
       historyBox.removeAttribute('_echarts_instance_');
 
       // 基于准备好的dom，初始化echarts实例
-      var myChart3 = echarts.init(document.getElementById('history'));
+      var myChart3 = this.echarts.init(document.getElementById('history'));
       var option3 = {
         // 鼠标对应的交叉线
         tooltip: {
@@ -689,7 +718,6 @@ export default {
         },
         yAxis: {
           type: 'value',
-          // min:this.yMin, //设置y轴最小值
           splitLine: { //修改背景线条样式
             show: true,//是否展示
             lineStyle: {
@@ -703,30 +731,24 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       myChart3.setOption(option3);
     },
-    //热力图作图方法
+    // 热力图作图方法
     myHeatMap(){
       // 假数据
-      const hours = [
-        'close', 'open', 'high', 'low', 'vol', 'amount', 'pct_change',
-        'MOM', 'MACD', 'WILLIAM_R', 'Stochastic_K', 'Stochastic_D',
-        'SMA_10', 'WMA_10', 'RSI', 'AD_Oscillator', 'CCI'
-      ];
 
       const days = [
         '中国平安', '中国人寿', '东方财富',
         '中信证券', '中国人保', '中国太保', '中金公司'
       ];
-// prettier-ignore
+
       const data = [[0, 0, 5], [0, 1, 1], [0, 2, 3], [0, 3, 7], [0, 4, 3], [0, 5, 1], [0, 6, 2], [0, 7, 5], [0, 8, 7], [0, 9, 1], [0, 10, 3], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 3], [1, 2, 2], [1, 3, 7], [1, 4, 2], [1, 5, 3], [1, 6, 5], [1, 7, 1], [1, 8, 3], [1, 9, 5], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 3], [4, 16, 4], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]]
           .map(function (item) {
             return [item[1], item[0], item[2] || '-'];
           });
 
-      let echarts = require('echarts');
-      let heatMapBox = document.getElementById('my-heatmap');
+      let heatMapBox = document.getElementById('my-heat-map');
       // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       heatMapBox.removeAttribute('_echarts_instance_');
-      let myHeatMap = echarts.init(document.getElementById('my-heatmap'));
+      let myHeatMap = this.echarts.init(document.getElementById('my-heat-map'));
       let optionHeatMap = {
         tooltip: {
           position: 'top'
@@ -737,7 +759,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-              data: hours,
+              data: this.heatFactors,
               splitArea: {
             show: true
           },
@@ -747,8 +769,19 @@ export default {
           }
         },
         dataZoom: [
+            // 鼠标拉动缩放
           {
             type: "slider",
+            height: 20,
+            // 缩放图标
+            handleIcon:
+                'path://M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '120%'  // 图标大小
+          },
+          // 滚动缩放
+          {
+            type: 'inside',
+            xAxisIndex: [0, 1],
           }
         ],
             yAxis: {
@@ -791,6 +824,275 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       myHeatMap.setOption(optionHeatMap);
     },
+    // K线图数据转换
+    calculateMA(dayCount, data) {
+      let result = [];
+      for (let i = 0, len = data.length; i < len; i++) {
+        if (i < dayCount) {
+          result.push('-');
+          continue;
+        }
+        let sum = 0;
+        for (let j = 0; j < dayCount; j++) {
+          sum += +data[i - j][1];
+        }
+        result.push((sum / dayCount).toFixed(2));
+      }
+      return result;
+    },
+    // K线图作图方法
+    myCandleStick(){
+      // 假数据
+      const colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+      const labelFont = 'bold 12px Sans-serif';
+
+      const dates = ["2016-03-29", "2016-03-30", "2016-03-31", "2016-04-01", "2016-04-04", "2016-04-05", "2016-04-06", "2016-04-07", "2016-04-08", "2016-04-11", "2016-04-12", "2016-04-13", "2016-04-14", "2016-04-15", "2016-04-18", "2016-04-19", "2016-04-20", "2016-04-21", "2016-04-22", "2016-04-25", "2016-04-26", "2016-04-27", "2016-04-28", "2016-04-29", "2016-05-02", "2016-05-03", "2016-05-04", "2016-05-05", "2016-05-06", "2016-05-09", "2016-05-10", "2016-05-11", "2016-05-12", "2016-05-13", "2016-05-16", "2016-05-17", "2016-05-18", "2016-05-19", "2016-05-20", "2016-05-23", "2016-05-24", "2016-05-25", "2016-05-26", "2016-05-27", "2016-05-31", "2016-06-01", "2016-06-02", "2016-06-03", "2016-06-06", "2016-06-07", "2016-06-08", "2016-06-09", "2016-06-10", "2016-06-13", "2016-06-14", "2016-06-15", "2016-06-16", "2016-06-17", "2016-06-20", "2016-06-21", "2016-06-22"];
+
+      const data = [[17512.58, 17633.11, 17434.27, 17642.81, 86160000], [17652.36, 17716.66, 17652.36, 17790.11, 79330000], [17716.05, 17685.09, 17669.72, 17755.7, 102600000], [17661.74, 17792.75, 17568.02, 17811.48, 104890000], [17799.39, 17737, 17710.67, 17806.38, 85230000], [17718.03, 17603.32, 17579.56, 17718.03, 115230000], [17605.45, 17716.05, 17542.54, 17723.55, 99410000], [17687.28, 17541.96, 17484.23, 17687.28, 90120000], [17555.39, 17576.96, 17528.16, 17694.51, 79990000], [17586.48, 17556.41, 17555.9, 17731.63, 107100000], [17571.34, 17721.25, 17553.57, 17744.43, 81020000], [17741.66, 17908.28, 17741.66, 17918.35, 91710000], [17912.25, 17926.43, 17885.44, 17962.14, 84510000], [17925.95, 17897.46, 17867.41, 17937.65, 118160000], [17890.2, 18004.16, 17848.22, 18009.53, 89390000], [18012.1, 18053.6, 17984.43, 18103.46, 89820000], [18059.49, 18096.27, 18031.21, 18167.63, 100210000], [18092.84, 17982.52, 17963.89, 18107.29, 102720000], [17985.05, 18003.75, 17909.89, 18026.85, 134120000], [17990.94, 17977.24, 17855.55, 17990.94, 83770000], [17987.38, 17990.32, 17934.17, 18043.77, 92570000], [17996.14, 18041.55, 17920.26, 18084.66, 109090000], [18023.88, 17830.76, 17796.55, 18035.73, 100920000], [17813.09, 17773.64, 17651.98, 17814.83, 136670000], [17783.78, 17891.16, 17773.71, 17912.35, 80100000], [17870.75, 17750.91, 17670.88, 17870.75, 97060000], [17735.02, 17651.26, 17609.01, 17738.06, 95020000], [17664.48, 17660.71, 17615.82, 17736.11, 81530000], [17650.3, 17740.63, 17580.38, 17744.54, 80020000], [17743.85, 17705.91, 17668.38, 17783.16, 85590000], [17726.66, 17928.35, 17726.66, 17934.61, 75790000], [17919.03, 17711.12, 17711.05, 17919.03, 87390000], [17711.12, 17720.5, 17625.38, 17798.19, 88560000], [17711.12, 17535.32, 17512.48, 17734.74, 86640000], [17531.76, 17710.71, 17531.76, 17755.8, 88440000], [17701.46, 17529.98, 17469.92, 17701.46, 103260000], [17501.28, 17526.62, 17418.21, 17636.22, 79120000], [17514.16, 17435.4, 17331.07, 17514.16, 95530000], [17437.32, 17500.94, 17437.32, 17571.75, 111990000], [17507.04, 17492.93, 17480.05, 17550.7, 87790000], [17525.19, 17706.05, 17525.19, 17742.59, 86480000], [17735.09, 17851.51, 17735.09, 17891.71, 79180000], [17859.52, 17828.29, 17803.82, 17888.66, 68940000], [17826.85, 17873.22, 17824.73, 17873.22, 73190000], [17891.5, 17787.2, 17724.03, 17899.24, 147390000], [17754.55, 17789.67, 17664.79, 17809.18, 78530000], [17789.05, 17838.56, 17703.55, 17838.56, 75560000], [17799.8, 17807.06, 17689.68, 17833.17, 82270000], [17825.69, 17920.33, 17822.81, 17949.68, 71870000], [17936.22, 17938.28, 17936.22, 18003.23, 78750000], [17931.91, 18005.05, 17931.91, 18016, 71260000], [17969.98, 17985.19, 17915.88, 18005.22, 69690000], [17938.82, 17865.34, 17812.34, 17938.82, 90540000], [17830.5, 17732.48, 17731.35, 17893.28, 101690000], [17710.77, 17674.82, 17595.79, 17733.92, 93740000], [17703.65, 17640.17, 17629.01, 17762.96, 94130000], [17602.23, 17733.1, 17471.29, 17754.91, 91950000], [17733.44, 17675.16, 17602.78, 17733.44, 248680000], [17736.87, 17804.87, 17736.87, 17946.36, 99380000], [17827.33, 17829.73, 17799.8, 17877.84, 85130000], [17832.67, 17780.83, 17770.36, 17920.16, 89440000]];
+
+      const volumes = [86160000, 79330000, 102600000, 104890000, 85230000, 115230000, 99410000, 90120000, 79990000, 107100000, 81020000, 91710000, 84510000, 118160000, 89390000, 89820000, 100210000, 102720000, 134120000, 83770000, 92570000, 109090000, 100920000, 136670000, 80100000, 97060000, 95020000, 81530000, 80020000, 85590000, 75790000, 87390000, 88560000, 86640000, 88440000, 103260000, 79120000, 95530000, 111990000, 87790000, 86480000, 79180000, 68940000, 73190000, 147390000, 78530000, 75560000, 82270000, 71870000, 78750000, 71260000, 69690000, 90540000, 101690000, 93740000, 94130000, 91950000, 248680000, 99380000, 85130000, 89440000];
+      const dataMA5 = this.calculateMA(5, data);
+      const dataMA10 = this.calculateMA(10, data);
+      const dataMA20 = this.calculateMA(20, data);
+
+
+
+      let CandleStickBox = document.getElementById('my-candle-stick');
+      // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
+      CandleStickBox.removeAttribute('_echarts_instance_');
+      // 保证宽度正常显示的方法。
+      CandleStickBox.style.width = window.innerWidth * 0.5 + 'px'
+      let myCandleStick = this.echarts.init(document.getElementById('my-candle-stick'));
+      let optionCandleStick = {
+        animation: false,
+        color: colorList,
+        legend: {
+          top: 0,
+          data: ['日K', 'MA5', 'MA10', 'MA20']
+        },
+        // 提示框
+        tooltip: {
+          transitionDuration: 0,
+          confine: true,
+          borderRadius: 4,
+          borderWidth: 1,
+          borderColor: '#ffffff',
+          backgroundColor: 'rgba(255,255,255,0.9)',
+          textStyle: {
+            fontSize: 12,
+            color: '#333'
+          },
+          // 固定提示框位置在左和右
+          position: function (pos, params, el, elRect, size) {
+            const obj = {
+              top: 30
+            };
+            obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+            return obj;
+          }
+        },
+        axisPointer: {
+          link: [
+            {
+              xAxisIndex: [0, 1]
+            }
+          ]
+        },
+        // 缩放条
+        dataZoom: [
+          // 鼠标点击拉动缩放
+          {
+            type: 'slider',
+            xAxisIndex: [0, 1],
+            realtime: false,
+            start: 20, // 缩放起始位
+            end: 70, // 缩放结束位
+            top:250,
+            height: 20,
+            // 缩放图标
+            handleIcon:
+                'path://M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '120%'  // 图标大小
+          },
+          // 滚动缩放
+          {
+            type: 'inside',
+            xAxisIndex: [0, 1],
+            start: 40,
+            end: 70,
+            top: 0,
+            height: 20
+          }
+        ],
+        xAxis: [
+          {
+            type: 'category',
+            data: dates,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: '#777' } },
+            min: 'dataMin',
+            max: 'dataMax',
+            axisPointer: {
+              show: true
+            }
+          },
+          {
+            type: 'category',
+            gridIndex: 1,
+            data: dates,
+            boundaryGap: false,
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            axisTick: { show: false },
+            axisLine: { lineStyle: { color: '#777' } },
+            min: 'dataMin',
+            max: 'dataMax',
+            axisPointer: {
+              type: 'shadow',
+              label: { show: false },
+              triggerTooltip: true,
+            }
+          }
+        ],
+        yAxis: [
+          {
+            scale: true,
+            splitNumber: 2,
+            axisLine: { lineStyle: { color: '#777' } },
+            splitLine: { show: true },
+            axisTick: { show: false },
+            axisLabel: {
+              inside: true,
+              formatter: '{value}\n'
+            }
+          },
+          {
+            scale: true,
+            gridIndex: 1,
+            splitNumber: 2,
+            axisLabel: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            splitLine: { show: false }
+          }
+        ],
+        // 图
+        grid: [
+          // K线图
+          {
+            left: 20,
+            right: 20,
+            top: 40,
+            height: 120
+          },
+          // 柱形图
+          {
+            left: 20,
+            right: 20,
+            height: 40,
+            top: 190
+          }
+        ],
+        graphic: [
+          {
+            type: 'group',
+            left: 'center',
+            top: 40,
+            width: 300,
+            bounding: 'raw',
+            children: [
+              {
+                id: 'MA5',
+                type: 'text',
+                style: { fill: colorList[1], font: labelFont },
+                left: 0
+              },
+              {
+                id: 'MA10',
+                type: 'text',
+                style: { fill: colorList[2], font: labelFont },
+                left: 'center'
+              },
+              {
+                id: 'MA20',
+                type: 'text',
+                style: { fill: colorList[3], font: labelFont },
+                right: 0
+              }
+            ]
+          }
+        ],
+        series: [
+          {
+            name: 'Volume',
+            type: 'bar',
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            itemStyle: {
+              color: '#7fbe9e'
+            },
+            emphasis: {
+              itemStyle: {
+                color: '#140'
+              }
+            },
+            data: volumes
+          },
+          {
+            type: 'candlestick',
+            name: '日K',
+            data: data,
+            itemStyle: {
+              color: '#ef232a',
+              color0: '#14b143',
+              borderColor: '#ef232a',
+              borderColor0: '#14b143'
+            },
+            emphasis: {
+              itemStyle: {
+                color: 'black',
+                color0: '#444',
+                borderColor: 'black',
+                borderColor0: '#444'
+              }
+            }
+          },
+          {
+            name: 'MA5',
+            type: 'line',
+            data: dataMA5,
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+              width: 1
+            }
+          },
+          {
+            name: 'MA10',
+            type: 'line',
+            data: dataMA10,
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+              width: 1
+            }
+          },
+          {
+            name: 'MA20',
+            type: 'line',
+            data: dataMA20,
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+              width: 1
+            }
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myCandleStick.setOption(optionCandleStick);
+    }
   }
 
 }
@@ -1032,7 +1334,12 @@ export default {
 }
 
 /*热力图盒子*/
-#my-heatmap{
+#my-heat-map{
+  height: 300px;
+}
+
+/*K线图盒子*/
+#my-candle-stick{
   height: 300px;
 }
 
@@ -1065,5 +1372,26 @@ export default {
 }
 
 /*修改element多选框样式结束*/
+
+/*修改element滑动条样式*/
+.my-scroll >>> .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
+.info-part{
+  font-size: 13px;
+  line-height: 20px;
+  margin-top: 10px;
+}
+
+.info-part >>> .el-scrollbar__wrap{
+  overflow-x: hidden;
+}
+
+/*修改element分隔线样式*/
+.choose >>>.el-divider--horizontal{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
 </style>
