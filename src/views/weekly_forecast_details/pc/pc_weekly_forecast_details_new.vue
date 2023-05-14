@@ -124,20 +124,29 @@
         <el-tabs @tab-click="infoClick" v-model="activeName2">
           <el-tab-pane label="指标排名" name="first">
             <el-row class="pc-card my-card-pd">
-              <el-col class="grey-border" :span="8">
+              <el-col class="grey-border" :span="9">
                 <el-row>
                   <el-col class="center-vertically">
                     <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
                     <span class="part-title">指标</span>
                   </el-col>
-
                   <el-col class="my-tip">
                     选择热力图展示的指标
                   </el-col>
 
+                  <el-col>
+                    <el-checkbox-group v-model="heatFactors" class="my-checkbox predict-radio">
+                      <el-checkbox-button v-for="heatShowFactors in heatShowFactors" :label="heatShowFactors" :key="heatShowFactors" >{{heatShowFactors}}</el-checkbox-button>
+                    </el-checkbox-group>
+                  </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="16" ></el-col>
+
+              <el-col :span="15">
+                <div class="grey-border" style="margin-left: 2%">
+                  <div id="my-heatmap"></div>
+                </div>
+              </el-col>
             </el-row>
           </el-tab-pane>
 
@@ -287,6 +296,7 @@
 <script>
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import {getCSRFToken} from '@/api/token'
+import echarts from "echarts";
 
 export default {
   name: "pc_weekly_forecast_details_new",
@@ -319,12 +329,16 @@ export default {
       barContractArr: [],//直方图合约数据
       yMin : '', //y轴最低值
       industryDetailData:'',
+      heatFactors:['MACD','MOM', 'Stochastic_K'],
+      heatShowFactors:['MACD', 'MOM', 'Stochastic_K', 'WILLIAM_R','RSI','CCI','AD_Oscillator']
     }
   },
   mounted() {
     this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
     // this.getIndustryDetailMethod();
+    // 作图方法测试
+    this.myHeatMap()
   },
   // 设置背景
   beforeCreate() {
@@ -688,7 +702,95 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       myChart3.setOption(option3);
-    }
+    },
+    //热力图作图方法
+    myHeatMap(){
+      // 假数据
+      const hours = [
+        'close', 'open', 'high', 'low', 'vol', 'amount', 'pct_change',
+        'MOM', 'MACD', 'WILLIAM_R', 'Stochastic_K', 'Stochastic_D',
+        'SMA_10', 'WMA_10', 'RSI', 'AD_Oscillator', 'CCI'
+      ];
+
+      const days = [
+        '中国平安', '中国人寿', '东方财富',
+        '中信证券', '中国人保', '中国太保', '中金公司'
+      ];
+// prettier-ignore
+      const data = [[0, 0, 5], [0, 1, 1], [0, 2, 3], [0, 3, 7], [0, 4, 3], [0, 5, 1], [0, 6, 2], [0, 7, 5], [0, 8, 7], [0, 9, 1], [0, 10, 3], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 3], [1, 2, 2], [1, 3, 7], [1, 4, 2], [1, 5, 3], [1, 6, 5], [1, 7, 1], [1, 8, 3], [1, 9, 5], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 3], [4, 16, 4], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]]
+          .map(function (item) {
+            return [item[1], item[0], item[2] || '-'];
+          });
+
+      let echarts = require('echarts');
+      let heatMapBox = document.getElementById('my-heatmap');
+      // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
+      heatMapBox.removeAttribute('_echarts_instance_');
+      let myHeatMap = echarts.init(document.getElementById('my-heatmap'));
+      let optionHeatMap = {
+        tooltip: {
+          position: 'top'
+        },
+        grid: {
+          height: '50%',
+              top: '3%'
+        },
+        xAxis: {
+          type: 'category',
+              data: hours,
+              splitArea: {
+            show: true
+          },
+          axisLabel:{
+            interval:0, // x轴全部显示
+                rotate:45 // x轴旋转角度
+          }
+        },
+        dataZoom: [
+          {
+            type: "slider",
+          }
+        ],
+            yAxis: {
+          type: 'category',
+              data: days,
+              splitArea: {
+            show: true
+          }
+        },
+        visualMap: {
+          min: 0,
+              max: 7,
+              calculable: true,
+              orient: 'horizontal',
+              left: 'center',
+              bottom: '15%',
+              //自定义热力图颜色
+              inRange:{
+            color: ['#FF8553','#FF957A','#FFA8A1','#FFF7F2',]
+
+          }
+        },
+        series: [
+          {
+            name: '指标排名',
+            type: 'heatmap',
+            data: data,
+            label: {
+              show: true
+            },
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(0, 0, 0, 0.2)'
+              }
+            }
+          }
+        ]
+      };
+      // 使用刚指定的配置项和数据显示图表。
+      myHeatMap.setOption(optionHeatMap);
+    },
   }
 
 }
@@ -819,7 +921,14 @@ export default {
   margin-top: 10px;
 }
 
-/*覆盖element原有的样式开始*/
+
+.chart-and-table{
+  height: 380px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/*覆盖element原有tab样式开始*/
 
 /*切换活动项的字体颜色*/
 .my-tab /deep/ .el-tabs__item.is-active {
@@ -831,16 +940,12 @@ export default {
   color: #FA605F !important;
 }
 
-.chart-and-table{
-  height: 380px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
 /*切换活动项的长条颜色*/
 .my-tab /deep/ .el-tabs__active-bar {
   background-color: #FA605F !important;
 }
+
+/*覆盖element原有tab样式结束*/
 
 /*按钮*/
 .el-button.is-circle {
@@ -865,6 +970,8 @@ export default {
 /*  margin-bottom: 0;*/
 /*}*/
 
+/*覆盖element原有长条样式开始*/
+
 .predict-slider >>> .el-slider__bar {
   background: #FF8383;
 }
@@ -873,6 +980,8 @@ export default {
   border: 2px solid #FF8383
 }
 
+/*覆盖element原有长条样式结束*/
+
 /*!*输入框*!*/
 /*.input-bar >>> .el-input__inner{*/
 /*  height: 30px;*/
@@ -880,6 +989,8 @@ export default {
 /*.el-input{*/
 /*  line-height: 30px;*/
 /*}*/
+
+/*覆盖element原有单选框样式开始*/
 
 /*改变单选框颜色*/
 .predict-radio >>> .el-radio__input.is-checked .el-radio__inner {
@@ -890,6 +1001,8 @@ export default {
 .predict-radio >>> .el-radio__input.is-checked + .el-radio__label {
   color: #f56c6c !important;
 }
+
+/*覆盖element原有单选框样式结束*/
 
 .price-contact-table{
   margin-top: 10px;
@@ -911,9 +1024,46 @@ export default {
   color: #7F7F7F;
   font-size: 12px;
   margin-top: 3px;
+  margin-bottom: 10px;
 }
 
 .part-title{
   font-size: 18px;
 }
+
+/*热力图盒子*/
+#my-heatmap{
+  height: 300px;
+}
+
+/*修改element多选框样式开始*/
+
+/*多选框*/
+.my-checkbox >>> .el-checkbox-button .el-checkbox-button__inner{
+  margin-right: 20px;
+  border:#FEF0F0 solid 1px;
+  border-radius: 10px;
+  background: #FEF0F0;
+  color: #FA605F;
+  padding: 3px 10px;
+  font-size: 12px;
+  margin-bottom: 7px;
+  width: 90px;
+}
+
+/*被选后的多选框*/
+.my-checkbox >>> .el-checkbox-button.is-checked .el-checkbox-button__inner{
+  color: #FFFFFF;
+  background: #FF8383;
+  border-color: #FF8383;
+  box-shadow:none
+}
+
+/*多选框覆盖原有阴影*/
+.my-checkbox >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  box-shadow: none;
+}
+
+/*修改element多选框样式结束*/
+
 </style>

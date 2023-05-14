@@ -760,6 +760,7 @@ export default {
 .more {
   margin-top: 2%;
   background: #FF8F86;
+  border-color: #FF8F86;
 }
 
 /*热门活动部分开始*/
