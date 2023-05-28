@@ -104,7 +104,7 @@
               <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
                 <p>融合领域专家与机器智慧</p>
                 <p>做全球经济与政策不确定性评估和预警</p>
-                <el-button type="info" disabled>即将发布</el-button>
+                <el-button type="danger" class="more" @click="$router.push({path: '/industry_relationship'})">立即使用</el-button>
               </el-col>
               <el-col :span="11" class="wow bounceInRight animated" style="z-index: 2;position: relative">
                 <img src="@/assets/images/map.png" alt="全球经济不确定性预警" width="600"

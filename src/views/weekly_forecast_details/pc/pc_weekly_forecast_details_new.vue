@@ -122,7 +122,33 @@
     <el-row>
       <el-col :span="20" :offset="2" class="my-tab">
         <el-tabs @tab-click="infoClick" v-model="activeName2">
-          <el-tab-pane label="指标排名" name="first">
+
+          <el-tab-pane label="技术指标" name="first">
+            <el-row class="pc-card my-card-pd">
+              <el-col class="grey-border" :span="24">
+                <el-row>
+                  <el-col class="center-vertically">
+                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                    <span class="part-title">公司</span>
+                  </el-col>
+                  <el-col class="my-tip">
+                    选择展示的公司
+                  </el-col>
+
+                  <el-col class="center-vertically">
+                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="10">
+                    <span class="part-title">指标</span>
+                  </el-col>
+                  <el-col class="my-tip">
+                    选择展示的指标
+                  </el-col>
+
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-tab-pane>
+
+          <el-tab-pane label="指标排名" name="second">
             <el-row class="pc-card my-card-pd">
               <el-col class="grey-border" :span="9">
                 <el-row>
@@ -135,11 +161,18 @@
                   </el-col>
 
                   <el-col class="choose">
-                    <el-scrollbar style="height: 105px" class="my-scroll">
+                    <el-scrollbar style="height: 80px" class="my-scroll">
                       <el-checkbox-group v-model="heatFactors" class="my-checkbox predict-radio">
                         <el-checkbox-button v-for="heatShowFactors in heatShowFactors" :label="heatShowFactors" :key="heatShowFactors" >{{heatShowFactors}}</el-checkbox-button>
                       </el-checkbox-group>
                     </el-scrollbar>
+                    <el-row>
+                      <el-col :span="8" :offset="16" class="center-vertically analysis_button"
+                              @click="showHeat">
+                        <img src="@/assets/images/an.svg" height="20" class="hand my-icon">
+                        <a herf="#" class="hand">查看排名</a>
+                      </el-col>
+                    </el-row>
                     <el-divider></el-divider>
                   </el-col>
 
@@ -149,19 +182,20 @@
                   </el-col>
 
                   <el-col :span="8" class="right">
-                    <el-select v-model="factorEng" placeholder="请选择" size="mini">
+                    <el-select v-model="factorEng" @change="changeFactor" placeholder="请选择" size="mini">
+
                       <el-option
-                          v-for="item in heatShowFactors"
-                          :key="item"
-                          :label="item"
-                          :value="item">
+                          v-for="(content,factor) in factorsInfo"
+                          :key="factor"
+                          :label="factor"
+                          :value="factor">
                       </el-option>
                     </el-select>
                   </el-col>
 
                   <el-col class="info-part">
                     <el-scrollbar style="height: 80px" class="my-scroll">
-                      {{factorInfo}}
+                      {{ factorContent }}
                     </el-scrollbar>
                   </el-col>
                 </el-row>
@@ -175,7 +209,7 @@
             </el-row>
           </el-tab-pane>
 
-          <el-tab-pane label="股票信息" name="second">
+          <el-tab-pane label="股价信息" name="third">
             <el-row class="pc-card my-card-pd">
               <el-col class="grey-border" :span="24">
                 <el-row>
@@ -186,32 +220,7 @@
 
                   <el-col :span="8"></el-col>
                   <el-col :span="16">
-                      <div id="my-candle-stick"></div>
-                  </el-col>
-
-                </el-row>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
-
-          <el-tab-pane label="其他指标" name="third">
-            <el-row class="pc-card my-card-pd">
-              <el-col class="grey-border" :span="24">
-                <el-row>
-                  <el-col class="center-vertically">
-                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                    <span class="part-title">公司</span>
-                  </el-col>
-                  <el-col class="my-tip">
-                    选择展示的公司
-                  </el-col>
-
-                  <el-col class="center-vertically">
-                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                    <span class="part-title">指标</span>
-                  </el-col>
-                  <el-col class="my-tip">
-                    选择展示的指标
+                    <div id="my-candle-stick"></div>
                   </el-col>
 
                 </el-row>
@@ -243,7 +252,6 @@
                   <span>请选择您预测排名第一的公司：</span>
                 </el-col>
                 <el-col :span="8" :offset="1">
-                  <!--                  这里还不太确定-->
                   <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
                     <el-option
                         v-for="item in companyRankData"
@@ -326,7 +334,7 @@
 <script>
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import {getCSRFToken} from '@/api/token'
-
+import factorsJson from '@/assets/factors.json'
 
 export default {
   name: "pc_weekly_forecast_details_new",
@@ -344,6 +352,7 @@ export default {
       chartOrTable: 'chart', //用于切换图和表的图标
       priceOrContract: 'price',
       getId: '', //获取从前一界面传来的id
+      factorsInfo: factorsJson, // 存储因子解释的json数据
       companyRankData: '', //整体情况表的数据
       userCurrentMoney: '', //活动可用诸葛贝
       inputNo1: '', //预测排名第一的公司的id
@@ -359,29 +368,32 @@ export default {
       barPriceArr: [],//直方图价格数据
       barContractArr: [],//直方图合约数据
       factorTitle:'开盘价', // 选择查看含义的指标
-      factorEng:'Open', //指标中文
-      factorInfo:'开盘价的决定：在每个开盘日九点到九点二十五分期间是集合竞价时间，竞价者们会根据前一天的收盘价和对当日股市的预测来输入股票价格，而在这段时间里输入计算机主机的所有价格都是平等的，不需要按照时间优先和价格优先的原则交易，而是按最大成交量的原则来定出股票的价位。',
+      factorEng:'SMA', //指标英文
+      factorContent:'',
       industryDetailData:'',
       heatFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10'],
       heatShowFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10','ema_20','K_5',
       'D_3','K_10','D_5','K_20','D_10','R_5','R_10','R_20','mom_5','mom_10','mom_20','ROC_5','ROC_10','ROC_20',
       'cci_5','cci_10','cci_20','wma_5','wma_10','wma_20'],
+      heatCompanies:['中国平安', '中国人寿', '东方财富', '中信证券', '中国人保', '中国太保', '中金公司'], // 热力图公司数据
 
     }
   },
   watch: {
     // 每当 heatFactors 改变时，这个函数就会执行
-    heatFactors() {
-      this.myHeatMap()
-    }
+    // heatFactors() {
+    //   this.myHeatMap()
+    // }
   },
   mounted() {
     this.echarts = require('echarts')
     this.getCSRFTokenMethod();
+    // 展示指标含义
+    this.changeFactor()
     // 获取数据的方法。数据转化及作图的方法在该方法中
     // this.getIndustryDetailMethod();
     // 作图方法测试
-    this.myHeatMap()
+    this.myCandleStick();
   },
   // 设置背景
   beforeCreate() {
@@ -419,16 +431,28 @@ export default {
     },
     //点击切换行业信息tab时调用该方法
     infoClick(tab) {
-      if (tab.index == '0'){
+      if (tab.index == '2'){
+        this.myCandleStick();
       }
       else if(tab.index == '1'){
-        this.myCandleStick();
+        this.myHeatMap();
       }
     },
     tdstyle({row, column, rowIndex}) {
       if (rowIndex === 0) {
         return "background-color:RGB(245,248,250);height:40px;padding:1px;color:#555555";
       }
+    },
+
+    // 提交因子，重做热力图
+    showHeat(){
+      this.myHeatMap()
+    },
+    // 下拉列表内容改变时，改变中文解释和含义的值
+    changeFactor(){
+      let choosedFactor = this.factorsInfo[this.factorEng]
+      this.factorTitle = choosedFactor.factorCn
+      this.factorContent = choosedFactor.content
     },
 
     // 提交数据
@@ -735,19 +759,18 @@ export default {
     myHeatMap(){
       // 假数据
 
-      const days = [
-        '中国平安', '中国人寿', '东方财富',
-        '中信证券', '中国人保', '中国太保', '中金公司'
-      ];
-
       const data = [[0, 0, 5], [0, 1, 1], [0, 2, 3], [0, 3, 7], [0, 4, 3], [0, 5, 1], [0, 6, 2], [0, 7, 5], [0, 8, 7], [0, 9, 1], [0, 10, 3], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 3], [1, 2, 2], [1, 3, 7], [1, 4, 2], [1, 5, 3], [1, 6, 5], [1, 7, 1], [1, 8, 3], [1, 9, 5], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 3], [4, 16, 4], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]]
           .map(function (item) {
             return [item[1], item[0], item[2] || '-'];
           });
 
+      console.log('data:'+data)
+
       let heatMapBox = document.getElementById('my-heat-map');
       // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       heatMapBox.removeAttribute('_echarts_instance_');
+      // 保证宽度正常显示的方法。
+      heatMapBox.style.width = window.innerWidth * 0.5 + 'px'
       let myHeatMap = this.echarts.init(document.getElementById('my-heat-map'));
       let optionHeatMap = {
         tooltip: {
@@ -786,7 +809,7 @@ export default {
         ],
             yAxis: {
           type: 'category',
-              data: days,
+              data: this.heatCompanies,
               splitArea: {
             show: true
           }
@@ -1109,32 +1132,6 @@ export default {
   background-image: linear-gradient(to right, #f59a23, #fe8d46, #ff8461, #f98079, #ec808d);
 }
 
-.my-breadcrumb{
-  color: #7F7F7F;
-  font-size: 18px;
-}
-
-.my-breadcrumb a{
-  color: #555555;
-  text-decoration: none;
-  font-size: 20px;
-  margin-left: 5px;
-}
-
-.my-breadcrumb span{
-  font-size: 20px;
-}
-
-.my-breadcrumb a:hover{
-  color: #f98079;
-  text-decoration: none;
-}
-
-.my-breadcrumb a:active{
-  color: #fe8d46;
-  text-decoration: none;
-}
-
 .center-vertically{
   display: flex;
   align-items: center;
@@ -1318,10 +1315,6 @@ export default {
   border-radius: 10px;
 }
 
-.my-card-pd{
-  padding: 30px;
-}
-
 .my-tip{
   color: #7F7F7F;
   font-size: 12px;
@@ -1394,4 +1387,11 @@ export default {
   margin-bottom: 10px;
 }
 
+.analysis_button{
+  color: #ff8383;
+  margin-top: 5px;
+}
+.analysis_button:hover{
+  color: #f66126;
+}
 </style>

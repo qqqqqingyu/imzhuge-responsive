@@ -30,8 +30,8 @@
 
     <el-row style="padding-top: 80px">
       <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
-        <span>您当前的位置：</span>
-        <span style="font-size: 20px;margin-left: 5px;color:#555555">行业个股收益率预测</span>
+        您当前的位置：
+        <span>行业个股收益率预测</span>
       </el-col>
     </el-row>
     <div class="activity_introduction">

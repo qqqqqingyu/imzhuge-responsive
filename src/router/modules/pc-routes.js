@@ -72,6 +72,15 @@ export default [
                     keepAlive: true, // 需要被缓存
                 }
             },
+            {
+                path: '/industry_relationship',
+                name: 'industry_relationship',
+                component: () => import('@/views/industry_relationship/industry_relationship.vue'),
+                meta: {
+                    title: '全球经济不确定性预警',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
 
         ]
     },

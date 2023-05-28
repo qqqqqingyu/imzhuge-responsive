@@ -30,6 +30,39 @@
 }
 
 
+.my-card-pd{
+    padding: 30px;
+}
+
+
+.my-breadcrumb{
+    color: #7F7F7F;
+    font-size: 18px;
+}
+
+.my-breadcrumb a{
+    color: #555555;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.my-breadcrumb span{
+    font-size: 20px;
+    margin-left: 5px;
+    color: rgb(85, 85, 85)
+}
+
+.my-breadcrumb a:hover{
+    color: #f98079;
+    text-decoration: none;
+}
+
+.my-breadcrumb a:active{
+    color: #fe8d46;
+    text-decoration: none;
+}
+
 .my-nav-bar {
     width: 100%;
     margin: 0 auto;
@@ -97,4 +130,12 @@
 
 .center{
     text-align: center;
+}
+
+.hand{
+    cursor: pointer;
+}
+
+.nav-bg{
+    background-image: linear-gradient(to right, #f59a23, #fe8d46, #ff8461, #f98079, #ec808d);
 }
