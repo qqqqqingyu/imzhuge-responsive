@@ -127,25 +127,71 @@
             <el-row class="pc-card my-card-pd">
               <el-col class="grey-border" :span="24">
                 <el-row>
-                  <el-col class="center-vertically">
-                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                    <span class="part-title">公司</span>
+                  <el-col :span="10">
+                    <el-row>
+                      <el-col class="center-vertically">
+                        <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                        <span class="part-title">指标</span>
+                      </el-col>
+                      <el-col class="my-tip">
+                        选择展示的指标
+                      </el-col>
+                      <el-col :span='18' class="grey-border-smaller margin-bottom-5">
+                        <span class="suggest-title">
+                            建议<i class="el-icon-question" style="color:#ea896c "></i>
+                          </span>
+                        <el-scrollbar style="height:30px">
+                          <el-checkbox-group v-model="factorSelected" class="my-checkbox predict-radio" style="margin-top: 10px!important;">
+                            <el-checkbox-button v-for="factor in suggestFactors" :key="factor" :label="factor">
+                              {{factor}}
+                            </el-checkbox-button>
+                          </el-checkbox-group>
+                        </el-scrollbar>
+                      </el-col>
+                      <el-col>
+                        <el-scrollbar style="height:100px">
+                          <el-checkbox-group v-model="factorSelected" class="my-checkbox predict-radio" :max="2" :min="1">
+                            <el-tooltip content="10日简单移动平均线" placement="top" v-for="factor in allFactors" :key="factor" popper-class="tip-class" effect="light">
+                              <el-checkbox-button  :label="factor">
+                                {{factor}}
+                              </el-checkbox-button>
+                            </el-tooltip>
+                          </el-checkbox-group>
+                        </el-scrollbar>
+
+                      </el-col>
+                      <el-col class="center-vertically margin-top-10">
+                        <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
+                        <span class="part-title" >公司</span>
+                      </el-col>
+                      <el-col class="my-tip" >
+                        选择展示的公司
+                      </el-col>
+                      <el-col>
+                        <el-checkbox-group v-model="companySelected" class="my-checkbox predict-radio" :min="1">
+                          <el-checkbox-button v-for="industryCompany in industryCompanys" :label="industryCompany" :key="industryCompany" >
+                            {{industryCompany}}
+                          </el-checkbox-button>
+                        </el-checkbox-group>
+                      </el-col>
+
+
+                    </el-row>
                   </el-col>
-                  <el-col class="my-tip">
-                    选择展示的公司
+                  <el-col :span="14" >
+                    <!--                    作图位置-->
+                    <el-row>
+                      <!--                      <div id="only-one-factor"></div>-->
+                      <div id="only-one-factor" v-bind:style="{ height: chartHeight }"></div>
+                      <div id="two-factor" v-bind:style="{ 'height': chartHeight, 'margin-top': '10px' }" v-if="factorSelected.length==2"></div>
+                    </el-row>
                   </el-col>
 
-                  <el-col class="center-vertically">
-                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="10">
-                    <span class="part-title">指标</span>
-                  </el-col>
-                  <el-col class="my-tip">
-                    选择展示的指标
-                  </el-col>
 
                 </el-row>
               </el-col>
             </el-row>
+
           </el-tab-pane>
 
           <el-tab-pane label="指标排名" name="second">
@@ -218,7 +264,39 @@
                     <span class="part-title">公司列表</span>
                   </el-col>
 
-                  <el-col :span="8"></el-col>
+                  <el-col :span="8">
+                    <el-row class="stock-container">
+                      <!--                概览-->
+                      <el-col :span="20">
+                        <!--                    一个行一个公司-->
+                        <el-scrollbar style="height:300px">
+                          <el-row  class="grey-border-small margin-bottom-5" v-for="(item,index) in companyCloseList" :key="index">
+                            <el-col :span="8">
+                              <el-row>
+                                <span class="stock-id">{{item.stock_id}}</span>
+                              </el-row>
+                              <el-row>
+                                <span class="company-name">{{item.company}}</span>
+                              </el-row>
+                            </el-col>
+                            <el-col :span="11">
+
+                              <!--                          这里将来可放置作图代码-->
+                              <div :id="'close-chart-' + index" style="width: 100%;height: 40px;"></div>
+
+                            </el-col>
+                            <el-col :span="5">
+                              <el-row>
+                                <span class="price-open">{{item.close}}</span>
+                              </el-row>
+                            </el-col>
+                          </el-row>
+
+                        </el-scrollbar>
+
+                      </el-col>
+                    </el-row>
+                  </el-col>
                   <el-col :span="16">
                     <div id="my-candle-stick"></div>
                   </el-col>
@@ -335,6 +413,7 @@
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import {getCSRFToken} from '@/api/token'
 import factorsJson from '@/assets/factors.json'
+import axios from 'axios';
 
 export default {
   name: "pc_weekly_forecast_details_new",
@@ -376,7 +455,32 @@ export default {
       'D_3','K_10','D_5','K_20','D_10','R_5','R_10','R_20','mom_5','mom_10','mom_20','ROC_5','ROC_10','ROC_20',
       'cci_5','cci_10','cci_20','wma_5','wma_10','wma_20'],
       heatCompanies:['中国平安', '中国人寿', '东方财富', '中信证券', '中国人保', '中国太保', '中金公司'], // 热力图公司数据
+      industryCompanys:['中国平安','中国人寿','东方财富','中信证券','中国人保','中国太保','中金公司'],//该行业内的公司
+      //lmm
+      companySelected:['中国平安'],//选中的公司
+      factorSelected:['sma_10'],//选中的因子
+      allFactors:['sma_10','sma_5','sma_20','macd_1','macd_2','macd_3','ema_5','ema_10','ema_20','K_5','D_3','K_10','D_5','K_20','D_10',
+        'R_5','R_10','R_20','mom_5','mom_10','mom_20','ROC_5','ROC_10','ROC_20','cci_5','cci_10','cci_20','wma_5','wma_10','wma_20',
+        'rsi_5','rsi_10','rsi_20','upperbound_5','middleband_5','lowerband_5','upperbound_10','middleband_10','lowerband_10',
+        'upperbound_20','middleband_20','lowerband_20','current_radio','quick_radio','ar_turn','op_income','roa','debt_to_assets'],
+      suggestFactors:['sma_5','sma_20'],
+      factorAndCompanyData_1:[],//在一个技术指标，对比不同公司
+      factorAndCompanyData_2:[],//在两个技术指标，对比不同公司
+      onlyOneFactorChart:{},//存放选择一个指标时的图表
+      companyCloseList:[],//存放不同公司股票收盘价数据
+      closeCharts:[],
 
+    }
+  },
+  computed: {
+    //lmm根据所选技术指标的个数改变高度
+    chartHeight() {
+      if (this.factorSelected.length == 1) {
+        return '360px';
+      }
+      else {
+        return '175px';
+      }
     }
   },
   watch: {
@@ -384,6 +488,18 @@ export default {
     // heatFactors() {
     //   this.myHeatMap()
     // }
+    //lmm
+    //每当 factorSelected 改变时，这个函数就会执行
+    factorSelected(){
+      this.getFactorAndCompanyData();
+    },
+    //每当 companySelected 改变时，这个函数就会执行
+    companySelected(){
+      this.getFactorAndCompanyData();
+      this.getTwoFactorData();
+      this.getOnlyOneFactorData();
+    }
+
   },
   mounted() {
     this.echarts = require('echarts')
@@ -394,6 +510,10 @@ export default {
     // this.getIndustryDetailMethod();
     // 作图方法测试
     this.myCandleStick();
+    //lmm
+    //获取一个指标下，不同公司的数据
+    this.getFactorAndCompanyData();
+    this.getCompanyCloseData();
   },
   // 设置背景
   beforeCreate() {
@@ -1115,7 +1235,314 @@ export default {
 
       // 使用刚指定的配置项和数据显示图表。
       myCandleStick.setOption(optionCandleStick);
-    }
+    },
+    //lmm
+    //选择一个技术指标时
+    getOnlyOneFactorData(){
+      //这里以后再加上参数，即第一个指标名,还有公司列表
+      axios.get("https://mock.presstime.cn/mock/646c262d2801fe040f0dd529/example/getFactorData"
+          //     , {
+          //   params: {
+          //     factor:this.factorSelected[0],
+          //     company_list:this.companySelected
+          //   }
+          // }
+      ).then((res) =>{
+        this.factorAndCompanyData_1=res.data.data;
+        this.onlyOneFactor();
+      })
+    },
+    //选择两个技术指标时
+    getTwoFactorData(){
+      //这里以后再加上参数，即第一个指标名
+      axios.get("https://mock.presstime.cn/mock/646c262d2801fe040f0dd529/example/111"
+          //     , {
+          //   params: {
+          //     factor:this.factorSelected[1],
+          //     company_list:this.companySelected
+          //   }
+          // }
+      ).then((res) =>{
+        this.factorAndCompanyData_2=res.data.data;
+        this.twoFactor();
+      })
+    },
+    //改变选择一个技术指标是渲染出来的折线图的高度
+    changeHeight(){
+      const chart = this.onlyOneFactorChart;
+      const height = 175; // 设置新的高度
+      const dom = chart.getDom(); // 获取图表的 dom
+      dom.style.height = `${height}px`; // 修改样式
+      chart.resize(); // 调用 resize 方法重新计算图表大小
+    },
+    //通过选择指标名和公司获取数据
+    getFactorAndCompanyData(){
+      // 选择一个技术指标
+      if(this.factorSelected.length==1){
+        this.getOnlyOneFactorData()
+      }
+      // 选择两个技术指标
+      if(this.factorSelected.length==2){
+        this.changeHeight()
+        this.getTwoFactorData()
+      }
+    },
+    // 只选择一个指标时，画图
+    onlyOneFactor(){
+      this.$nextTick(() => {
+        let onlyOneFactor = document.getElementById('only-one-factor');
+        // 保证宽度正常显示的方法。
+        onlyOneFactor.style.width = window.innerWidth * 0.45 + 'px'
+        // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
+        onlyOneFactor.removeAttribute('_echarts_instance_');
+        // 基于准备好的dom，初始化echarts实例
+        let onlyOneFac = this.echarts.init(document.getElementById('only-one-factor'));
+        let dates=this.factorAndCompanyData_1.dates
+        let factorDataList =this.factorAndCompanyData_1.factor_list;
+        // 将原始数据处理成 ECharts 折线图的数据格式
+        let seriesData = factorDataList.map(item => ({
+          name: item.company,
+          type: 'line',
+          data: item.factor_data,
+          smooth: true, // 启用平滑处理
+          showSymbol: false,
+        }));
+        let optionOneFac = {
+          title: {
+            text: this.factorSelected[0]+'对比分析'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            top: 25,
+            data:factorDataList.map(item => item.company)
+          },
+          grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '0%',
+            containLabel: true
+          },
+
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: dates,
+            axisLabel:{
+              interval:0, // x轴全部显示
+              rotate:20 // x轴旋转角度
+            },
+          },
+          // 数据量较多时 可采用X Y轴进行缩放
+          dataZoom: [
+            {
+              type: "slider", //slider表示有滑动块的，
+              roam: false,
+              show: true,
+              xAxisIndex: [0, 1], //表示联动两个 x 轴
+              realtime: false,
+              start: 0, // 缩放起始位
+              end: 100, // 缩放结束位
+              height: 10,
+              bottom:30,
+              // 缩放图标
+              handleIcon:
+                  'path://M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+              handleSize: '80%'  // 图标大小
+            },
+            // 滚动缩放
+            {
+              type: 'inside',
+              xAxisIndex: [0, 1], //表示联动两个 x 轴
+              start: 0, // 缩放起始位
+              end: 100, // 缩放结束位
+
+            }
+          ],
+          yAxis: {
+            type: 'value',
+            max:'dataMax',
+            min:'dataMin',
+          },
+
+          series: seriesData,
+        };
+        onlyOneFac.setOption(optionOneFac);
+        this.onlyOneFactorChart= onlyOneFac;
+      })
+    },
+    // 选择两个指标时，画图
+    twoFactor(){
+      this.$nextTick(() => {
+        let twoFactor = document.getElementById('two-factor');
+        // 保证宽度正常显示的方法。
+        twoFactor.style.width = window.innerWidth * 0.45 + 'px'
+        // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
+        twoFactor.removeAttribute('_echarts_instance_');
+        // 基于准备好的dom，初始化echarts实例
+        let twoFac = this.echarts.init(document.getElementById('two-factor'));
+        //let dates = ["2016-03-29", "2016-03-30", "2016-03-31", "2016-04-01", "2016-04-04", "2016-04-05", "2016-04-06", "2016-04-07", "2016-04-08", "2016-04-11", "2016-04-12", "2016-04-13", "2016-04-14", "2016-04-15", "2016-04-18", "2016-04-19", "2016-04-20", "2016-04-21", "2016-04-22", "2016-04-25", "2016-04-26", "2016-04-27", "2016-04-28", "2016-04-29", "2016-05-02", "2016-05-03", "2016-05-04", "2016-05-05", "2016-05-06", "2016-05-09", "2016-05-10", "2016-05-11", "2016-05-12", "2016-05-13", "2016-05-16", "2016-05-17", "2016-05-18", "2016-05-19", "2016-05-20", "2016-05-23", "2016-05-24", "2016-05-25", "2016-05-26", "2016-05-27", "2016-05-31", "2016-06-01", "2016-06-02", "2016-06-03", "2016-06-06", "2016-06-07", "2016-06-08", "2016-06-09", "2016-06-10", "2016-06-13", "2016-06-14", "2016-06-15", "2016-06-16", "2016-06-17", "2016-06-20", "2016-06-21", "2016-06-22"];
+        //let dates = ["2016-03-29", "2016-03-30", "2016-03-31", "2016-04-01", "2016-04-04", "2016-04-05"];
+        let dates=this.factorAndCompanyData_2.dates
+        let factorDataList =this.factorAndCompanyData_2.factor_list;
+        // 将原始数据处理成 ECharts 折线图的数据格式
+        let seriesData = factorDataList.map(item => ({
+          name: item.company,
+          type: 'line',
+          data: item.factor_data,
+          smooth: true, // 启用平滑处理
+          showSymbol: false,
+        }));
+        //let y=[1000, 1325, 25500, 4000, 90, 230]
+        let optionTwoFac = {
+          title: {
+            text: this.factorSelected[1]+'对比分析'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            top: 25,
+            data:factorDataList.map(item => item.company)
+          },
+          grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '0%',
+            containLabel: true
+          },
+
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: dates,
+            axisLabel:{
+              interval:0, // x轴全部显示
+              rotate:20 // x轴旋转角度
+            },
+          },
+          // 数据量较多时 可采用X Y轴进行缩放
+          dataZoom: [
+            {
+              type: "slider", //slider表示有滑动块的，
+              roam: false,
+              show: true,
+              xAxisIndex: [0, 1], //表示联动两个 x 轴
+              realtime: false,
+              start: 0, // 缩放起始位
+              end: 100, // 缩放结束位
+              height: 10,
+              bottom:30,
+              // 缩放图标
+              handleIcon:
+                  'path://M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+              handleSize: '80%'  // 图标大小
+            },
+            // 滚动缩放
+            {
+              type: 'inside',
+              xAxisIndex: [0, 1], //表示联动两个 x 轴
+              start: 0, // 缩放起始位
+              end: 100, // 缩放结束位
+
+            }
+          ],
+          yAxis: {
+            type: 'value',
+            max:'dataMax',
+            min:'dataMin',
+          },
+
+          series: seriesData,
+        };
+        twoFac.setOption(optionTwoFac);
+      })
+    },
+    //获取不同公司股票收盘价数据
+    getCompanyCloseData(){
+      axios.get("https://mock.presstime.cn/mock/646c262d2801fe040f0dd529/example/getcloseData"
+          //     , {
+          //   params: {
+          //     factor:this.factorSelected[1],
+          //     company_list:this.companySelected
+          //   }
+          // }
+      ).then((res) =>{
+        this.companyCloseList=res.data.data.company_close_list;
+        this.initCloseCharts();
+      })
+    },
+    // 初始化 echarts 实例
+    initCloseCharts() {
+      this.$nextTick(() => {
+        this.companyCloseList.forEach((item, index) => {
+          const chart = this.echarts.init(document.getElementById(`close-chart-${index}`));
+          chart.setOption({
+            xAxis: {
+              data: item.dates,
+              show:false, // 不显示坐标轴线、坐标轴刻度线和坐标轴上的文字
+              axisTick:{
+                show:false // 不显示坐标轴刻度线
+              },
+              axisLine: {
+                show: false, // 不显示坐标轴线
+              },
+              axisLabel: {
+                show: false, // 不显示坐标轴上的文字
+              },
+              splitLine:{
+                show:false // 不显示网格线
+              },
+            },
+            yAxis: {
+              show: false,
+              type: 'value',
+              max:'dataMax',
+              min:'dataMin',
+              axisTick:{
+                show:false // 不显示坐标轴刻度线
+              },
+              axisLine: {
+                show: false, // 不显示坐标轴线
+              },
+              axisLabel: {
+                show: false, // 不显示坐标轴上的文字
+              },
+              splitLine:{
+                show:false // 不显示网格线
+              },
+            },
+            grid: {
+              show: false,
+              left: 0,
+              right:0,
+              top: 0,
+              bottom: 0,
+              containLabel: true // 设置为 true 可以防止文字溢出
+            },
+            series: [{
+              name: 'close',
+              type: 'line',
+              data: item.close_data,
+              showSymbol: false,
+              smooth: true, // 启用平滑处理
+              lineStyle: {
+                color: '#EE6666' // 折线的颜色
+              }
+            }]
+          });
+          // 根据页面大小自动响应图表大小
+          window.addEventListener("resize", function () {
+            chart.resize();
+          });
+          this.closeCharts.push(chart);
+
+
+        });
+      })
+    },
+
   }
 
 }
@@ -1324,6 +1751,79 @@ export default {
 
 .part-title{
   font-size: 18px;
+}
+/*公司列表小框*/
+.grey-border-small{
+  border: #DCDFE6 solid 1px;
+  padding: 8px;
+  border-radius: 10px;
+  height: 60px;
+}
+
+.my-card-pd{
+  padding: 30px;
+}
+
+.my-tip{
+  color: #7F7F7F;
+  font-size: 12px;
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.part-title{
+  font-size: 18px;
+}
+.stock-container{
+  margin-top: 10px;
+}
+.stock-id{
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  color: #555555;
+  margin-bottom: 5px;
+}
+.company-name{
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  color: #555555;
+}
+.price-trend-chart{
+  height: 40px;
+  width: 100px;
+}
+.price-open{
+  color: #555555;
+  font-size: 17px;
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  transform: translate(0% , 60%);
+}
+.margin-bottom-5{
+  margin-bottom: 5px;
+}
+.margin-top-10{
+  margin-top: 10px;
+}
+.grey-border-smaller{
+  border: #DCDFE6 solid 1px;
+  padding:4px 8px;
+  border-radius: 10px;
+  height: 60px;
+}
+.suggest-title{
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: #555555;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 /*热力图盒子*/
