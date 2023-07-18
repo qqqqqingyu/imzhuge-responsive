@@ -9,7 +9,7 @@ Error: error:0308010C:digital envelope routines::unsupported
 $env:NODE_OPTIONS="--openssl-legacy-provider"
 ```
 再用`yarn serve`即可运行。
-项目写完后，用`yarn build`打包。
+项目写完后，用`npm run build`打包。
 <br>原版readme见下文。
 # mark
 
