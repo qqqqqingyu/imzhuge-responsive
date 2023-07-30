@@ -5,9 +5,9 @@ body {
 
 .homepage_header {
     padding-top: 0px;
-    background: #F4AB46; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #F4AB46, #EC716C); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #F4AB46, #EC716C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background: #F4AB46; !* fallback for old browsers *!*/
+    /*background: -webkit-linear-gradient(to right, #F4AB46, #EC716C); !* Chrome 10-25, Safari 5.1-6 *!*/
+    /*background: linear-gradient(to right, #F4AB46, #EC716C); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
     position: fixed;
     z-index: 998;
     width: 100%;
@@ -54,7 +54,7 @@ body {
 }
 
 .hdnav li a.navregbtn {
-    color: #f94446;
+    color: rgb(239, 156, 25);
     padding: 0;
     background: #fff;
     width: 120px;
@@ -68,24 +68,7 @@ body {
 }
 
 .hdnav li a.navregbtn:hover {
-    color: #fb6770;
-    border-bottom: none;
-}
-
-.hdnav li a.navpersonalbtn {
-    color: #f94446;
-    padding: 0;
-    background: #fff;
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    display: block;
-    border-radius: 20px;
-}
-
-.hdnav li a.navpersonalbtn:hover {
-    color: #fb6770;
+    color: rgb(239, 156, 25);
     border-bottom: none;
 }
 
@@ -242,7 +225,7 @@ a.bnregbtn:hover {
 }
 
 .sys_info {
-    padding: 90px 0 90px 0;
+    padding: 0 0 90px;
     text-align: center;
 
 }
@@ -278,17 +261,14 @@ a.bnregbtn:hover {
     width: 23%;
     margin-left: 5%;
     margin-right: 5%;
-    box-shadow: 2px 2px 4px #E9EEF3;
+    box-shadow: rgba(215, 215, 215, 0.35) 2px 2px 20px;
     background: white;
-    border:1px solid #F7F7F7;
-    border-radius:10px;
-    padding: 2% 0;
+    border-radius: 10px;
+    padding: 3% 0 0;
 }
 
 .sys_info_item li img {
     display: block;
-    height: 100px;
-    width: 100px;
     margin: 0 auto;
 }
 
@@ -615,7 +595,6 @@ a.bnregbtn:hover {
 .cooperation {
     text-align: center;
     font-size: 30px;
-    color: #ff867e;
     padding: 25px 0 0;
     line-height: 33px;
 }
@@ -634,10 +613,11 @@ a.bnregbtn:hover {
     margin-top: 80px;
 }
 
-.contact_us{
+.contact_us {
     margin: 0 auto;
 }
-.contact_us img{
+
+.contact_us img {
     width: 200px;
     height: 200px;
     padding: 20px;
@@ -710,10 +690,10 @@ a.bnregbtn:hover {
 }
 
 .foot {
-    text-align: center;
     color: #999;
     padding: 30px 0;
-    background-color: #f8fbff;
+    background-color: #FAFAFA;
+    margin-top: 90px;
 }
 
 
@@ -752,7 +732,7 @@ a.bnregbtn:hover {
 }
 
 .second_title {
-    font-size:30px;
+    font-size: 30px;
     color: #f94446 !important;
     font-weight: 20;
     display: block;
@@ -780,8 +760,8 @@ a.bnregbtn:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    color: #fff;
-    background-color: #ff867e;
+    color: #FFFFFF;
+    background-color: #F0C27B;
     opacity: 1;
     -webkit-transition: opacity 250ms, top 500ms;
     -o-transition: opacity 250ms, top 500ms;
@@ -904,40 +884,61 @@ detail__close img {
 .staff_info a:hover {
     text-decoration: underline;
 }
+
 /*.opportunity span{*/
 /*    color: #ff867e !important;*/
 /*}*/
-.contact_us_box{
+.contact_us_box {
     margin: 30px auto;
     padding-bottom: 40px;
     padding-top: 40px;
     border-radius: 40px;
     line-height: 50px;
 }
-.contact_us_box p{
+
+.contact_us_box p {
     font-size: 22px;
     color: grey;
 }
-.contact_us_box span{
+
+.contact_us_box span {
     font-weight: bold;
-color: rgba(0,0,0,0.75);
+    color: rgba(0, 0, 0, 0.75);
 }
-.teach{
+
+.teach {
     background: #f8fbe9;
 
 }
-.company{
+
+.company {
     background: #FFDBCE;
 
 }
-.media{
-    background:#f8fbe9;
+
+.media {
+    background: #f8fbe9;
 
 }
-.partner{
-    background: rgba(249,251,255,1);
+
+.partner {
+    background: rgba(249, 251, 255, 1);
     padding-top: 60px;
 }
-.contact_us2{
+
+.contact_us2 {
     margin-top: -70px;
 }
+
+.grey-part {
+    background: rgb(250,250,250);
+    padding: 10px 0 0;
+    font-size: 13px;
+    line-height: 21px;
+    height: 165px;
+}
+
+.grey-box{
+    border: rgb(242, 242, 242) 1px solid;
+}
+

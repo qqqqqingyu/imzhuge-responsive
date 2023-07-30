@@ -13,8 +13,6 @@
             </router-link>
           </li>
           <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li>
-          <!--        <li><a id="nav_activity" onclick="showUnderline(this.id,'activity')" class="hand">热门活动</a></li>-->
-          <!--        <li><a id="nav_qst" onclick="showUnderline(this.id,'qst')" class="hand">常见问题</a></li>-->
           <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
           <!--        活动广场不在本页，需跳转-->
@@ -26,67 +24,55 @@
           </li>
         </ul>
       </el-col>
-
-
     </el-row>
   </div>
   <!--  用于定位，没有内容的div-->
   <div id="hp"></div>
   <el-row>
-    <!--    轮播图开始-->
-    <el-col :span="24" class="banner_bg">
-      <div id="top" class="border"></div>
-      <div class="block">
-        <!--        interval计时器，轮播图展示时间-->
-        <!--        <el-carousel :interval="4000" :height="bannerHeight+'px'" class="carousel">-->
-        <!--          <el-carousel-item  v-for="item in imgUrls" :key="item.id">-->
-        <!--            <img ref="bannerHeight" :src="item.src" style="width:100%" @load="imgLoad" />-->
-        <!--          </el-carousel-item>-->
-        <!--        </el-carousel>-->
-        <img ref="bannerHeight" :src="require('@/assets/images/banner1.png')" style="width:100%" @load="imgLoad"/>
-      </div>
+<!--    banner开始-->
+    <el-col :span="24" class="my-banner">
+      <h1>做财经领域高水平的人机融合预测平台</h1>
+      <el-button>立即使用</el-button>
     </el-col>
-    <!--    轮播图结束-->
+<!--    banner结束-->
 
     <el-col :span="24">
-      <!--      渐变色背景开始-->
+<!--      渐变色背景开始-->
       <div class="gradient_bg">
-        <!--    三个模块开始-->
+<!--    三个模块开始-->
         <div class="sys_info_item pgw_1 three_block" style="transform:translateY(-15%);">
           <ul class="clear">
             <li class=" sys_img wow bounceInLeft animated" data-wow-duration="0.7s"
                 style="visibility: visible; animation-name: bounceInLeft;">
-              <!--              <img src="@/assets/images/市场准入.svg"/>-->
-              <img :src="require('@/assets/images/market_access.svg')">
-              <span>应用场景丰富</span>
-              <p>针对经济政策不确定性事件、财经指标、公司价值进行预测</p>
+              <img :src="require('@/assets/images/banner-box1.svg')" height="60">
+              <span>基于预测市场</span>
+              <p>聚合集体预测概率，提供精准预测服务<br>实时追踪大众预测</p>
             </li>
             <li class=" sys_img wow bounceInUp animated" data-wow-duration="0.7s"
                 style="visibility: visible; animation-name: bounceInUp;">
-              <!--              <img src="@/assets/images/知识.svg"/>-->
-              <img :src="require('@/assets/images/zhishi.svg')">
-              <span>聚集人机智慧</span>
-              <p>机器模型通过财经大数据的潜在模式做预测，参与人基于私有信息和财经知识做判断</p>
+              <img :src="require('@/assets/images/banner-box2.svg')" height="60">
+              <span>分享预测经验</span>
+              <p>分享个人经验，提升预测效率<br>助力形成集体智慧</p>
             </li>
             <li class=" sys_img wow slideInRight animated" data-wow-duration="0.5s"
                 style="visibility: visible; animation-name: slideInRight;">
-              <!--              <img src="@/assets/images/智慧创新.svg"/>-->
-              <img :src="require('@/assets/images/smart_innovation.svg')">
-              <span>提供数据支持</span>
-              <p>提供开源数据API，助力资产管理企业投资决策和政府财经部门政策制定</p>
+              <img :src="require('@/assets/images/banner-box3.svg')" height="60">
+              <span>聚集大众智慧</span>
+              <p>公开预测平台，聚集大众智慧<br>合理分析事件结果</p>
             </li>
           </ul>
         </div>
-        <!--    三个模块结束-->
+<!--    三个模块结束-->
 
-        <!--      典型应用版块-->
+<!--      典型应用开始-->
         <div id="typical_use"></div>
         <el-row>
           <el-col :span="24" class="part_title">典型应用</el-col>
           <el-col :span="24" style="text-align: center">
             <el-radio-group v-model="typical_filter" class="my-radio-group">
               <el-radio-button class="filter-radio" label=0>企业收益率排序预测</el-radio-button>
-              <el-radio-button class="filter-radio" label=1>全球经济不确定性预警</el-radio-button>
+              <el-radio-button class="filter-radio" label=1>股价波动预测</el-radio-button>
+              <el-radio-button class="filter-radio" label=2>全球经济不确定性预警</el-radio-button>
             </el-radio-group>
           </el-col>
           <el-col :span="22" :offset="1" class="typical-filter">
@@ -94,13 +80,23 @@
               <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
                 <p>基于人机融合</p>
                 <p>做细分行业收益率排序</p>
-                <el-button type="danger" class="more" v-on:click="more">立即使用</el-button>
+                <el-button type="warning" class="more" v-on:click="more">立即使用</el-button>
               </el-col>
               <el-col :span="11" class="wow bounceInRight animated" style="position: relative">
                 <img src="@/assets/images/yield.png" alt="收益率排序预测" width="600">
               </el-col>
             </el-row>
             <el-row v-if="typical_filter==1">
+              <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
+                <p>基于人机融合</p>
+                <p>做股价波动预测</p>
+                <el-button type="danger" class="more" v-on:click="more">立即使用</el-button>
+              </el-col>
+              <el-col :span="11" class="wow bounceInRight animated" style="position: relative">
+
+              </el-col>
+            </el-row>
+            <el-row v-if="typical_filter==2">
               <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
                 <p>融合领域专家与机器智慧</p>
                 <p>做全球经济与政策不确定性评估和预警</p>
@@ -113,180 +109,26 @@
             </el-row>
           </el-col>
         </el-row>
-        <!--      典型应用结束-->
+<!--      典型应用结束-->
       </div>
-      <!--      渐变色背景结束-->
+<!--      渐变色背景结束-->
     </el-col>
   </el-row>
 
-  <!--      热门活动板块-->
-  <!--  <div id="activity"></div>-->
-  <!--  <el-row style="justify-content: center">-->
-  <!--    <el-row style="margin-top: 100px;">-->
-  <!--      <el-col class="part_title" style="margin-bottom: 100px;">热门活动</el-col>-->
-  <!--    </el-row>-->
-  <!--    <el-row style="justify-content: center">-->
-  <!--      <el-col :span="6"-->
-  <!--              class="class wow bounceInLeft animated" data-wow-duration="0.7s"-->
-  <!--              style="visibility: visible; animation-name: bounceInLeft;">-->
-  <!--        <div class="hotactivity">-->
-  <!--          <div class="money"><span style="color: #f56c6c;font-size: 15px;font-weight:bold;">￥50</span></div>-->
-  <!--          <h4 style="margin-left: 20px;margin-top: 10px;">2021年11月30日，中国十年期国债收益率位于哪个区间？（单位：%）</h4>-->
-  <!--          <div class="tag-group">-->
-  <!--            <el-tag effect="plain" type="danger" >-->
-  <!--              <span>财经</span>-->
-  <!--            </el-tag>-->
-  <!--            <el-tag effect="plain" type="danger" >-->
-  <!--              <span>国债</span>-->
-  <!--            </el-tag>-->
-  <!--          </div>-->
-  <!--          <el-row style="margin-top: 10px;margin-left: 20px;margin-bottom: 30px">-->
-  <!--            <el-col class="timeandnum">-->
-  <!--              <i class="el-icon-time">  2010.10.20 14:55 - 2021.11.30 10:00</i>-->
-  <!--            </el-col>-->
-  <!--            <el-col class="timeandnum" style="margin-top: 5px">-->
-  <!--              <i class="el-icon-star-off">  261</i>-->
-  <!--            </el-col>-->
-  <!--          </el-row>-->
-  <!--        </div>-->
-  <!--      </el-col>-->
-  <!--      <el-col :span="6" :offset="1"-->
-  <!--              class="wow bounceInUp animated" data-wow-duration="0.7s"-->
-  <!--              style="visibility: visible; animation-name: bounceInUp;">-->
-  <!--        <div class="hotactivity">-->
-  <!--          <div class="money"><span style="color: #f56c6c;font-size: 15px;font-weight:bold;">￥50</span></div>-->
-  <!--          <h4 style="margin-left: 20px;margin-top: 10px;">2021年11月30日，中国十年期国债收益率位于哪个区间？（单位：%）</h4>-->
-  <!--          <div class="tag-group">-->
-  <!--            <el-tag effect="plain" type="danger" >-->
-  <!--              <span>财经</span>-->
-  <!--            </el-tag>-->
-  <!--            <el-tag effect="plain" type="danger" >-->
-  <!--              <span>国债</span>-->
-  <!--            </el-tag>-->
-  <!--          </div>-->
-  <!--          <el-row style="margin-top: 10px;margin-left: 20px;margin-bottom: 30px">-->
-  <!--            <el-col class="timeandnum">-->
-  <!--              <i class="el-icon-time">  2010.10.20 14:55 - 2021.11.30 10:00</i>-->
-  <!--            </el-col>-->
-  <!--            <el-col class="timeandnum" style="margin-top: 5px">-->
-  <!--              <i class="el-icon-star-off">  261</i>-->
-  <!--            </el-col>-->
-  <!--          </el-row>-->
-  <!--        </div>-->
-  <!--      </el-col>-->
-  <!--      <el-col :span="6" :offset="1" class="wow slideInRight animated" data-wow-duration="0.5s"-->
-  <!--              style="visibility: visible; animation-name: slideInRight;">-->
-  <!--        <div class="hotactivity">-->
-  <!--          <div class="money"><span style="color: #f56c6c;font-size: 15px;font-weight:bold;">￥50</span></div>-->
-  <!--          <h4 style="margin-left: 20px;margin-top: 10px;">2021年11月30日，中国十年期国债收益率位于哪个区间？（单位：%）</h4>-->
-  <!--          <div class="tag-group">-->
-  <!--            <el-tag effect="plain" type="danger" >-->
-  <!--              <span>财经</span>-->
-  <!--            </el-tag>-->
-  <!--            <el-tag effect="plain" type="danger" >-->
-  <!--              <span>国债</span>-->
-  <!--            </el-tag>-->
-  <!--          </div>-->
-  <!--          <el-row style="margin-top: 10px;margin-left: 20px;margin-bottom: 30px">-->
-  <!--            <el-col class="timeandnum">-->
-  <!--              <i class="el-icon-time">  2010.10.20 14:55 - 2021.11.30 10:00</i>-->
-  <!--            </el-col>-->
-  <!--            <el-col class="timeandnum" style="margin-top: 5px">-->
-  <!--              <i class="el-icon-star-off">  261</i>-->
-  <!--            </el-col>-->
-  <!--          </el-row>-->
-  <!--        </div>-->
-  <!--      </el-col>-->
-  <!--    </el-row>-->
-  <!--  </el-row>-->
-
-
-  <!--      常见问题解析板块-->
-  <!--  <div id="qst"></div>-->
-  <!--  <el-row>-->
-  <!--    <div class="wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"-->
-  <!--         style=" visibility: visible; animation-name: bounceInUp;">-->
-  <!--      <el-row style="margin-top: 100px">-->
-  <!--        <el-col><h2 class="part_title" style="text-align: center;margin-bottom: 100px;">常见问题解析</h2></el-col>-->
-  <!--      </el-row>-->
-  <!--      <el-row style="justify-content: center" >-->
-  <!--        <el-col :span="2" >-->
-  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
-  <!--        </el-col>-->
-  <!--        <el-col :span="9">-->
-  <!--          <el-row class="questiontitle">1. 参与资格</el-row>-->
-  <!--          <el-row class="info">-->
-  <!--            <p>活动可供所有用户参与，需在个人中心填写'平台测验'小测验，3分以上可以参与活动。</p>-->
-  <!--          </el-row>-->
-  <!--        </el-col>-->
-
-  <!--        <el-col :span="2" :offset="1">-->
-  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
-  <!--        </el-col>-->
-  <!--        <el-col :span="9">-->
-  <!--          <el-row class="questiontitle">2. 合约交易</el-row>-->
-  <!--          <el-row class="info"><p>用户进入活动界面，购买（出售）某合约10份，所持该合约增加（减少）10份，合约价格越高，成本（收益）越高。</p></el-row>-->
-  <!--        </el-col>-->
-
-  <!--      </el-row>-->
-  <!--      <el-row style="margin-top: 50px;justify-content: center" >-->
-  <!--        <el-col :span="2">-->
-  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
-  <!--        </el-col>-->
-  <!--        <el-col :span="9">-->
-  <!--          <el-row class="questiontitle">3. 盈利方式</el-row>-->
-  <!--          <el-row class="info">-->
-  <!--            <p>活动的盈利方式有两种方式，一是买入自己认为会发生的结果对应的合约，二是卖出自己不看好的结果对应的合约，使自己在活动中累积获取更多的诸葛贝。活动结束后根据诸葛贝的多少决定奖金的分配。</p>-->
-  <!--          </el-row>-->
-  <!--        </el-col>-->
-
-  <!--        <el-col :span="2" :offset="1">-->
-  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
-  <!--        </el-col>-->
-  <!--        <el-col :span="9">-->
-  <!--          <el-row class="questiontitle">4. 结果揭晓</el-row>-->
-  <!--          <el-row class="info"><p>若某事件结果为真，则该事件对应合约清算价格为1，清算时持有10份该合约，则可获得10个诸葛贝收益。反之没有收益。</p></el-row>-->
-  <!--        </el-col>-->
-
-  <!--      </el-row>-->
-  <!--      <el-row style="margin-top: 50px;justify-content: center">-->
-  <!--        <el-col :span="2">-->
-  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
-  <!--        </el-col>-->
-  <!--        <el-col :span="9">-->
-  <!--          <el-row class="questiontitle">5. 活动结束后奖金兑付</el-row>-->
-  <!--          <el-row class="info">-->
-  <!--            <p>用户可凭活动结束后诸葛贝数进行现金兑换，若参与的活动总奖金为30元人民币，所有用户总财富为1000个诸葛币，您的财富为100个诸葛币，占总财富的10%，最终获取现金3元。</p>-->
-  <!--          </el-row>-->
-  <!--        </el-col>-->
-
-  <!--        <el-col :span="2" :offset="1">-->
-  <!--          <img src="@/assets/images/questions.png" alt="questions">-->
-  <!--        </el-col>-->
-  <!--        <el-col :span="9">-->
-  <!--          <el-row class="questiontitle">6. 财富排名</el-row>-->
-  <!--          <el-row class="info"><p>每次活动结束后会更新一次财富排名，用户可以在首页中查看总排名、活跃度、周排名，也可以到已经清算后的预测活动页面查看自己在该活动的排名。</p></el-row>-->
-  <!--        </el-col>-->
-
-  <!--      </el-row>-->
-  <!--    </div>-->
-
-  <!--  </el-row>-->
-
-  <!--      使命+四个图片-->
-  <el-row style="margin-top: 100px;margin-bottom:100px;;visibility: visible; animation-name: lightSpeedIn;"
+<!--      使命+四个图片开始-->
+  <el-row style="margin-top: 100px;margin-bottom:90px;visibility: visible; animation-name: lightSpeedIn;"
           class="clear lightSpeedIn wow  animated" data-wow-duration="0.7s" data-wow-delay="0.2s">
     <!--        使命-->
     <el-col :span="11" :offset="2" style="padding-top: 100px">
       <el-row>
         <strong class="part_title">做财经领域高水平的<br>人机融合预测平台</strong>
       </el-row>
-      <el-row class="mlar" style="margin-top: 50px;color:#606266; font-size: 18px">
+      <el-row class="left" style="margin-top: 50px;color:#606266; font-size: 18px">
         采用市场机制融合人机智慧，提供精准、快速、高效的财经预测服务。
       </el-row>
       <el-row>
         <el-col span="6" style="margin-top: 50px;">
-          <el-button v-on:click="homelogin" class="login" type="danger">前往登录</el-button>
+          <el-button v-on:click="homelogin" class="login more">前往登录</el-button>
         </el-col>
       </el-row>
     </el-col>
@@ -294,7 +136,7 @@
     <el-col :span="4" :offset="1" style="padding-top: 50px;">
       <div class="equality">
         <el-row style="justify-content: center;padding-top: 40px">
-          <img src="@/assets/images/mis_1.png" alt="equality">
+          <img src="@/assets/images/equality.svg" alt="equality" height="50">
         </el-row>
         <el-row style="justify-content: center;margin-top: 15px">
           <strong style="color:#fff;font-size: 18px;">融合</strong>
@@ -306,7 +148,7 @@
 
       <div class="share">
         <el-row style="justify-content: center;padding-top: 40px">
-          <img src="@/assets/images/mis_3.png" alt="share">
+          <img src="@/assets/images/share-y.svg" alt="share" height="40">
         </el-row>
         <el-row style="justify-content: center;margin-top: 15px">
           <strong style="font-size: 18px">共享</strong>
@@ -319,7 +161,7 @@
     <el-col :span="4" style="margin-left: 15px;">
       <div class="together">
         <el-row style="justify-content: center;padding-top: 40px">
-          <img src="@/assets/images/mis_2.png" alt="together">
+          <img src="@/assets/images/together.svg" alt="together" height="40">
         </el-row>
         <el-row style="justify-content: center;margin-top: 15px">
           <strong style="font-size: 18px">共创</strong>
@@ -331,7 +173,7 @@
 
       <div class="promote">
         <el-row style="justify-content: center;padding-top: 40px">
-          <img src="@/assets/images/mis_4.png" alt="promote">
+          <img src="@/assets/images/promote.svg" alt="promote" height="40">
         </el-row>
         <el-row style="justify-content: center;margin-top: 15px">
           <strong style="font-size: 18px">提升</strong>
@@ -342,207 +184,216 @@
       </div>
     </el-col>
   </el-row>
-  <!--  研究团队板块-->
+<!--      使命+四个图片结束-->
+
+  <!--  研究团队开始-->
   <div id="about_us"></div>
-  <el-row>
-    <el-col>
-      <div class="team wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"
-           style=" visibility: visible; animation-name: bounceInUp;">
-        <el-row style="justify-content: center;letter-spacing:5px;padding-top: 80px;font-size: 36px;">
-          <strong class="part_title">研究团队</strong>
-        </el-row>
-        <el-row style="justify-content: center;margin-top: 50px;">
-          <el-col :span="20" class="teaminfo">
-            <p>采用市场机制融合人机智慧可以实现更好的财经预测。此外，人类的群体智慧和机器学习模型并非对立，研究团队在深入理解并挖掘人机互补优势基础上，实现人机增强智能做财经预测。</p>
-            <br>
-            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。为了实现该使命，我们组建了一个稳定的研究团队，主要成员如下：</p>
-          </el-col>
-        </el-row>
-        <el-row class="teammember">
+<!--  <el-row>-->
+<!--    <el-col>-->
+<!--      <div class="team wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"-->
+<!--           style=" visibility: visible; animation-name: bounceInUp;">-->
+<!--        <el-row style="justify-content: center;letter-spacing:5px;padding-top: 80px;font-size: 36px;">-->
+<!--          <strong class="part_title">研究团队</strong>-->
+<!--        </el-row>-->
+<!--        <el-row style="justify-content: center;margin-top: 50px;">-->
+<!--          <el-col :span="20" class="teaminfo">-->
+<!--            <p>采用市场机制融合人机智慧可以实现更好的财经预测。此外，人类的群体智慧和机器学习模型并非对立，研究团队在深入理解并挖掘人机互补优势基础上，实现人机增强智能做财经预测。</p>-->
+<!--            <br>-->
+<!--            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。为了实现该使命，我们组建了一个稳定的研究团队，主要成员如下：</p>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--        <el-row class="teammember">-->
 
-          <el-row class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"
-                  style=" visibility: visible; animation-name: bounceInLeft;">
-            <!--团队的一行开始-->
-            <el-col :span="9" :offset="2">
-              <el-row><h4>郑海超 </h4></el-row>
-              <el-row>
-                <p>西南财经大学管理科学与工程学院教授。研究兴趣包括众包、金融科技、人机混合预测系统。
-                  主持2个国家自科基金项目和2个教育部人文社科项目。
-                  在Information Systems Journal, European Journal of Information Systems, Decision Support Systems
-                  等信息系统类期刊发表多篇论文。</p>
-              </el-row>
-            </el-col>
-            <el-col :span="9" :offset="2">
-              <el-row><h4>徐赟</h4></el-row>
-              <el-row>
-                <p>西南财经大学管理科学与工程学院教授，博士生导师，院长助理。目前主要从事金融科技，管理信息系统，和电子商务方面的研究。
-                  他于2010年入选阿里巴巴研究院的“青年学者支持计划”， 2011年入选“四川省学术和技术带头人后备人选”，2014年获西南财经大学优秀科研成果奖。</p>
-              </el-row>
-            </el-col>
-            <!--团队的一行结束-->
-            <!--团队的一行开始-->
-            <el-col :span="9" :offset="2">
-              <el-row><h4>王涛</h4></el-row>
-              <el-row>
-                <p>西南财经大学管理科学与工程学院信息管理与信息系统系主任。主要研究方向包括互联网金融与信息披露、金融科技与用户行为、企业智能与知识管理等。
-                  现为四川省华侨华人学会理事、成都市新侨联常任理事、西南财经大学新侨联理事、国家自然科学基金项目评议人、四川省海外高层次留学人才。</p>
-              </el-row>
-            </el-col>
-            <el-col :span="9" :offset="2">
-              <el-row><h4>邵家兵 </h4></el-row>
-              <el-row>
-                <p>重庆大学二级教授、博士生导师、管理学博士、工商管理博士后、市场学系原系主任（2012-2020）。
-                  学术兼职有国家自然科学基金同行评议专家、国家社会科学基金通讯评审专家、全国电子商务数字教育发展联盟副理事长、中国工业经济学会常务理事等。</p>
-              </el-row>
-            </el-col>
-            <!--团队的一行结束-->
-          </el-row>
+<!--          <el-row class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"-->
+<!--                  style=" visibility: visible; animation-name: bounceInLeft;">-->
+<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>郑海超 </h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>西南财经大学管理科学与工程学院教授。研究兴趣包括众包、金融科技、人机混合预测系统。-->
+<!--                  主持2个国家自科基金项目和2个教育部人文社科项目。-->
+<!--                  在Information Systems Journal, European Journal of Information Systems, Decision Support Systems-->
+<!--                  等信息系统类期刊发表多篇论文。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>徐赟</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>西南财经大学管理科学与工程学院教授，博士生导师，院长助理。目前主要从事金融科技，管理信息系统，和电子商务方面的研究。-->
+<!--                  他于2010年入选阿里巴巴研究院的“青年学者支持计划”， 2011年入选“四川省学术和技术带头人后备人选”，2014年获西南财经大学优秀科研成果奖。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
+<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>王涛</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>西南财经大学管理科学与工程学院信息管理与信息系统系主任。主要研究方向包括互联网金融与信息披露、金融科技与用户行为、企业智能与知识管理等。-->
+<!--                  现为四川省华侨华人学会理事、成都市新侨联常任理事、西南财经大学新侨联理事、国家自然科学基金项目评议人、四川省海外高层次留学人才。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>邵家兵 </h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>重庆大学二级教授、博士生导师、管理学博士、工商管理博士后、市场学系原系主任（2012-2020）。-->
+<!--                  学术兼职有国家自然科学基金同行评议专家、国家社会科学基金通讯评审专家、全国电子商务数字教育发展联盟副理事长、中国工业经济学会常务理事等。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
+<!--          </el-row>-->
 
-          <el-row class="wow bounceInRight animated" data-wow-iteration="1" data-wow-duration="2s"
-                  style=" visibility: visible; animation-name: bounceInRight;">
-            <!--团队的一行开始-->
-            <el-col :span="9" :offset="2">
-              <el-row><h4>伍晶</h4></el-row>
-              <el-row>
-                <p>西南财经大学管理科学与工程学院教授，2009年获得新加坡国立大学信息系统博士学位，2004年获得香港科技大学经济学硕士学位，2002年获得西北工业大学电子工程学士学位。
-                  研究兴趣包括信息系统经济学，电子商务，开放创新以及大数据经济学。</p>
-              </el-row>
-            </el-col>
-            <el-col :span="9" :offset="2">
-              <el-row><h4>王俊</h4></el-row>
-              <el-row>
-                <p> 西南财经大学管理科学与工程学院副教授。致力于从大数据分析视角，通过大机器学习、数据分析、人工智能等方法解决金融市场的重要问题。
-                  主要研究包括多源数据对证券市场的影响性分析，大数据视角的数字化互动媒体对股票市场的影响性研究、基于大数据的证券市场量化分析研究、基于海量数据的媒
-                  体信息识别与情感量化分析研究等。</p>
-              </el-row>
-            </el-col>
-            <!--团队的一行结束-->
-            <!--团队的一行开始-->
-            <el-col :span="9" :offset="2">
-              <el-row><h4>郝琳娜</h4></el-row>
-              <el-row>
-                <p> 聊城大学副教授，2015年毕业于南开大学管理科学与工程专业，获管理学博士学位。
-                  研究方向包括众包与价值工程。
-                  在《系统工程理论与实践》、《科研管理》、《管理工程学报》、《运筹与管理》、《系统工程》等刊物发表论文10余篇，
-                  并在科学出版社出版专著《众包模式——企业创新的新助力》。</p>
-              </el-row>
-            </el-col>
-            <el-col :span="9" :offset="2">
-              <el-row><h4>许博</h4></el-row>
-              <el-row>
-                <p>复旦大学管理学院副教授，美国德克萨斯理工大学取得管理信息系统博士，瑞士苏黎世大学和美国麻省理工学院斯隆管理学院访问学者。
-                  研究方向包括信息系统开发与管理，虚拟社区，电子商务。</p>
-              </el-row>
-            </el-col>
-            <!--团队的一行结束-->
-          </el-row>
+<!--          <el-row class="wow bounceInRight animated" data-wow-iteration="1" data-wow-duration="2s"-->
+<!--                  style=" visibility: visible; animation-name: bounceInRight;">-->
+<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>伍晶</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>西南财经大学管理科学与工程学院教授，2009年获得新加坡国立大学信息系统博士学位，2004年获得香港科技大学经济学硕士学位，2002年获得西北工业大学电子工程学士学位。-->
+<!--                  研究兴趣包括信息系统经济学，电子商务，开放创新以及大数据经济学。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>王俊</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p> 西南财经大学管理科学与工程学院副教授。致力于从大数据分析视角，通过大机器学习、数据分析、人工智能等方法解决金融市场的重要问题。-->
+<!--                  主要研究包括多源数据对证券市场的影响性分析，大数据视角的数字化互动媒体对股票市场的影响性研究、基于大数据的证券市场量化分析研究、基于海量数据的媒-->
+<!--                  体信息识别与情感量化分析研究等。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
+<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>郝琳娜</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p> 聊城大学副教授，2015年毕业于南开大学管理科学与工程专业，获管理学博士学位。-->
+<!--                  研究方向包括众包与价值工程。-->
+<!--                  在《系统工程理论与实践》、《科研管理》、《管理工程学报》、《运筹与管理》、《系统工程》等刊物发表论文10余篇，-->
+<!--                  并在科学出版社出版专著《众包模式——企业创新的新助力》。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>许博</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>复旦大学管理学院副教授，美国德克萨斯理工大学取得管理信息系统博士，瑞士苏黎世大学和美国麻省理工学院斯隆管理学院访问学者。-->
+<!--                  研究方向包括信息系统开发与管理，虚拟社区，电子商务。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
+<!--          </el-row>-->
 
-          <el-row class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"
-                  style=" visibility: visible; animation-name: bounceInLeft;">
-            <!--团队的一行开始-->
-            <el-col :span="9" :offset="2">
-              <el-row><h4>陈冬宇</h4></el-row>
-              <el-row>
-                <p> 苏州大学管理信息系统教授。
-                  长期从事信息管理学术研究工作，着重研究P2P网络借贷等新兴互联网金融模式，获得多项被国际同行认可的成果，相关论文发表在MIS Quarterly, Communications of AIS,
-                  Electronic Commerce Research等高水平期刊。</p>
-              </el-row>
-            </el-col>
-            <el-col :span="9" :offset="2">
-              <el-row><h4>李凯</h4></el-row>
-              <el-row>
-                <p> 南开大学商学院教授，国际合作办学项目主任，数字商务研究中心主任。
-                  研究方向包括电子商务、信息管理、大数据与商务智能。
-                  天津市131创新型人才培养第二层次人才。</p>
-              </el-row>
-            </el-col>
-            <!--团队的一行结束-->
-            <!--团队的一行开始-->
-            <el-col :span="9" :offset="2">
-              <el-row><h4>李立婷</h4></el-row>
-              <el-row>
-                <p>西南财经大学博士生，已完成博士论文答辩。研究方向为人机融合信息市场中的人机交互机制设计。</p>
-              </el-row>
-            </el-col>
-            <el-col :span="9" :offset="2">
-              <el-row><h4>周春羽</h4></el-row>
-              <el-row>
-                <p>本科毕业于西南财经大学金融工程，硕士毕业于香港大学计算机科学。研究兴趣为量化模型构建。</p>
-              </el-row>
-            </el-col>
-            <!--团队的一行结束-->
-          </el-row>
-        </el-row>
-      </div>
-    </el-col>
-  </el-row>
-  <!--合作交流-->
+<!--          <el-row class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"-->
+<!--                  style=" visibility: visible; animation-name: bounceInLeft;">-->
+<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>陈冬宇</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p> 苏州大学管理信息系统教授。-->
+<!--                  长期从事信息管理学术研究工作，着重研究P2P网络借贷等新兴互联网金融模式，获得多项被国际同行认可的成果，相关论文发表在MIS Quarterly, Communications of AIS,-->
+<!--                  Electronic Commerce Research等高水平期刊。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>李凯</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p> 南开大学商学院教授，国际合作办学项目主任，数字商务研究中心主任。-->
+<!--                  研究方向包括电子商务、信息管理、大数据与商务智能。-->
+<!--                  天津市131创新型人才培养第二层次人才。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
+<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>李立婷</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>西南财经大学博士生，已完成博士论文答辩。研究方向为人机融合信息市场中的人机交互机制设计。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            <el-col :span="9" :offset="2">-->
+<!--              <el-row><h4>周春羽</h4></el-row>-->
+<!--              <el-row>-->
+<!--                <p>本科毕业于西南财经大学金融工程，硕士毕业于香港大学计算机科学。研究兴趣为量化模型构建。</p>-->
+<!--              </el-row>-->
+<!--            </el-col>-->
+<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
+<!--          </el-row>-->
+<!--        </el-row>-->
+<!--      </div>-->
+<!--    </el-col>-->
+<!--  </el-row>-->
+  <!--  研究团队结束-->
+
+  <!--合作交流开始-->
   <div id="coop"></div>
-  <el-row>
-    <el-col class="cooperation">
-      <el-row>
-        <el-col :span="22" :offset="1">
-          <div class="sys_info wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
-            <h1 style="font-size: 50px;line-height: 33px;font-weight: 700">合作交流</h1><br>
-            <div class="sys_info_item pgw_1">
-              <div class="opportunity clear">
-                <div class="contact_us_box teach sys_img wow bounceInLeft animated" data-wow-duration="0.7s"
-                     style="visibility: visible; animation-name: bounceInLeft;"><img
-                    src="@/assets/images/keyanxiangmu.svg"/><br>
-                  <span style="color: #000000;font-weight: bold">科研教学</span>
-                  <p><span>实验平台：</span>为学者提供实验研究和教学实训平台<br>
-                    <span>适合学科：</span>经济学、行为金融、预测科学、人工智能、人机交互
-                  </p>
-                </div>
-                <div class=" contact_us_box company sys_img wow bounceInUp animated" data-wow-duration="0.7s"
-                     style="visibility: visible; animation-name: bounceInUp;"><img src="@/assets/images/qiye.svg"/><br>
-                  <span style="color: #000000;font-weight: bold">资产管理</span>
-                  <p><span>辅助决策：</span>使用嗨皮诸葛提供的数据API下载数据，辅助其写作投研报告或者做投资决策<br>
-                    <span>优化模型：</span>将嗨皮诸葛的数据作为其模型训练的一部分来提升其自身模型的性能
-                  </p>
-                </div>
-                <div class="contact_us_box media sys_img wow slideInRight animated" data-wow-duration="0.5s"
-                     style="visibility: visible; animation-name: slideInRight;"><img
-                    src="@/assets/images/meitijihuo.svg"/><br>
-                  <span style="color: #000000;font-weight: bold">公共治理</span>
-                  <p><span>社会调研：</span>根据政府财政部门的需求定制发布经济政策相关的预测任务<br>
-                    <span>数据支持：</span>使用嗨皮诸葛的数据API下载数据辅助其写作研究报告，制定财经政策
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-
-      <div class="secd contact_us2">
-        <!--        <span class="feedback"><a href="http://m.imzhuge.com/selfcenter/write_feedback/">联系我们</a></span><br><br>-->
-        <span class="feedback"><a href="#">联系我们</a></span><br><br>
-        <p>您可以给我们发送邮件：<a href="mailto:haichao_zheng@163.com">haichao_zheng@163.com</a></p>
-        <p>也可以扫码<span>微信直接交流</span>
-          <!--            或<span>加入企业微信群</span>-->
-        </p>
-        <div class=" secbox clear">
-          <div class=" contact_us wow bounceInUp animated" data-wow-duration="0.7s" data-wow-delay="0.1s"
-               style=" visibility: visible; animation-name: bounceInUp;">
-            <img src="@/assets/images/contactus.png"/>
-            <!--                <img src="images/companyWechat.svg"/>-->
-            <p style="font-weight: bold;font-size: 1.2em">期待与您的合作交流！</p>
-          </div>
+  <div class="sys_info_item pgw_1 three_block center wow bounceIn animated">
+    <h1 class="part_title">合作交流</h1>
+<!--    横线图片高度较高，上移一点-->
+    <img src="@/assets/images/title-line.svg" width="100" style="transform:translateY(-20px);">
+    <ul class="clear" style="transform:translateY(-20px);">
+      <li class="grey-box sys_img wow bounceInLeft animated" data-wow-duration="0.7s"
+          style="visibility: visible; animation-name: bounceInLeft;">
+        <img :src="require('@/assets/images/coop-box1.svg')" height="63">
+        <span><b>科研教学</b></span>
+        <div class="grey-part">
+          <b>实验平台</b><br>为学者提供实验研究和教学实训平台<br><br>
+          <b>适合学科</b><br>经济学、行为金融、预测科学、<br>人工智能、人机交互
         </div>
-      </div>
-      <div class="partner">
-        <div class="second_title">合作伙伴</div>
-        <p><img src="@/assets/images/winvk.png" v-on:click="winvk" class="hand"></p>
-      </div>
+      </li>
+      <li class="grey-box sys_img wow bounceInUp animated" data-wow-duration="0.7s"
+          style="visibility: visible; animation-name: bounceInUp;">
+        <img :src="require('@/assets/images/coop-box2-up.svg')" height="11" style="margin-bottom: 3px;margin-top: 6px">
+        <img :src="require('@/assets/images/coop-box2.svg')" height="43">
+        <span><b>资产管理</b></span>
+        <div class="grey-part">
+          <b>辅助决策</b><br>使用嗨皮诸葛提供的数据API下载数据，辅助<br>其写作投研报告或者做投资决策<br><br>
+          <b>优化模型</b><br>将嗨皮诸葛的数据作为其模型训练的一部分<br>来提升其自身模型的性能
+        </div>
+      </li>
+      <li class="grey-box sys_img wow slideInRight animated" data-wow-duration="0.5s"
+          style="visibility: visible; animation-name: slideInRight;">
+        <img :src="require('@/assets/images/coop-box3-up.svg')" height="25" style="margin-bottom: 1px;margin-top: 2px">
+        <img :src="require('@/assets/images/coop-box3-c.svg')" height="13" >
+        <img :src="require('@/assets/images/coop-box3-b.svg')" height="24">
+        <span><b>公共治理</b></span>
+        <div class="grey-part">
+          <b>社会调研</b><br>根据政府财政部门的需求定制发布经济政策<br>相关的预测任务<br><br>
+          <b>数据支持</b><br>使用嗨皮诸葛的数据API下载数据辅助其写作<br>研究报告，制定财经政策
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!--合作交流结束-->
+
+<!--  foot开始-->
+  <el-row class="foot wow bounceIn animated" >
+    <el-col :offset="2" :span="6">
+      <h3 class="foot-title">嗨皮诸葛</h3>
+      <p>做财经领域高水平的人机融合预测平台</p>
+    </el-col>
+    <el-col :span="5">
+      <h3 class="foot-title">合作伙伴</h3>
+      <img src="@/assets/images/winvk.png" v-on:click="winvk" class="hand" height="50">
+    </el-col>
+    <el-col :span="6">
+      <h3 class="foot-title">联系我们</h3>
+      <el-row class="center-vertically">
+        <img src="@/assets/images/email.svg" height="14" class="my-icon">
+        <span>haichao_zheng@163.com</span>
+      </el-row>
+      <el-row style="margin-top: 20px">
+        <img src="@/assets/images/wechat.svg" height="14" class="my-icon">
+        <img src="@/assets/images/contactus.png" height="85">
+      </el-row>
+    </el-col>
+    <el-col :span="3">
+      <h3 class="foot-title">关注我们</h3>
+      <img src="@/assets/images/gzh.png" height="85">
+      <p class="gzh">微信公众号</p>
+    </el-col>
+    <el-col class="center" style="margin-top: 40px">
+      <p> 爱诸葛，知未来 | 蜀ICP备2020026052号-1 copyright@2020 | <span class="res_deceleration"
+                                                              onclick="res_deceleration()">免责声明</span></p>
     </el-col>
   </el-row>
-
-  <div class="foot">
-
-    <p> 爱诸葛，知未来 | 蜀ICP备2020026052号-1 copyright@2020 | <span class="res_deceleration"
-                                                            onclick="res_deceleration()">免责声明</span></p>
-  </div>
 
   <div class="detail__board" id="detail-board-front">
     <div class="detail__inner">
@@ -558,6 +409,7 @@
       </div>
     </div>
   </div>
+<!--  foot结束-->
 </template>
 
 
@@ -574,12 +426,6 @@ export default {
       topBannerNavBg: {
         backgroundColor: ''
       },
-      bannerHeight: '',
-      imgUrls: [
-        // {id: 1, src: require('@/assets/images/carousel_1.png')},
-        // {id: 2, src: require('@/assets/images/carousel_2.png')},
-        {id: 2, src: require('@/assets/images/carousel_31.png')}
-      ],
       typical_filter: 0
     }
   },
@@ -607,7 +453,7 @@ export default {
       let pos = window.scrollY;
       // 设置背景颜色的透明度
       if (scrollTop && pos > 300) {
-        this.topBannerNavBg.backgroundColor = '#ff867e'
+        this.topBannerNavBg.backgroundColor = '#F0C27B'
       } else if (scrollTop === 0 || pos < 300) {
         this.topBannerNavBg.backgroundColor = 'transparent' // 设置回到顶部时，背景颜色为透明
       }
@@ -636,11 +482,6 @@ export default {
     more() {
       this.$router.push({
         path: '/weekly_forecast',
-      })
-    },
-    imgLoad() {
-      this.$nextTick(() => {
-        this.bannerHeight = this.$refs.bannerHeight.height
       })
     },
     // 导航栏的下划线展示
@@ -673,16 +514,9 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod();
-    window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
+    // 监听页面滚动
+    window.addEventListener('scroll', this.handleScroll)
 
-    // this.imgLoad();
-    // 视口发生变化时，高度赋值给bannerHeight
-    window.addEventListener('resize', () => {
-
-      this.bannerHeight = this.$refs.bannerHeight[0].height
-
-      this.imgLoad();
-    }, false)
     new WOW().init();
     //声明一个对象来配置动画效果参数
     var wow = new WOW(
@@ -704,16 +538,13 @@ export default {
 @import '../../../assets/CSS/homepage_common.css';
 @import 'https://cdn.dowebok.com/98/css/animate.min.css';
 
-/*.banner_bg{*/
-/*  background: #ff867e;*/
-/*}*/
 .carousel {
   margin-top: 78px;
   z-index: 0;
 }
 
 .gradient_bg {
-  background-image: linear-gradient(to top, #FFEBE9 0%, #FFFDFD 100%);
+  background-image: linear-gradient(to bottom, #FFFFFF 0%, rgb(249,247,242) 100%);
 }
 
 .typical_title {
@@ -747,80 +578,30 @@ export default {
 }
 
 .typical_content h3 {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-}
-
-.typical_img {
-  height: 480px;
-  margin-bottom: 30px;
-  margin-left: 40px;
 }
 
 .more {
   margin-top: 2%;
-  background: #FF8F86;
-  border-color: #FF8F86;
+  background: rgba(247, 197, 120, 1);
+  border-color: #FFFFFF;
+  font-size: 17px;
+  padding: 15px 23px;
+  border-radius: 5px;
 }
 
-/*热门活动部分开始*/
-.hotactivity {
-  border: 1.1px solid #D7D7D7;
-  border-radius: 10px;
-}
-
-.money {
-  border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  padding: 0px;
-  background-color: #ffe7ea;
-  text-align: center;
-  width: 20%;
-}
-
-.el-tag {
-  border: 1.35px solid;
-  margin-left: 20px;
-  margin-top: 10px;
-  font-size: 12px;
-  font-weight: bold;
-  height: 30px;
-}
-
-.timeandnum {
-  font-size: 15px;
-  color: #909399;
-}
-
-/*热门活动部分结束*/
-
-/*常见问题解析开始*/
-.questiontitle {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.info {
-  color: #909399;
-  font-size: 14px;
-  margin-top: 10px;
-  line-height: 21px;
-  letter-spacing: 0.2px;
-}
-
-/*常见问题解析结束*/
 /*使命*/
 
 .login {
   font-size: 15px;
-  /*font-weight: bold;*/
   color: #fff;
   line-height: 15px;
 }
 
 /*四个图片*/
 .equality {
-  background-color: #ff8f86;
+  background-color: rgb(240, 194, 123);
   /*aspect-ratio: 1 / 1;*/
   height: 210px;
   padding-left: 10px;
@@ -902,9 +683,9 @@ export default {
 }
 
 .three_block ul li p {
-  margin-right: 8%;
-  margin-left: 8%;
-  height: 70px;
+  margin-right: 6.5%;
+  margin-left: 6.5%;
+  height: 80px;
 }
 
 .mlar {
@@ -914,8 +695,8 @@ export default {
 
 /*被选后的单选框颜色*/
 .filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  color: #FF697B;
-  background: rgba(255, 105, 123, 0.2);
+  color: #FFFFFF;
+  background: #F0C27B;
 }
 
 /*单选框样式*/
@@ -941,5 +722,45 @@ export default {
 
 .typical-filter {
   height: 453px;
+}
+
+.my-banner{
+  text-align: center;
+  background-image: url('../../../assets/images/yellow-banner.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  width: 100%;
+  height: 348px; /*图片的高度*/
+}
+
+.my-banner h1{
+  padding-top: 130px;
+  font-size: 48px;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.my-banner .el-button{
+  background-color: rgba(255, 255, 255, 0.9);
+  border:none;
+  color: #F0C27B;
+  font-size: 17px;
+  padding-left: 28px;
+  padding-right: 28px;
+  margin-top: 35px;
+}
+
+.foot-title{
+  height: 22px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #111;
+  margin-bottom: 15px;
+}
+
+.gzh{
+  font-size: 12px;
+  margin-left: 14px
 }
 </style>

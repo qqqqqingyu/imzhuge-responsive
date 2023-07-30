@@ -111,203 +111,204 @@
       </el-col>
     </el-row>
 
-    <el-row class="box-title">
-      <el-col :span="9" :offset="2">
-        <span >
-          行业信息
-        </span>
-      </el-col>
-    </el-row>
+<!--    数据可视化，先注释，不确定之后要不要-->
+<!--    <el-row class="box-title">-->
+<!--      <el-col :span="9" :offset="2">-->
+<!--        <span >-->
+<!--          行业信息-->
+<!--        </span>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
 
-    <el-row>
-      <el-col :span="20" :offset="2" class="my-tab">
-        <el-tabs @tab-click="infoClick" v-model="activeName2">
+<!--    <el-row>-->
+<!--      <el-col :span="20" :offset="2" class="my-tab">-->
+<!--        <el-tabs @tab-click="infoClick" v-model="activeName2">-->
 
-          <el-tab-pane label="技术指标" name="first">
-            <el-row class="pc-card my-card-pd">
-              <el-col class="grey-border" :span="24">
-                <el-row>
-                  <el-col :span="10">
-                    <el-row>
-                      <el-col class="center-vertically">
-                        <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                        <span class="part-title">指标</span>
-                      </el-col>
-                      <el-col class="my-tip">
-                        选择展示的指标
-                      </el-col>
-                      <el-col :span='18' class="grey-border-smaller margin-bottom-5">
-                        <span class="suggest-title">
-                            建议<i class="el-icon-question" style="color:#ea896c "></i>
-                          </span>
-                        <el-scrollbar style="height:30px">
-                          <el-checkbox-group v-model="factorSelected" class="my-checkbox predict-radio" style="margin-top: 10px!important;">
-                            <el-checkbox-button v-for="factor in suggestFactors" :key="factor" :label="factor">
-                              {{factor}}
-                            </el-checkbox-button>
-                          </el-checkbox-group>
-                        </el-scrollbar>
-                      </el-col>
-                      <el-col>
-                        <el-scrollbar style="height:100px">
-                          <el-checkbox-group v-model="factorSelected" class="my-checkbox predict-radio" :max="2" :min="1">
-                            <el-tooltip content="10日简单移动平均线" placement="top" v-for="factor in allFactors" :key="factor" popper-class="tip-class" effect="light">
-                              <el-checkbox-button  :label="factor">
-                                {{factor}}
-                              </el-checkbox-button>
-                            </el-tooltip>
-                          </el-checkbox-group>
-                        </el-scrollbar>
+<!--          <el-tab-pane label="技术指标" name="first">-->
+<!--            <el-row class="pc-card my-card-pd">-->
+<!--              <el-col class="grey-border" :span="24">-->
+<!--                <el-row>-->
+<!--                  <el-col :span="10">-->
+<!--                    <el-row>-->
+<!--                      <el-col class="center-vertically">-->
+<!--                        <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">-->
+<!--                        <span class="part-title">指标</span>-->
+<!--                      </el-col>-->
+<!--                      <el-col class="my-tip">-->
+<!--                        选择展示的指标-->
+<!--                      </el-col>-->
+<!--                      <el-col :span='18' class="grey-border-smaller margin-bottom-5">-->
+<!--                        <span class="suggest-title">-->
+<!--                            建议<i class="el-icon-question" style="color:#ea896c "></i>-->
+<!--                          </span>-->
+<!--                        <el-scrollbar style="height:30px">-->
+<!--                          <el-checkbox-group v-model="factorSelected" class="my-checkbox predict-radio" style="margin-top: 10px!important;">-->
+<!--                            <el-checkbox-button v-for="factor in suggestFactors" :key="factor" :label="factor">-->
+<!--                              {{factor}}-->
+<!--                            </el-checkbox-button>-->
+<!--                          </el-checkbox-group>-->
+<!--                        </el-scrollbar>-->
+<!--                      </el-col>-->
+<!--                      <el-col>-->
+<!--                        <el-scrollbar style="height:100px">-->
+<!--                          <el-checkbox-group v-model="factorSelected" class="my-checkbox predict-radio" :max="2" :min="1">-->
+<!--                            <el-tooltip content="10日简单移动平均线" placement="top" v-for="factor in allFactors" :key="factor" popper-class="tip-class" effect="light">-->
+<!--                              <el-checkbox-button  :label="factor">-->
+<!--                                {{factor}}-->
+<!--                              </el-checkbox-button>-->
+<!--                            </el-tooltip>-->
+<!--                          </el-checkbox-group>-->
+<!--                        </el-scrollbar>-->
 
-                      </el-col>
-                      <el-col class="center-vertically margin-top-10">
-                        <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                        <span class="part-title" >公司</span>
-                      </el-col>
-                      <el-col class="my-tip" >
-                        选择展示的公司
-                      </el-col>
-                      <el-col>
-                        <el-checkbox-group v-model="companySelected" class="my-checkbox predict-radio" :min="1">
-                          <el-checkbox-button v-for="industryCompany in industryCompanys" :label="industryCompany" :key="industryCompany" >
-                            {{industryCompany}}
-                          </el-checkbox-button>
-                        </el-checkbox-group>
-                      </el-col>
-
-
-                    </el-row>
-                  </el-col>
-                  <el-col :span="14" >
-                    <!--                    作图位置-->
-                    <el-row>
-                      <!--                      <div id="only-one-factor"></div>-->
-                      <div id="only-one-factor" v-bind:style="{ height: chartHeight }"></div>
-                      <div id="two-factor" v-bind:style="{ 'height': chartHeight, 'margin-top': '10px' }" v-if="factorSelected.length==2"></div>
-                    </el-row>
-                  </el-col>
+<!--                      </el-col>-->
+<!--                      <el-col class="center-vertically margin-top-10">-->
+<!--                        <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">-->
+<!--                        <span class="part-title" >公司</span>-->
+<!--                      </el-col>-->
+<!--                      <el-col class="my-tip" >-->
+<!--                        选择展示的公司-->
+<!--                      </el-col>-->
+<!--                      <el-col>-->
+<!--                        <el-checkbox-group v-model="companySelected" class="my-checkbox predict-radio" :min="1">-->
+<!--                          <el-checkbox-button v-for="industryCompany in industryCompanys" :label="industryCompany" :key="industryCompany" >-->
+<!--                            {{industryCompany}}-->
+<!--                          </el-checkbox-button>-->
+<!--                        </el-checkbox-group>-->
+<!--                      </el-col>-->
 
 
-                </el-row>
-              </el-col>
-            </el-row>
+<!--                    </el-row>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="14" >-->
+<!--                    &lt;!&ndash;                    作图位置&ndash;&gt;-->
+<!--                    <el-row>-->
+<!--                      &lt;!&ndash;                      <div id="only-one-factor"></div>&ndash;&gt;-->
+<!--                      <div id="only-one-factor" v-bind:style="{ height: chartHeight }"></div>-->
+<!--                      <div id="two-factor" v-bind:style="{ 'height': chartHeight, 'margin-top': '10px' }" v-if="factorSelected.length==2"></div>-->
+<!--                    </el-row>-->
+<!--                  </el-col>-->
 
-          </el-tab-pane>
 
-          <el-tab-pane label="指标排名" name="second">
-            <el-row class="pc-card my-card-pd">
-              <el-col class="grey-border" :span="9">
-                <el-row>
-                  <el-col class="center-vertically">
-                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                    <span class="part-title">指标</span>
-                  </el-col>
-                  <el-col class="my-tip">
-                    选择热力图展示的指标
-                  </el-col>
+<!--                </el-row>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
 
-                  <el-col class="choose">
-                    <el-scrollbar style="height: 80px" class="my-scroll">
-                      <el-checkbox-group v-model="heatFactors" class="my-checkbox predict-radio">
-                        <el-checkbox-button v-for="heatShowFactors in heatShowFactors" :label="heatShowFactors" :key="heatShowFactors" >{{heatShowFactors}}</el-checkbox-button>
-                      </el-checkbox-group>
-                    </el-scrollbar>
-                    <el-row>
-                      <el-col :span="8" :offset="16" class="center-vertically analysis_button"
-                              @click="showHeat">
-                        <img src="@/assets/images/an.svg" height="20" class="hand my-icon">
-                        <a herf="#" class="hand">查看排名</a>
-                      </el-col>
-                    </el-row>
-                    <el-divider></el-divider>
-                  </el-col>
+<!--          </el-tab-pane>-->
 
-                  <el-col :span="16" style="line-height: 25px">
-                    <span style="font-size: 17px">{{ factorEng }}</span>
-                    <span style="font-size: 12px;color: #606266;margin-left: 10px">{{ factorTitle }}</span>
-                  </el-col>
+<!--          <el-tab-pane label="指标排名" name="second">-->
+<!--            <el-row class="pc-card my-card-pd">-->
+<!--              <el-col class="grey-border" :span="9">-->
+<!--                <el-row>-->
+<!--                  <el-col class="center-vertically">-->
+<!--                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">-->
+<!--                    <span class="part-title">指标</span>-->
+<!--                  </el-col>-->
+<!--                  <el-col class="my-tip">-->
+<!--                    选择热力图展示的指标-->
+<!--                  </el-col>-->
 
-                  <el-col :span="8" class="right">
-                    <el-select v-model="factorEng" @change="changeFactor" placeholder="请选择" size="mini">
+<!--                  <el-col class="choose">-->
+<!--                    <el-scrollbar style="height: 80px" class="my-scroll">-->
+<!--                      <el-checkbox-group v-model="heatFactors" class="my-checkbox predict-radio">-->
+<!--                        <el-checkbox-button v-for="heatShowFactors in heatShowFactors" :label="heatShowFactors" :key="heatShowFactors" >{{heatShowFactors}}</el-checkbox-button>-->
+<!--                      </el-checkbox-group>-->
+<!--                    </el-scrollbar>-->
+<!--                    <el-row>-->
+<!--                      <el-col :span="8" :offset="16" class="center-vertically analysis_button"-->
+<!--                              @click="showHeat">-->
+<!--                        <img src="@/assets/images/an.svg" height="20" class="hand my-icon">-->
+<!--                        <a herf="#" class="hand">查看排名</a>-->
+<!--                      </el-col>-->
+<!--                    </el-row>-->
+<!--                    <el-divider></el-divider>-->
+<!--                  </el-col>-->
 
-                      <el-option
-                          v-for="(content,factor) in factorsInfo"
-                          :key="factor"
-                          :label="factor"
-                          :value="factor">
-                      </el-option>
-                    </el-select>
-                  </el-col>
+<!--                  <el-col :span="16" style="line-height: 25px">-->
+<!--                    <span style="font-size: 17px">{{ factorEng }}</span>-->
+<!--                    <span style="font-size: 12px;color: #606266;margin-left: 10px">{{ factorTitle }}</span>-->
+<!--                  </el-col>-->
 
-                  <el-col class="info-part">
-                    <el-scrollbar style="height: 80px" class="my-scroll">
-                      {{ factorContent }}
-                    </el-scrollbar>
-                  </el-col>
-                </el-row>
-              </el-col>
+<!--                  <el-col :span="8" class="right">-->
+<!--                    <el-select v-model="factorEng" @change="changeFactor" placeholder="请选择" size="mini">-->
 
-              <el-col :span="15">
-                <div class="grey-border" style="margin-left: 2%">
-                  <div id="my-heat-map"></div>
-                </div>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
+<!--                      <el-option-->
+<!--                          v-for="(content,factor) in factorsInfo"-->
+<!--                          :key="factor"-->
+<!--                          :label="factor"-->
+<!--                          :value="factor">-->
+<!--                      </el-option>-->
+<!--                    </el-select>-->
+<!--                  </el-col>-->
 
-          <el-tab-pane label="股价信息" name="third">
-            <el-row class="pc-card my-card-pd">
-              <el-col class="grey-border" :span="24">
-                <el-row>
-                  <el-col class="center-vertically">
-                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">
-                    <span class="part-title">公司列表</span>
-                  </el-col>
+<!--                  <el-col class="info-part">-->
+<!--                    <el-scrollbar style="height: 80px" class="my-scroll">-->
+<!--                      {{ factorContent }}-->
+<!--                    </el-scrollbar>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+<!--              </el-col>-->
 
-                  <el-col :span="8">
-                    <el-row class="stock-container">
-                      <!--                概览-->
-                      <el-col :span="20">
-                        <!--                    一个行一个公司-->
-                        <el-scrollbar style="height:300px">
-                          <el-row  class="grey-border-small margin-bottom-5" v-for="(item,index) in companyCloseList" :key="index">
-                            <el-col :span="8">
-                              <el-row>
-                                <span class="stock-id">{{item.stock_id}}</span>
-                              </el-row>
-                              <el-row>
-                                <span class="company-name">{{item.company}}</span>
-                              </el-row>
-                            </el-col>
-                            <el-col :span="11">
+<!--              <el-col :span="15">-->
+<!--                <div class="grey-border" style="margin-left: 2%">-->
+<!--                  <div id="my-heat-map"></div>-->
+<!--                </div>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
+<!--          </el-tab-pane>-->
 
-                              <!--                          这里将来可放置作图代码-->
-                              <div :id="'close-chart-' + index" style="width: 100%;height: 40px;"></div>
+<!--          <el-tab-pane label="股价信息" name="third">-->
+<!--            <el-row class="pc-card my-card-pd">-->
+<!--              <el-col class="grey-border" :span="24">-->
+<!--                <el-row>-->
+<!--                  <el-col class="center-vertically">-->
+<!--                    <img class="my-icon" src="@/assets/images/rectangle.svg" height="8">-->
+<!--                    <span class="part-title">公司列表</span>-->
+<!--                  </el-col>-->
 
-                            </el-col>
-                            <el-col :span="5">
-                              <el-row>
-                                <span class="price-open">{{item.close}}</span>
-                              </el-row>
-                            </el-col>
-                          </el-row>
+<!--                  <el-col :span="8">-->
+<!--                    <el-row class="stock-container">-->
+<!--                      &lt;!&ndash;                概览&ndash;&gt;-->
+<!--                      <el-col :span="20">-->
+<!--                        &lt;!&ndash;                    一个行一个公司&ndash;&gt;-->
+<!--                        <el-scrollbar style="height:300px">-->
+<!--                          <el-row  class="grey-border-small margin-bottom-5" v-for="(item,index) in companyCloseList" :key="index">-->
+<!--                            <el-col :span="8">-->
+<!--                              <el-row>-->
+<!--                                <span class="stock-id">{{item.stock_id}}</span>-->
+<!--                              </el-row>-->
+<!--                              <el-row>-->
+<!--                                <span class="company-name">{{item.company}}</span>-->
+<!--                              </el-row>-->
+<!--                            </el-col>-->
+<!--                            <el-col :span="11">-->
 
-                        </el-scrollbar>
+<!--                              &lt;!&ndash;                          这里将来可放置作图代码&ndash;&gt;-->
+<!--                              <div :id="'close-chart-' + index" style="width: 100%;height: 40px;"></div>-->
 
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="16">
-                    <div id="my-candle-stick"></div>
-                  </el-col>
+<!--                            </el-col>-->
+<!--                            <el-col :span="5">-->
+<!--                              <el-row>-->
+<!--                                <span class="price-open">{{item.close}}</span>-->
+<!--                              </el-row>-->
+<!--                            </el-col>-->
+<!--                          </el-row>-->
 
-                </el-row>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
-        </el-tabs>
-      </el-col>
-    </el-row>
+<!--                        </el-scrollbar>-->
+
+<!--                      </el-col>-->
+<!--                    </el-row>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="16">-->
+<!--                    <div id="my-candle-stick"></div>-->
+<!--                  </el-col>-->
+
+<!--                </el-row>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
+<!--          </el-tab-pane>-->
+<!--        </el-tabs>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
 
     <el-row>
       <el-col :span="20" :offset="2" class="box-title">

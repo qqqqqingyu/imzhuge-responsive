@@ -85,7 +85,7 @@ export default {
     this.echarts = require('echarts')
     this.getCSRFTokenMethod();
     // 作图方法
-    // this.myGraph()
+    this.myGraph()
   },
   // 方法
   methods:{
@@ -95,11 +95,88 @@ export default {
     },
     // 作图方法
     myGraph(){
-      let graphBox = document.getElementById('graph');
+      // 基于准备好的dom，初始化echarts实例
+      let myGraph = this.echarts.init(document.getElementById('graph'));
       let option = {
-
+        title: {
+          text: 'Basic Graph'
+        },
+        tooltip: {},
+        animationDurationUpdate: 1500,
+        animationEasingUpdate: 'quinticInOut',
+        series: [
+          {
+            type: 'graph',
+            layout: 'none',
+            symbolSize: 50,
+            roam: true,
+            label: {
+              show: true
+            },
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [4, 10],
+            edgeLabel: {
+              fontSize: 20
+            },
+            data: [
+              {
+                name: 'Node 1',
+                x: 300,
+                y: 300
+              },
+              {
+                name: 'Node 2',
+                x: 800,
+                y: 300
+              },
+              {
+                name: 'Node 3',
+                x: 550,
+                y: 100
+              },
+            ],
+            // links: [],
+            links: [
+              {
+                source: 0,
+                target: 1,
+                symbolSize: [5, 20],
+                label: {
+                  show: true
+                },
+                lineStyle: {
+                  width: 5,
+                  curveness: 0.2
+                }
+              },
+              {
+                source: 'Node 2',
+                target: 'Node 1',
+                label: {
+                  show: true
+                },
+                lineStyle: {
+                  curveness: 0.2
+                }
+              },
+              {
+                source: 'Node 1',
+                target: 'Node 3'
+              },
+              {
+                source: 'Node 2',
+                target: 'Node 3'
+              },
+            ],
+            lineStyle: {
+              opacity: 0.9,
+              width: 2,
+              curveness: 0
+            }
+          }
+        ]
       }
-      graphBox.setOption(option);
+      myGraph.setOption(option);
     }
   },
   // 设置背景

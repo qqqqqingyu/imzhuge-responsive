@@ -110,12 +110,14 @@
     z-index: 20;
 }
 
+/*图片与文字垂直居中*/
 .center-vertically{
     display: flex;
     align-items: center;
     vertical-align: middle;
 }
 
+/*图片与文字右间隔距离*/
 .my-icon{
     margin-right: 5px;
 }
@@ -137,5 +139,5 @@
 }
 
 .nav-bg{
-    background-image: linear-gradient(to right, #f59a23, #fe8d46, #ff8461, #f98079, #ec808d);
+    background-image: linear-gradient(90deg, rgba(222, 176, 108, 1) 0%, rgba(247, 197, 120, 1) 92%);
 }

@@ -85,8 +85,8 @@ export default {
 
 /*被选后的单选框颜色*/
 .filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  color: #FF697B;
-  background: rgba(255, 105, 123, 0.2);
+  color: #FFAA2A;
+  background: rgba(255, 195, 105, 0.2);
   font-size: 14px;
 }
 
@@ -123,11 +123,11 @@ export default {
 }
 
 .ing_state {
-  border: 1.1px solid #f57171;
+  border: 1.1px solid rgb(247, 197, 120);
   border-radius: 5px;
   padding-left: 5px;
   padding-right: 5px;
   font-size: small;
-  color: #f56c6c;
+  color: #F0C27B;
 }
 </style>

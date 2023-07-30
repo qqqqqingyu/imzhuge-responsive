@@ -106,7 +106,7 @@ export default {
       topBannerNavBg: {
         backgroundColor: ''
       },
-      activityImg: require('@/assets/images/my_activity_red.svg'),
+      activityImg: require('@/assets/images/my_activity_yellow.svg'),
       infoImg: require('@/assets/images/info_grey.svg'),
       // 导航栏样式
       headStyle: {
@@ -125,15 +125,15 @@ export default {
     let activity = document.querySelector('#link-activity');
     let info = document.querySelector('#link-info');
     if (this.$route.path === '/pc_my_activities') {
-      this.activityImg = require('@/assets/images/my_activity_red.svg')
+      this.activityImg = require('@/assets/images/my_activity_yellow.svg')
       this.infoImg = require('@/assets/images/info_grey.svg')
-      activity.style.color = '#FF697B';
+      activity.style.color = '#F0C278';
       info.style.color = '#555555';
     } else if (this.$route.path === '/pc_personal_info') {
       this.activityImg = require('@/assets/images/my_activity_grey.svg')
-      this.infoImg = require('@/assets/images/info_red.svg')
+      this.infoImg = require('@/assets/images/info_yellow.svg')
       activity.style.color = '#555555';
-      info.style.color = '#FF697B';
+      info.style.color = '#F0C278';
     }
 
   },
@@ -143,15 +143,15 @@ export default {
       let activity = document.querySelector('#link-activity');
       let info = document.querySelector('#link-info');
       if (to.path === '/pc_my_activities') {
-        this.activityImg = require('@/assets/images/my_activity_red.svg')
+        this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
-        activity.style.color = '#FF697B';
+        activity.style.color = '#F0C278';
         info.style.color = '#555555';
       } else if (to.path === '/pc_personal_info') {
         this.activityImg = require('@/assets/images/my_activity_grey.svg')
-        this.infoImg = require('@/assets/images/info_red.svg')
+        this.infoImg = require('@/assets/images/info_yellow.svg')
         activity.style.color = '#555555';
-        info.style.color = '#FF697B';
+        info.style.color = '#F0C278';
       }
     }
   },
@@ -178,7 +178,7 @@ export default {
         })`;
         this.headStyle.color = `rgba(0, 0, 0,${scrollTop / (scrollTop + 80)})`;
       } else if (scrollTop > 200) {
-        this.headStyle.background = `rgba(255, 134, 126,1)`;
+        this.headStyle.background = `linear-gradient(90deg, rgba(222, 176, 108, 1) 0%, rgba(247, 197, 120, 1) 92%);`;
         this.headStyle.color = `rgba(0, 0, 0,${scrollTop / (scrollTop + 80)})`;
       } else if (scrollTop == 0) {
         this.headStyle.background = "rgba(0, 0, 0, 0)";
@@ -292,7 +292,7 @@ export default {
 }
 
 #link-activity {
-  color: #FF697B;
+  color: #F0C278;
 }
 
 .cash-withdrawal-btn{
@@ -302,7 +302,7 @@ export default {
   white-space: nowrap;
   cursor: pointer;
   background: rgba(255,255,255,0.9);
-  color: #FA605F;
+  color: #FFBF5D;
   -webkit-appearance: none;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -320,10 +320,10 @@ export default {
 
 .cash-withdrawal-btn:hover{
   background-color: rgba(255,246,245,0.9);
-  border: 1px solid #FA605F;
+  border: 1px solid #FFBF5D;
 }
 
 .cash-withdrawal-btn:active{
-  border: 1px solid #C8313A;
+  color: #ff9b00;
 }
 </style>

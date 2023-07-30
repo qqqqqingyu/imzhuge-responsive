@@ -1,31 +1,32 @@
 <!--行业个股收益率预测-->
 <template>
   <div>
+    <TheNav :current-page="'typical'"></TheNav>
     <!--    导航栏开始-->
-    <el-row class="my-nav-bar nav-pos nav-bg">
-      <el-col :span="4" :offset="2">
-        <a href="https://www.imzhuge.com/" title="嗨皮诸葛" style="margin-left: 2.5%">
-          <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>
-        </a>
-      </el-col>
-      <el-col :span="16" style="position: relative">
-        <ul class="my-nav">
-          <li>
-            <router-link to="/">首页</router-link>
-          </li>
-          <li>
-            <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>
-          </li>
+<!--    <el-row class="my-nav-bar nav-pos nav-bg">-->
+<!--      <el-col :span="4" :offset="2">-->
+<!--        <a href="https://www.imzhuge.com/" title="嗨皮诸葛" style="margin-left: 2.5%">-->
+<!--          <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>-->
+<!--        </a>-->
+<!--      </el-col>-->
+<!--      <el-col :span="16" style="position: relative">-->
+<!--        <ul class="my-nav">-->
+<!--          <li>-->
+<!--            <router-link to="/">首页</router-link>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>-->
+<!--          </li>-->
 
-          <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"
-                                          style=" visibility: visible;">登录</a>
-          </li>
-          <li v-else>
-            <router-link to="/personal_center">个人中心</router-link>
-          </li>
-        </ul>
-      </el-col>
-    </el-row>
+<!--          <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"-->
+<!--                                          style=" visibility: visible;">登录</a>-->
+<!--          </li>-->
+<!--          <li v-else>-->
+<!--            <router-link to="/personal_center">个人中心</router-link>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
     <!--    导航栏结束-->
 
     <el-row style="padding-top: 80px">
@@ -86,8 +87,14 @@
                        style="transform: rotate(270deg);" v-else>
                 </el-col>
                 <el-col :span="1" >
-                  <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                  <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
+                  <img class="image-size" :src="require('@/assets/images/finance.png')" alt="industry-icon" v-if="index==0">
+                  <img class="image-size" :src="require('@/assets/images/new-energy.png')" alt="industry-icon" v-else-if="index==1">
+                  <img class="image-size" :src="require('@/assets/images/finance2.png')" alt="industry-icon" v-else-if="index==2">
+                  <img class="image-size" :src="require('@/assets/images/real-estate.png')" alt="industry-icon" v-else-if="index==3">
+                  <img class="image-size" :src="require('@/assets/images/media.png')" alt="industry-icon" v-else-if="index==4">
+                  <img class="image-size" :src="require('@/assets/images/computer.png')" alt="industry-icon" v-else-if="index==5">
+                  <img class="image-size" :src="require('@/assets/images/consumption.png')" alt="industry-icon" v-else-if="index==6">
+                  <img class="image-size" :src="require('@/assets/images/new-energy.png')" alt="industry-icon" v-else-if="index==7">
                 </el-col>
                 <el-col :span="4" :offset="1">
                   <span style="font-size: 19px;color:#333333;font-weight: 700;">{{item.name}}</span>
@@ -108,7 +115,7 @@
                 <!--              </el-col>-->
                 <el-col :span="2" :offset="6">
                   <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
-                    <span style="color: #ff697b;font-weight: bold;padding: 0px;font-size: 15px">查看 ></span>
+                    <span class="look">查看 ></span>
                   </router-link>
                 </el-col>
               </el-row>
@@ -149,9 +156,11 @@
 import config from '@/config'
 import {getCSRFToken} from '@/api/token'
 import {WOW} from "wowjs";
+import TheNav from "../../../components/TheNav";
 
 export default {
   name: "pc_weekly_forecast",
+  components: {TheNav},
   data() {
     return{
       openOrClose:[false],
@@ -174,7 +183,7 @@ export default {
   // 设置背景
   beforeCreate() {
     this.$nextTick(() => {
-      document.body.setAttribute('style', 'background:rgb(253,243,239)')
+      document.body.setAttribute('style', 'background:rgba(242, 242, 242, 0.35)')
     })
   },
   //实例销毁之前钩子，移除body标签的属性style
@@ -230,9 +239,6 @@ export default {
 
 <style scoped>
 @import '../../../assets/CSS/responsive_style.css';
-.nav-bg{
-  background-image: linear-gradient(to right, #f59a23, #fe8d46, #ff8461, #f98079, #ec808d);
-}
 
 .my-breadcrumb{
   color: #7F7F7F;
@@ -313,24 +319,6 @@ a {
   text-decoration: none;
 }
 
-a.navregbtn {
-  color: #f94446;
-  padding: 0;
-  background: #fff;
-  width: 120px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  display: block;
-  border-radius: 20px;
-  animation-name: pulse;
-  font-weight: bold;
-}
-
-a.navregbtn:hover {
-  color: #fb6770;
-  border-bottom: none;
-}
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
@@ -359,5 +347,12 @@ a.navregbtn:hover {
 
 .my-formula >>> .el-divider{
   background: #7F7F7F;
+}
+
+.look{
+  color: rgb(239, 156, 25);
+  font-weight: bold;
+  padding: 0;
+  font-size: 15px
 }
 </style>

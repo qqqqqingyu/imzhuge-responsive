@@ -5,7 +5,7 @@ import store from './store'
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 import 'element-plus/lib/theme-chalk/display.css';
-// 移动端自定义样式
+// 自定义全局样式
 import './assets/CSS/responsive_style.css'
 
 // import axios from "axios";
