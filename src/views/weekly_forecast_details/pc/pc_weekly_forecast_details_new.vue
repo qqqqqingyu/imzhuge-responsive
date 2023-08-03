@@ -1,28 +1,9 @@
 <template>
   <div>
-    <!--    导航栏开始-->
-    <el-row class="my-nav-bar nav-pos nav-bg">
-      <el-col :span="4" :offset="2">
-        <a href="https://www.imzhuge.com/" title="嗨皮诸葛" style="margin-left: 2.5%">
-          <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>
-        </a>
-      </el-col>
-      <el-col :span="16" style="position: relative">
-        <ul class="my-nav">
-          <li>
-            <router-link to="/">首页</router-link>
-          </li>
-          <li>
-            <router-link to="/weekly_forecast" class="navcurr">典型应用</router-link>
-          </li>
-          <li>
-            <router-link to="/personal_center">个人中心</router-link>
-          </li>
-        </ul>
-      </el-col>
-    </el-row>
-    <!--    导航栏结束-->
+<!--    导航栏-->
+    <TheNav :current-page="'typical'"></TheNav>
 
+<!--    面包屑导航栏开始-->
     <el-row style="margin-top: 80px">
       <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
         您当前的位置：
@@ -31,6 +12,7 @@
         <span>{{industryDetailData.industry}}行业个股收益率预测</span>
       </el-col>
     </el-row>
+<!--    面包屑导航栏结束-->
 
     <el-row class="industry-box">
       <el-col :span="9" :offset="2" class="box-title">
@@ -49,11 +31,11 @@
               <el-row class="chart-and-table pc-card">
                 <!--                图标切换圆形按钮-->
                 <el-col :span="23" v-if="chartOrTable=='table'" style="text-align: right">
-                  <el-button type="danger" icon="el-icon-s-data" circle @click="toChart"
+                  <el-button type="warning" icon="el-icon-s-data" circle @click="toChart"
                              class="changed-btn"></el-button>
                 </el-col>
                 <el-col :span="23" v-else style="text-align: right">
-                  <el-button type="danger" icon="el-icon-document" circle @click="toTable"
+                  <el-button type="warning" icon="el-icon-document" circle @click="toTable"
                              class="changed-btn"></el-button>
                 </el-col>
 
@@ -398,7 +380,7 @@
             </el-col>
 
             <el-col :span="24" class="submit-btn">
-              <el-button type="danger" @click="submitTransactionApplyMethod">
+              <el-button type="warning" @click="submitTransactionApplyMethod">
                 提交
               </el-button>
             </el-col>
@@ -415,9 +397,11 @@ import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
 import {getCSRFToken} from '@/api/token'
 import factorsJson from '@/assets/factors.json'
 import axios from 'axios';
+import TheNav from "../../../components/TheNav";
 
 export default {
   name: "pc_weekly_forecast_details_new",
+  components: {TheNav},
   data() {
     return {
       echarts:'',
@@ -751,7 +735,7 @@ export default {
             name:'价格（按降序排列）',
             data: this.barPriceArr,
             type: 'bar',
-            color: '#FF8383',
+            color: '#F0C27B',
             showBackground: true,
             backgroundStyle: {
               color: 'rgba(180, 180, 180, 0.2)'
@@ -804,7 +788,7 @@ export default {
               name:'我拥有的合约数（按降序排列）',
               data: this.barContractArr,
               type: 'bar',
-              color: '#FF8383',
+              color: '#F0C27B',
               showBackground: true,
               backgroundStyle: {
                 color: 'rgba(180, 180, 180, 0.2)'
@@ -998,8 +982,6 @@ export default {
       const dataMA5 = this.calculateMA(5, data);
       const dataMA10 = this.calculateMA(10, data);
       const dataMA20 = this.calculateMA(20, data);
-
-
 
       let CandleStickBox = document.getElementById('my-candle-stick');
       // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
@@ -1556,10 +1538,6 @@ export default {
   width: 100%;
 }
 
-.nav-bg{
-  background-image: linear-gradient(to right, #f59a23, #fe8d46, #ff8461, #f98079, #ec808d);
-}
-
 .center-vertically{
   display: flex;
   align-items: center;
@@ -1570,12 +1548,6 @@ export default {
 .industry-box {
   display: flex;
   align-items: flex-end;
-}
-
-.box-title {
-  font-size: 30px;
-  font-weight: bolder;
-  margin-top: 20px;
 }
 
 .industry-month {
@@ -1616,14 +1588,9 @@ export default {
   margin-top: 10px;
 }
 
-.submit-btn .el-button--danger{
-  background-color: rgb(255,131,131);
-  border-color: rgb(255,131,131);
-}
-
-.submit-btn .el-button--danger:hover{
-  background-color: #F56C6C;
-  border-color:#F56C6C;
+.submit-btn .el-button--warning{
+  background-color: #F7C578;
+  border-color: #F7C578;
 }
 
 #priceBar {
@@ -1659,17 +1626,17 @@ export default {
 
 /*切换活动项的字体颜色*/
 .my-tab /deep/ .el-tabs__item.is-active {
-  color: #FA605F !important;
+  color: #EF9C19 !important;
 }
 
 /*切换活动项的字体颜色*/
 .my-tab /deep/ .el-tabs__item:hover {
-  color: #FA605F !important;
+  color: #EF9C19 !important;
 }
 
 /*切换活动项的长条颜色*/
 .my-tab /deep/ .el-tabs__active-bar {
-  background-color: #FA605F !important;
+  background-color: #F0C27B !important;
 }
 
 /*覆盖element原有tab样式结束*/
@@ -1700,11 +1667,11 @@ export default {
 /*覆盖element原有长条样式开始*/
 
 .predict-slider >>> .el-slider__bar {
-  background: #FF8383;
+  background: #F0C27B;
 }
 
 .predict-slider >>> .el-slider__button {
-  border: 2px solid #FF8383
+  border: 2px solid #F0C27B
 }
 
 /*覆盖element原有长条样式结束*/
@@ -1721,12 +1688,12 @@ export default {
 
 /*改变单选框颜色*/
 .predict-radio >>> .el-radio__input.is-checked .el-radio__inner {
-  background: #f56c6c !important;
-  border-color: #f56c6c !important;
+  background: #F0C27B !important;
+  border-color: #F0C27B !important;
 }
 
 .predict-radio >>> .el-radio__input.is-checked + .el-radio__label {
-  color: #f56c6c !important;
+  color: #F0C27B !important;
 }
 
 /*覆盖element原有单选框样式结束*/
@@ -1845,7 +1812,7 @@ export default {
   border:#FEF0F0 solid 1px;
   border-radius: 10px;
   background: #FEF0F0;
-  color: #FA605F;
+  color: #F0C27B;
   padding: 3px 10px;
   font-size: 12px;
   margin-bottom: 7px;
@@ -1855,8 +1822,8 @@ export default {
 /*被选后的多选框*/
 .my-checkbox >>> .el-checkbox-button.is-checked .el-checkbox-button__inner{
   color: #FFFFFF;
-  background: #FF8383;
-  border-color: #FF8383;
+  background: #F0C27B;
+  border-color: #F0C27B;
   box-shadow:none
 }
 
@@ -1888,11 +1855,4 @@ export default {
   margin-bottom: 10px;
 }
 
-.analysis_button{
-  color: #ff8383;
-  margin-top: 5px;
-}
-.analysis_button:hover{
-  color: #f66126;
-}
 </style>

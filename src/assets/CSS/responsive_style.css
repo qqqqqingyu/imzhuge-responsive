@@ -2,19 +2,23 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 .title {
     text-align: center;
     font-size: 16px;
     font-weight: bolder;
     color: #2e2e2e;
 }
+
+/*手机端返回按钮*/
 .return-img{
     float: left;
     padding: 1px;
     height: 18px;
 }
 
-.my-box{
+/*移动端各模块的白色背景块*/
+.mb-card{
     background-color: #FFFFFF;
     border-radius: 18px;
     margin-bottom: 10px;
@@ -22,6 +26,7 @@
     padding-bottom: 10px;
 }
 
+/*PC端各模块的白色背景块*/
 .pc-card {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -29,12 +34,11 @@
     border-radius: 10px;
 }
 
-
 .my-card-pd{
     padding: 30px;
 }
 
-
+/*面包屑导航栏*/
 .my-breadcrumb{
     color: #7F7F7F;
     font-size: 18px;
@@ -54,15 +58,16 @@
 }
 
 .my-breadcrumb a:hover{
-    color: #f98079;
+    color: rgb(234, 176, 85);
     text-decoration: none;
 }
 
 .my-breadcrumb a:active{
-    color: #fe8d46;
+    color: rgb(234, 176, 85);
     text-decoration: none;
 }
 
+/*导航栏*/
 .my-nav-bar {
     width: 100%;
     margin: 0 auto;
@@ -122,22 +127,34 @@
     margin-right: 5px;
 }
 
+/*居左*/
 .left{
     text-align: left;
 }
 
+/*居右*/
 .right{
     text-align: right;
 }
 
+/*居中*/
 .center{
     text-align: center;
 }
 
+/*鼠标悬浮变成手*/
 .hand{
     cursor: pointer;
 }
 
+/*导航栏背景*/
 .nav-bg{
     background-image: linear-gradient(90deg, rgba(222, 176, 108, 1) 0%, rgba(247, 197, 120, 1) 92%);
+}
+
+/*大标题*/
+.box-title {
+    font-size: 30px;
+    font-weight: bolder;
+    margin-top: 20px;
 }

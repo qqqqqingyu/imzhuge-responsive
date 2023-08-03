@@ -63,6 +63,15 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/competition_center',
+        name: 'competition_center',
+        component: () => import('@/views/competition_center/competition_center.vue'),
+        meta: {
+            title: '赛事中心',
+            keepAlive: true, // 需要被缓存
+        }
+    },
 
 
 

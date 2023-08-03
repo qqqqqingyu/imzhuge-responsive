@@ -12,7 +12,7 @@
     </el-row>
 
     <el-row>
-      <el-col :span="22" :offset="1" class="my-box">
+      <el-col :span="22" :offset="1" class="mb-card">
         <el-row class="gray info-box">
           <el-col :span="22" :offset="1">
             <el-row>

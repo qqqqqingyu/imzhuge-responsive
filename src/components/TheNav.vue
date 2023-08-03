@@ -14,6 +14,9 @@
         <li>
           <router-link to="/weekly_forecast" :class="{'navcurr': currentPage === 'typical'}">典型应用</router-link>
         </li>
+        <li>
+          <router-link to="/competition_center" :class="{'navcurr': currentPage === 'competition'}">赛事中心</router-link>
+        </li>
 
         <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"
                                    style=" visibility: visible;">登录</a>

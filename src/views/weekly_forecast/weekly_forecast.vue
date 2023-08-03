@@ -25,7 +25,6 @@ export default {
     store.dispatch('industryList/useIndustryListData')
   },
   methods: {
-    // 获取csrftoken 确保受保护接口不会响应403
     isMobileTerminal() {
       isMobileTerminal();
     },

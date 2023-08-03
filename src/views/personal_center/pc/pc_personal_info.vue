@@ -4,7 +4,7 @@
       <h2 class="right-title">个人信息</h2>
     </el-col>
 
-    <el-col :span="24" class="my-box">
+    <el-col :span="24">
       <el-row class="gray info-box">
         <el-col :span="22" :offset="1">
           <el-row>
