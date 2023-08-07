@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :offset="1" :span="20">
-      <h2 class="right-title">个人信息</h2>
+      <h2 class="personal-title">个人信息</h2>
     </el-col>
 
     <el-col :span="24">
@@ -79,11 +79,11 @@
     </el-col>
 
     <el-col :span="20" :offset="2" v-if="modifiedStatus == 0" class="btn-box">
-      <el-button type="danger" class="my-btn" v-on:click="editInfo">修改</el-button>
+      <el-button type="warning" v-on:click="editInfo">修改</el-button>
     </el-col>
     <el-col :span="20" :offset="2" v-if="modifiedStatus == 1" class="btn-box">
       <el-button type="info" v-on:click="returnInfo">取消</el-button>
-      <el-button type="danger" class="my-btn" v-on:click="editMyInfoMethod">提交</el-button>
+      <el-button type="warning" v-on:click="editMyInfoMethod">提交</el-button>
     </el-col>
   </el-row>
 </template>
@@ -196,11 +196,6 @@ export default {
 </script>
 
 <style scoped>
-.right-title {
-  font-size: 22px;
-  font-weight: 700;
-}
-
 .user-info {
   text-align: right;
   padding-right: 1%;
@@ -213,6 +208,7 @@ export default {
 
 .info-box {
   line-height: 30px;
+  margin: 15px 0 20px;
 }
 
 .info-box .el-col {

@@ -158,3 +158,22 @@
     font-weight: bolder;
     margin-top: 20px;
 }
+
+/*个人中心大标题*/
+.personal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333333;
+}
+
+.personal-title-a{
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #333333;
+}
+
+.mb-2{
+    margin-bottom: 20px;
+}
+

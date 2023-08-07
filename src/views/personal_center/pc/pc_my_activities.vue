@@ -1,7 +1,9 @@
 <template>
   <el-row>
-    <el-col :offset="1" :span="20">
-      <h2 class="right-title">我参与的活动</h2>
+    <el-col :offset="1" :span="20" class="center-vertically mb-2">
+      <router-link to="/weekly_forecast" class="personal-title-a">行业列表</router-link>
+      <img src="@/assets/images/right.svg" alt="下级" height="25">
+      <span class="personal-title">参与活动</span>
     </el-col>
     <el-col :offset="1" :span="23" style="margin-top: 15px;margin-bottom: 15px">
       <el-radio-group v-model="screen">
@@ -22,7 +24,7 @@
           <span class="ing_state" v-else>进行中</span>
         </el-col>
         <el-col :span="12">
-          <span style="font-size: 13px">活动净收益（诸葛贝）</span>
+          <span style="font-size: 13px">活动收益</span>
         </el-col>
         <el-col :span="10" :offset="1">
           <span v-if="item.status" style="font-size: 13px">
@@ -49,7 +51,37 @@ export default {
   },
   computed: {
     my_project_list() {
-      let project = this.$store.getters.myActivity.my_project_list
+      // let project = this.$store.getters.myActivity.my_project_list
+      let project =
+          [
+            {
+              "title": "金融行业20230805-20230811周度收益率排名预测",
+              "status": false,
+              "earnings": "活动尚未结束"
+            },
+            {
+              "title": "金融行业20230729-20230804周度收益率排名预测",
+              "status": true,
+              "earnings": 0
+            },
+            {
+              "title": "金融行业20230722-20230728周度收益率排名预测",
+              "status": true,
+              "earnings": 0
+            },
+            {
+              "title": "金融行业20230714-20230721周度收益率排名预测",
+              "status": true,
+              "earnings": 0
+            },
+            {
+              "title": "金融行业20230708-20230714周度收益率排名预测",
+              "status": true,
+              "earnings": 0
+            }
+          ]
+
+
       if (project) {
         return project.filter((item) => {
           if ((this.screen == 2 || this.screen == item.status)) {
@@ -78,11 +110,6 @@ export default {
 </script>
 
 <style scoped>
-.right-title {
-  font-size: 22px;
-  font-weight: 700;
-}
-
 /*被选后的单选框颜色*/
 .filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
   color: #FFAA2A;

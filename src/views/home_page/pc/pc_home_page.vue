@@ -32,7 +32,7 @@
 <!--    banner开始-->
     <el-col :span="24" class="my-banner">
       <h1>做财经领域高水平的人机融合预测平台</h1>
-      <el-button>立即使用</el-button>
+      <el-button v-on:click="more">立即使用</el-button>
     </el-col>
 <!--    banner结束-->
 

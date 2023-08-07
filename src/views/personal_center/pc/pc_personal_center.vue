@@ -16,6 +16,9 @@
             <router-link to="/weekly_forecast">典型应用</router-link>
           </li>
           <li>
+            <router-link to="/competition_center">赛事中心</router-link>
+          </li>
+          <li>
             <router-link to="/personal_center" class="navcurr">个人中心</router-link>
           </li>
         </ul>
@@ -60,18 +63,35 @@
       <!--    左部导航栏开始-->
       <el-col :span="4" :offset="2" class="pc-card left-box">
         <el-row>
-          <router-link to="/pc_my_activities">
-            <el-col :span="16" :offset="4" class="center-vertically left-option">
-              <img id="link-activity-img" :src="activityImg" alt="活动" height="22">
-              <span id="link-activity" class="left-content">我参与的活动</span>
+            <el-col :span="17" :offset="3" class="center-vertically left-option hand" @click="setLeftOpen">
+              <img id="link-my-img" :src="activityImg" alt="活动" width="21">
+              <span id="link-my" class="left-content">我参与的</span>
+            </el-col>
+            <el-col :span="1" style="margin-top: 16px" @click="setLeftOpen" v-if="leftOpen">
+              <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" height="9">
+            </el-col>
+            <el-col :span="1" style="margin-top: 16px" @click="setLeftOpen" v-else>
+              <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" height="9"
+                   style="transform: rotate(180deg)">
+            </el-col>
+
+          <router-link to="/pc_competition" v-if="leftOpen">
+            <el-col :span="16" :offset="3" class="center-vertically left-option">
+              <span id="link-competition" class="child-title">比赛</span>
+            </el-col>
+          </router-link>
+
+          <router-link to="/pc_industry_list" v-if="leftOpen">
+            <el-col :span="21" :offset="3" class="center-vertically left-option">
+              <span id="link-stock" class="child-title">行业个股收益率预测</span>
             </el-col>
           </router-link>
 
           <el-col :span="24" class="bottom-line"></el-col>
 
           <router-link to="/pc_personal_info">
-            <el-col :span="16" :offset="4" class="center-vertically left-option">
-              <img :src="infoImg" alt="个人信息" height="22">
+            <el-col :span="16" :offset="3" class="center-vertically left-option">
+              <img :src="infoImg" alt="个人信息" width="21">
               <span id="link-info" class="left-content">个人信息</span>
             </el-col>
           </router-link>
@@ -114,6 +134,7 @@ export default {
         color: "rgba(255, 255, 255, 1)",
       },
       screenHeight:window.innerHeight,
+      leftOpen:true
     }
   },
   mounted() {
@@ -122,26 +143,49 @@ export default {
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
 
     // 初始加载时判断左侧按钮选择的样式
-    let activity = document.querySelector('#link-activity');
+    let activity = document.querySelector('#link-my');
+    let competition = document.querySelector('#link-competition');
+    let stock = document.querySelector('#link-stock');
     let info = document.querySelector('#link-info');
     if (this.$route.path === '/pc_my_activities') {
       this.activityImg = require('@/assets/images/my_activity_yellow.svg')
       this.infoImg = require('@/assets/images/info_grey.svg')
       activity.style.color = '#F0C278';
+      competition.style.color = '#F0C278';
       info.style.color = '#555555';
     } else if (this.$route.path === '/pc_personal_info') {
       this.activityImg = require('@/assets/images/my_activity_grey.svg')
       this.infoImg = require('@/assets/images/info_yellow.svg')
       activity.style.color = '#555555';
       info.style.color = '#F0C278';
+    } else if(this.$route.path === '/pc_competition'){
+      activity.style.color = '#F0C278';
+      stock.style.color = '#555555';
+      competition.style.color = '#F0C278';
+      info.style.color = '#555555';
+    } else if (this.$route.path === '/pc_industry_list') {
+      this.activityImg = require('@/assets/images/my_activity_yellow.svg')
+      this.infoImg = require('@/assets/images/info_grey.svg')
+      activity.style.color = '#F0C278';
+      stock.style.color = '#F0C278';
+      competition.style.color = '#555555';
+      info.style.color = '#555555';
+    } else if (this.$route.path === '/pc_competition') {
+      this.activityImg = require('@/assets/images/my_activity_yellow.svg')
+      this.infoImg = require('@/assets/images/info_grey.svg')
+      activity.style.color = '#F0C278';
+      competition.style.color = '#F0C278';
+      stock.style.color = '#555555';
+      info.style.color = '#555555';
     }
-
   },
   watch: {
     // 监听左侧按钮选择的样式变化
     '$route'(to) {
-      let activity = document.querySelector('#link-activity');
+      let activity = document.querySelector('#link-my');
       let info = document.querySelector('#link-info');
+      let competition = document.querySelector('#link-competition');
+      let stock = document.querySelector('#link-stock');
       if (to.path === '/pc_my_activities') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
@@ -151,7 +195,23 @@ export default {
         this.activityImg = require('@/assets/images/my_activity_grey.svg')
         this.infoImg = require('@/assets/images/info_yellow.svg')
         activity.style.color = '#555555';
+        stock.style.color = '#555555';
+        competition.style.color = '#555555';
         info.style.color = '#F0C278';
+      } else if (to.path === '/pc_industry_list') {
+        this.activityImg = require('@/assets/images/my_activity_yellow.svg')
+        this.infoImg = require('@/assets/images/info_grey.svg')
+        activity.style.color = '#F0C278';
+        stock.style.color = '#F0C278';
+        competition.style.color = '#555555';
+        info.style.color = '#555555';
+      } else if (to.path === '/pc_competition') {
+        this.activityImg = require('@/assets/images/my_activity_yellow.svg')
+        this.infoImg = require('@/assets/images/info_grey.svg')
+        activity.style.color = '#F0C278';
+        competition.style.color = '#F0C278';
+        stock.style.color = '#555555';
+        info.style.color = '#555555';
       }
     }
   },
@@ -191,13 +251,20 @@ export default {
     //去提现
     toWithdraw(){
       window.location.href = config.serverUrl+'/selfcenter/tocash/'
+    },
+    setLeftOpen(){
+      if(this.leftOpen === true){
+        this.leftOpen = false
+      }else{
+        this.leftOpen = true
+      }
     }
   },
   // 滚动之前重置
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('resize', this.handleResize)
-  },
+  }
 }
 </script>
 
@@ -247,13 +314,17 @@ export default {
 .right-line {
   border-right: solid 1px #fff;
   height: 50px;
-  /*width: 50%;*/
 }
 
 .left-content {
-  font-size: 16px;
-  font-weight: bolder;
+  font-size: 14px;
   margin-left: 10px;
+  color: #555555;
+}
+
+.child-title{
+  font-size: 14px;
+  margin-left: 31px;
   color: #555555;
 }
 
@@ -273,7 +344,7 @@ export default {
 }
 
 .left-box {
-  height: 104px;
+  height: fit-content;
 }
 
 .left-box a {
@@ -291,7 +362,7 @@ export default {
   padding-right: 2%;
 }
 
-#link-activity {
+#link-my {
   color: #F0C278;
 }
 

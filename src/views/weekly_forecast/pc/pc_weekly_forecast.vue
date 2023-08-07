@@ -81,9 +81,9 @@
             <div class="head-part" v-on:click="isOpen(index)" >
               <el-row>
                 <el-col :span="1" :offset="1" class="arrow" >
-                  <img :src="require('@/assets/images/arrdn.svg')" alt="right-arrow" width="16"
-                       v-if="openOrClose[index]==true" >
-                  <img :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" width="16"
+                  <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="right-arrow" width="16"
+                       v-if="openOrClose[index]==true">
+                  <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" width="16"
                        style="transform: rotate(270deg);" v-else>
                 </el-col>
                 <el-col :span="1" >
@@ -109,10 +109,6 @@
                       text-color="#ff9900">
                   </el-rate>
                 </el-col>
-                <!--              <el-col :span="5" >-->
-                <!--                <span style="color: #AAAAAA;margin-right: 5px;font-size: 18px">NO.1</span>-->
-                <!--                <span class="no1-company">{{item.no1}}</span>-->
-                <!--              </el-col>-->
                 <el-col :span="2" :offset="6">
                   <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
                     <span class="look">查看 ></span>
@@ -279,8 +275,6 @@ export default {
   border-radius: 18px;
   margin-bottom: 10px;
   line-height: 40px;
-
-  /*padding-bottom: px;*/
   padding-top: 10px;
 }
 .arrow{

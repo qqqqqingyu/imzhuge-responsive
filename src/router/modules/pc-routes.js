@@ -32,7 +32,17 @@ export default [
                         path:'/pc_personal_info',
                         name:'pc_personal_info',
                         component: () => import('@/views/personal_center/pc/pc_personal_info'),
-                    }
+                    },
+                    {
+                        path:'/pc_industry_list',
+                        name:'pc_industry_list',
+                        component: () => import('@/views/personal_center/pc/pc_industry_list'),
+                    },
+                    {
+                        path:'/pc_competition',
+                        name:'pc_competition',
+                        component: () => import('@/views/personal_center/pc/pc_competition'),
+                    },
                 ]
             },
             {
