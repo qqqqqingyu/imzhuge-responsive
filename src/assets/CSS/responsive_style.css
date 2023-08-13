@@ -173,7 +173,68 @@
     color: #333333;
 }
 
-.mb-2{
+.mb-5{
+    margin-bottom: 5px;
+}
+
+.mb-20{
     margin-bottom: 20px;
 }
 
+/*个人中心共用类开始*/
+
+.activity-box {
+    border-radius: 18px;
+    border: solid rgba(215, 215, 215, 1) 1px;
+    padding: 18px 25px 18px;
+    margin-bottom: 20px;
+}
+
+.over_state {
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    padding:3px 9px 3px;
+    font-size: small;
+    color: #AAAAAA;
+}
+
+.ing_state {
+    border: 1px solid #F0C27B;
+    border-radius: 5px;
+    padding:3px 9px 3px;
+    font-size: small;
+    color: #F0C27B;
+}
+
+.gray-text{
+    color: #7F7F7F;
+    font-size: 14px;
+}
+
+/*改elemnt样式，用>>>的写法在全局css中无效，要在每个组件中分别改。以下的写法可以*/
+/*修改按钮样式*/
+.yellow-btn .el-button{
+    color: #FFFFFF;
+    background-color: #F7C578;
+    border:none;
+    min-height:10px;
+    padding: 7px 20px;
+}
+
+.yellow-btn .el-button:hover{
+    background-color: rgb(227,181,112);
+    border:none;
+}
+
+/*单选框覆盖原有阴影*/
+.filter-radio .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+    box-shadow: none;
+}
+
+/*分割线*/
+.line .el-divider--horizontal{
+    margin-top: 0;
+    margin-bottom: 10px;
+    background: rgb(242,242,242);
+}
+/*个人中心共用类结束*/

@@ -72,6 +72,15 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/competition_translation',
+        name: 'competition_translation',
+        component: () => import('@/views/competition_translation/competition_translation.vue'),
+        meta: {
+            title: '参与交易',
+            keepAlive: true, // 需要被缓存
+        }
+    },
 
 
 

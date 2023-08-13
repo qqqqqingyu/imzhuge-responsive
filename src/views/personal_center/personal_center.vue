@@ -7,7 +7,7 @@
 import { isMobileTerminal }  from '@/utils/flexible'
 import mobile_personal_center from "./mobile/mobile_personal_center";
 import pc_personal_center from "./pc/pc_personal_center";
-// import {useStore} from "vuex";
+import {useStore} from "vuex";
 
 export default {
   name: "personal_center",
@@ -18,10 +18,11 @@ export default {
     }
   },
   mounted() {
-    // const store = useStore()
-    // // 触发myActivity以及myInfoDetails 数据获取动作
-    // store.dispatch('myActivity/useMyActivityData')
-    // store.dispatch('myInfoDetails/useMyInfoDetailsData')
+    const store = useStore()
+    // 触发myActivity以及myInfoDetails 数据获取动作
+    store.dispatch('eventList/useEventListData')
+    // store.dispatch('eventList/useEventData')
+    // store.dispatch('eventList/useCompetitionDetail')
   },
 }
 </script>

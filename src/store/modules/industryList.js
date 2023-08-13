@@ -1,4 +1,4 @@
-import {getIndustryList} from '@/api/month_redict'
+import {getIndustryList} from '@/api/month_predict'
 
 /**
  * 处理行业列表中的数据industryList

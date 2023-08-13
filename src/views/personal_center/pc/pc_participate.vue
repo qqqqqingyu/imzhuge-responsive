@@ -1,8 +1,11 @@
 <template>
   <el-row>
-    <el-col :offset="1" :span="20" class="mb-20">
-      <h2 class="personal-title">比赛</h2>
+    <el-col :offset="1" :span="20" class="center-vertically mb-20">
+      <router-link to="/pc_competition" class="personal-title-a">比赛</router-link>
+      <img src="@/assets/images/right.svg" alt="下级" height="25">
+      <span class="personal-title">参与活动</span>
     </el-col>
+
     <el-col :offset="1" :span="23" style="margin-bottom: 15px">
       <el-radio-group v-model="screen">
         <el-radio-button class="filter-radio" label=2>全部</el-radio-button>
@@ -26,9 +29,8 @@
           <span class="over_state" v-if="item.status">已结束</span>
           <span class="ing_state" v-else>进行中</span>
         </el-col>
-
         <el-col :span="8" class="mb-5">
-          <span class="gray-text">比赛收益</span>
+          <span class="gray-text">活动收益</span>
         </el-col>
         <el-col :span="11" :offset="1">
           <span v-if="item.status" style="font-size: 14px">
@@ -40,36 +42,28 @@
         </el-col>
 
         <el-col :span="8" class="mb-5">
-          <span class="gray-text">比赛时间</span>
+          <span class="gray-text">正确结果</span>
         </el-col>
         <el-col :span="11" :offset="1">
           <span style="font-size: 14px">
-            2023.07.01
-          </span>
-        </el-col>
-
-        <el-col :span="8" class="mb-5">
-          <span class="gray-text">比赛奖金</span>
-        </el-col>
-        <el-col :span="11" :offset="1">
-          <span style="font-size: 14px">
-            100
+            结果
           </span>
         </el-col>
 
         <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link to="/pc_participate">
+          <router-link to="/pc_task_list">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>
       </el-row>
     </el-col>
+
   </el-row>
 </template>
 
 <script>
 export default {
-  name: "pc_competition",
+  name: "pc_participate",
   data() {
     return {
       screen: 2, //2表示全部
@@ -119,12 +113,6 @@ export default {
       }
     }
   },
-  methods: {
-    // 保留n位小数
-    numFilter(value, n) {
-      return parseFloat(value).toFixed(n)
-    }
-  }
 }
 </script>
 
@@ -145,6 +133,11 @@ export default {
   border: 0;
   border-radius: 10px;
   padding: 8px 15px;
+
 }
 
+/*单选框覆盖原有阴影*/
+.filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  box-shadow: none;
+}
 </style>

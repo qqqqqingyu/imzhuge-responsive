@@ -1,4 +1,4 @@
-import {getIndustryDetail, submitTransactionApply } from "../../api/month_redict";
+import {getIndustryDetail, submitTransactionApply } from "../../api/month_predict";
 
 /**
  * 处理行业详情数据

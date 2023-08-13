@@ -35,11 +35,11 @@
 
                 <!--                图标切换圆形按钮-->
                 <el-col :span="4" v-if="chartOrTable=='table'" style="text-align: right">
-                  <el-button type="danger" icon="el-icon-s-data" circle @click="toChart"
+                  <el-button type="warning" icon="el-icon-s-data" circle @click="toChart"
                              class="changed-btn"></el-button>
                 </el-col>
                 <el-col :span="4" v-else style="text-align: right">
-                  <el-button type="danger" icon="el-icon-document" circle @click="toTable"
+                  <el-button type="warning" icon="el-icon-document" circle @click="toTable"
                              class="changed-btn"></el-button>
                 </el-col>
 
@@ -186,7 +186,7 @@
             </el-col>
 
             <el-col :span="24" class="submit-btn">
-              <el-button type="danger" @click="submitTransactionApplyMethod">提交</el-button>
+              <el-button type="warning" @click="submitTransactionApplyMethod">提交</el-button>
             </el-col>
           </el-row>
 
@@ -199,7 +199,7 @@
 
 <script>
 // import store from "../../../store";
-import {getIndustryDetail, submitTransactionApply} from "@/api/month_redict";
+import {getIndustryDetail, submitTransactionApply} from "@/api/month_predict";
 import bottomNav from "../../../components/bottomNav";
 import {getCSRFToken} from '@/api/token'
 
@@ -468,7 +468,7 @@ export default {
           series: [{
               data: this.barPriceArr,
               type: 'bar',
-              color: '#FF8383',
+              color: '#F0C27B',
               showBackground: true,
               backgroundStyle: {
                 color: 'rgba(180, 180, 180, 0.2)'
@@ -515,7 +515,7 @@ export default {
             {
               data: this.barContractArr,
               type: 'bar',
-              color: '#FF8383',
+              color: '#F0C27B',
               showBackground: true,
               backgroundStyle: {
                 color: 'rgba(180, 180, 180, 0.2)'
@@ -595,11 +595,11 @@ export default {
 
 <style scoped>
 .theme_red {
-  color: #FF8383;
+  color: #F0C27B;
 }
 
 .font_red {
-  color: #FA605F;
+  color: #EF9C19;
 }
 
 .industry-box {
@@ -673,7 +673,7 @@ export default {
 
 /*切换活动项的字体颜色*/
 .industry-tab /deep/ .el-tabs__item.is-active {
-  color: #FA605F !important;
+  color: #EF9C19 !important;
 }
 
 .chart-and-table >>> .el-card {
@@ -682,7 +682,7 @@ export default {
 
 /*切换活动项的长条颜色*/
 .industry-tab /deep/ .el-tabs__active-bar {
-  background-color: #FA605F !important;
+  background-color: #EF9C19 !important;
 }
 
 /*单选框颜色设置*/
@@ -695,7 +695,7 @@ export default {
 
 /*被选后的单选框颜色*/
 .industry-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  color: #FA605F;
+  color: #EF9C19;
   background: #FFFFFF;
 }
 
@@ -737,11 +737,11 @@ export default {
 /*}*/
 
 .predict-slider >>> .el-slider__bar {
-  background: #FF8383;
+  background: #F0C27B;
 }
 
 .predict-slider >>> .el-slider__button {
-  border: 2px solid #FF8383
+  border: 2px solid #F0C27B
 }
 
 /*!*输入框*!*/
@@ -754,12 +754,12 @@ export default {
 
 /*改变单选框颜色*/
 .predict-radio >>> .el-radio__input.is-checked .el-radio__inner {
-  background: #f56c6c !important;
-  border-color: #f56c6c !important;
+  background: #F0C27B !important;
+  border-color: #F0C27B !important;
 }
 
 .predict-radio >>> .el-radio__input.is-checked + .el-radio__label {
-  color: #f56c6c !important;
+  color: #F0C27B !important;
 }
 
 /*覆盖element原有的样式结束*/

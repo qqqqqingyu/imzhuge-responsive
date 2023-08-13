@@ -65,6 +65,6 @@ export default {
 /*设置点击后的样式 */
 .router-link-exact-active.router-link-active {
   text-decoration: none;
-  color: #ff867e;
+  color: #EF9C19;
 }
 </style>

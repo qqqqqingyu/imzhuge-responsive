@@ -45,10 +45,6 @@
         <p><span class="value">{{ numFilter(myActivity.coin, 2) }}</span> <span class="unit">诸葛贝</span></p>
       </el-col>
 
-<!--      <el-col :span="1">-->
-<!--        <div class="right-line"></div>-->
-<!--      </el-col>-->
-
       <el-col :span="1" style="padding-left: 3%">
         <img src="@/assets/images/transactions.svg" height="40" alt="交易次数">
       </el-col>
@@ -100,7 +96,7 @@
       <!--      左部导航栏结束-->
 
       <!--      右侧内容开始-->
-      <el-col :span="13" :offset="1" class="pc-card right-box"  :style="{ minHeight: screenHeight-260 + 'px' }">
+      <el-col :span="15" :offset="1" class="pc-card right-box"  :style="{ minHeight: screenHeight-260 + 'px' }">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -231,6 +227,7 @@ export default {
           window.pageYOffset ||
           document.documentElement.scrollTop ||
           document.body.scrollTop;
+      console.log(scrollTop)
       //设置背景颜色的透明度
       if (scrollTop <= 200 && scrollTop > 0) {
         this.headStyle.background = `rgba(196,196,196,${
@@ -238,7 +235,7 @@ export default {
         })`;
         this.headStyle.color = `rgba(0, 0, 0,${scrollTop / (scrollTop + 80)})`;
       } else if (scrollTop > 200) {
-        this.headStyle.background = `linear-gradient(90deg, rgba(222, 176, 108, 1) 0%, rgba(247, 197, 120, 1) 92%);`;
+        this.headStyle.background = `linear-gradient(90deg, rgba(222, 176, 108, 1) 0%, rgba(247, 197, 120, 1) 92%)`;
         this.headStyle.color = `rgba(0, 0, 0,${scrollTop / (scrollTop + 80)})`;
       } else if (scrollTop == 0) {
         this.headStyle.background = "rgba(0, 0, 0, 0)";

@@ -188,138 +188,20 @@
 
   <!--  研究团队开始-->
   <div id="about_us"></div>
-<!--  <el-row>-->
-<!--    <el-col>-->
-<!--      <div class="team wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"-->
-<!--           style=" visibility: visible; animation-name: bounceInUp;">-->
-<!--        <el-row style="justify-content: center;letter-spacing:5px;padding-top: 80px;font-size: 36px;">-->
-<!--          <strong class="part_title">研究团队</strong>-->
-<!--        </el-row>-->
-<!--        <el-row style="justify-content: center;margin-top: 50px;">-->
-<!--          <el-col :span="20" class="teaminfo">-->
-<!--            <p>采用市场机制融合人机智慧可以实现更好的财经预测。此外，人类的群体智慧和机器学习模型并非对立，研究团队在深入理解并挖掘人机互补优势基础上，实现人机增强智能做财经预测。</p>-->
-<!--            <br>-->
-<!--            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。为了实现该使命，我们组建了一个稳定的研究团队，主要成员如下：</p>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
-<!--        <el-row class="teammember">-->
-
-<!--          <el-row class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"-->
-<!--                  style=" visibility: visible; animation-name: bounceInLeft;">-->
-<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>郑海超 </h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>西南财经大学管理科学与工程学院教授。研究兴趣包括众包、金融科技、人机混合预测系统。-->
-<!--                  主持2个国家自科基金项目和2个教育部人文社科项目。-->
-<!--                  在Information Systems Journal, European Journal of Information Systems, Decision Support Systems-->
-<!--                  等信息系统类期刊发表多篇论文。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>徐赟</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>西南财经大学管理科学与工程学院教授，博士生导师，院长助理。目前主要从事金融科技，管理信息系统，和电子商务方面的研究。-->
-<!--                  他于2010年入选阿里巴巴研究院的“青年学者支持计划”， 2011年入选“四川省学术和技术带头人后备人选”，2014年获西南财经大学优秀科研成果奖。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
-<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>王涛</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>西南财经大学管理科学与工程学院信息管理与信息系统系主任。主要研究方向包括互联网金融与信息披露、金融科技与用户行为、企业智能与知识管理等。-->
-<!--                  现为四川省华侨华人学会理事、成都市新侨联常任理事、西南财经大学新侨联理事、国家自然科学基金项目评议人、四川省海外高层次留学人才。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>邵家兵 </h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>重庆大学二级教授、博士生导师、管理学博士、工商管理博士后、市场学系原系主任（2012-2020）。-->
-<!--                  学术兼职有国家自然科学基金同行评议专家、国家社会科学基金通讯评审专家、全国电子商务数字教育发展联盟副理事长、中国工业经济学会常务理事等。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
-<!--          </el-row>-->
-
-<!--          <el-row class="wow bounceInRight animated" data-wow-iteration="1" data-wow-duration="2s"-->
-<!--                  style=" visibility: visible; animation-name: bounceInRight;">-->
-<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>伍晶</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>西南财经大学管理科学与工程学院教授，2009年获得新加坡国立大学信息系统博士学位，2004年获得香港科技大学经济学硕士学位，2002年获得西北工业大学电子工程学士学位。-->
-<!--                  研究兴趣包括信息系统经济学，电子商务，开放创新以及大数据经济学。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>王俊</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p> 西南财经大学管理科学与工程学院副教授。致力于从大数据分析视角，通过大机器学习、数据分析、人工智能等方法解决金融市场的重要问题。-->
-<!--                  主要研究包括多源数据对证券市场的影响性分析，大数据视角的数字化互动媒体对股票市场的影响性研究、基于大数据的证券市场量化分析研究、基于海量数据的媒-->
-<!--                  体信息识别与情感量化分析研究等。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
-<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>郝琳娜</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p> 聊城大学副教授，2015年毕业于南开大学管理科学与工程专业，获管理学博士学位。-->
-<!--                  研究方向包括众包与价值工程。-->
-<!--                  在《系统工程理论与实践》、《科研管理》、《管理工程学报》、《运筹与管理》、《系统工程》等刊物发表论文10余篇，-->
-<!--                  并在科学出版社出版专著《众包模式——企业创新的新助力》。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>许博</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>复旦大学管理学院副教授，美国德克萨斯理工大学取得管理信息系统博士，瑞士苏黎世大学和美国麻省理工学院斯隆管理学院访问学者。-->
-<!--                  研究方向包括信息系统开发与管理，虚拟社区，电子商务。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
-<!--          </el-row>-->
-
-<!--          <el-row class="wow bounceInLeft animated" data-wow-iteration="1" data-wow-duration="2s"-->
-<!--                  style=" visibility: visible; animation-name: bounceInLeft;">-->
-<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>陈冬宇</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p> 苏州大学管理信息系统教授。-->
-<!--                  长期从事信息管理学术研究工作，着重研究P2P网络借贷等新兴互联网金融模式，获得多项被国际同行认可的成果，相关论文发表在MIS Quarterly, Communications of AIS,-->
-<!--                  Electronic Commerce Research等高水平期刊。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>李凯</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p> 南开大学商学院教授，国际合作办学项目主任，数字商务研究中心主任。-->
-<!--                  研究方向包括电子商务、信息管理、大数据与商务智能。-->
-<!--                  天津市131创新型人才培养第二层次人才。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
-<!--            &lt;!&ndash;团队的一行开始&ndash;&gt;-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>李立婷</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>西南财经大学博士生，已完成博士论文答辩。研究方向为人机融合信息市场中的人机交互机制设计。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            <el-col :span="9" :offset="2">-->
-<!--              <el-row><h4>周春羽</h4></el-row>-->
-<!--              <el-row>-->
-<!--                <p>本科毕业于西南财经大学金融工程，硕士毕业于香港大学计算机科学。研究兴趣为量化模型构建。</p>-->
-<!--              </el-row>-->
-<!--            </el-col>-->
-<!--            &lt;!&ndash;团队的一行结束&ndash;&gt;-->
-<!--          </el-row>-->
-<!--        </el-row>-->
-<!--      </div>-->
-<!--    </el-col>-->
-<!--  </el-row>-->
+  <el-row>
+    <el-col class="team center wow bounceInUp animated" data-wow-iteration="1" data-wow-duration="2s"
+    style=" visibility: visible; animation-name: bounceInUp;">
+        <strong class="part_title">研究团队</strong>
+        <el-row style="margin-top: 35px;">
+          <el-col :span="20" :offset="2" class="teaminfo">
+            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。致力于利用人工智能与人类集体智慧，提升预测的准确性和可靠性。平台目前的典型应用包括金融市场预测、国际经济不确定性预测、原油价格预测。</p>
+            <p>为了实现该使命，我们组建了具备丰富的学术背景和实践经验的研究团队。团队成员来自国内外知名高校：西南财经大学（郑海超、王涛、徐赟、伍晶、王俊）、太原理工大学（李立婷）、复旦大学（许博）、苏州大学（陈冬宇）、明尼苏达大学（李大辉）、俄勒冈州立大学（朱斌）。依托该项目，我们同时培养多名硕博研究生和本科生。</p>
+            <p>在群体智慧与人机融合预测系统方向，研究团队主持国家自然科学基金支持3项，在信息系统与决策科学高水平期刊MIS Quarterly、Information Systems Journal、Decision Support Systems等发表了多篇论文。我们目前与多家研究机构和企业建立了合作关系，共同开展相关研究项目，开发财经领域高水平的人机融合预测平台。</p>
+            <p>我们坚信“嗨皮诸葛”将在预测领域中发挥更加重要的作用，为财经领域的决策者提供有力支持。</p>
+          </el-col>
+        </el-row>
+    </el-col>
+  </el-row>
   <!--  研究团队结束-->
 
   <!--合作交流开始-->
@@ -634,6 +516,14 @@ export default {
   background-color: rgb(249, 251, 255);
   border-radius: 40px;
   border: 4px #ff8f86;
+  padding-top: 70px;
+  padding-bottom: 60px;
+}
+
+.team strong{
+  justify-content: center;
+  letter-spacing:5px;
+  font-size: 36px;
 }
 
 .teaminfo p {
@@ -726,7 +616,7 @@ export default {
 
 .my-banner{
   text-align: center;
-  background-image: url('../../../assets/images/yellow-banner.png');
+  background-image: url('../../../assets/images/yellow_banner.png');
   background-repeat: no-repeat;
   background-size: 100% auto;
   width: 100%;

@@ -67,8 +67,7 @@
                 <el-col :span="21">
                   <el-row>
                     <el-col :span="3" >
-                      <img class="image-size" :src="require('@/assets/images/industry1.png')" alt="industry-icon" v-if="index==0">
-                      <img class="image-size" :src="require('@/assets/images/industry2.jpg')" alt="industry-icon" v-else>
+                      <img class="image-size" :src="getImagePath(item.name)" alt="industry-icon">
                     </el-col>
                     <el-col :span="15" >
                       <span style="font-size: 17px;color:#333333;font-weight: bold;">{{item.name}}</span>
@@ -76,7 +75,7 @@
                     </el-col>
                     <el-col :span="4" :offset="1">
                       <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
-                        <span style="color: #ff697b;font-weight: bold;">查看 ></span>
+                        <span style="color: #EF9C19;font-weight: bold;">查看 ></span>
                       </router-link>
                     </el-col>
                   </el-row>
@@ -147,7 +146,16 @@ export default {
       //pictureList:pictures,
       pictureTree:'',
       openOrClose:[false],
-      openId:0
+      openId:0,
+      industryMapping: {
+        '金融': 'finance',
+        '新能源': 'new-energy',
+        '金融（不含银行）': 'finance2',
+        '房地产': 'real-estate',
+        '传媒': 'media',
+        '消费': 'consumption',
+        '计算机': 'computer',
+      }
     }
   },
 
@@ -170,7 +178,6 @@ export default {
     getCSRFTokenMethod() {
       getCSRFToken();
     },
-
     // 表格单列颜色
     cellStyle ({columnIndex }) {
       // 状态列字体颜色
@@ -184,12 +191,15 @@ export default {
         return 'color:  #333333'
       }
     },
-
     isOpen : function(index) {
       this.openOrClose[index]=!this.openOrClose[index]
       // console.log(index,this.openOrClose[index])
     },
-
+    // 根据行业调用相应图片
+    getImagePath(industry) {
+      const englishIndustryName = this.industryMapping[industry];
+      return require(`@/assets/images/${englishIndustryName}.png`);
+    }
   },
   // 设置背景
   beforeCreate() {

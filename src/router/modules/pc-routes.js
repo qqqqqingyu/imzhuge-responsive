@@ -17,7 +17,7 @@ export default [
                 path: '/personal_center',
                 name: 'personal_center',
                 component: () => import('@/views/personal_center/personal_center.vue'),
-                redirect:'/pc_my_activities', //初始加载的子组件
+                redirect:'/pc_competition', //初始加载的子组件
                 meta: {
                     title: '个人中心',
                     keepAlive: true, // 需要被缓存
@@ -42,6 +42,16 @@ export default [
                         path:'/pc_competition',
                         name:'pc_competition',
                         component: () => import('@/views/personal_center/pc/pc_competition'),
+                    },
+                    {
+                        path:'/pc_participate',
+                        name:'pc_participate',
+                        component: () => import('@/views/personal_center/pc/pc_participate'),
+                    },
+                    {
+                        path:'/pc_task_list',
+                        name:'pc_task_list',
+                        component: () => import('@/views/personal_center/pc/pc_task_list'),
                     },
                 ]
             },
@@ -81,7 +91,15 @@ export default [
                     keepAlive: true, // 需要被缓存
                 }
             },
-
+            {
+                path: '/competition_translation',
+                name: 'competition_translation',
+                component: () => import('@/views/competition_translation/competition_translation.vue'),
+                meta: {
+                    title: '参与交易',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
         ]
     }
 ]

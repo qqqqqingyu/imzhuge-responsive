@@ -2,32 +2,6 @@
 <template>
   <div>
     <TheNav :current-page="'typical'"></TheNav>
-    <!--    导航栏开始-->
-<!--    <el-row class="my-nav-bar nav-pos nav-bg">-->
-<!--      <el-col :span="4" :offset="2">-->
-<!--        <a href="https://www.imzhuge.com/" title="嗨皮诸葛" style="margin-left: 2.5%">-->
-<!--          <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>-->
-<!--        </a>-->
-<!--      </el-col>-->
-<!--      <el-col :span="16" style="position: relative">-->
-<!--        <ul class="my-nav">-->
-<!--          <li>-->
-<!--            <router-link to="/">首页</router-link>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <router-link to="/weekly_forecast"  class="navcurr">典型应用</router-link>-->
-<!--          </li>-->
-
-<!--          <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"-->
-<!--                                          style=" visibility: visible;">登录</a>-->
-<!--          </li>-->
-<!--          <li v-else>-->
-<!--            <router-link to="/personal_center">个人中心</router-link>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </el-col>-->
-<!--    </el-row>-->
-    <!--    导航栏结束-->
 
     <el-row style="padding-top: 80px">
       <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
@@ -87,14 +61,7 @@
                        style="transform: rotate(270deg);" v-else>
                 </el-col>
                 <el-col :span="1" >
-                  <img class="image-size" :src="require('@/assets/images/finance.png')" alt="industry-icon" v-if="index==0">
-                  <img class="image-size" :src="require('@/assets/images/new-energy.png')" alt="industry-icon" v-else-if="index==1">
-                  <img class="image-size" :src="require('@/assets/images/finance2.png')" alt="industry-icon" v-else-if="index==2">
-                  <img class="image-size" :src="require('@/assets/images/real-estate.png')" alt="industry-icon" v-else-if="index==3">
-                  <img class="image-size" :src="require('@/assets/images/media.png')" alt="industry-icon" v-else-if="index==4">
-                  <img class="image-size" :src="require('@/assets/images/computer.png')" alt="industry-icon" v-else-if="index==5">
-                  <img class="image-size" :src="require('@/assets/images/consumption.png')" alt="industry-icon" v-else-if="index==6">
-                  <img class="image-size" :src="require('@/assets/images/new-energy.png')" alt="industry-icon" v-else-if="index==7">
+                  <img class="image-size" :src="getImagePath(item.name)" alt="industry-icon">
                 </el-col>
                 <el-col :span="4" :offset="1">
                   <span style="font-size: 19px;color:#333333;font-weight: 700;">{{item.name}}</span>
@@ -160,6 +127,15 @@ export default {
   data() {
     return{
       openOrClose:[false],
+      industryMapping: {
+        '金融': 'finance',
+        '新能源': 'new-energy',
+        '金融（不含银行）': 'finance2',
+        '房地产': 'real-estate',
+        '传媒': 'media',
+        '消费': 'consumption',
+        '计算机': 'computer',
+      }
     }
   },
   computed:{
@@ -228,6 +204,11 @@ export default {
     homelogin() {
       window.location.href = config.serverUrl+'/login?from_server=new'
     },
+    // 根据行业调用相应图片
+    getImagePath(industry) {
+      const englishIndustryName = this.industryMapping[industry];
+      return require(`@/assets/images/${englishIndustryName}.png`);
+    }
   }
 }
 </script>

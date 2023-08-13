@@ -5,6 +5,7 @@ import industryDetail from "./modules/industryDetail";
 import myActivity from "./modules/myActivity"
 import myInfoDetails from "./modules/myInfoDetails"
 import loginStatus from "./modules/loginStatus";
+import eventList from "./modules/eventList";
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -21,12 +22,14 @@ const store =createStore({
         },
     },
     getters,
+    // 包含modules文件夹中的内容。vuex允许将store分割为多个模块（modules），各自有state、getters、mutation、action等。
     modules:{
         industryList,
         industryDetail,
         myInfoDetails,
         myActivity,
-        loginStatus
+        loginStatus,
+        eventList
     },
     actions: {},
     //如果数据修改之后，没有及时更新，可能是这里的原因
