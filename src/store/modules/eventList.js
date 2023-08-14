@@ -34,21 +34,11 @@ export default {
          */
         async useEventListData(context){
             // 调用接口取数据
-            // const eventList = await getEventList().then((res) =>{
-            //     return res.data
-            // }).catch((res) => {
-            //     console.log(res);
-            // });
-
-            // 测试假数据
-            const eventList = [{
-                "event_id": 1,
-                "event_name": "测试比赛1",
-                "start_time": "2023-07-26T17:24:00",
-                "end_time": "2023-07-27T20:24:04",
-                "award": 10,
-                "status": "比赛未开始或已结束"
-            }]
+            const eventList = await getEventList().then((res) =>{
+                return res.data
+            }).catch((res) => {
+                console.log(res);
+            });
 
             // 为state中的eventList赋值
             context.commit('setEventList',eventList)

@@ -52,12 +52,13 @@
           <el-col :offset="1" :span="2">
             <img src="@/assets/images/my_competition.svg" height="22" style="margin-top: 2px" alt="比赛"/>
           </el-col>
-          <el-col :offset="1" :span="12">
+          <el-col :offset="1" :span="13">
             比赛
           </el-col>
-          <el-col :span="7" class="right">
-            <router-link to="/">
-              查看详情 >>
+          <el-col :span="6" class="right">
+            <router-link to="/" class="center-vertically">
+              查看详情
+              <img src="@/assets/images/enter.svg" height="13" alt="进入">
             </router-link>
           </el-col>
         </el-row>
@@ -68,12 +69,13 @@
           <el-col :offset="1" :span="2">
             <img src="@/assets/images/my_stock.svg" height="26" style="margin-top: 3px" alt="比赛"/>
           </el-col>
-          <el-col :offset="1" :span="12">
+          <el-col :offset="1" :span="13">
             行业个股收益率
           </el-col>
-          <el-col :span="7" class="right">
-            <router-link to="/">
-              查看详情 >>
+          <el-col :span="6" class="right">
+            <router-link to="/" class="center-vertically">
+              查看详情
+              <img src="@/assets/images/enter.svg" height="13" alt="进入">
             </router-link>
           </el-col>
         </el-row>
@@ -240,6 +242,10 @@ export default {
 
 .participation a{
   color: #EF9C19;
+}
+
+.participation img:last-child{
+  margin-left: 5px;
 }
 
 a {

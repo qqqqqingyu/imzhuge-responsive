@@ -4,14 +4,14 @@
  * @since 2022.07.13
  * **/
 import request from '@/utils/request'
-import {serverUrl} from "../config";
+// import {serverUrl} from "../config";
 
 /**
  * 4.1 发起活动
  **/
 export function startActivity(data) {
     return request({
-        url:serverUrl+'/api/startactivity/cda',
+        url:'/api/startactivity/cda',
         method:'post',
         data:data
     })
@@ -23,7 +23,7 @@ export function startActivity(data) {
 export function getCdaActivitySquare() {
     return request({
         method:'get',
-        url:serverUrl+'/api/activity/cda'
+        url:'/api/activity/cda'
     })
 }
 
@@ -32,7 +32,7 @@ export function getCdaActivitySquare() {
  **/
 export function startTransaction(activityId, data) {
     return request({
-        url:serverUrl+'/api/activity/cda/' + activityId,
+        url:'/api/activity/cda/' + activityId,
         method:'post',
         data:data
     })
@@ -44,7 +44,7 @@ export function startTransaction(activityId, data) {
 export function getCdaActivityTransactionInfo(activityId) {
     return request({
         method: 'get',
-        url: serverUrl+'/api/activity/cda/' + activityId
+        url: '/api/activity/cda/' + activityId
     })
 }
 
@@ -53,7 +53,7 @@ export function getCdaActivityTransactionInfo(activityId) {
  **/
 export function participateActivity(activityId) {
     return request({
-        url:serverUrl+'/api/activity/cda/' + activityId + '/join',
+        url:'/api/activity/cda/' + activityId + '/join',
         method:'post',
     })
 }
@@ -64,7 +64,7 @@ export function participateActivity(activityId) {
 export function getCdaReportInfo(activityId) {
     return request({
         method: 'get',
-        url: serverUrl+'/api/activity/cda/' + activityId +'/report'
+        url: '/api/activity/cda/' + activityId +'/report'
     })
 }
 
@@ -74,7 +74,7 @@ export function getCdaReportInfo(activityId) {
 export function getCdaMyActivity () {
     return request({
         method: 'get',
-        url: serverUrl+'/api/selfcenter/cda/myactivity'
+        url: '/api/selfcenter/cda/myactivity'
     })
 }
 
@@ -84,7 +84,7 @@ export function getCdaMyActivity () {
 export function getLiquidationInfo (activityId) {
     return request({
         method: 'get',
-        url: serverUrl+'/api/selfcenter/cda/' + activityId +'/details'
+        url: '/api/selfcenter/cda/' + activityId +'/details'
     })
 }
 /**
@@ -92,7 +92,7 @@ export function getLiquidationInfo (activityId) {
  **/
 export function liquidationActivity(activityId, data) {
     return request({
-        url:serverUrl+'/api/selfcenter/cda/' + activityId + '/details',
+        url:'/api/selfcenter/cda/' + activityId + '/details',
         method:'post',
         data:data
     })

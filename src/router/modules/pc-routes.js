@@ -92,6 +92,15 @@ export default [
                 }
             },
             {
+                path: '/competition_details',
+                name: 'competition_details',
+                component: () => import('@/views/competition_details/competition_details.vue'),
+                meta: {
+                    title: '比赛详情',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
+            {
                 path: '/competition_translation',
                 name: 'competition_translation',
                 component: () => import('@/views/competition_translation/competition_translation.vue'),

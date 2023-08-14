@@ -5,7 +5,12 @@
     <!--    赛事中心页面已写好路由，可以在页面中显示。-->
     <!--    背景、面包屑导航栏、各模块的白色背景看着笔记试一下-->
     <!--    项目已引入element-plus，可以直接用-->
-    <!--    {{event_list}}-->
+    
+<!--    进入比赛详情的测试超链接-->
+    <router-link :to="{path:'/competition_details',query:{eventId:3}}" style="margin-top: 100px">
+      查看详情
+    </router-link>
+
 
         <!--    当前位置开始-->
     <el-row style="padding-top: 80px">
@@ -87,7 +92,6 @@
 <script>
 import {getCSRFToken} from '@/api/token'
 import TheNav from "../../../components/TheNav";
-import {getEventList} from "../../../api/competition";
 
 export default {
   name: "pc_competition_center",
@@ -103,37 +107,20 @@ export default {
   
   computed: {
     event_list() {
-      return this.$store.getters.eventList;
+      return this.$store.getters.eventList
     },
     competition_event() {
-      return this.$store.getters.event;
-    },
-    // 过滤后的比赛列表
-    filteredCompetitionList() {
-      if (!this.searchKeyword) {
-        return this.competitionList; // 没有搜索关键词时返回全部列表
-      }
-      return this.competitionList.filter((item) =>
-        item.eventName.includes(this.searchKeyword)
-      );
-    },
-    // 计算分页后的比赛列表
-    paginatedCompetitionList() {
-      const startIndex = (this.currentPage - 1) * this.pageSize;
-      const endIndex = startIndex + this.pageSize;
-      return this.filteredCompetitionList.slice(startIndex, endIndex);
-    },
+      return this.$store.getters.event
+    }
   },
   mounted() {
     this.getCSRFTokenMethod();
-    // 原来的
-    // getEventList().then((res)=>{
-    //   console.log('res'+res)
-    // })
-    // .catch((res) => {
-    //   console.log('错误'+res);
-    // });
-    this.loadCompetitionList(); // 加载比赛列表数据
+    getEventList().then((res)=>{
+      console.log('res'+res)
+    })
+    .catch((res) => {
+      console.log('错误'+res);
+    });
   },
   methods:{
     // 获取csrftoken 确保受保护接口不会响应403

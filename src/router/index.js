@@ -10,5 +10,11 @@ const router = createRouter({
   routes: isMobileTerminal.value ? mobileTerminalRoutes : pcTerminalRoutes
 })
 
+// 页面跳转时到顶部
+router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0); // 将滚动位置设置为页面顶部
+  next();
+});
+
 export default router
 

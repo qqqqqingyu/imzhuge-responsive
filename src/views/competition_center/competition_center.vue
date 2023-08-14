@@ -26,7 +26,6 @@ export default {
     const store = useStore()
     // 触发数据获取动作
     store.dispatch('eventList/useEventListData')
-    // store.dispatch('eventList/useEventData')
   },
 }
 </script>
