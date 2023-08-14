@@ -1,12 +1,12 @@
 import request from '@/utils/request'
-import {serverUrl} from "../config";
+// import {serverUrl} from "../config";
 
 /**
  * 赛事中心
  **/
 export function getEventList() {
     return request({
-        url:serverUrl+'/api/event_center/event_list',
+        url:'/api/event_center/event_list',
         method:'get'
     })
 }
@@ -17,7 +17,7 @@ export function getEventList() {
 export function getEvent(eventId) {
     return request({
         method:'get',
-        url:serverUrl+'/api/event_center/event_list/' + eventId
+        url:'/api/event_center/' + eventId
     })
 }
 
@@ -27,7 +27,7 @@ export function getEvent(eventId) {
 export function getCompetitionDetail(eventId,activityId) {
     return request({
         method:'get',
-        url:serverUrl+'/api/event_center/event_list/' + eventId +'/' + activityId
+        url:'/api/event_center/event_list/' + eventId +'/' + activityId
     })
 }
 
@@ -37,6 +37,6 @@ export function getCompetitionDetail(eventId,activityId) {
 export function postCompetitionTransaction(eventId,activityId) {
     return request({
         method:'get',
-        url:serverUrl+'/api/event_center/event_list/' + eventId +'/' + activityId
+        url:'/api/event_center/event_list/' + eventId +'/' + activityId
     })
 }
