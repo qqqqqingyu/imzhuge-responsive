@@ -28,7 +28,7 @@
 <!--    当前位置开始-->
     <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically" style="margin-top: 80px">
       您当前的位置：
-      <span>全球经济政策不确定性预警</span>
+      <span class="cur-de">全球经济政策不确定性预警</span>
     </el-col>
 <!--    当前位置结束-->
 

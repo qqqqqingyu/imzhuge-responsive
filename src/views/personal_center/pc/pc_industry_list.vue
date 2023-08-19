@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import {getCSRFToken} from '@/api/token'
+
 export default {
   name: "industry_list",
   data() {
@@ -48,7 +50,14 @@ export default {
       return project
     }
   },
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
   methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 根据行业调用相应图片
     getImagePath(industry) {
       const englishIndustryName = this.industryMapping[industry];

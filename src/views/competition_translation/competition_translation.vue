@@ -7,7 +7,7 @@
 import { isMobileTerminal }  from '@/utils/flexible'
 import mobile_competition_translation from "./mobile/mobile_competition_translation";
 import pc_competition_translation from "./pc/pc_competition_translation";
-import {useStore} from "vuex";
+// import {useStore} from "vuex";
 
 export default {
   name: "competition_translation",
@@ -23,9 +23,10 @@ export default {
     },
   },
   mounted() {
-    const store = useStore()
+    // 从获取的数据要进行很多转化，故这里先不使用vuex
+    // const store = useStore()
     // 触发数据获取动作
-    store.dispatch('eventList/useCompetitionDetailData')
+    // store.dispatch('eventList/useCompetitionDetailData')
   },
 }
 </script>

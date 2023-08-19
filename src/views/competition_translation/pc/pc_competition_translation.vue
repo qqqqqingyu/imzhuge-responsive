@@ -9,9 +9,9 @@
         您当前的位置：
         <router-link to="/competition_center">赛事中心</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="25">
-        <router-link to="/competition_center">比赛详情</router-link>
+        <router-link :to="{path:'/competition_details',query:{eventId:eventId}}">比赛详情</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="25">
-        <span>参与交易</span>
+        <span class="cur-de">参与交易</span>
       </el-col>
     </el-row>
 <!--    面包屑导航栏结束-->
@@ -19,10 +19,10 @@
     <el-row class="industry-box">
       <el-col :span="9" :offset="2" class="box-title">
         <span>
-          {{industryDetailData.industry}}行业</span>
+          {{compDetailData.industry}}行业</span>
       </el-col>
       <el-col :span="11" class="industry-month">
-        {{industryDetailData.start_day}}至{{industryDetailData.end_day}}
+        {{compDetailData.start_day}}至{{compDetailData.end_day}}
       </el-col>
     </el-row>
 
@@ -31,7 +31,7 @@
         <el-tabs @tab-click="handleClick" v-model="activeName1">
           <el-tab-pane label="整体情况" name="first">
             <el-row class="chart-and-table pc-card">
-              <!--                图标切换圆形按钮-->
+<!--              图标切换圆形按钮-->
               <el-col :span="23" v-if="chartOrTable=='table'" style="text-align: right">
                 <el-button type="warning" icon="el-icon-s-data" circle @click="toChart"
                            class="changed-btn"></el-button>
@@ -41,7 +41,7 @@
                            class="changed-btn"></el-button>
               </el-col>
 
-              <!--                表格-->
+<!--              表格-->
               <el-col :span="22" :offset="1" v-if="chartOrTable=='table'" class="price-contact-table">
                 <el-table :data="companyRankData"
                           :default-sort="{prop:'price',order:'descending'}"
@@ -382,7 +382,7 @@
           </el-col>
 
           <el-col :span="24" class="submit-btn">
-            <el-button type="warning" @click="submitTransactionApplyMethod">
+            <el-button type="warning" @click="postCompTransactionMethod">
               提交
             </el-button>
           </el-col>
@@ -395,7 +395,8 @@
 </template>
 
 <script>
-import {getIndustryDetail, submitTransactionApply} from "@/api/month_predict";
+import {postCompetitionTransaction} from "../../../api/competition";
+import {getCompetitionDetail} from "../../../api/competition";
 import {getCSRFToken} from '@/api/token'
 import factorsJson from '@/assets/factors.json'
 import axios from 'axios';
@@ -406,6 +407,8 @@ export default {
   components: {TheNav},
   data() {
     return {
+      eventId:this.$route.query.eventId,
+      activityId:this.$route.query.activityId,
       echarts:'',
       // 导航栏样式
       headStyle: {
@@ -436,7 +439,7 @@ export default {
       factorTitle:'开盘价', // 选择查看含义的指标
       factorEng:'SMA', //指标英文
       factorContent:'',
-      industryDetailData:'',
+      compDetailData:'',
       heatFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10'],
       heatShowFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10','ema_20','K_5',
         'D_3','K_10','D_5','K_20','D_10','R_5','R_10','R_20','mom_5','mom_10','mom_20','ROC_5','ROC_10','ROC_20',
@@ -492,20 +495,20 @@ export default {
     this.echarts = require('echarts')
     this.getCSRFTokenMethod();
     // 展示指标含义
-    this.changeFactor()
+    // this.changeFactor()
     // 获取数据的方法。数据转化及作图的方法在该方法中
-    // this.getIndustryDetailMethod();
-    // 作图方法测试
-    this.myCandleStick();
+    this.getCompetitionDetailMethod();
+    // k线图
+    // this.myCandleStick();
     //lmm
     //获取一个指标下，不同公司的数据
-    this.getFactorAndCompanyData();
-    this.getCompanyCloseData();
+    // this.getFactorAndCompanyData();
+    // this.getCompanyCloseData();
   },
   // 设置背景
   beforeCreate() {
     this.$nextTick(() => {
-      document.body.setAttribute('style', 'background:rgb(253,243,239)')
+      document.body.setAttribute('style', 'background:rgba(242, 242, 242, 0.35)')
     })
   },
   //实例销毁之前钩子，移除body标签的属性style
@@ -563,7 +566,7 @@ export default {
     },
 
     // 提交数据
-    submitTransactionApplyMethod() {
+    postCompTransactionMethod() {
       let industry = {};
 
       industry.contract_id = this.inputNo1
@@ -609,9 +612,8 @@ export default {
         });
         return;
       }
-      this.getId = this.$route.query.id;
       // 本页面调用接口，提交数据
-      submitTransactionApply(this.getId, industry).then(() => {
+      postCompetitionTransaction(this.eventId,this.activityId, industry).then(() => {
         this.$message({
           type: 'success',
           message: '提交成功！'
@@ -626,18 +628,17 @@ export default {
       })
     },
     //获取数据
-    getIndustryDetailMethod() {
-      this.getId=this.$route.query.id;
-      getIndustryDetail(this.getId).then((res) => {
-        this.industryDetailData = res.data
+    getCompetitionDetailMethod() {
+      getCompetitionDetail(this.eventId,this.activityId).then((res) => {
+        this.compDetailData = res.data
         //获取整体情况表的数据
-        this.companyRankData = this.industryDetailData.company_rank
+        this.companyRankData = this.compDetailData.company_rank
         //活动可用诸葛贝
-        this.userCurrentMoney =  this.industryDetailData.user_current_money
+        this.userCurrentMoney =  this.compDetailData.user_current_money
         //获取历史数据表x轴数据
-        this.graphX = this.industryDetailData.graph_x
+        this.graphX = this.compDetailData.graph_x
         //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
-        this.graphYChange(this.industryDetailData.graph_y)
+        this.graphYChange(this.compDetailData.graph_y)
         //价格直方图数据转换
         this.barPriceChange();
         //价格，合约作图

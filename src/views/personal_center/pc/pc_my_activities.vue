@@ -18,7 +18,7 @@
       <el-divider></el-divider>
     </el-col>
 
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in project_list" :key="item">
+    <el-col :span="11" :offset="1" class="activity-box" v-for="item in project_list.slice((currentPage-1)*pageSize,(currentPage)*pageSize)" :key="item">
       <el-row>
         <el-col :span="24">
           <h4 style="margin-bottom: 2px">
@@ -51,6 +51,18 @@
         </el-col>
       </el-row>
     </el-col>
+
+    <el-col class="center my-pagination">
+      <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          layout=" prev, pager, next"
+          :total="project_list.length">
+      </el-pagination>
+    </el-col>
   </el-row>
 </template>
 
@@ -62,13 +74,16 @@ export default {
   data() {
     return {
       screen: 2, //2表示全部
+      pageSize: 6, //单页数目
+      pageNum: 1,
+      currentPage: 1,
     }
   },
   computed: {
     project_list() {
       let project = this.$store.getters.myActivity.act_project_list
       // 从前页传来的值
-      const selectedActName = '月度收益率预测-金融';
+      const selectedActName = this.$route.query.industry;
       const selectedAct = project.find(
           (act) => act.act_name === selectedActName
       );
@@ -79,7 +94,6 @@ export default {
           }
         });
       }else {
-
         return []
       }
     }
@@ -92,6 +106,17 @@ export default {
     getCSRFTokenMethod() {
       getCSRFToken();
     },
+    // 分页
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      console.log('条数', pageSize);
+    },
+    handleCurrentChange(pageNum) {
+      this.currentPage = pageNum;     // 在每次当前页改变后的值 赋值给 data 里面定义的 当前页
+    },
+    resetPage(){
+      this.currentPage = 1
+    }
   }
 }
 </script>
@@ -120,5 +145,15 @@ export default {
   box-shadow: none;
 }
 
+.my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active{
+  background-color:#F0C27B;
+}
 
+.my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active:hover{
+  color: #FFFFFF;
+}
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:hover{
+  color:#EF9C19;
+}
 </style>

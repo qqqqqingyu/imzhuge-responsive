@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-row style="justify-content: center;font-size:16px;font-weight: bolder;color: #2e2e2e">
+    <el-row class="mobile-title" style="margin-top: 20px" >
       <span>个人中心</span>
     </el-row>
     <!--        个人信息-->
@@ -56,7 +56,7 @@
             比赛
           </el-col>
           <el-col :span="6" class="right">
-            <router-link to="/" class="center-vertically">
+            <router-link to="/mobile_competition" class="center-vertically">
               查看详情
               <img src="@/assets/images/enter.svg" height="13" alt="进入">
             </router-link>
@@ -178,8 +178,7 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 20px;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
 .user_info_box {

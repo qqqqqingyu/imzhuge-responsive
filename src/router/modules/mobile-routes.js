@@ -81,6 +81,24 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/mobile_competition',
+        name: 'mobile_competition',
+        component: () => import('@/views/personal_center/mobile/mobile_competition.vue'),
+        meta: {
+            title: '比赛',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+    {
+        path: '/mobile_participate',
+        name: 'mobile_participate',
+        component: () => import('@/views/personal_center/mobile/mobile_participate.vue'),
+        meta: {
+            title: '比赛-参与活动',
+            keepAlive: true, // 需要被缓存
+        }
+    },
 
 
 

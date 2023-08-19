@@ -7,7 +7,7 @@
         </router-link>
       </el-col>
       <el-col :span="20">
-        <el-row style="justify-content: center;font-size:16px;font-weight: bolder;color: #2e2e2e">
+        <el-row class="mobile-title">
           行业个股收益率预测
         </el-row>
       </el-col>

@@ -1,18 +1,19 @@
 <template>
   <div class="homepage_header">
     <el-row class="pgw hdbar" :style="topBannerNavBg">
-      <el-col :span="4" :offset="2">
+      <el-col :span="2" :offset="2">
         <a href="https://www.imzhuge.com/" class="logobox" title="嗨皮诸葛" style="margin-left: 2.5%">
           <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>
         </a>
       </el-col>
-      <el-col :span="16" style="position: relative">
+      <el-col :span="19" style="position: relative">
         <ul class="hdnav clear">
           <li>
             <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页
             </router-link>
           </li>
           <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li>
+          <li><router-link to="/competition_center">赛事中心</router-link></li>
           <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
           <!--        活动广场不在本页，需跳转-->
@@ -320,9 +321,9 @@ export default {
     window.showUnderline = this.showUnderline;
     window.res_deceleration = this.res_deceleration;
     window.res_close = this.res_close;
-    this.$nextTick(() => {
-      this.toLocal()
-    })
+    // this.$nextTick(() => {
+    //   this.toLocal()
+    // })
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

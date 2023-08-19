@@ -3,14 +3,15 @@
     margin-bottom: 20px;
 }
 
-.title {
+.mobile-title {
+    justify-content: center;
     text-align: center;
     font-size: 16px;
     font-weight: bolder;
     color: #2e2e2e;
 }
 
-/*手机端返回按钮*/
+/*移动端返回按钮*/
 .return-img{
     float: left;
     padding: 1px;
@@ -26,12 +27,38 @@
     padding-bottom: 10px;
 }
 
+/*移动端最下面的div。留出下边距，防止内容被下导航栏遮住*/
+.last-box{
+    margin-bottom: 60px;
+}
+
+.m-over_state {
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    padding:2px 4px 2px;
+    font-size: small;
+    color: #AAAAAA;
+}
+
+.m-ing_state {
+    border: 1px solid #F0C27B;
+    border-radius: 5px;
+    padding:2px 4px 2px;
+    font-size: small;
+    color: #F0C27B;
+}
+
 /*PC端各模块的白色背景块*/
 .pc-card {
     margin-top: 30px;
     margin-bottom: 30px;
     background: #FFFFFF;
     border-radius: 10px;
+}
+
+.my-card{
+    background: #FFFFFF;
+    border-radius: 18px;
 }
 
 .my-card-pd{
@@ -147,6 +174,10 @@
     cursor: pointer;
 }
 
+.cur-de{
+    cursor: default;
+}
+
 /*导航栏背景*/
 .nav-bg{
     background-image: linear-gradient(90deg, rgba(222, 176, 108, 1) 0%, rgba(247, 197, 120, 1) 92%);
@@ -173,16 +204,27 @@
     color: #333333;
 }
 
+.mb-2{
+    margin-bottom: 2px;
+}
+
 .mb-5{
     margin-bottom: 5px;
+}
+
+.mb-10{
+    margin-bottom: 10px;
 }
 
 .mb-20{
     margin-bottom: 20px;
 }
 
-/*个人中心共用类开始*/
+.mt-20{
+    margin-top: 20px;
+}
 
+/*个人中心共用类开始*/
 .activity-box {
     border-radius: 18px;
     border: solid rgba(215, 215, 215, 1) 1px;
@@ -211,6 +253,11 @@
     font-size: 14px;
 }
 
+.mobile-gray-text{
+    color: #7F7F7F;
+    font-size: 14px;
+}
+
 /*改elemnt样式，用>>>的写法在全局css中无效，要在每个组件中分别改。以下的写法可以*/
 /*修改按钮样式*/
 .yellow-btn .el-button{
@@ -222,6 +269,20 @@
 }
 
 .yellow-btn .el-button:hover{
+    background-color: rgb(227,181,112);
+    border:none;
+}
+
+/*修改按钮样式*/
+.mobile-yellow-btn .el-button{
+    color: #FFFFFF;
+    background-color: #F7C578;
+    border:none;
+    min-height:10px;
+    padding: 4px 15px;
+}
+
+.mobile-yellow-btn .el-button:hover{
     background-color: rgb(227,181,112);
     border:none;
 }
@@ -238,3 +299,8 @@
     background: rgb(242,242,242);
 }
 /*个人中心共用类结束*/
+
+/*超链接不加横线*/
+a {
+    text-decoration: none;
+}

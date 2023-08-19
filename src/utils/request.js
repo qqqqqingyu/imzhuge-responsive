@@ -11,6 +11,9 @@ const request = axios.create({
 // post请求默认请求头
 request.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
+// 添加baseURL，但是也会出现CORS的问题
+// request.defaults.baseURL = 'http://47.108.189.227:8080';
+
 // request拦截器
 request.interceptors.request.use(config => {
     // 如果后期需要添加token 可在此处统一添加请求头

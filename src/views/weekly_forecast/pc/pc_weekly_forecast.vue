@@ -6,49 +6,46 @@
     <el-row style="padding-top: 80px">
       <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
         您当前的位置：
-        <span>行业个股收益率预测</span>
+        <span class="cur-de">行业个股收益率预测</span>
       </el-col>
     </el-row>
-    <div class="activity_introduction">
-      <el-row style="margin-top: 20px">
-        <el-col :offset="2" :span="9">
-          <p class="box-title">活动简介</p>
-        </el-col>
-      </el-row>
-      <el-row style="margin-top: 10px;margin-bottom: 10px;">
-        <el-col :span="20" :offset="2">
-          <div class="introduction">
-            <el-row>
-              <p>该应用中AI算法和您共同完成对每个行业中的7家上市公司个股收盘价周度百分比变动从大到小进行排序。请您预测收盘价周度变动百分比哪一家上市公司会排第一？</p>
-            </el-row>
-            <el-row style="margin-top: 10px">
-              <p>个股收盘价周度百分比计算公式</p>
-            </el-row>
-            <el-row  class="my-formula center-vertically">
-              <el-col :span="10" class="right" >个股收盘价周度百分比&nbsp;=&nbsp;</el-col>
-              <el-col :span="10" class="center">
-                <el-row>
-                  <el-col>
-                    {{endDay}}收盘价&nbsp;-&nbsp;{{startDay}}收盘价
-                  </el-col>
-                  <el-divider></el-divider>
-                  <el-col>{{startDay}}收盘价</el-col>
-                </el-row>
-              </el-col>
-            </el-row>
+    <el-row style="margin-top: 20px">
+      <el-col :offset="2" :span="9">
+        <p class="box-title">活动简介</p>
+      </el-col>
+    </el-row>
+    <el-row style="margin-top: 10px;margin-bottom: 10px;">
+      <el-col :span="20" :offset="2">
+        <div class="introduction">
+          <el-row>
+            <p>该应用中AI算法和您共同完成对每个行业中的7家上市公司个股收盘价周度百分比变动从大到小进行排序。请您预测收盘价周度变动百分比哪一家上市公司会排第一？</p>
+          </el-row>
+          <el-row style="margin-top: 10px">
+            <p>个股收盘价周度百分比计算公式</p>
+          </el-row>
+          <el-row  class="my-formula center-vertically">
+            <el-col :span="10" class="right" >个股收盘价周度百分比&nbsp;=&nbsp;</el-col>
+            <el-col :span="10" class="center">
+              <el-row>
+                <el-col>
+                  {{endDay}}收盘价&nbsp;-&nbsp;{{startDay}}收盘价
+                </el-col>
+                <el-divider></el-divider>
+                <el-col>{{startDay}}收盘价</el-col>
+              </el-row>
+            </el-col>
+          </el-row>
 <!--            <img :src="require('@/assets/images/formula-weekly.png')" style="width: 70%;margin: auto">-->
-          </div>
-        </el-col>
+        </div>
+      </el-col>
 
-      </el-row>
-    </div>
-    <div class="industry_list">
-      <el-row style="margin-top: 20px">
-        <el-col :span="9" :offset="2">
-          <span class="box-title">行业列表</span>
-        </el-col>
-      </el-row>
-      <el-row class="industry">
+    </el-row>
+    <el-row style="margin-top: 20px">
+      <el-col :span="9" :offset="2">
+        <span class="box-title">行业列表</span>
+      </el-col>
+    </el-row>
+    <el-row class="industry">
         <el-col :span="20" :offset="2">
           <div  v-for="(item,index) in industryList"
                 :key="index">
@@ -109,7 +106,6 @@
           </div>
         </el-col>
       </el-row>
-    </div>
 
 
   </div>

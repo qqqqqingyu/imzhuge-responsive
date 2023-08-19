@@ -10,7 +10,7 @@ export default  {
     myInfoDetails:(state)=>state.myInfoDetails.myInfoDetails,
     loginStatus:(state)=>state.loginStatus.loginStatus,
     eventList:(state)=>state.eventList.eventList,
-    event:(state)=>state.eventList.event,
+    eventData:(state)=>state.eventList.eventData,
     competitionDetail:(state)=>state.eventList.competitionDetail,
     //获取token方法
     //判断是否有token,如果没有重新赋值，返回给state的token

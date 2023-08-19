@@ -9,7 +9,7 @@
         您当前的位置：
         <router-link to="/weekly_forecast">行业个股收益率预测</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="25">
-        <span>{{industryDetailData.industry}}行业个股收益率预测</span>
+        <span class="cur-de">{{industryDetailData.industry}}行业个股收益率预测</span>
       </el-col>
     </el-row>
 <!--    面包屑导航栏结束-->
@@ -490,20 +490,20 @@ export default {
     this.echarts = require('echarts')
     this.getCSRFTokenMethod();
     // 展示指标含义
-    this.changeFactor()
+    // this.changeFactor()
     // 获取数据的方法。数据转化及作图的方法在该方法中
-    // this.getIndustryDetailMethod();
-    // 作图方法测试
-    this.myCandleStick();
-    //lmm
-    //获取一个指标下，不同公司的数据
-    this.getFactorAndCompanyData();
-    this.getCompanyCloseData();
+    this.getIndustryDetailMethod();
+    // // 作图方法测试
+    // this.myCandleStick();
+    // //lmm
+    // //获取一个指标下，不同公司的数据
+    // this.getFactorAndCompanyData();
+    // this.getCompanyCloseData();
   },
   // 设置背景
   beforeCreate() {
     this.$nextTick(() => {
-      document.body.setAttribute('style', 'background:rgb(253,243,239)')
+      document.body.setAttribute('style', 'background:rgba(242, 242, 242, 0.35)')
     })
   },
   //实例销毁之前钩子，移除body标签的属性style

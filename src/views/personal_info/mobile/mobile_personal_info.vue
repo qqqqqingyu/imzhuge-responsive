@@ -6,7 +6,7 @@
           <img src="../../../assets/images/return.svg" alt="返回" class="return-img">
         </router-link>
       </el-col>
-      <el-col :span="20" class="title">
+      <el-col :span="20" class="mobile-title">
         <span>个人信息</span>
       </el-col>
     </el-row>

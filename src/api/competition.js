@@ -27,16 +27,17 @@ export function getEvent(eventId) {
 export function getCompetitionDetail(eventId,activityId) {
     return request({
         method:'get',
-        url:'/api/event_center/event_list/' + eventId +'/' + activityId
+        url:'/api/event_center/event_detail/' + eventId +'/' + activityId
     })
 }
 
 /**
  * 赛事中心-->活动中心-->参与交易，提交交易申请
  **/
-export function postCompetitionTransaction(eventId,activityId) {
+export function postCompetitionTransaction(eventId,activityId,data) {
     return request({
-        method:'get',
-        url:'/api/event_center/event_list/' + eventId +'/' + activityId
+        method:'post',
+        url:'/api/event_center/event_detail/' + eventId +'/' + activityId,
+        data:data
     })
 }

@@ -15,7 +15,7 @@
       <el-divider></el-divider>
     </el-col>
 
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in my_project_list" v-bind:key="item">
+    <el-col :span="11" :offset="1" class="activity-box" v-for="item in my_project_list.slice((currentPage-1)*pageSize,(currentPage)*pageSize)" v-bind:key="item">
       <el-row>
         <el-col :span="24">
           <h4 style="margin-bottom: 2px">
@@ -64,15 +64,32 @@
         </el-col>
       </el-row>
     </el-col>
+
+    <el-col class="center my-pagination">
+      <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          layout=" prev, pager, next"
+          :total="my_project_list.length">
+      </el-pagination>
+    </el-col>
   </el-row>
 </template>
 
 <script>
+import {getCSRFToken} from '@/api/token'
+
 export default {
   name: "pc_competition",
   data() {
     return {
       screen: 2, //2表示全部
+      pageSize: 6, //单页数目
+      pageNum: 1,
+      currentPage: 1,
     }
   },
   computed: {
@@ -81,33 +98,46 @@ export default {
       let project =
           [
             {
-              "title": "金融行业20230805-20230811周度收益率排名预测",
+              "title": "1",
               "status": false,
               "earnings": "活动尚未结束"
             },
             {
-              "title": "金融行业20230729-20230804周度收益率排名预测",
+              "title": "2",
               "status": true,
               "earnings": 0
             },
             {
-              "title": "金融行业20230722-20230728周度收益率排名预测",
+              "title": "3",
               "status": true,
               "earnings": 0
             },
             {
-              "title": "金融行业20230714-20230721周度收益率排名预测",
+              "title": "4",
               "status": true,
               "earnings": 0
             },
             {
-              "title": "金融行业20230708-20230714周度收益率排名预测",
+              "title": "5",
+              "status": true,
+              "earnings": 0
+            },
+            {
+              "title": "6",
+              "status": false,
+              "earnings": "活动尚未结束"
+            },
+            {
+              "title": "7",
+              "status": true,
+              "earnings": 0
+            },
+            {
+              "title": "8",
               "status": true,
               "earnings": 0
             }
           ]
-
-
       if (project) {
         return project.filter((item) => {
           if ((this.screen == 2 || this.screen == item.status)) {
@@ -119,10 +149,27 @@ export default {
       }
     }
   },
-  methods: {
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
+  methods: {// 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 保留n位小数
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)
+    },
+    // 分页
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      console.log('条数', pageSize);
+    },
+    handleCurrentChange(pageNum) {
+      this.currentPage = pageNum;     // 在每次当前页改变后的值 赋值给 data 里面定义的 当前页
+    },
+    resetPage(){
+      this.currentPage = 1
     }
   }
 }
@@ -146,5 +193,19 @@ export default {
   border-radius: 10px;
   padding: 8px 15px;
 }
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active{
+  background-color:#F0C27B;
+}
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active:hover{
+  color: #FFFFFF;
+}
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:hover{
+  color:#EF9C19;
+}
+
+
 
 </style>

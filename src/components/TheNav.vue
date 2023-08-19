@@ -12,7 +12,16 @@
           <router-link to="/">首页</router-link>
         </li>
         <li>
-          <router-link to="/weekly_forecast" :class="{'navcurr': currentPage === 'typical'}">典型应用</router-link>
+          <el-popover
+              placement="top-start"
+              trigger="hover"
+          >
+            <template #reference>
+              <router-link to="" :class="{'navcurr': currentPage === 'typical'}" style="cursor: default">典型应用</router-link>
+            </template>
+            <router-link class="popover-link" to="/weekly_forecast">企业收益率排序预测</router-link>
+            <router-link class="popover-link" to="">股价波动预测</router-link>
+          </el-popover>
         </li>
         <li>
           <router-link to="/competition_center" :class="{'navcurr': currentPage === 'competition'}">赛事中心</router-link>
@@ -69,4 +78,15 @@ a.navregbtn:hover {
   color: rgb(234, 176, 85);
   border-bottom: none;
 }
+
+.popover-link{
+  display: block;
+  line-height: 40px;
+  color: #555555;
+}
+
+.popover-link:hover{
+  color: #F0C27B;
+}
+
 </style>

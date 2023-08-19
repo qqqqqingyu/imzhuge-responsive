@@ -13,7 +13,16 @@
             <router-link to="/">首页</router-link>
           </li>
           <li>
-            <router-link to="/weekly_forecast">典型应用</router-link>
+            <el-popover
+                placement="top-start"
+                trigger="hover"
+            >
+              <template #reference>
+                <router-link to="" :class="{'navcurr': currentPage === 'typical'}" style="cursor: default">典型应用</router-link>
+              </template>
+              <router-link class="popover-link" to="/weekly_forecast">企业收益率排序预测</router-link>
+              <router-link class="popover-link" to="">股价波动预测</router-link>
+            </el-popover>
           </li>
           <li>
             <router-link to="/competition_center">赛事中心</router-link>
@@ -59,17 +68,17 @@
       <!--    左部导航栏开始-->
       <el-col :span="4" :offset="2" class="pc-card left-box">
         <el-row>
-            <el-col :span="17" :offset="3" class="center-vertically left-option hand" @click="setLeftOpen">
+            <el-col :span="17" :offset="3" class="center-vertically left-option">
               <img id="link-my-img" :src="activityImg" alt="活动" width="21">
               <span id="link-my" class="left-content">我参与的</span>
             </el-col>
-            <el-col :span="1" style="margin-top: 16px" @click="setLeftOpen" v-if="leftOpen">
-              <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" height="9">
-            </el-col>
-            <el-col :span="1" style="margin-top: 16px" @click="setLeftOpen" v-else>
-              <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" height="9"
-                   style="transform: rotate(180deg)">
-            </el-col>
+<!--            <el-col :span="1" style="margin-top: 16px" @click="setLeftOpen" v-if="leftOpen">-->
+<!--              <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" height="9">-->
+<!--            </el-col>-->
+<!--            <el-col :span="1" style="margin-top: 16px" @click="setLeftOpen" v-else>-->
+<!--              <img class="hand" :src="require('@/assets/images/arrdn.svg')" alt="down-arrow" height="9"-->
+<!--                   style="transform: rotate(180deg)">-->
+<!--            </el-col>-->
 
           <router-link to="/pc_competition" v-if="leftOpen">
             <el-col :span="16" :offset="3" class="center-vertically left-option">
@@ -227,7 +236,6 @@ export default {
           window.pageYOffset ||
           document.documentElement.scrollTop ||
           document.body.scrollTop;
-      console.log(scrollTop)
       //设置背景颜色的透明度
       if (scrollTop <= 200 && scrollTop > 0) {
         this.headStyle.background = `rgba(196,196,196,${
@@ -393,5 +401,15 @@ export default {
 
 .cash-withdrawal-btn:active{
   color: #ff9b00;
+}
+
+.popover-link{
+  display: block;
+  line-height: 40px;
+  color: #555555;
+}
+
+.popover-link:hover{
+  color: #F0C27B;
 }
 </style>
