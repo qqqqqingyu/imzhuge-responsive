@@ -86,7 +86,7 @@ export default [
         name: 'mobile_competition',
         component: () => import('@/views/personal_center/mobile/mobile_competition.vue'),
         meta: {
-            title: '比赛',
+            title: '比赛列表',
             keepAlive: true, // 需要被缓存
         }
     },
@@ -95,10 +95,37 @@ export default [
         name: 'mobile_participate',
         component: () => import('@/views/personal_center/mobile/mobile_participate.vue'),
         meta: {
-            title: '比赛-参与活动',
+            title: '比赛活动',
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/mobile_task_list',
+        name: 'mobile_task_list',
+        component: () => import('@/views/personal_center/mobile/mobile_task_list.vue'),
+        meta: {
+            title: '任务列表',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+    {
+        path: '/mobile_industry_list',
+        name: 'mobile_industry_list',
+        component: () => import('@/views/personal_center/mobile/mobile_industry_list.vue'),
+        meta: {
+            title: '行业预测列表',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+    {
+        path: '/mobile_my_activities',
+        name: 'mobile_my_activities',
+        component: () => import('@/views/personal_center/mobile/mobile_my_activities.vue'),
+        meta: {
+            title: '活动列表',
+            keepAlive: true, // 需要被缓存
+        }
+    }
 
 
 

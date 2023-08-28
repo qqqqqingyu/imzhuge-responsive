@@ -48,6 +48,25 @@
     color: #F0C27B;
 }
 
+/*移动端面包屑导航栏*/
+.m-breadcrumb{
+    color: #7F7F7F;
+    font-size: 14px;
+}
+
+.m-breadcrumb a{
+    color: #7F7F7F;
+    font-size: 14px;
+}
+
+.m-breadcrumb a:hover{
+    color: rgb(234, 176, 85);
+}
+
+.m-breadcrumb a:active{
+    color: rgb(234, 176, 85);
+}
+
 /*PC端各模块的白色背景块*/
 .pc-card {
     margin-top: 30px;

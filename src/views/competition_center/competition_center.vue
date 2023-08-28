@@ -1,6 +1,6 @@
 <template>
   <mobile_competiotion_center v-if="isMobile"></mobile_competiotion_center>
-  <pc_competition_center></pc_competition_center>
+  <pc_competition_center v-else></pc_competition_center>
 </template>
 
 <script>

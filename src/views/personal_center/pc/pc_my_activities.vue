@@ -18,7 +18,7 @@
       <el-divider></el-divider>
     </el-col>
 
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in project_list.slice((currentPage-1)*pageSize,(currentPage)*pageSize)" :key="item">
+    <el-col :span="11" :offset="1" class="activity-box" v-for="item in page_project_list" :key="item.title">
       <el-row>
         <el-col :span="24">
           <h4 style="margin-bottom: 2px">
@@ -33,11 +33,8 @@
           <span class="gray-text">活动收益</span>
         </el-col>
         <el-col :span="11" :offset="1">
-          <span v-if="item.status" style="font-size: 14px">
+          <span style="font-size: 14px">
             {{ parseFloat(item.project_earning).toFixed(2) }}&nbsp;诸葛贝
-          </span>
-          <span style="font-size: 14px" v-else>
-            活动进行中
           </span>
         </el-col>
 
@@ -60,7 +57,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           layout=" prev, pager, next"
-          :total="project_list.length">
+          :total="total_num">
       </el-pagination>
     </el-col>
   </el-row>
@@ -96,6 +93,23 @@ export default {
       }else {
         return []
       }
+    },
+    page_project_list() {
+      try {
+        return this.project_list
+            .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
+      } catch (error) {
+        console.error('page_project_list报错:', error);
+        return [];
+      }
+    },
+    total_num() {
+      try {
+        return this.project_list.length;
+      } catch (error) {
+        console.error('total_num报错:', error);
+        return 0;
+      }
     }
   },
   mounted() {
@@ -113,9 +127,6 @@ export default {
     },
     handleCurrentChange(pageNum) {
       this.currentPage = pageNum;     // 在每次当前页改变后的值 赋值给 data 里面定义的 当前页
-    },
-    resetPage(){
-      this.currentPage = 1
     }
   }
 }

@@ -41,3 +41,13 @@ export function postCompetitionTransaction(eventId,activityId,data) {
         data:data
     })
 }
+
+/**
+ * 我的-我参与的赛事
+ **/
+export function getMyEvent() {
+    return request({
+        method:'get',
+        url:'/api/selfcenter/my_event'
+    })
+}

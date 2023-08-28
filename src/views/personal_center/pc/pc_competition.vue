@@ -7,7 +7,7 @@
       <el-radio-group v-model="screen">
         <el-radio-button class="filter-radio" label=2>全部</el-radio-button>
         <el-radio-button class="filter-radio" label=0>进行中</el-radio-button>
-        <el-radio-button class="filter-radio" label=1>已结束</el-radio-button>
+        <el-radio-button class="filter-radio" label=1>未开始或已结束</el-radio-button>
       </el-radio-group>
     </el-col>
 
@@ -15,50 +15,48 @@
       <el-divider></el-divider>
     </el-col>
 
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in my_project_list.slice((currentPage-1)*pageSize,(currentPage)*pageSize)" v-bind:key="item">
+    <el-col :span="11" :offset="1" class="activity-box"
+            v-for="item in page_my_event" v-bind:key="item.event_name">
       <el-row>
         <el-col :span="24">
           <h4 style="margin-bottom: 2px">
-            {{ item.title }}
+            {{ item.event_name }}
           </h4>
         </el-col>
         <el-col :span="24" style="margin-top:8px;margin-bottom: 10px">
-          <span class="over_state" v-if="item.status">已结束</span>
+          <span class="over_state" v-if="item.event_status === '赛事未开始或已结束'">未开始或已结束</span>
           <span class="ing_state" v-else>进行中</span>
         </el-col>
 
         <el-col :span="8" class="mb-5">
           <span class="gray-text">比赛收益</span>
         </el-col>
-        <el-col :span="11" :offset="1">
-          <span v-if="item.status" style="font-size: 14px">
-            {{ parseFloat(item.earnings).toFixed(2) }}&nbsp;诸葛贝
-          </span>
-          <span style="font-size: 14px" v-else>
-            活动进行中
+        <el-col :span="15" :offset="1">
+          <span style="font-size: 14px">
+            {{ parseFloat(item.earning_coin).toFixed(2) }}&nbsp;诸葛贝
           </span>
         </el-col>
 
         <el-col :span="8" class="mb-5">
           <span class="gray-text">比赛时间</span>
         </el-col>
-        <el-col :span="11" :offset="1">
+        <el-col :span="15" :offset="1">
           <span style="font-size: 14px">
-            2023.07.01
+            {{ formatDate(item.event_start_time) }} ~ {{ formatDate(item.event_end_time) }}
           </span>
         </el-col>
 
         <el-col :span="8" class="mb-5">
-          <span class="gray-text">比赛奖金</span>
+          <span class="gray-text">获得奖金</span>
         </el-col>
-        <el-col :span="11" :offset="1">
+        <el-col :span="15" :offset="1">
           <span style="font-size: 14px">
-            100
+            {{ changeCash(item.event_earning_cash) }}
           </span>
         </el-col>
 
         <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link to="/pc_participate">
+          <router-link :to="{path:'/pc_participate',query:{eventName:item.event_name}}">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>
@@ -73,7 +71,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           layout=" prev, pager, next"
-          :total="my_project_list.length">
+          :total="total_num">
       </el-pagination>
     </el-col>
   </el-row>
@@ -93,72 +91,60 @@ export default {
     }
   },
   computed: {
-    my_project_list() {
-      // let project = this.$store.getters.myActivity.my_project_list
-      let project =
-          [
-            {
-              "title": "1",
-              "status": false,
-              "earnings": "活动尚未结束"
-            },
-            {
-              "title": "2",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "3",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "4",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "5",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "6",
-              "status": false,
-              "earnings": "活动尚未结束"
-            },
-            {
-              "title": "7",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "8",
-              "status": true,
-              "earnings": 0
-            }
-          ]
-      if (project) {
-        return project.filter((item) => {
-          if ((this.screen == 2 || this.screen == item.status)) {
-            return item
+    my_event() {
+      let myEvent = this.$store.getters.myEvent
+
+      if (myEvent) {
+        return myEvent.filter((item) => {
+          if (this.screen == 0) {
+            return item.event_status === '赛事进行中';
+          } else if (this.screen == 1) {
+            return item.event_status === '赛事未开始或已结束';
+          } else {
+            // screen为2时，返回所有的
+            return item;
           }
         })
       } else {
-        return this.$store.getters.myActivity.my_project_list
+        return this.$store.getters.myEvent
+      }
+    },
+    page_my_event() {
+      try {
+        return this.my_event
+            .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
+      } catch (error) {
+        console.error('page_my_event报错:', error);
+        return [];
+      }
+    },
+    total_num() {
+      try {
+        return this.my_event.length;
+      } catch (error) {
+        console.error('total_num报错:', error);
+        return 0;
       }
     }
   },
   mounted() {
     this.getCSRFTokenMethod()
   },
-  methods: {// 获取csrftoken 确保受保护接口不会响应403
+  methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
     },
-    // 保留n位小数
-    numFilter(value, n) {
-      return parseFloat(value).toFixed(n)
+    // 保留n位小数或显示文字
+    changeCash(value) {
+      // 检查是否可以转换为数字
+      const numericValue = parseFloat(value);
+      if (!isNaN(numericValue)) {
+        // 转换为数值并保留两位小数
+        return numericValue.toFixed(2)+" RMB";
+      }
+      // 返回原始文本
+      return value;
     },
     // 分页
     handleSizeChange(pageSize) {
@@ -170,7 +156,16 @@ export default {
     },
     resetPage(){
       this.currentPage = 1
-    }
+    },
+    // 转换数据为时间格式
+    formatDate(dateString) {
+      const dateObj = new Date(dateString);
+      const year = dateObj.getFullYear();
+      const month = ('0' + (dateObj.getMonth() + 1)).slice(-2); //月份从0开始，需要+1
+      const day = ('0' + dateObj.getDate()).slice(-2);
+
+      return `${year}-${month}-${day}`;
+    },
   }
 }
 </script>
@@ -205,7 +200,4 @@ export default {
 .my-pagination >>> .el-pagination.is-background .el-pager li:hover{
   color:#EF9C19;
 }
-
-
-
 </style>

@@ -11,17 +11,14 @@ export default {
         }
     },
     mutations: {
-
         /**
          * 为 loginStatus登录状态赋值
          */
         setLoginStatus(state, newData) {
             state.loginStatus =newData
         }
-
     },
     actions: {
-
         /**
          * 获取loginStatus数据，并自动保存到 vuex 中
          */

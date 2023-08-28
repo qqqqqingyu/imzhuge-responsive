@@ -19,10 +19,7 @@
     <el-row class="industry-box">
       <el-col :span="9" :offset="2" class="box-title">
         <span>
-          {{compDetailData.industry}}行业</span>
-      </el-col>
-      <el-col :span="11" class="industry-month">
-        {{compDetailData.start_day}}至{{compDetailData.end_day}}
+          {{compDetailData.title}}</span>
       </el-col>
     </el-row>
 

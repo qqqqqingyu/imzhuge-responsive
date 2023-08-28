@@ -4,7 +4,7 @@
       <h2 class="personal-title">行业列表</h2>
     </el-col>
 
-    <el-col :offset="1" :span="23" class="industry-item" v-for="item in act_project_list" v-bind:key="item">
+    <el-col :offset="1" :span="23" class="industry-item" v-for="item in act_project_list" v-bind:key="item.act_name">
       <el-row>
         <el-col :offset="1" :span="8" class="center-vertically">
           <img :src="getImagePath(item.act_name)" height="19">
@@ -17,7 +17,7 @@
           {{ parseFloat(item.act_money).toFixed(2) }}诸葛贝
         </el-col>
         <el-col :span="5" class="right yellow-btn">
-          <router-link  :to="{path:'/pc_my_activities',query:{industry:item.act_name}}">
+          <router-link :to="{path:'/pc_my_activities',query:{industry:item.act_name}}">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>

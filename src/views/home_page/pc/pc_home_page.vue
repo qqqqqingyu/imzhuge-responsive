@@ -128,7 +128,7 @@
         采用市场机制融合人机智慧，提供精准、快速、高效的财经预测服务。
       </el-row>
       <el-row>
-        <el-col span="6" style="margin-top: 50px;">
+        <el-col :span="6" style="margin-top: 50px;">
           <el-button v-on:click="homelogin" class="login more">前往登录</el-button>
         </el-col>
       </el-row>
@@ -273,8 +273,9 @@
       <p class="gzh">微信公众号</p>
     </el-col>
     <el-col class="center" style="margin-top: 40px">
-      <p> 爱诸葛，知未来 | 蜀ICP备2020026052号-1 copyright@2020 | <span class="res_deceleration"
-                                                              onclick="res_deceleration()">免责声明</span></p>
+      <p> 爱诸葛，知未来 |
+        <span class="res_deceleration" @click="toBeiAn()">蜀ICP备2020026052号</span> |
+        <span class="res_deceleration" onclick="res_deceleration()">免责声明</span></p>
     </el-col>
   </el-row>
 
@@ -393,7 +394,10 @@ export default {
     },
     winvk() {
       window.open("https://www.winvk.com/", "_blank");
-    }
+    },
+    toBeiAn(){
+      window.open("https://beian.miit.gov.cn", "_blank");
+    },
   },
   mounted() {
     this.getCSRFTokenMethod();
@@ -534,39 +538,6 @@ export default {
   font-size: 20px;
   color: #666;
   letter-spacing: 0.5px;
-}
-
-.teammember {
-  line-height: 26px;
-  padding-bottom: 70px;
-  justify-content: center;
-}
-
-.teammember h4 {
-  font-weight: normal;
-  color: #ff867e;
-  font-size: 25px;
-  margin-bottom: 20px;
-  margin-top: 80px;
-}
-
-.teammember a {
-  font-weight: normal;
-  color: #ff867e;
-  font-size: 25px;
-  margin-bottom: 20px;
-  margin-top: 80px;
-}
-
-.teammember a:hover {
-  text-decoration: underline;
-}
-
-.teammember p {
-  text-align: left;
-  border: 4px #ff867e;
-  color: black;
-  font-size: 15px;
 }
 
 .hand {

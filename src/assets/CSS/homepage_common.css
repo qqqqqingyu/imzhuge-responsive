@@ -30,11 +30,6 @@ a {
     text-decoration: none
 }
 
-a:hover {
-    color: #f60;
-    text-decoration: none
-}
-
 ol, ul {
     list-style: none
 }

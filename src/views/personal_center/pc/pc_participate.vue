@@ -6,52 +6,29 @@
       <span class="personal-title">参与活动</span>
     </el-col>
 
-    <el-col :offset="1" :span="23" style="margin-bottom: 15px">
-      <el-radio-group v-model="screen">
-        <el-radio-button class="filter-radio" label=2>全部</el-radio-button>
-        <el-radio-button class="filter-radio" label=0>进行中</el-radio-button>
-        <el-radio-button class="filter-radio" label=1>已结束</el-radio-button>
-      </el-radio-group>
-    </el-col>
-
     <el-col :offset="1" :span="23" class="line">
       <el-divider></el-divider>
     </el-col>
 
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in my_project_list.slice((currentPage-1)*pageSize,(currentPage)*pageSize)" v-bind:key="item">
+    <el-col :span="11" :offset="1" class="activity-box"
+            v-for="item in page_act_list" v-bind:key="item.act_name">
       <el-row>
-        <el-col :span="24">
+        <el-col :span="24" class="mb-10">
           <h4 style="margin-bottom: 2px">
-            {{ item.title }}
+            {{ item.act_name }}
           </h4>
-        </el-col>
-        <el-col :span="24" style="margin-top:8px;margin-bottom: 10px">
-          <span class="over_state" v-if="item.status">已结束</span>
-          <span class="ing_state" v-else>进行中</span>
         </el-col>
         <el-col :span="8" class="mb-5">
           <span class="gray-text">活动收益</span>
         </el-col>
-        <el-col :span="11" :offset="1">
-          <span v-if="item.status" style="font-size: 14px">
-            {{ parseFloat(item.earnings).toFixed(2) }}&nbsp;诸葛贝
-          </span>
-          <span style="font-size: 14px" v-else>
-            活动进行中
-          </span>
-        </el-col>
-
-        <el-col :span="8" class="mb-5">
-          <span class="gray-text">正确结果</span>
-        </el-col>
-        <el-col :span="11" :offset="1">
+        <el-col :span="15" :offset="1">
           <span style="font-size: 14px">
-            结果
+            {{ parseFloat(item.act_money).toFixed(2) }}&nbsp;诸葛贝
           </span>
         </el-col>
 
         <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link to="/pc_task_list">
+          <router-link :to="{path:'/pc_task_list',query:{eventName:$route.query.eventName,actName:item.act_name}}">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>
@@ -66,7 +43,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           layout=" prev, pager, next"
-          :total="my_project_list.length">
+          :total="total_num">
       </el-pagination>
     </el-col>
   </el-row>
@@ -86,60 +63,36 @@ export default {
     }
   },
   computed: {
-    my_project_list() {
-      // let project = this.$store.getters.myActivity.my_project_list
-      let project =[
-        {
-          "title": "1",
-          "status": false,
-          "earnings": "活动尚未结束"
-        },
-        {
-          "title": "2",
-          "status": true,
-          "earnings": 0
-        },
-        {
-          "title": "3",
-          "status": true,
-          "earnings": 0
-        },
-        {
-          "title": "4",
-          "status": true,
-          "earnings": 0
-        },
-        {
-          "title": "5",
-          "status": true,
-          "earnings": 0
-        },
-        {
-          "title": "6",
-          "status": false,
-          "earnings": "活动尚未结束"
-        },
-        {
-          "title": "7",
-          "status": true,
-          "earnings": 0
-        },
-        {
-          "title": "8",
-          "status": true,
-          "earnings": 0
-        }
-      ]
+    act_list() {
+      let myEvent = this.$store.getters.myEvent
+      // 从前页传来的值
+      const selectEventName = this.$route.query.eventName;
+      const selectedAct = myEvent.find(
+          (act) => act.event_name === selectEventName
+      );
 
-
-      if (project) {
-        return project.filter((item) => {
-          if ((this.screen == 2 || this.screen == item.status)) {
-            return item
-          }
-        })
+      if (selectedAct) {
+        return selectedAct.act_list
       } else {
-        return this.$store.getters.myActivity.my_project_list
+        console.log('未筛选到相应的数据')
+        return []
+      }
+    },
+    page_act_list() {
+      try {
+        return this.act_list
+            .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
+      } catch (error) {
+        console.error('page_act_list报错:', error);
+        return [];
+      }
+    },
+    total_num() {
+      try {
+        return this.act_list.length;
+      } catch (error) {
+        console.error('total_num报错:', error);
+        return 0;
       }
     }
   },
@@ -158,39 +111,12 @@ export default {
     },
     handleCurrentChange(pageNum) {
       this.currentPage = pageNum;     // 在每次当前页改变后的值 赋值给 data 里面定义的 当前页
-    },
-    resetPage(){
-      this.currentPage = 1
     }
   }
 }
 </script>
 
 <style scoped>
-
-/*被选后的单选框颜色*/
-.filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  color: #FFAA2A;
-  background: rgba(255, 195, 105, 0.2);
-  font-size: 14px;
-}
-
-/*单选框样式*/
-.filter-radio >>> .el-radio-button__inner {
-  margin-right: 20px;
-  background: #F5F8FA;
-  color: #7F7F7F;
-  border: 0;
-  border-radius: 10px;
-  padding: 8px 15px;
-
-}
-
-/*单选框覆盖原有阴影*/
-.filter-radio >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  box-shadow: none;
-}
-
 .my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active{
   background-color:#F0C27B;
 }
