@@ -73,58 +73,14 @@
             行业个股收益率
           </el-col>
           <el-col :span="6" class="right">
-            <router-link to="/" class="center-vertically">
+            <router-link to="/mobile_industry_list" class="center-vertically">
               查看详情
               <img src="@/assets/images/enter.svg" height="13" alt="进入">
             </router-link>
           </el-col>
         </el-row>
       </el-col>
-
     </el-row>
-
-
-<!--    <el-row>-->
-<!--      <el-col :offset="1" :span="22">-->
-<!--        <div class="my_join_act" v-for="item in myActivity.my_project_list"-->
-<!--             :key="item">-->
-<!--          <div class="act_info">-->
-<!--            <el-row>-->
-<!--              <el-col :offset="1" :span="23">-->
-<!--                <el-row>-->
-<!--                  <el-col :span="5">-->
-<!--                    <span>活动名称</span>-->
-<!--                  </el-col>-->
-<!--                  <el-col :span="16" :offset="1">-->
-<!--                    <span>{{ item.title }}</span>-->
-<!--                  </el-col>-->
-<!--                </el-row>-->
-<!--                <el-row style="margin-top: 8px">-->
-<!--                  <el-col :span="10">-->
-<!--                    <span>活动状态</span>-->
-<!--                  </el-col>-->
-<!--                  <el-col :span="12" :offset="1">-->
-<!--                    <span class="over_state" v-if="item.status">已结束</span>-->
-<!--                    <span class="ing_state" v-else>进行中</span>-->
-<!--                  </el-col>-->
-<!--                </el-row>-->
-<!--                <el-row style="margin-top: 8px">-->
-<!--                  <el-col :span="10">-->
-<!--                    <span>活动净收益（诸葛贝）</span>-->
-<!--                  </el-col>-->
-<!--                  <el-col :span="12" :offset="1">-->
-<!--                    <span v-if="item.status">{{ numFilter(item.earnings, 2) }}</span>-->
-<!--                    <span style="color:#7F7F7F;" v-else>活动进行中</span>-->
-<!--                  </el-col>-->
-<!--                </el-row>-->
-<!--              </el-col>-->
-<!--            </el-row>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--      </el-col>-->
-<!--    </el-row>-->
-
 
   </div>
   <bottom-nav></bottom-nav>

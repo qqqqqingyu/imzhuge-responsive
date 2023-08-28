@@ -18,7 +18,7 @@
                 trigger="hover"
             >
               <template #reference>
-                <router-link to="" :class="{'navcurr': currentPage === 'typical'}" style="cursor: default">典型应用</router-link>
+                <router-link to="" style="cursor: default">典型应用</router-link>
               </template>
               <router-link class="popover-link" to="/weekly_forecast">企业收益率排序预测</router-link>
               <router-link class="popover-link" to="">股价波动预测</router-link>
@@ -152,35 +152,28 @@ export default {
     let competition = document.querySelector('#link-competition');
     let stock = document.querySelector('#link-stock');
     let info = document.querySelector('#link-info');
-    if (this.$route.path === '/pc_my_activities') {
-      this.activityImg = require('@/assets/images/my_activity_yellow.svg')
-      this.infoImg = require('@/assets/images/info_grey.svg')
-      activity.style.color = '#F0C278';
-      competition.style.color = '#F0C278';
-      info.style.color = '#555555';
-    } else if (this.$route.path === '/pc_personal_info') {
-      this.activityImg = require('@/assets/images/my_activity_grey.svg')
-      this.infoImg = require('@/assets/images/info_yellow.svg')
-      activity.style.color = '#555555';
-      info.style.color = '#F0C278';
-    } else if(this.$route.path === '/pc_competition'){
-      activity.style.color = '#F0C278';
-      stock.style.color = '#555555';
-      competition.style.color = '#F0C278';
-      info.style.color = '#555555';
-    } else if (this.$route.path === '/pc_industry_list') {
+
+    // 个股收益率
+    if ((this.$route.path === '/pc_my_activities')||(this.$route.path === '/pc_stock')) {
       this.activityImg = require('@/assets/images/my_activity_yellow.svg')
       this.infoImg = require('@/assets/images/info_grey.svg')
       activity.style.color = '#F0C278';
       stock.style.color = '#F0C278';
       competition.style.color = '#555555';
       info.style.color = '#555555';
-    } else if (this.$route.path === '/pc_competition') {
-      this.activityImg = require('@/assets/images/my_activity_yellow.svg')
-      this.infoImg = require('@/assets/images/info_grey.svg')
+    }
+    // 个人信息
+    else if (this.$route.path === '/pc_personal_info') {
+      this.activityImg = require('@/assets/images/my_activity_grey.svg')
+      this.infoImg = require('@/assets/images/info_yellow.svg')
+      activity.style.color = '#555555';
+      info.style.color = '#F0C278';
+    }
+    // 比赛
+    else if((this.$route.path === '/pc_competition')||(this.$route.path === '/pc_participate')||(this.$route.path === '/pc_task_list')){
       activity.style.color = '#F0C278';
-      competition.style.color = '#F0C278';
       stock.style.color = '#555555';
+      competition.style.color = '#F0C278';
       info.style.color = '#555555';
     }
   },

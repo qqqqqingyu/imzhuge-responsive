@@ -7,6 +7,7 @@ export default  {
     industryList:(state)=>state.industryList.industryList,
     industryDetail:(state)=>state.industryDetail.industryDetail,
     myActivity:(state)=>state.myActivity.myActivity,
+    myEvent:(state)=>state.myActivity.myEvent,
     myInfoDetails:(state)=>state.myInfoDetails.myInfoDetails,
     loginStatus:(state)=>state.loginStatus.loginStatus,
     eventList:(state)=>state.eventList.eventList,

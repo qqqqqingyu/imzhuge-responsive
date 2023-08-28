@@ -1,7 +1,6 @@
 <template>
   <mobile_home_page v-if="isMobile"></mobile_home_page>
   <pc_home_page v-else></pc_home_page>
-
 </template>
 
 <script>

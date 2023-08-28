@@ -1,136 +1,140 @@
 <template>
   <div>
-    <el-row class="mb-10 mt-20">
+    <el-row class="mt-20">
       <el-col :span="1" :offset="1">
-        <router-link to="/personal_center">
+        <router-link to="/mobile_competition">
           <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
         </router-link>
       </el-col>
       <el-col :span="20">
-        <el-row class="mobile-title">
-          {{ competition }}-参与活动
+        <el-row class="mobile-title mb-10">
+          {{ $route.query.eventName }}-参与活动
         </el-row>
       </el-col>
     </el-row>
 
+    <!--    面包屑导航栏开始-->
+    <el-row class="mb-10">
+      <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically">
+        您当前的位置：
+        <router-link to="/mobile_competition">比赛列表</router-link>
+        <img src="@/assets/images/right.svg" alt="下级" height="25">
+        <span class="cur-de">比赛活动</span>
+      </el-col>
+    </el-row>
+    <!--    面包屑导航栏结束-->
+
     <el-row>
       <el-col :offset="1" :span="22" style="margin-bottom: 15px">
-        <el-tabs class="my-tab" @tab-click="handleClick" v-model="activeName">
-          <el-tab-pane label="全部" name="all">
-            <div class="mb-card" v-for="item in my_project_list" v-bind:key="item.title" >
+        <div class="mb-card" v-for="item in page_act_list" v-bind:key="item.title">
+          <el-row>
+            <el-col :span="16" :offset="1">
               <el-row>
-                <el-col :span="22" :offset="1">
-                  <h4 style="margin-bottom: 2px">
-                    {{ item.title }}
+                <el-col class="mb-10">
+                  <h4>
+                    {{ item.act_name }}
                   </h4>
                 </el-col>
-                <el-col :span="22" :offset="1" style="margin-top:8px;margin-bottom: 10px">
-                  <span class="m-over_state" v-if="item.status">已结束</span>
-                  <span class="m-ing_state" v-else>进行中</span>
-                </el-col>
-
-                <el-col :span="9" :offset="1" class="mb-2">
-                  <span class="mobile-gray-text">比赛收益</span>
-                </el-col>
-                <el-col :span="13" :offset="1">
-                  <span v-if="item.status" style="font-size: 13px">
-                    {{ parseFloat(item.earnings).toFixed(2) }}诸葛贝
-                  </span>
-                  <span style="font-size: 13px" v-else>
-                    活动进行中
-                  </span>
-                </el-col>
-
-                <el-col :span="9" :offset="1" class="mb-2">
-                  <span class="mobile-gray-text">比赛时间</span>
+                <el-col :span="10" class="mb-2">
+                  <span class="mobile-gray-text">活动收益</span>
                 </el-col>
                 <el-col :span="13" :offset="1">
                   <span style="font-size: 13px">
-                    2023.07.01
+                    {{ parseFloat(item.act_money).toFixed(2) }}&nbsp;诸葛贝
                   </span>
-                </el-col>
-
-                <el-col :span="9" :offset="1" class="mb-2">
-                  <span class="mobile-gray-text">比赛奖金</span>
-                </el-col>
-                <el-col :span="13" :offset="1">
-                  <span style="font-size: 13px">
-                    100
-                  </span>
-                </el-col>
-
-                <el-col class="mobile-yellow-btn center" style="margin-top: 5px;">
-                  <router-link :to="{path:'/mobile_participate',query:{competition:item.title}}">
-                    <el-button>查看详情</el-button>
-                  </router-link>
                 </el-col>
               </el-row>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="进行中" name="onGoing">
-          </el-tab-pane>
-          <el-tab-pane label="已结束" name="ended">
-          </el-tab-pane>
-        </el-tabs>
+            </el-col>
+            <el-col :span="6" class="right center-vertically">
+              <router-link :to="{path:'/mobile_task_list',query:{eventName:$route.query.eventName,actName:item.act_name}}" class="yellow-link center-vertically">
+                <span class="my-icon" style="font-size: 14px">查看详情</span>
+                <img src="@/assets/images/enter.svg" height="11" alt="进入">
+              </router-link>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
+      <el-col class="center my-pagination mb-20">
+        <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-size="pageSize"
+            layout=" prev, pager, next"
+            :total="total_num">
+        </el-pagination>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import {useStore} from "vuex";
+import {getCSRFToken} from '@/api/token'
+
 export default {
   name: "mobile_participate",
   data(){
     return{
-      competition:this.$route.query.competition,
-      activeName: 'all', //用于切换el-tabs
+      screen: 2, //2表示全部
+      pageSize: 6, //单页数目
+      pageNum: 1,
+      currentPage: 1,
     }
   },
   computed: {
-    my_project_list() {
-      // let project = this.$store.getters.myActivity.my_project_list
-      let project =
-          [
-            {
-              "title": "比赛1",
-              "status": false,
-              "earnings": "活动尚未结束"
-            },
-            {
-              "title": "比赛1",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "比赛1",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "比赛1",
-              "status": true,
-              "earnings": 0
-            },
-            {
-              "title": "比赛1",
-              "status": true,
-              "earnings": 0
-            }
-          ]
-      if (project) {
-        return project.filter((item) => {
-          if (this.activeName == 'onGoing' && item.status == false) {
-            return item;
-          } else if (this.activeName == 'ended' && item.status == true) {
-            return item;
-          } else if (this.activeName == 'all') {
-            return item;
-          }
-          return false
-        })
+    act_list() {
+      const store = useStore()
+      store.dispatch('myActivity/useMyEventData')
+      let myEvent = this.$store.getters.myEvent
+      // 从前页传来的值
+      const selectEventName = this.$route.query.eventName;
+      const selectedAct = myEvent.find(
+          (act) => act.event_name === selectEventName
+      );
+
+      if (selectedAct) {
+        // 先返回不根据状态筛选的数据
+        return selectedAct.act_list
       } else {
-        return this.$store.getters.myActivity.my_project_list
+        console.log('未筛选到相应的数据')
+        return []
       }
+    },
+    page_act_list() {
+      try {
+        return this.act_list
+            .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
+      } catch (error) {
+        console.error('page_act_list报错:', error);
+        return [];
+      }
+    },
+    total_num() {
+      try {
+        return this.act_list.length;
+      } catch (error) {
+        console.error('total_num报错:', error);
+        return 0;
+      }
+    }
+  },
+  mounted() {
+    this.getCSRFTokenMethod()
+  },
+  methods: {
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
+    // 分页
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      console.log('条数', pageSize);
+    },
+    handleCurrentChange(pageNum) {
+      this.currentPage = pageNum;     // 在每次当前页改变后的值 赋值给 data 里面定义的 当前页
     }
   },
   // 设置背景
@@ -166,5 +170,21 @@ export default {
 .my-tab >>> .el-tabs__item{
   height: 35px;
   color: #909399;
+}
+
+a.yellow-link{
+  color: #EF9C19;
+}
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active{
+  background-color:#F0C27B;
+}
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active:hover{
+  color: #FFFFFF;
+}
+
+.my-pagination >>> .el-pagination.is-background .el-pager li:hover{
+  color:#EF9C19;
 }
 </style>
