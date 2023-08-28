@@ -47,7 +47,7 @@
         </el-form>
       </el-col>
     </el-row>
-
+    
     <el-row>
       <el-col :span="20" :offset="2" class="my-card mb-20">
         <el-table :data="page_list" class="my-table">
@@ -116,6 +116,9 @@ export default {
   },
   
   computed: {
+    loginStatus(){
+      return this.$store.getters.loginStatus
+    },
     total_page() {
       return this.event_list.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1).length
     },
