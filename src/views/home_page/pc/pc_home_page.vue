@@ -21,7 +21,26 @@
           <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn wow pulse animated hand"
                                           style=" visibility: visible;">登录</a>
           </li>
-          <li v-else><a v-on:click="toPersonalCenter" class="hand">个人中心</a>
+          <li v-else>
+            <el-popover
+                placement="top-start"
+                trigger="hover"
+            >
+              <template #reference>
+                <router-link to="" style="cursor: default">
+                  <span>个人中心</span>
+                </router-link>
+              </template>
+              <div class="my-line">
+                <div class="center-vertically">
+                  <img src="@/assets/images/user-yellow.svg" height="23" class="my-icon">
+                  {{userName}}
+                </div>
+                <el-divider></el-divider>
+              </div>
+              <router-link class="popover-link" to="/personal_center">我参与的</router-link>
+              <router-link class="popover-link" to="/pc_personal_info">个人信息</router-link>
+            </el-popover>
           </li>
         </ul>
       </el-col>
@@ -129,7 +148,7 @@
       </el-row>
       <el-row>
         <el-col :span="6" style="margin-top: 50px;">
-          <el-button v-on:click="homelogin" class="login more">前往登录</el-button>
+          <el-button v-on:click="homelogin" class="login more" v-if="!loginStatus">前往登录</el-button>
         </el-col>
       </el-row>
     </el-col>
@@ -317,6 +336,9 @@ export default {
     loginStatus(){
       return this.$store.getters.loginStatus
     },
+    userName() {
+      return this.$store.getters.myInfoDetails.username
+    },
   },
   created() {
     window.showUnderline = this.showUnderline;
@@ -354,13 +376,6 @@ export default {
     //跳转活动广场
     toActivitySquare(){
       window.location.href = config.serverUrl+'/activity/'
-    },
-    // 跳转个人中心
-    toPersonalCenter() {
-      this.$router.push({
-        path: '/personal_center',
-      })
-      // window.open(config.serverUrl + '/selfcenter/', '_blank')
     },
     //查看周度收益率界面
     more() {
@@ -624,5 +639,10 @@ export default {
 .gzh{
   font-size: 12px;
   margin-left: 14px
+}
+
+.my-line >>>.el-divider--horizontal{
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>

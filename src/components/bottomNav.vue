@@ -2,7 +2,7 @@
   <div class="bottom-nav">
     <el-row style="justify-content: center">
       <el-col :span="3">
-        <router-link to="/">
+        <router-link to="/" :class="{'bottom-act': currentPage === 'home'}">
           <el-row style="justify-content: center;font-size: 25px">
             <i class="el-icon-s-home"></i>
           </el-row>
@@ -12,7 +12,7 @@
         </router-link>
       </el-col>
       <el-col :span="3" :offset="8">
-        <router-link to="/personal_center">
+        <router-link to="/personal_center" :class="{'bottom-act': currentPage === 'personal'}">
           <el-row style="justify-content: center;font-size: 25px">
             <i class="el-icon-user-solid"></i>
           </el-row>
@@ -30,8 +30,10 @@
 import {
   getCSRFToken
 } from '@/api/token'
+
 export default {
   name: "bottomNav",
+  props: ['currentPage'],
   mounted() {
     this.getCSRFTokenMethod()
   },
@@ -46,24 +48,27 @@ export default {
 </script>
 
 <style scoped>
-.bottom-nav{
+.bottom-nav {
   background-color: #ffffff;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
 }
+
 /*超链接样式，取消下划线，改颜色*/
 .bottom-nav a {
   text-decoration: none;
   color: #7f7f7f;
 }
-.bottom-nav span{
+
+.bottom-nav span {
   font-weight: bold;
   font-size: 14px;
 }
+
 /*设置点击后的样式 */
-.router-link-exact-active.router-link-active {
+a.bottom-act {
   text-decoration: none;
   color: #EF9C19;
 }

@@ -323,3 +323,21 @@
 a {
     text-decoration: none;
 }
+
+/*pc端导航栏部分类开始*/
+.popover-link{
+    display: block;
+    line-height: 35px;
+    color: #555555;
+}
+
+.popover-link:hover{
+    color: #F0C27B;
+}
+
+/*修改element分隔线样式*/
+.my-line .el-divider--horizontal{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+/*pc端导航栏部分类结束*/

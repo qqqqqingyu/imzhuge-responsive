@@ -28,7 +28,25 @@
             <router-link to="/competition_center">赛事中心</router-link>
           </li>
           <li>
-            <router-link to="/personal_center" class="navcurr">个人中心</router-link>
+<!--            <router-link to="/personal_center" class="navcurr">个人中心</router-link>-->
+            <el-popover
+                placement="top-start"
+                trigger="hover"
+            >
+              <template #reference>
+                <router-link to="" class="navcurr cur-de">个人中心</router-link>
+              </template>
+              <div class="my-line">
+                <div class="center-vertically">
+                  <img src="@/assets/images/user-yellow.svg" height="23" class="my-icon">
+                  {{ userName }}
+                  用户
+                </div>
+                <el-divider></el-divider>
+              </div>
+              <router-link class="popover-link" to="/personal_center">我参与的</router-link>
+              <router-link class="popover-link" to="/pc_personal_info">个人信息</router-link>
+            </el-popover>
           </li>
         </ul>
       </el-col>
@@ -394,15 +412,5 @@ export default {
 
 .cash-withdrawal-btn:active{
   color: #ff9b00;
-}
-
-.popover-link{
-  display: block;
-  line-height: 40px;
-  color: #555555;
-}
-
-.popover-link:hover{
-  color: #F0C27B;
 }
 </style>

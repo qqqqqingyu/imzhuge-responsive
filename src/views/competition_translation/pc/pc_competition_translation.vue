@@ -17,9 +17,10 @@
 <!--    面包屑导航栏结束-->
 
     <el-row class="industry-box">
-      <el-col :span="9" :offset="2" class="box-title">
+      <el-col :span="20" :offset="2" class="box-title">
         <span>
-          {{compDetailData.title}}</span>
+          {{compDetailData.title}}
+        </span>
       </el-col>
     </el-row>
 
@@ -618,10 +619,11 @@ export default {
         //刷新
         location.reload();
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '提交失败，请重试'
-        });
+        // this.$message({
+        //   type: 'info',
+        //   message: '提交失败，请重试'
+        // });
+        console.log('提交失败')
       })
     },
     //获取数据
@@ -642,9 +644,9 @@ export default {
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
       })
-          .catch((res) => {
-            console.log(res);
-          });
+      .catch((res) => {
+        console.log(res);
+      });
     },
 
     // 数据转换方法
@@ -1854,5 +1856,10 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.el-select-dropdown__item.selected{
+  color: #EF9C19;
+}
+
 
 </style>

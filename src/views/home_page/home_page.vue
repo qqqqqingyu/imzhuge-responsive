@@ -20,6 +20,7 @@ export default {
     const store = useStore()
     // 触发数据获取动作
     store.dispatch('loginStatus/useLoginStatusData')
+    // store.dispatch('myInfoDetails/useMyInfoDetailsData')
   },
 }
 </script>

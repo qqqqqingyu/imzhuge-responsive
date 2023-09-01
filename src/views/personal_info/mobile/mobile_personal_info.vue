@@ -94,7 +94,7 @@
       </el-col>
     </el-row>
   </div>
-  <bottom-nav></bottom-nav>
+  <bottom-nav :current-page="'personal'"></bottom-nav>
 </template>
 
 <script>
@@ -106,13 +106,7 @@ export default {
   name: "mobile_personal_info",
   components:{bottomNav},
   computed:{
-
     myInfoDetails(){
-      //测试数据是否获取
-      // console.log('computed中获取数据：'+JSON.stringify(this.$store.getters.myInfoDetails))
-      // console.log('是否为空：')
-      // console.log(Object.keys(this.$store.getters.myInfoDetails).length === 0 )
-      // console.log('长度：'+Object.keys(this.$store.getters.myInfoDetails).length )
       return this.$store.getters.myInfoDetails
     },
   },
@@ -201,10 +195,11 @@ export default {
           //刷新
           location.reload();
         }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '修改失败，请重试'
-          });
+          // this.$message({
+          //   type: 'info',
+          //   message: '修改失败，请重试'
+          // });
+          console.log('提交失败')
         })
       }
     },

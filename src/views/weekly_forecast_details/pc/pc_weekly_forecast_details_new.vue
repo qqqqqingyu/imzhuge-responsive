@@ -617,10 +617,11 @@ export default {
         //刷新
         location.reload();
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '提交失败，请重试'
-        });
+        // this.$message({
+        //   type: 'info',
+        //   message: '提交失败，请重试'
+        // });
+        console.log('提交失败')
       })
     },
     //获取数据
@@ -1853,6 +1854,10 @@ export default {
 .choose >>>.el-divider--horizontal{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.el-select-dropdown__item.selected{
+  color: #EF9C19;
 }
 
 </style>

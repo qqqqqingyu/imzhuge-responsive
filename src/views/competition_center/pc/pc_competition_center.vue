@@ -116,9 +116,6 @@ export default {
   },
   
   computed: {
-    loginStatus(){
-      return this.$store.getters.loginStatus
-    },
     total_page() {
       return this.event_list.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1).length
     },

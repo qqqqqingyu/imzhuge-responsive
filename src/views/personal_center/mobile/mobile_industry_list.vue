@@ -1,17 +1,26 @@
 <template>
   <div>
-    <el-row class="mb-20 mt-20">
+    <el-row class="mt-20">
       <el-col :span="1" :offset="1">
         <router-link to="/personal_center">
           <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
         </router-link>
       </el-col>
       <el-col :span="20">
-        <el-row class="mobile-title">
+        <el-row class="mobile-title mb-10">
           行业个股收益率预测
         </el-row>
       </el-col>
     </el-row>
+
+    <!--    面包屑导航栏开始-->
+    <el-row>
+      <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically mb-10">
+        您当前的位置：
+        <span class="cur-de">行业列表</span>
+      </el-col>
+    </el-row>
+    <!--    面包屑导航栏结束-->
 
     <el-row>
       <el-col :span="22" :offset="1" class="mb-10">
@@ -37,7 +46,7 @@
       </el-col>
     </el-row>
 
-    <bottom-nav></bottom-nav>
+    <bottom-nav  :current-page="'personal'"></bottom-nav>
   </div>
 </template>
 

@@ -19,7 +19,7 @@ export default {
   mounted() {
     const store = useStore()
     //触发 category 数据获取动作
-    // store.dispatch('myInfoDetails/useMyInfoDetailsData')
+    store.dispatch('myInfoDetails/useMyInfoDetailsData')
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

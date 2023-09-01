@@ -184,10 +184,11 @@ export default {
           //刷新
           location.reload();
         }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '修改失败，请重试'
-          });
+          // this.$message({
+          //   type: 'info',
+          //   message: '修改失败，请重试'
+          // });
+          console.log('提交失败')
         })
       }
     },

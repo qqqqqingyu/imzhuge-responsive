@@ -18,9 +18,9 @@
       <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically">
         您当前的位置：
         <router-link to="/mobile_competition">比赛列表</router-link>
-        <img src="@/assets/images/right.svg" alt="下级" height="25">
+        <img src="@/assets/images/right.svg" alt="下级" height="20">
         <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName}}">比赛活动</router-link>
-        <img src="@/assets/images/right.svg" alt="下级" height="25">
+        <img src="@/assets/images/right.svg" alt="下级" height="20">
         <span class="cur-de">任务列表</span>
       </el-col>
     </el-row>
@@ -79,7 +79,7 @@
     </el-row>
 
     <el-row style="height: 35px"></el-row>
-    <bottom-nav></bottom-nav>
+    <bottom-nav :current-page="'personal'"></bottom-nav>
   </div>
 </template>
 

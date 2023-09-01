@@ -13,10 +13,10 @@
 
     <el-row class="industry-box">
       <el-col :span="9" :offset="1">
-        <span class="box-title">{{industryDetailData.industry}}行业</span>
+        <span class="box-title">{{ industryDetailData.industry }}行业</span>
       </el-col>
       <el-col :span="13" class="industry-month">
-        {{industryDetailData.start_day}}至{{industryDetailData.end_day}}
+        {{ industryDetailData.start_day }}至{{ industryDetailData.end_day }}
       </el-col>
     </el-row>
 
@@ -24,73 +24,71 @@
       <el-col :span="22" :offset="1" class="industry-tab">
         <el-tabs @tab-click="handleClick" v-model="activeName">
           <el-tab-pane label="整体情况" name="first">
-            <el-card class="chart-and-table">
-              <el-row>
-                <el-col :span="20">
-                  <el-radio-group v-model="barRadio" class="radio-bg" v-if="chartOrTable=='chart'">
-                    <el-radio-button class="industry-radio" label="价格" @click="toPrice"></el-radio-button>
-                    <el-radio-button class="industry-radio" label="我拥有的合约数" @click="toContract"></el-radio-button>
-                  </el-radio-group>
-                </el-col>
+            <el-row class="chart-and-table mb-card">
+              <el-col :span="18" :offset="1">
+                <el-radio-group v-model="barRadio" class="radio-bg" v-if="chartOrTable=='chart'">
+                  <el-radio-button class="industry-radio" label="价格" @click="toPrice"></el-radio-button>
+                  <el-radio-button class="industry-radio" label="我拥有的合约数" @click="toContract"></el-radio-button>
+                </el-radio-group>
+              </el-col>
 
-                <!--                图标切换圆形按钮-->
-                <el-col :span="4" v-if="chartOrTable=='table'" style="text-align: right">
-                  <el-button type="warning" icon="el-icon-s-data" circle @click="toChart"
-                             class="changed-btn"></el-button>
-                </el-col>
-                <el-col :span="4" v-else style="text-align: right">
-                  <el-button type="warning" icon="el-icon-document" circle @click="toTable"
-                             class="changed-btn"></el-button>
-                </el-col>
+              <!--                图标切换圆形按钮-->
+              <el-col :span="4" v-if="chartOrTable=='table'" style="text-align: right">
+                <el-button type="warning" icon="el-icon-s-data" circle @click="toChart"
+                           class="changed-btn"></el-button>
+              </el-col>
+              <el-col :span="4" v-else style="text-align: right">
+                <el-button type="warning" icon="el-icon-document" circle @click="toTable"
+                           class="changed-btn"></el-button>
+              </el-col>
 
-                <!--                表格-->
-                <el-col :span="24" v-if="chartOrTable=='table'" style="margin-top: 5px">
-                  <el-table :data="companyRankData"
-                            :default-sort="{prop:'price',order:'descending'}"
-                            border
-                            style="width: 100%"
-                            size="mini"
-                            :header-cell-style="tdstyle"
-                            :row-style="{height:'20px'}"
-                            :cell-style="{padding: '0'}"
-                  >
-                    <el-table-column
-                        prop="company_name"
-                        label="  "
-                        min-width="70%">
-                    </el-table-column>
-                    <el-table-column
-                        sortable
-                        predict_share="price"
-                        prop="price"
-                        label="价格"
-                        min-width="70%">
-                      <template v-slot="scope">
-                        {{ numFilter(scope.row.price, 4) }}
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                        sortable
-                        column-key="predict_share"
-                        prop="predict_share"
-                        label="我拥有的合约数"
-                        min-width="100%">
-                    </el-table-column>
-                  </el-table>
-                </el-col>
-                <!--                图-->
-                <el-col :span="22" offset="1" v-else style="margin-top: 20px">
-                  <div id="priceBar" v-if="priceOrContract=='price'"></div>
-                  <div id="contractBar" v-else></div>
-                </el-col>
-              </el-row>
-            </el-card>
+              <!--                表格-->
+              <el-col :span="22" :offset="1" v-if="chartOrTable=='table'" style="margin-top: 5px">
+                <el-table :data="companyRankData"
+                          :default-sort="{prop:'price',order:'descending'}"
+                          border
+                          style="width: 100%"
+                          size="mini"
+                          :header-cell-style="tdstyle"
+                          :row-style="{height:'20px'}"
+                          :cell-style="{padding: '0'}"
+                >
+                  <el-table-column
+                      prop="company_name"
+                      label="  "
+                      min-width="70%">
+                  </el-table-column>
+                  <el-table-column
+                      sortable
+                      predict_share="price"
+                      prop="price"
+                      label="价格"
+                      min-width="70%">
+                    <template v-slot="scope">
+                      {{ numFilter(scope.row.price, 4) }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                      sortable
+                      column-key="predict_share"
+                      prop="predict_share"
+                      label="我拥有的合约数"
+                      min-width="100%">
+                  </el-table-column>
+                </el-table>
+              </el-col>
+              <!--                图-->
+              <el-col :span="22" :offset="1" v-else style="margin-top: 20px">
+                <div id="priceBar" v-if="priceOrContract=='price'"></div>
+                <div id="contractBar" v-else></div>
+              </el-col>
+            </el-row>
           </el-tab-pane>
 
           <el-tab-pane label="历史走势" name="second">
-            <el-card class="chart-and-table">
-              <div id="history"></div>
-            </el-card>
+            <el-row class="chart-and-table mb-card">
+              <el-col :span="22" :offset="1" id="history"></el-col>
+            </el-row>
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -104,93 +102,90 @@
 
     <el-row class="predict-form">
       <el-col :span="22" :offset="1">
-        <el-card class="predict-card">
-          <el-row>
-            <el-col :span="24">
+        <el-row class="predict-card mb-card">
+          <el-col :span="22" :offset="1">
             <span>
-              活动可用诸葛贝：{{numFilter(userCurrentMoney,2)}}
+              活动可用诸葛贝：{{ numFilter(userCurrentMoney, 2) }}
             </span>
-            </el-col>
+          </el-col>
 
-            <el-col :span="24">
-              <el-row>
-                <el-col :span="16">
-                  <span>请选择您预测排名第一的公司：</span>
-                </el-col>
-                <el-col :span="8">
-<!--                  这里还不太确定-->
-                  <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
-                    <el-option
-                        v-for="item in companyRankData"
-                        :key="item.company_contract_id"
-                        :label="item.company_name"
-                        :value="item.company_contract_id"
-                        style="width:inherit">
-                    </el-option>
-                  </el-select>
-                </el-col>
-              </el-row>
+          <el-col :span="22" :offset="1">
+            <el-row>
+              <el-col :span="16">
+                <span>请选择您预测排名第一的公司：</span>
+              </el-col>
+              <el-col :span="7" :offset="1">
+                <!--                  这里还不太确定-->
+                <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
+                  <el-option
+                      v-for="item in companyRankData"
+                      :key="item.company_contract_id"
+                      :label="item.company_name"
+                      :value="item.company_contract_id"
+                      style="width:inherit">
+                  </el-option>
+                </el-select>
+              </el-col>
+            </el-row>
 
-            </el-col>
+          </el-col>
 
-            <el-col :span="8">
+          <el-col :span="7" :offset="1">
             <span>
               预测的概率：
             </span>
-            </el-col>
-            <el-col :span="15" :offset="1" style="width: 100%">
-              <el-slider v-model.number="tradeProb" class="predict-slider"></el-slider>
-            </el-col>
+          </el-col>
+          <el-col :span="14" :offset="1" style="width: 100%">
+            <el-slider v-model.number="tradeProb" class="predict-slider"></el-slider>
+          </el-col>
 
-            <el-col :span="8">
-              <span>交易份额：</span>
-            </el-col>
-            <el-col :span="15" :offset="1">
-              <el-input type="text" v-model.number="tradeCount"
-                        placeholder="请输入正数"
-                        oninput="value=value.replace(/[^\d]/g,'')"
-                        class="input-bar"></el-input>
-            </el-col>
+          <el-col :span="7" :offset="1">
+            <span>交易份额：</span>
+          </el-col>
+          <el-col :span="14" :offset="1">
+            <el-input type="text" v-model.number="tradeCount"
+                      placeholder="请输入正数"
+                      oninput="value=value.replace(/[^\d]/g,'')"
+                      class="input-bar"></el-input>
+          </el-col>
 
-            <el-col :span="8">
-              <span>交易类型：</span>
-            </el-col>
-            <el-col :span="15" :offset="1">
-              <el-radio-group v-model="tradeType">
-                <el-radio class="predict-radio" label="buy">买入</el-radio>
-                <el-radio class="predict-radio" label="sell">卖出</el-radio>
-              </el-radio-group>
-            </el-col>
+          <el-col :span="7" :offset="1">
+            <span>交易类型：</span>
+          </el-col>
+          <el-col :span="14" :offset="1">
+            <el-radio-group v-model="tradeType">
+              <el-radio class="predict-radio" label="buy">买入</el-radio>
+              <el-radio class="predict-radio" label="sell">卖出</el-radio>
+            </el-radio-group>
+          </el-col>
 
-            <el-col :span="24">
-              <span>请问您对上述判断的信心如何？</span>
-            </el-col>
-            <el-col :offset="8" :span="16">
-              <el-radio-group v-model="tradeConfidence">
-                <el-row>
-                  <el-radio class="predict-radio" label="完全瞎猜"></el-radio>
-                  <el-radio class="predict-radio" label="有点瞎猜"></el-radio>
-                </el-row>
-                <el-row>
-                  <el-radio class="predict-radio" label="有点信心"></el-radio>
-                  <el-radio class="predict-radio" label="很有信心"></el-radio>
-                </el-row>
-              </el-radio-group>
-            </el-col>
+          <el-col :span="22" :offset="1">
+            <span>请问您对上述判断的信心如何？</span>
+          </el-col>
+          <el-col :offset="9" :span="16">
+            <el-radio-group v-model="tradeConfidence">
+              <el-row>
+                <el-radio class="predict-radio" label="完全瞎猜"></el-radio>
+                <el-radio class="predict-radio" label="有点瞎猜"></el-radio>
+              </el-row>
+              <el-row>
+                <el-radio class="predict-radio" label="有点信心"></el-radio>
+                <el-radio class="predict-radio" label="很有信心"></el-radio>
+              </el-row>
+            </el-radio-group>
+          </el-col>
 
-            <el-col :span="24">
-              <span>交易理由：</span>
-            </el-col>
-            <el-col :span="24">
-              <el-input :rows="3" type="textarea" v-model="note" placeholder="可以说说您为什么要这么交易吗"/>
-            </el-col>
+          <el-col :span="22" :offset="1">
+            <span>交易理由：</span>
+          </el-col>
+          <el-col :span="22" :offset="1">
+            <el-input :rows="3" type="textarea" v-model="note" placeholder="可以说说您为什么要这么交易吗"/>
+          </el-col>
 
-            <el-col :span="24" class="submit-btn">
-              <el-button type="warning" @click="submitTransactionApplyMethod">提交</el-button>
-            </el-col>
-          </el-row>
-
-        </el-card>
+          <el-col :span="24" class="submit-btn">
+            <el-button type="warning" @click="submitTransactionApplyMethod">提交</el-button>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
   </div>
@@ -198,14 +193,13 @@
 </template>
 
 <script>
-// import store from "../../../store";
 import {getIndustryDetail, submitTransactionApply} from "@/api/month_predict";
 import bottomNav from "../../../components/bottomNav";
 import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "mobile_weekly_forecast_details",
-  components:{bottomNav},
+  components: {bottomNav},
   data() {
     return {
       activeName: 'first', //用于切换el-tabs
@@ -227,8 +221,8 @@ export default {
       barCompanyArr: [],//直方图公司名数据
       barPriceArr: [],//直方图价格数据
       barContractArr: [],//直方图合约数据
-      yMin : '', //y轴最低值
-      industryDetailData:'',
+      yMin: '', //y轴最低值
+      industryDetailData: '',
     }
   },
   // 设置背景
@@ -255,9 +249,9 @@ export default {
     //切换图表
     toChart() {
       this.chartOrTable = 'chart'
-      if(this.priceOrContract == 'price'){
+      if (this.priceOrContract == 'price') {
         this.myEcharts1()//价格作图
-      } else{
+      } else {
         this.myEcharts2()//合约作图
       }
     },
@@ -296,35 +290,35 @@ export default {
       industry.note = this.note
 
       // 数据校验，若不符合条件则终止
-      if(industry.contract_id.length==0){
+      if (industry.contract_id.length == 0) {
         this.$message({
           type: 'warning',
           message: '请选择公司'
         });
         return;
       }
-      if(industry.count.length==0){
+      if (industry.count.length == 0) {
         this.$message({
           type: 'warning',
           message: '请输入交易份额'
         });
         return;
       }
-      if(industry.trade_type.length==0){
+      if (industry.trade_type.length == 0) {
         this.$message({
           type: 'warning',
           message: '请选择交易类型'
         });
         return;
       }
-      if(industry.trade_confidence.length == 0){
+      if (industry.trade_confidence.length == 0) {
         this.$message({
           type: 'warning',
           message: '请选择四种自信程度其中的一种'
         });
         return;
       }
-      if(industry.note.length < 5){
+      if (industry.note.length < 5) {
         this.$message({
           type: 'warning',
           message: '请至少输入5个字的描述内容！'
@@ -341,21 +335,22 @@ export default {
         //刷新
         location.reload();
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '提交失败，请重试'
-        });
+        // this.$message({
+        //   type: 'info',
+        //   message: '提交失败，请重试'
+        // });
+        console.log('提交失败')
       })
     },
     //获取数据
     getIndustryDetailMethod() {
-      this.getId=this.$route.query.id;
+      this.getId = this.$route.query.id;
       getIndustryDetail(this.getId).then((res) => {
         this.industryDetailData = res.data
         //获取整体情况表的数据
         this.companyRankData = this.industryDetailData.company_rank
         //活动可用诸葛贝
-        this.userCurrentMoney =  this.industryDetailData.user_current_money
+        this.userCurrentMoney = this.industryDetailData.user_current_money
         //获取历史数据表x轴数据
         this.graphX = this.industryDetailData.graph_x
         //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
@@ -365,9 +360,9 @@ export default {
         //价格作图
         this.myEcharts1()
       })
-      .catch((res) => {
-        console.log(res);
-      });
+          .catch((res) => {
+            console.log(res);
+          });
     },
 
     // 数据转换方法
@@ -379,9 +374,9 @@ export default {
       this.yMin = Math.max.apply(null, YData[0].contract_price)
 
       for (const item of YData) {
-        yMinTemp =  Math.max.apply(null, item.contract_price)
+        yMinTemp = Math.max.apply(null, item.contract_price)
         //获得y的最小值
-        if( yMinTemp < this.yMin){
+        if (yMinTemp < this.yMin) {
           this.yMin = yMinTemp
         }
         // y轴数据的转化
@@ -395,7 +390,7 @@ export default {
         legendstr += item.contract_text + ",";
       }
       // 为获得更好的作图效果，用y最小值的85%作为y轴最小值
-      this.yMin = (this.yMin* 0.85).toFixed(2)
+      this.yMin = (this.yMin * 0.85).toFixed(2)
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
       this.historyLegend = legendstr.split(",");
@@ -410,7 +405,7 @@ export default {
       let contract = [];
 
       //数组排序
-      this.companyRankData.sort(function(a, b) {
+      this.companyRankData.sort(function (a, b) {
         return a.price - b.price;
       });
 
@@ -430,7 +425,7 @@ export default {
       return parseFloat(value).toFixed(n)
     },
 
-    //作图方法，还没设置数据
+    //作图方法
     //价格数据作图方法
     myEcharts1() {
       this.$nextTick(() => {
@@ -466,18 +461,18 @@ export default {
             }
           },
           series: [{
-              data: this.barPriceArr,
-              type: 'bar',
-              color: '#F0C27B',
-              showBackground: true,
-              backgroundStyle: {
-                color: 'rgba(180, 180, 180, 0.2)'
-              },
-              label: {
-                show: true,
-                color: '#FAF8FF'
-              }
+            data: this.barPriceArr,
+            type: 'bar',
+            color: '#F0C27B',
+            showBackground: true,
+            backgroundStyle: {
+              color: 'rgba(180, 180, 180, 0.2)'
             },
+            label: {
+              show: true,
+              color: '#FAF8FF'
+            }
+          },
           ],
         };
         // 使用刚指定的配置项和数据显示图表。
@@ -565,7 +560,7 @@ export default {
           left: '3%',
           right: '3%',
           bottom: '1%',
-          top:'37%',
+          top: '37%',
           containLabel: true
         },
         xAxis: {
@@ -594,14 +589,6 @@ export default {
 </script>
 
 <style scoped>
-.theme_red {
-  color: #F0C27B;
-}
-
-.font_red {
-  color: #EF9C19;
-}
-
 .industry-box {
   display: flex;
   align-items: flex-end;
@@ -620,7 +607,7 @@ export default {
 
 .predict-card {
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 
 .predict-form .el-radio {
@@ -672,11 +659,11 @@ export default {
 /*覆盖element原有的样式开始*/
 
 /*切换活动项的字体颜色*/
-.industry-tab /deep/ .el-tabs__item.is-active {
-  color: #EF9C19 !important;
+.industry-tab >>> .el-tabs__item.is-active{
+  color: #EF9C19;
 }
 
-.chart-and-table >>> .el-card {
+.chart-and-table {
   height: 260px;
 }
 
@@ -723,6 +710,10 @@ export default {
   /*height: 30px;*/
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.el-select-dropdown__item.selected{
+  color: #EF9C19;
 }
 
 /*图标*/

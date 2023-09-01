@@ -18,7 +18,7 @@
       <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically">
         您当前的位置：
         <router-link to="/mobile_competition">比赛列表</router-link>
-        <img src="@/assets/images/right.svg" alt="下级" height="25">
+        <img src="@/assets/images/right.svg" alt="下级" height="20">
         <span class="cur-de">比赛活动</span>
       </el-col>
     </el-row>
@@ -67,14 +67,17 @@
       </el-col>
     </el-row>
   </div>
+  <bottom-nav :current-page="'personal'"></bottom-nav>
 </template>
 
 <script>
+import bottomNav from "../../../components/bottomNav";
 import {useStore} from "vuex";
 import {getCSRFToken} from '@/api/token'
 
 export default {
   name: "mobile_participate",
+  components:{bottomNav},
   data(){
     return{
       screen: 2, //2表示全部

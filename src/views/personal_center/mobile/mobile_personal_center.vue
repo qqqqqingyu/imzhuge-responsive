@@ -83,7 +83,7 @@
     </el-row>
 
   </div>
-  <bottom-nav></bottom-nav>
+  <bottom-nav :current-page="'personal'"></bottom-nav>
 </template>
 
 <script>

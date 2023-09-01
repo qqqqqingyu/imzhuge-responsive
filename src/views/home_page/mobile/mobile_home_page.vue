@@ -189,7 +189,7 @@
 
     </el-row>
   </div>
-  <bottom-nav></bottom-nav>
+  <bottom-nav  :current-page="'home'"></bottom-nav>
 
 </template>
 
