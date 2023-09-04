@@ -34,55 +34,60 @@
         </div>
       </el-col>
     </el-row>
-
-    <el-row style="margin-top: 40px">
+    
+    <el-row style="margin-top: 20px;max-height: 50px;">
       <el-col :span="11" :offset="1">
         <p style="font-size: 21px;font-weight: bold;color: #333333">比赛列表</p>
       </el-col>
 
-      <el-col :span="11" :offset="1" class="right">
+      <el-col :span="11" :offset="1" class="right" >
         <!-- 搜索表单 -->
         <el-form :inline="true" >
-          <el-form-item>
+          <el-form-item >
             <el-input v-model="searchKeyword" size="small" placeholder="请输入比赛名称"
-                      @keyup.enter="event_list"></el-input>
+                      @keyup.enter="event_list" ></el-input>
           </el-form-item>
-<!--          <el-form-item class="yellow-btn" >-->
-<!--            <el-button size="small" @click="handleSearch">搜索</el-button>-->
-          <!-- </el-form-item> -->
         </el-form>
       </el-col>
     </el-row>
-    
-    <!-- <el-card style="margin-bottom: 20px;" class="my-card">
-      <el-row > 
-        <el-rol :span="10" :offset="14">
-          <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
-        </el-rol>
-        
-      </el-row>
-      
-    </el-card> -->
+          
 
     <el-row>
-      <el-col :span="22" :offset="1" class="mb-20">
-        <el-card v-for="competition in page_list" :key="competition.id" class="box-card">
-          <div class="card-content">
-            <el-image :src="getImagePath(competition.event_name)" alt="比赛"
-                      fit="scale-down" class="card-image"></el-image>
+      <el-col :span="22" :offset="1" class="mb-20 mb-card">
+        <el-row >
+          <el-form :inline="true" @submit.native.prevent="sortByDate" class="myform input-height" >
+            <el-form-item >
+              <el-select v-model="sortOrder" placeholder="选择排序方式">
+                <el-option label="按开始日期排序" value="start_time"></el-option>
+                <el-option label="按结束日期排序" value="end_time"></el-option>
+                <el-option label="按首字母排序" value="Capitalize"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
 
+          <button @click="filterComp('all')" class="mybtn mybtn1">全部</button>
+          <button @click="filterComp('ongoing')" class="mybtn mybtn2">进行中</button>
+          <button @click="filterComp('ended')" class="mybtn mybtn2">已结束</button>
+          <!-- <el-button @click="filterMatches('all')" class="mybtn1">全部</el-button>
+          <el-button @click="filterMatches('ongoing')" class="mybtn2">进行中</el-button>
+          <el-button @click="filterMatches('ended')" class="mybtn2">已结束</el-button> -->
+        </el-row>
+
+        <div v-for="competition in page_list" :key="competition.id" v-if="isMatchVisible(competition)" class="box-card card-content">
+          <router-link :to="{ path: '/competition_details', query: { eventId: competition.event_id } }" @touchstart="handleTouchStart" @touchend="handleTouchEnd" class="comp-link">
+            <!-- 图片和比赛信息放在router-link内部 -->
+            <el-image :src="getImagePath(competition.event_name)" alt="比赛" fit="scale-down" class="card-image"></el-image>
             <!-- 右侧比赛信息 -->
             <div class="card-info">
-              <p style="font-size: 18px;font-weight: bold;color: #333333">{{ competition.event_name }}</p>
+              <p style="font-size: 18px; font-weight: bold; color: #333333">{{ competition.event_name }}</p>
               <el-tag class="mytag">进行中</el-tag>
-              <p style="color: #AAAAAA;">比赛时间   {{ formatDate(competition.start_time) }} ~ {{ formatDate(competition.end_time) }}</p>
-              <p style="color: #AAAAAA;">比赛奖金   {{ competition.award }}</p>
-              
+              <p style="color: #AAAAAA;">比赛时间 {{ formatDate(competition.start_time) }} ~ {{ formatDate(competition.end_time) }}</p>
+              <p style="color: #AAAAAA;">比赛奖金 {{ competition.award }}</p>
             </div>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col >
+          </router-link>
+        </div>
+
+        
         <el-row>
           <el-col class="center my-pagination" style="margin-top: 10px; margin-bottom: 10px">
             <el-pagination
@@ -98,7 +103,6 @@
         </el-row>
       </el-col>
     </el-row>
-
   </div>
 
   <bottom-nav></bottom-nav>
@@ -123,7 +127,9 @@ export default {
       compMapping: {
         '测试比赛1': 'comp1',
         '测试比赛2': 'comp2'
-      }
+      },
+      sortOrder: '', // 默认排序方式为空
+      currFilter: 'all' ,// 默认显示全部比赛
     };
     
   },
@@ -140,6 +146,7 @@ export default {
       const endIndex = startIndex + this.pageSize;
       return this.event_list.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1).slice(startIndex, endIndex)
     },
+
     // loginStatus(){
     //   return this.$store.getters.loginStatus
     // },
@@ -179,7 +186,66 @@ export default {
     handleCurrentChange(pageNum) {
       this.currentPage = pageNum;
     },
+
+
+    
+    isMatchVisible(competition) {
+      //筛选
+      if (this.currFilter === 'all') {
+      } else if (this.currFilter === 'ongoing' && competition.status !== 'ongoing') {
+        return false;
+      } else if (this.currFilter === 'ended' && competition.status !== 'ended') {
+        return false;
+      }
+
+      // 排序条件
+      if (this.sortOrder === 'start_time' && !this.isByStartTime(competition)) {
+        return false;
+      } else if (this.sortOrder === 'end_time' && !this.isByEndTime(competition)) {
+        return false;
+      } else if (this.sortOrder === 'Capitalize' && !this.isByEventName(competition)) {
+        return false;
+      }
+
+      return true; // 默认情况下，比赛满足筛选和排序条件
+    },
+
+    // 根据排序条件检查比赛是否符合排序
+    // isByStartTime(competition) {
+    //   const currTime = new Date().getTime(); 
+    //   const startTime = new Date(competition.start_time).getTime();
+    //   return startTime >= currTime;
+    // },
+    // isByEndTime(competition) {
+    //   const currTime = new Date().getTime(); 
+    //   const endTime = new Date(competition.end_time).getTime();
+    //   return endTime >= currTime;
+    // },
+    // isByEventName(competition) {
+    // },
+
+    //筛选比赛
+    // filterComp(filterType) {
+    //   this.currFilter = filterType;
+    // },
+    // filteredComp() {
+    //   if (this.currFilter === 'all') {
+    //     return this.page_list;
+    //   } else if (this.currFilter === 'ongoing') {
+    //     return this.page_list.filter(competition => competition.status === 'ongoing');
+    //   } else if (this.currFilter === 'ended') {
+    //     return this.page_list.filter(competition => competition.status === 'ended');
+    //   }
+    // },
+    //触摸样式
+    handleTouchStart(event) {
+      event.currentTarget.classList.add('hovered');
+    },
+    handleTouchEnd(event) {
+      event.currentTarget.classList.remove('hovered');
+    }
   },
+
     // 设置背景
     beforeCreate() {
     this.$nextTick(() => {
@@ -202,7 +268,7 @@ export default {
 
 .introduction{
   background-color: #FFFFFF;
-  border-radius: 18px;
+  border-radius: 12px;
   color:#555555;
   font-size: 15px;
   margin-bottom: 0px;
@@ -214,24 +280,49 @@ export default {
   padding-top: 10px;
 }
 
+/* .input-height {
+  height: 10px; 
+} */
+
+.mybtn {
+  border:none;
+  max-height:25px;
+  width: 50px;
+  padding: 3px 5px;
+  margin: 5px 3px;
+  border-radius: 5px;
+}
+
+.mybtn1 {
+  color: #EF9C19;
+  background-color: #ffefc9;
+  
+}
+
+.mybtn2 {
+  color: #AAAAAA;
+  background-color: #F5F8FA;
+}
+
+.myform{
+  margin-left: 12px;
+  max-height: 20px;
+  max-width: 140px;
+  margin-bottom: 20px;
+}
+
 .box-card {
   padding: 10px;
+  border-bottom: 1px solid #efefef;
 }
-.mytag {
-  width: 56px;
-  height: 28px;
-  border-color: #F0C27B;
-  background-color: #FFFFFF;
-  color: #F0C27B;
-}
+
+
 .card-content {
   display: flex;
   align-items: center;
 }
 
 .card-image {
-  /* width: 100px;
-  height: 80px;  */
   margin-left: 0;
   margin-right: 8px; 
   padding: 0;
@@ -242,6 +333,27 @@ export default {
   font-size: 8px;
 }
 
+.comp-link {
+  display: flex;
+  flex: 1; 
+  text-decoration: none;
+}
+
+.comp-link.hovered {
+  background-color: #efefef;
+}
+
+
+.mytag {
+  display: inline-flex;
+  align-items: center; 
+  justify-content: center; 
+  max-width: 50px;
+  max-height: 20px;
+  border-color: #F0C27B;
+  background-color: #FFFFFF;
+  color: #F0C27B;
+}
 .my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active{
   background-color:#F0C27B;
 }

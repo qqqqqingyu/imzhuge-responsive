@@ -1,4 +1,4 @@
-<!--没写全，按照其他的补充完整-->
+
 <template>
   <mobile_competition_details :eventIdProp="eventId" v-if="isMobile"></mobile_competition_details>
   <pc_competition_details :eventIdProp="eventId" v-else></pc_competition_details>
