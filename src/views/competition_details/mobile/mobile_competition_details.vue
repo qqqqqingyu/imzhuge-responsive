@@ -64,7 +64,7 @@
     <el-row>
       <el-col :span="22" :offset="1" class="mb-20 mb-card">
         <el-row >
-          <el-form :inline="true" @submit.native.prevent="sortByDate" class="myform input-height" >
+          <el-form :inline="true" @submit.native.prevent="sortByDate" class="myform input-height">
             <el-form-item >
               <el-select v-model="sortOrder" placeholder="选择排序方式">
                 <el-option label="按开始日期排序" value="start_time"></el-option>
@@ -82,7 +82,7 @@
           <el-button @click="filterMatches('ended')" class="mybtn2">已结束</el-button> -->
         </el-row>
 
-        <div v-for="(item, index) in page_list" :key="index" v-if="isMatchVisible(item)" class="box-card card-content card-info">
+        <div v-for="(item, index) in FASComp" :key="index" class="box-card card-content card-info">
           <div class="left-info">
             <p class="info1">活动{{ index + 1}}</p>
             <el-tag class="mytag">进行中</el-tag>
@@ -147,9 +147,17 @@ export default {
         '测试比赛2': 'comp2'
       },
       sortOrder: '', // 默认排序方式为空
-      currFilter: 'all' ,// 默认显示全部比赛
+      filterOption: 'all',
+      FASComp: [],
     };
   },
+
+  created() {
+    this.filterOption='all';
+    this.updateComp();
+    //console.log('123');
+  },
+
   computed: {
     competition_event() {
       if((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')){
@@ -193,26 +201,54 @@ export default {
     handleCurrentChange(pageNum) {
       this.currentPage = pageNum;
     },
-    isMatchVisible(competition) {
-      //筛选
-      if (this.currFilter === 'all') {
-      } else if (this.currFilter === 'ongoing' && competition.status !== 'ongoing') {
-        return false;
-      } else if (this.currFilter === 'ended' && competition.status !== 'ended') {
-        return false;
-      }
 
-      // 排序条件
-      if (this.sortOrder === 'start_time' && !this.isByStartTime(competition)) {
-        return false;
-      } else if (this.sortOrder === 'end_time' && !this.isByEndTime(competition)) {
-        return false;
-      } else if (this.sortOrder === 'Capitalize' && !this.isByEventName(competition)) {
-        return false;
+    filterComp(filterOption) {
+      //console.log('123');
+      if (filterOption === 'all') {
+        // 显示所有比赛
+        this.FASComp = this.page_list;
+      } else if (filterOption === 'ongoing') {
+        // 显示进行中的比赛
+        this.FASComp = this.page_list.filter(comp => {
+          return new Date(comp.end_time) > new Date();
+        });
+      } else if (filterOption === 'ended') {
+        // 显示已结束的比赛
+        this.FASComp = this.page_list.filter(comp => {
+          return new Date(comp.end_time) <= new Date();
+        });
       }
-
-      return true; // 默认情况下，比赛满足筛选和排序条件
     },
+    sortByDate() {
+      //console.log('123');
+      if (this.sortOrder === 'start_time') {
+        this.FASComp.sort((a, b) => {
+          return new Date(a.start_time) - new Date(b.start_time);
+        });
+      } else if (this.sortOrder === 'end_time') {
+        this.FASComp.sort((a, b) => {
+          return new Date(a.end_time) - new Date(b.end_time);
+        });
+      } else if (this.sortOrder === 'Capitalize') {
+        this.FASComp.sort((a, b) => {
+          return a.event_name.localeCompare(b.event_name);
+        });
+      }
+    },
+
+    updateComp() {
+      //先筛选再排序
+      this.filterComp(this.filterOption); 
+      this.sortByDate(); 
+    },
+    
+    //触摸样式
+    handleTouchStart(event) {
+      event.currentTarget.classList.add('hovered');
+    },
+    handleTouchEnd(event) {
+      event.currentTarget.classList.remove('hovered');
+    }
   },
   // 设置背景
   beforeCreate() {
