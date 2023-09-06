@@ -201,13 +201,13 @@ export default {
         // 显示所有比赛
         this.FASComp = this.page_list;
       } else if (filterOption === 'ongoing') {
-        // 显示进行中的比赛
-        this.FASComp = this.page_list.filter(comp => {
+          // 显示进行中的比赛
+          this.FASComp = this.page_list.filter(comp => {
           return new Date(comp.end_time) > new Date();
         });
       } else if (filterOption === 'ended') {
-        // 显示已结束的比赛
-        this.FASComp = this.page_list.filter(comp => {
+          // 显示已结束的比赛
+          this.FASComp = this.page_list.filter(comp => {
           return new Date(comp.end_time) <= new Date();
         });
       }
