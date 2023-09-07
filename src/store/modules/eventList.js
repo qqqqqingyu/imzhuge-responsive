@@ -45,25 +45,55 @@ export default {
         },
         async useEventData(context,eventId){
             // 调用接口取数据
-            // const eventData = await getEvent(eventId).then((res) =>{
-            //     return res.data
-            // }).catch((res) => {
-            //     console.log(res);
-            // });
+            const eventData = await getEvent(eventId).then((res) =>{
+                return res.data
+            }).catch((res) => {
+                console.log(res);
+            });
 
             // 测试假数据
-            const eventData = {
-                "group_id": 1,
-                "activity_data": [
-                    {
-                        "id": 114,
-                        "name": "测试比赛中心的活动",
-                        "start_time": "2023-07-28T03:33:32",
-                        "end_time": "2023-07-28T04:33:35",
-                        "status": "活动未开始或已结束"
-                    }
-                ]
-            }
+            // const eventData = {
+            //     "group_id": 1,
+            //     "activity_data": [
+            //         {
+            //             "id": 114,
+            //             "name": "测试比赛中心的活动",
+            //             "start_time": "2023-07-28T03:33:32",
+            //             "end_time": "2023-07-28T04:33:35",
+            //             "status": "活动未开始或已结束"
+            //         },{
+            //             "id": 114,
+            //             "name": "测试比赛中心的活动",
+            //             "start_time": "2023-07-28T03:33:32",
+            //             "end_time": "2023-10-28T04:33:35",
+            //             "status": "活动进行中"
+            //         },{
+            //             "id": 114,
+            //             "name": "测试比赛中心1",
+            //             "start_time": "2023-07-28T03:33:32",
+            //             "end_time": "2023-09-28T04:33:35",
+            //             "status": "活动未开始或已结束"
+            //         },{
+            //             "id": 114,
+            //             "name": "测试比赛2",
+            //             "start_time": "2023-06-28T03:33:32",
+            //             "end_time": "2023-07-28T04:33:35",
+            //             "status": "活动进行中"
+            //         },{
+            //             "id": 114,
+            //             "name": "测试3",
+            //             "start_time": "2023-07-15T03:33:32",
+            //             "end_time": "2023-07-28T04:33:35",
+            //             "status": "活动未开始或已结束"
+            //         },{
+            //             "id": 114,
+            //             "name": "测试4",
+            //             "start_time": "2023-07-28T03:33:32",
+            //             "end_time": "2023-08-28T04:33:35",
+            //             "status": "活动未开始或已结束"
+            //         }
+            //     ]
+            // }
 
             // 为state中的event赋值
             context.commit('setEvent',eventData)

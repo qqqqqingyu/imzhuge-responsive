@@ -27,7 +27,7 @@
           <router-link to="/competition_center" :class="{'navcurr': currentPage === 'competition'}">赛事中心</router-link>
         </li>
 
-        <li v-if="loginStatus"><a v-on:click="homelogin" class="navregbtn"
+        <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"
                                    style=" visibility: visible;">登录</a>
         </li>
         <li v-else>
@@ -63,25 +63,33 @@ import {useStore} from "vuex";
 export default {
   name: "TheNav",
   props: ['currentPage'],
+  data(){
+    return{
+      userName:''
+    }
+  },
   computed:{
     // 登录状态
     loginStatus() {
       return this.$store.getters.loginStatus
-    },
-    userName() {
-      return this.$store.getters.myInfoDetails.username
-    },
+    }
   },
   mounted() {
-    const store = useStore()
-    //触发 category 数据获取动作
-    // store.dispatch('myInfoDetails/useMyInfoDetailsData')
+    this.getName()
   },
   methods:{
     //登录
     homelogin() {
       window.location.href = config.serverUrl+'/login?from_server=new'
     },
+    getName(){
+      if(this.loginStatus == true){
+        const store = useStore()
+        //触发数据获取动作，调用相应接口会自动跳转登录
+        store.dispatch('myInfoDetails/useMyInfoDetailsData')
+        this.userName = this.$store.getters.myInfoDetails.username
+      }
+    }
   }
 }
 </script>

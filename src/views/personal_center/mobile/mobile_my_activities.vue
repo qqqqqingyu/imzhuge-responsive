@@ -102,8 +102,6 @@ export default {
   },
   computed: {
     project_list() {
-      const store = useStore()
-      store.dispatch('myActivity/useMyActivityData')
       let project = this.$store.getters.myActivity.act_project_list
 
       // 从前页传来的值
@@ -146,6 +144,9 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+
+    const store = useStore()
+    store.dispatch('myActivity/useMyActivityData')
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

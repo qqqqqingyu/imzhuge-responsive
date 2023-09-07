@@ -320,6 +320,7 @@
 import {WOW} from 'wowjs'
 import {getCSRFToken} from '@/api/token'
 import config from '@/config'
+import {useStore} from "vuex";
 
 export default {
   name: "pc_home_page",
@@ -329,15 +330,13 @@ export default {
       topBannerNavBg: {
         backgroundColor: ''
       },
-      typical_filter: 0
+      typical_filter: 0,
+      userName:''
     }
   },
   computed:{
     loginStatus(){
       return this.$store.getters.loginStatus
-    },
-    userName() {
-      return this.$store.getters.myInfoDetails.username
     },
   },
   created() {
@@ -413,9 +412,18 @@ export default {
     toBeiAn(){
       window.open("https://beian.miit.gov.cn", "_blank");
     },
+    getName(){
+      if(this.loginStatus == true){
+        const store = useStore()
+        //触发数据获取动作，调用相应接口会自动跳转登录
+        store.dispatch('myInfoDetails/useMyInfoDetailsData')
+        this.userName = this.$store.getters.myInfoDetails.username
+      }
+    }
   },
   mounted() {
     this.getCSRFTokenMethod();
+    this.getName();
     // 监听页面滚动
     window.addEventListener('scroll', this.handleScroll)
 

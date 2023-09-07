@@ -73,13 +73,14 @@ export default {
   },
   computed: {
     act_project_list() {
-      const store = useStore()
-      store.dispatch('myActivity/useMyActivityData')
       return this.$store.getters.myActivity.act_project_list
     }
   },
   mounted() {
     this.getCSRFTokenMethod()
+
+    const store = useStore()
+    store.dispatch('myActivity/useMyActivityData')
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -109,7 +110,7 @@ export default {
 .industry-item {
   background: #FFFFFF;
   border-radius: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 13px;

@@ -40,7 +40,6 @@
                 <div class="center-vertically">
                   <img src="@/assets/images/user-yellow.svg" height="23" class="my-icon">
                   {{ userName }}
-                  用户
                 </div>
                 <el-divider></el-divider>
               </div>

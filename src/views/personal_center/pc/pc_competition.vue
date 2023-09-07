@@ -24,7 +24,7 @@
           </h4>
         </el-col>
         <el-col :span="24" style="margin-top:8px;margin-bottom: 10px">
-          <span class="over_state" v-if="item.event_status === '赛事未开始或已结束'">未开始或已结束</span>
+          <span class="over_state" v-if="item.event_status.endsWith('未开始或已结束')">未开始或已结束</span>
           <span class="ing_state" v-else>进行中</span>
         </el-col>
 
@@ -97,9 +97,9 @@ export default {
       if (myEvent) {
         return myEvent.filter((item) => {
           if (this.screen == 0) {
-            return item.event_status === '赛事进行中';
+            return item.event_status.endsWith('进行中');
           } else if (this.screen == 1) {
-            return item.event_status === '赛事未开始或已结束';
+            return item.event_status.endsWith('未开始或已结束');
           } else {
             // screen为2时，返回所有的
             return item;

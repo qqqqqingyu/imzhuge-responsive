@@ -340,53 +340,8 @@ export default {
     },
     //获取数据
     getCompetitionDetailMethod() {
-      // getCompetitionDetail(this.eventId, this.activityId).then((res) => {
-      //   this.compDetailData = res.data
-      this.compDetailData = {
-        "title": "平台测试比赛小组2活动1能否测试成功",
-        "user_current_money": 30,
-        "graph_x": [
-          "2023-08-29 11:55:04",
-          "2023-08-29 11:55:04",
-          "2023-08-30 16:16:33"
-        ],
-        "graph_y": [
-          {
-            "contract_id": 1044,
-            "contract_price": [
-              0.5,
-              0.512,
-              0.525
-            ],
-            "contract_text": "能成功",
-            "machine_list": []
-          },
-          {
-            "contract_id": 1045,
-            "contract_price": [
-              0.5,
-              0.488,
-              0.475
-            ],
-            "contract_text": "不能成功",
-            "machine_list": []
-          }
-        ],
-        "company_rank": [
-          {
-            "company_name": "能成功",
-            "company_contract_id": 1044,
-            "predict_share": 0,
-            "price": "0.52497919"
-          },
-          {
-            "company_name": "不能成功",
-            "company_contract_id": 1045,
-            "predict_share": 0,
-            "price": "0.47502081"
-          }
-        ]
-      }
+      getCompetitionDetail(this.eventId, this.activityId).then((res) => {
+        this.compDetailData = res.data
         //获取整体情况表的数据
         this.companyRankData = this.compDetailData.company_rank
         //活动可用诸葛贝
@@ -400,10 +355,10 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
-      // })
-      // .catch((res) => {
-      //   console.log(res);
-      // });
+      })
+      .catch((res) => {
+        console.log(res);
+      });
     },
     // 数据转换方法
     // 历史数据图y轴数据对应的对象数组样式转换

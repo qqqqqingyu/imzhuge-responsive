@@ -39,7 +39,7 @@
                   </h4>
                 </el-col>
                 <el-col :span="20" :offset="2" style="margin-top:8px;margin-bottom: 10px">
-                  <span class="m-over_state"  v-if="item.status">未开始或已结束</span>
+                  <span class="m-over_state"  v-if="item.status">已结束</span>
                   <span class="m-ing_state" v-else>进行中</span>
                 </el-col>
 
@@ -101,14 +101,12 @@ export default {
       myTabs: [
         { label: "全部", name: "all" },
         { label: "进行中", name: "onGoing" },
-        { label: "未开始或已结束", name: "ended" }
+        { label: "已结束", name: "ended" }
       ]
     }
   },
   computed: {
     my_project_list() {
-      const store = useStore()
-      store.dispatch('myActivity/useMyEventData')
       let myEvent = this.$store.getters.myEvent
       // 从前页传来的值
       const selectEventName = this.$route.query.eventName;
@@ -157,6 +155,9 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+
+    const store = useStore()
+    store.dispatch('myActivity/useMyEventData')
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

@@ -26,9 +26,8 @@ export default {
     },
   },
   mounted() {
-    // 从获取的数据要进行很多转化，故这里先不使用vuex
+    // 获取的数据要进行很多转化，故这里先不使用vuex
     // const store = useStore()
-    //
     // // 触发数据获取动作，获取行业详情数据
     // store.dispatch('industryDetail/useIndustryDetailsData',this.$route.query.id)
   },

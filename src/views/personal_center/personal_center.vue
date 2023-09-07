@@ -20,9 +20,9 @@ export default {
   mounted() {
     const store = useStore()
     // 触发myActivity以及myInfoDetails 数据获取动作
-    // store.dispatch('myActivity/useMyActivityData')
-    // store.dispatch('myActivity/useMyEventData')
-    // store.dispatch('myInfoDetails/useMyInfoDetailsData')
+    store.dispatch('myActivity/useMyActivityData')
+    store.dispatch('myActivity/useMyEventData')
+    store.dispatch('myInfoDetails/useMyInfoDetailsData')
   },
 }
 </script>

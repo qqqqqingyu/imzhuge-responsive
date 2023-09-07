@@ -88,8 +88,6 @@ export default {
   },
   computed: {
     act_list() {
-      const store = useStore()
-      store.dispatch('myActivity/useMyEventData')
       let myEvent = this.$store.getters.myEvent
       // 从前页传来的值
       const selectEventName = this.$route.query.eventName;
@@ -125,6 +123,9 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+
+    const store = useStore()
+    store.dispatch('myActivity/useMyEventData')
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

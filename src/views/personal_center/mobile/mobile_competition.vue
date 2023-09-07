@@ -14,7 +14,7 @@
     </el-row>
 
     <!--    面包屑导航栏开始-->
-    <el-row>
+    <el-row >
       <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically">
         您当前的位置：
         <span class="cur-de">比赛列表</span>
@@ -34,7 +34,7 @@
                   </h4>
                 </el-col>
                 <el-col :span="20" :offset="2" style="margin-top:8px;margin-bottom: 10px">
-                  <span class="m-over_state"  v-if="item.event_status === '赛事未开始或已结束'">未开始或已结束</span>
+                  <span class="m-over_state"  v-if="item.event_status.endsWith('未开始或已结束')">未开始或已结束</span>
                   <span class="m-ing_state" v-else>进行中</span>
                 </el-col>
 
@@ -116,16 +116,14 @@ export default {
   },
   computed: {
     my_event() {
-      const store = useStore()
-      store.dispatch('myActivity/useMyEventData')
-      let myEvent = store.getters.myEvent
+      let myEvent = this.$store.getters.myEvent
 
       if (myEvent) {
         return myEvent.filter((item) => {
           if (this.activeName == 'onGoing') {
-            return item.event_status === '赛事进行中';
+            return item.event_status.endsWith('进行中');
           } else if (this.activeName == 'ended') {
-            return item.event_status === '赛事未开始或已结束';
+            return item.event_status.endsWith('未开始或已结束');
           } else {
             return item;
           }
@@ -154,6 +152,9 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+
+    const store = useStore()
+    store.dispatch('myActivity/useMyEventData')
   },
   methods:{
     // 获取csrftoken 确保受保护接口不会响应403

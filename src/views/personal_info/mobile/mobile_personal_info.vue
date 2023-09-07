@@ -237,7 +237,7 @@ export default {
 
 .my-btn {
   margin-top: 2%;
-  background: #FF8F86;
+  background: #F0C27B;
 }
 
 .btn-box{
