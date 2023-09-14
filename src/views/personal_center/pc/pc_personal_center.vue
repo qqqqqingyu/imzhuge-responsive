@@ -21,7 +21,7 @@
                 <router-link to="" style="cursor: default">典型应用</router-link>
               </template>
               <router-link class="popover-link" to="/weekly_forecast">企业收益率排序预测</router-link>
-              <router-link class="popover-link" to="">股价波动预测</router-link>
+              <div class="expect">敬请期待</div>
             </el-popover>
           </li>
           <li>

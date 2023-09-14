@@ -35,7 +35,7 @@
         <div class="introduction">
           <el-row class="introduction-content">
             <el-col>
-              <p>简介</p>
+              <p>{{ competition_desc }}</p>
             </el-col>
           </el-row>
           <el-row style="margin-top: 10px">
@@ -179,6 +179,10 @@ export default {
   // },
 
   computed: {
+    // 比赛简介
+    competition_desc(){
+      return this.$store.getters.eventData.event_desc
+    },
     // 获取的原始数据
     competition_event() {
       if ((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')) {

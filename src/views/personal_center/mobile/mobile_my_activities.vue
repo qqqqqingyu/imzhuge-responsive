@@ -30,29 +30,29 @@
           <el-tab-pane v-for="(tab, index) in myTabs" :key="index" :label="tab.label" :name="tab.name">
             <div class="mb-card half" v-for="item in page_project_list" v-bind:key="item.title" >
               <el-row>
-                <el-col :span="20" :offset="2">
-                  <h4 style="margin-bottom: 2px">
+                <el-col>
+                  <h4 class="mb-2">
                     {{ item.title }}
                   </h4>
                 </el-col>
-                <el-col :span="20" :offset="2" style="margin-top:8px;margin-bottom: 10px">
+                <el-col style="margin-top:8px;margin-bottom: 10px">
                   <span class="m-over_state"  v-if="item.status">已结束</span>
                   <span class="m-ing_state" v-else>进行中</span>
                 </el-col>
 
-                <el-col :span="8" :offset="2" class="mb-2">
+                <el-col :span="10" class="mb-2">
                   <span class="mobile-gray-text">比赛收益</span>
                 </el-col>
-                <el-col :span="11" :offset="1">
+                <el-col :span="14">
                   <span style="font-size: 13px">
                     {{ parseFloat(item.project_earning).toFixed(2) }}&nbsp;诸葛贝
                   </span>
                 </el-col>
 
-                <el-col :span="8" :offset="2" class="mb-2">
+                <el-col :span="10" class="mb-2">
                   <span class="mobile-gray-text">正确结果</span>
                 </el-col>
-                <el-col :span="11" :offset="1">
+                <el-col :span="14">
                   <span style="font-size: 13px">
                     {{ item.true_contract }}
                   </span>
@@ -176,12 +176,22 @@ export default {
 </script>
 
 <style scoped>
-.half{
-  width: 47%;
-  margin-left: 1.5%;
-  margin-right: 1.5%;
+.half:nth-child(odd){
+  width: 43%;
+  margin-right: 1%;
   display: inline-block;
+  padding-left: 3%;
+  padding-right: 3%;
 }
+
+.half:nth-child(even){
+  width: 43%;
+  margin-left: 1%;
+  display: inline-block;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
 .my-tab >>> .el-tabs__nav-wrap::after {
   background:none;
 }

@@ -32,7 +32,7 @@
                         </el-row>
                       </el-col>
                       <el-col :span="4" :offset="2">
-                        <img src="@/assets/images/two-right-arrow.svg" alt="前往原活动广场" style="width: 150%"/>
+                        <img src="@/assets/images/two-right-arrow.svg" alt="前往原活动广场" style="width: 150%;transform: translateY(6px)"/>
                       </el-col>
                     </el-button>
                   </el-col>

@@ -61,13 +61,13 @@ export default {
   data() {
     return {
       industryMapping: {
-        '月度收益率预测-金融': 'finance',
-        '月度收益率预测-新能源': 'new-energy',
-        '月度收益率预测-金融（不含银行）': 'finance2',
-        '月度收益率预测-房地产': 'real-estate',
-        '月度收益率预测-传媒': 'media',
-        '月度收益率预测-消费': 'consumption',
-        '月度收益率预测-计算机': 'computer',
+        '周度收益率-金融': 'finance',
+        '周度收益率-新能源': 'new-energy',
+        '周度收益率-金融（不含银行）': 'finance2',
+        '周度收益率-房地产': 'real-estate',
+        '周度收益率-传媒': 'media',
+        '周度收益率-消费': 'consumption',
+        '周度收益率-计算机': 'computer',
       }
     }
   },

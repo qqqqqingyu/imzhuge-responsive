@@ -336,6 +336,13 @@ a {
     color: #F0C27B;
 }
 
+.expect{
+    display: block;
+    line-height: 35px;
+    color: #b7b7b7;
+    cursor: default;
+}
+
 /*修改element分隔线样式*/
 .my-line .el-divider--horizontal{
     margin-top: 5px;

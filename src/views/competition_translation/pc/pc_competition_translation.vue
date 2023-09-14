@@ -310,7 +310,7 @@
           <el-col :span="24">
             <el-row>
               <el-col :span="8">
-                <span>请选择您预测排名第一的公司：</span>
+                <span>请选择您的预测结果：</span>
               </el-col>
               <el-col :span="8" :offset="1">
                 <el-select v-model="inputNo1" placeholder="请选择" class="company-select">

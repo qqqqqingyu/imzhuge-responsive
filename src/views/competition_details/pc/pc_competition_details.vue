@@ -22,10 +22,7 @@
       <el-col :span="20" :offset="2">
         <div class="introduction">
           <el-row>
-            <p>简介</p>
-          </el-row>
-          <el-row style="margin-top: 10px">
-            <p></p>
+            <p>{{ competition_desc }}</p>
           </el-row>
         </div>
       </el-col>
@@ -113,6 +110,10 @@ export default {
     };
   },
   computed: {
+    // 比赛简介
+    competition_desc(){
+      return this.$store.getters.eventData.event_desc
+    },
     competition_event() {
       if((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')){
         return this.$store.getters.eventData.activity_data.filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1);
@@ -122,6 +123,7 @@ export default {
     total_page() {
       return this.competition_event.filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1).length
     },
+    // 当前页数据
     page_list(){
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
@@ -175,11 +177,10 @@ export default {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  padding: 20px 15px 10px;
-  /*line-height: 25px !important;*/
+  padding: 20px 15px 20px;
+  line-height: 25px;
   color:#555555;
   font-size: 17px;
-  margin-bottom: 0px;
 }
 
 .search-form{

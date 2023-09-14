@@ -52,7 +52,6 @@
 <!--    banner开始-->
     <el-col :span="24" class="my-banner">
       <h1>做财经领域高水平的人机融合预测平台</h1>
-      <el-button v-on:click="more">立即使用</el-button>
     </el-col>
 <!--    banner结束-->
 
@@ -107,20 +106,21 @@
               </el-col>
             </el-row>
             <el-row v-if="typical_filter==1">
-              <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
+              <el-col :span="9" :offset="1" class="typical_content wow bounceInLeft animated">
                 <p>基于人机融合</p>
                 <p>做股价波动预测</p>
-                <el-button type="danger" class="more" v-on:click="more">立即使用</el-button>
+                <el-button type="info" class="disabled-btn" disabled>敬请期待</el-button>
               </el-col>
-              <el-col :span="11" class="wow bounceInRight animated" style="position: relative">
-
+              <el-col :span="12" class="wow bounceInRight animated" style="position: relative">
+                <img src="@/assets/images/expect.png" alt="收益率排序预测" width="700"
+                     style="margin-top: 30px">
               </el-col>
             </el-row>
             <el-row v-if="typical_filter==2">
               <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
                 <p>融合领域专家与机器智慧</p>
                 <p>做全球经济与政策不确定性评估和预警</p>
-                <el-button type="danger" class="more" @click="$router.push({path: '/industry_relationship'})">立即使用</el-button>
+                <el-button type="info" class="disabled-btn" disabled>敬请期待</el-button>
               </el-col>
               <el-col :span="11" class="wow bounceInRight animated" style="z-index: 2;position: relative">
                 <img src="@/assets/images/map.png" alt="全球经济不确定性预警" width="600"
@@ -214,9 +214,8 @@
         <strong class="part_title">研究团队</strong>
         <el-row style="margin-top: 35px;">
           <el-col :span="20" :offset="2" class="teaminfo">
-            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。致力于利用人工智能与人类集体智慧，提升预测的准确性和可靠性。平台目前的典型应用包括金融市场预测、国际经济不确定性预测、原油价格预测。</p>
-            <p>为了实现该使命，我们组建了具备丰富的学术背景和实践经验的研究团队，主要成员：西南财经大学（郑海超、王涛、徐赟、伍晶、王俊）、太原理工大学（李立婷）、复旦大学（许博）、苏州大学（陈冬宇）、南开大学（李凯）、烟台大学（郝琳娜）。依托该项目，我们同时培养多名硕博研究生和本科生。</p>
-            <p>在群体智慧与人机融合预测系统方向，研究团队主持国家自然科学基金支持3项，在信息系统与决策科学高水平期刊MIS Quarterly、Information Systems Journal、Decision Support Systems等发表了多篇论文。我们目前与多家研究机构和企业建立了合作关系，共同开展相关研究项目，开发财经领域高水平的人机融合预测平台。</p>
+            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。致力于利用人工智能与人类集体智慧，提升预测的准确性和可靠性。平台目前的典型应用包括金融市场预测和国际经济不确定性预测。</p>
+            <p>为了实现该使命，我们组建了具备丰富的学术背景和实践经验的研究团队，主要成员来自西南财经大学、太原理工大学、复旦大学、苏州大学、南开大学、重庆大学等。在群体智慧与人机融合预测系统方向，我们开展多项科研项目与实验研究。在信息系统与决策科学高水平期刊MIS Quarterly、Information Systems Journal、Decision Support Systems等发表了多篇论文。我们目前与多家研究机构和企业建立了合作关系，共同开展相关研究项目，开发财经领域高水平的人机融合预测平台。</p>
             <p>我们坚信“嗨皮诸葛”将在预测领域中发挥更加重要的作用，为财经领域的决策者提供有力支持。</p>
           </el-col>
         </el-row>
@@ -495,6 +494,21 @@ export default {
 .more {
   margin-top: 2%;
   background: rgba(247, 197, 120, 1);
+  border-color: #FFFFFF;
+  font-size: 17px;
+  padding: 15px 23px;
+  border-radius: 5px;
+}
+
+.disabled-btn {
+  margin-top: 2%;
+  border-color: #FFFFFF;
+  font-size: 17px;
+  padding: 15px 23px;
+  border-radius: 5px;
+}
+
+.disabled-btn:hover {
   border-color: #FFFFFF;
   font-size: 17px;
   padding: 15px 23px;

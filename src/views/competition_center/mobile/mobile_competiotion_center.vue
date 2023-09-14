@@ -25,7 +25,7 @@
         <div class="introduction">
           <el-row class="introduction-content">
             <el-col>
-              <p>简介</p>
+              <p>欢迎您参加预测比赛，提升预测技能，成为预测专家。同时，我们欢迎您发起预测比赛（联系人：郑海超，邮箱：haichao@swufe.edu.cn）。期待与您一起创造并体验精彩的预测比赛！</p>
             </el-col>
           </el-row>
           <el-row style="margin-top: 10px">
