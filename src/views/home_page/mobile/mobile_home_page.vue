@@ -81,18 +81,19 @@
         <span>典型应用</span>
       </el-col>
 
-      <el-col :span="23" :offset="1">
+      <!-- 暂时调整 -->
+      <el-col :span="22" :offset="1">
         <el-scrollbar>
           <ul style="white-space: nowrap;">
             <li class="home-box typical-box weekly-forecast">
               <el-row class="center">
-                <el-col :span="22" :offset="1">
+                <el-col :span="22" :offset="1" style="margin-top: 50px;margin-bottom: 0;">
                   <h3>企业收益率预测排序</h3>
                 </el-col>
-                <el-col class="details"  :span="22" :offset="1" style="margin-top: 10px">
+                <el-col style="margin-top: 10px;"  :span="22" :offset="1">
                   <span style="font-size:14px;color: #555555;">基于人机融合做细分行业收益率排序</span>
                 </el-col>
-                <el-col style="margin-top: 10px">
+                <el-col style="margin-top: 10px;">
                   <el-button class="to-more" size="small" v-on:click="toWeeklyForecast">
                     <span>查看更多</span>
                   </el-button>
@@ -100,7 +101,8 @@
               </el-row>
             </li>
 
-            <li class="home-box typical-box stock-predict">
+            <!-- 暂时先去掉 -->
+            <!-- <li class="home-box typical-box stock-predict">
               <el-row class="center">
                 <el-col :span="22" :offset="1">
                   <h3>股价波动预测</h3>
@@ -132,7 +134,7 @@
                   </el-button>
                 </el-col>
               </el-row>
-            </li>
+            </li> -->
           </ul>
         </el-scrollbar>
       </el-col>
@@ -147,10 +149,10 @@
           <el-col :span="22" :offset="1">
             <h3>赛事中心</h3>
           </el-col>
-          <el-col class="details"  :span="22" :offset="1" style="margin-top: 10px">
+          <el-col style="margin-top: 10px;" :span="22" :offset="1" >
             <span style="font-size:14px;color: #555555;">简介</span>
           </el-col>
-          <el-col style="margin-top: 15px">
+          <el-col style="margin-top: 10px">
             <el-button class="to-competition" size="small" @click="$router.push({path: '/competition_center'})">
               <span>查看更多</span>
             </el-button>
@@ -333,6 +335,7 @@ export default {
   background-image: linear-gradient(to right, #9fe8db, #8fdfe7, #8ed4ee, #99c6ee, #abb8e5);
   display: inline-block;
   border-radius: 10px;
+  padding-top: 50px;
   padding-bottom: 30px;
   margin-bottom: 20px;
 }
@@ -368,7 +371,6 @@ export default {
 
 .home-box{
   margin-top: 10px;
-  padding-top: 50px;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(170, 170, 170, 0.9);
 }
@@ -391,14 +393,12 @@ export default {
 }
 
 .typical-box {
-  height: 150px;
   display: inline-block;
-  width: 250px;
-  margin-right: 5%;
+  /* width: 250px; */
+  /* 宽度先调大 */
+  /* margin-right: 5%; */
+  padding-bottom: 30px;
   white-space: normal;
 }
 
-.typical-box .details{
-  height: 50px;
-}
 </style>
