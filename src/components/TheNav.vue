@@ -36,9 +36,9 @@
               trigger="hover"
           >
             <template #reference>
-              <router-link to="" :class="{'navcurr': currentPage === 'personal'}" style="cursor: default">
+              <a :class="{'navcurr': currentPage === 'personal'}" style="cursor: default">
                 <span>个人中心</span>
-              </router-link>
+              </a>
             </template>
             <div class="my-line">
               <div class="center-vertically">

@@ -27,9 +27,9 @@
                 trigger="hover"
             >
               <template #reference>
-                <router-link to="" style="cursor: default">
+                <a style="cursor: default">
                   <span>个人中心</span>
-                </router-link>
+                </a>
               </template>
               <div class="my-line">
                 <div class="center-vertically">
@@ -313,7 +313,6 @@
   </div>
 <!--  foot结束-->
 </template>
-
 
 <script>
 import {WOW} from 'wowjs'

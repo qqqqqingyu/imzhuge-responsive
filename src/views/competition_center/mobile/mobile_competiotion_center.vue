@@ -146,8 +146,7 @@ export default {
       pageSize: 5,  // 每页显示的条数
       searchKeyword: "", // 搜索关键词
       compMapping: {
-        '测试比赛1': 'comp1',
-        '测试比赛2': 'comp2'
+        '国际经济与政策预测': 'comp1',
       },
       sortOrder: '',
       filterOption: 'all',

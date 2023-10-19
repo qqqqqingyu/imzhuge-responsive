@@ -136,7 +136,7 @@
     height: 40px;
     line-height: 40px;
     list-style-type: none;
-    cursor: pointer
+    /*cursor: pointer*/
 }
 
 .my-nav li a {

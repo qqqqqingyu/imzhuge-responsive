@@ -4,7 +4,7 @@
  * @since 2022.09.11
  * **/
 import request from '@/utils/request'
-// import {serverUrl} from "../config";
+import {serverUrl} from "../config";
 
 /**
  * 3.1 获取行业列表
@@ -12,7 +12,7 @@ import request from '@/utils/request'
 export function getIndustryList() {
     return request({
         method:'get',
-        url:'/api/month_predict/industry_list'
+        url:serverUrl+'/api/month_predict/industry_list'
     })
 }
 
@@ -22,7 +22,7 @@ export function getIndustryList() {
 export function getIndustryDetail(industryId) {
     return request({
         method:'get',
-        url:'/api/month_predict/industry_detail/' + industryId
+        url:serverUrl+'/api/month_predict/industry_detail/' + industryId
     })
 }
 
@@ -31,7 +31,7 @@ export function getIndustryDetail(industryId) {
  **/
 export function submitTransactionApply(industryId, data) {
     return request({
-        url:'/api/month_predict/industry_detail/' + industryId,
+        url:serverUrl+'/api/month_predict/industry_detail/' + industryId,
         method:'post',
         data:data
     })

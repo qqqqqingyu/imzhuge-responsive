@@ -111,8 +111,8 @@
                   <span style="font-size:14px;color: #555555;">基于人机融合做股价波动预测</span>
                 </el-col>
                 <el-col style="margin-top: 10px">
-                  <el-button class="to-stock" size="small" >
-                    <span>查看更多</span>
+                  <el-button disabled style="color: #FFFFFF;background-image:linear-gradient(250deg, rgba(81, 131, 246, 1) -0%, rgba(123, 47, 245, 1) 100%)" size="small" >
+                    <span>即将发布</span>
                   </el-button>
                 </el-col>
               </el-row>
@@ -316,11 +316,6 @@ export default {
 /*股价波动预测*/
 .stock-predict{
   background-image: linear-gradient(to right top, #cab6f3, #c4bdf5, #c0c3f5, #bdc8f4, #bdcdf2);
-}
-
-.to-stock{
-  color: #FFFFFF;
-  background-image:linear-gradient(250deg, rgba(81, 131, 246, 1) -0%, rgba(123, 47, 245, 1) 100%)
 }
 
 /*不确定性预警*/

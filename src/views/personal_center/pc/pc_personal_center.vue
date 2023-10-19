@@ -34,7 +34,7 @@
                 trigger="hover"
             >
               <template #reference>
-                <router-link to="" class="navcurr cur-de">个人中心</router-link>
+                <a class="navcurr cur-de">个人中心</a>
               </template>
               <div class="my-line">
                 <div class="center-vertically">

@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-// import {serverUrl} from "../config";
+import {serverUrl} from "../config";
 
 /**
  * 3.3 我的
@@ -7,7 +7,7 @@ import request from '@/utils/request'
 export function getMyActivity() {
     return request({
         method:'get',
-        url:'/api/selfcenter/my_activity'
+        url:serverUrl+'/api/selfcenter/my_activity'
 
     })
 }
@@ -17,7 +17,7 @@ export function getMyActivity() {
 export function getMyInfoDetails() {
     return request({
         method:'get',
-        url:'/api/selfcenter/my_activity/details'
+        url:serverUrl+'/api/selfcenter/my_activity/details'
     })
 }
 /**
@@ -25,7 +25,7 @@ export function getMyInfoDetails() {
  **/
 export function editMyInfo(data) {
     return request({
-        url:'/api/selfcenter/my_activity/details',
+        url:serverUrl+'/api/selfcenter/my_activity/details',
         method:'post',
         data:data
     })
