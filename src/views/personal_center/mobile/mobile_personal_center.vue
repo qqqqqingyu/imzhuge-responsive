@@ -80,6 +80,24 @@
           </el-col>
         </el-row>
       </el-col>
+
+      <el-col :offset="1" :span="22" class="mb-card participation">
+        <el-row>
+          <el-col :offset="1" :span="2">
+            <!-- 图片好像还没有，先用比赛的图片 -->
+            <img src="@/assets/images/my_competition.svg" height="22" style="margin-top: 2px" alt="特邀比赛"/>
+          </el-col>
+          <el-col :offset="1" :span="13">
+            特邀比赛
+          </el-col>
+          <el-col :span="6" class="right">
+            <router-link to="/mobile_invited_event" class="center-vertically">
+              查看详情
+              <img src="@/assets/images/enter.svg" height="13" alt="进入">
+            </router-link>
+          </el-col>
+        </el-row>
+      </el-col>
     </el-row>
 
   </div>

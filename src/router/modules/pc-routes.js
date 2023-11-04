@@ -53,6 +53,13 @@ export default [
                         name:'pc_task_list',
                         component: () => import('@/views/personal_center/pc/pc_task_list'),
                     },
+                    // 特邀比赛
+                    {
+                        path:'/pc_invited_event',
+                        name:'pc_invited_event',
+                        component: () => import('@/views/personal_center/pc/pc_invited_event'),
+                    },
+                    
                 ]
             },
             {

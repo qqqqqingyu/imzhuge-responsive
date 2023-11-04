@@ -12,10 +12,45 @@ export default [
         path: '/personal_center',
         name: 'personal_center',
         component: () => import('@/views/personal_center/personal_center.vue'),
+        // redirect:'/mobile_competition',
         meta: {
             title: '个人中心',
             keepAlive: true, // 需要被缓存
-        }
+        },
+        // children:[
+        //     {
+        //         path:'/mobile_my_activities',
+        //         name:'mobile_my_activities',
+        //         component: () => import('@/views/personal_center/mobile/mobile_my_activities'),
+        //     },
+        //     {
+        //         path:'/mobile_industry_list',
+        //         name:'mobile_industry_list',
+        //         component: () => import('@/views/personal_center/mobile/mobile_industry_list'),
+        //     },
+        //     {
+        //         path:'/mobile_competition',
+        //         name:'mobile_competition',
+        //         component: () => import('@/views/personal_center/mobile/mobile_competition'),
+        //     },
+        //     {
+        //         path:'/mobile_participate',
+        //         name:'mobile_participate',
+        //         component: () => import('@/views/personal_center/mobile/mobile_participate'),
+        //     },
+        //     {
+        //         path:'/mobile_task_list',
+        //         name:'mobile_task_list',
+        //         component: () => import('@/views/personal_center/mobile/mobile_task_list'),
+        //     },
+        //     // 特邀比赛
+        //     {
+        //         path:'/mobile_invited_event',
+        //         name:'mobile_invited_event',
+        //         component: () => import('@/views/personal_center/mobile/mobile_invited_event'),
+        //     },
+            
+        //]
     },
     {
         path: '/personal_info',

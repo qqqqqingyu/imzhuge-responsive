@@ -109,6 +109,13 @@
             </el-col>
           </router-link>
 
+          <!-- 特邀比赛 -->
+          <router-link to="/pc_invited_event" v-if="leftOpen">
+            <el-col :span="16" :offset="3" class="center-vertically left-option">
+              <span id="link-invited" class="child-title">特邀比赛</span>
+            </el-col>
+          </router-link>
+
           <el-col :span="24" class="bottom-line"></el-col>
 
           <router-link to="/pc_personal_info">
@@ -168,6 +175,8 @@ export default {
     let activity = document.querySelector('#link-my');
     let competition = document.querySelector('#link-competition');
     let stock = document.querySelector('#link-stock');
+    // 特邀比赛
+    let invited = document.querySelector('#link-invited');
     let info = document.querySelector('#link-info');
 
     // 个股收益率
@@ -177,6 +186,7 @@ export default {
       activity.style.color = '#F0C278';
       stock.style.color = '#F0C278';
       competition.style.color = '#555555';
+      invited.style.color = '#555555';
       info.style.color = '#555555';
     }
     // 个人信息
@@ -191,6 +201,15 @@ export default {
       activity.style.color = '#F0C278';
       stock.style.color = '#555555';
       competition.style.color = '#F0C278';
+      invited.style.color = '#555555';
+      info.style.color = '#555555';
+    }
+    // 特邀比赛
+    else if((this.$route.path === '/pc_invited_event')){
+      activity.style.color = '#F0C278';
+      stock.style.color = '#555555';
+      competition.style.color = '#555555';
+      invited.style.color = '#F0C278';
       info.style.color = '#555555';
     }
   },
@@ -200,6 +219,8 @@ export default {
       let activity = document.querySelector('#link-my');
       let info = document.querySelector('#link-info');
       let competition = document.querySelector('#link-competition');
+      // 特邀比赛
+      let invited = document.querySelector('#link-invited');
       let stock = document.querySelector('#link-stock');
       if (to.path === '/pc_my_activities') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
@@ -212,6 +233,7 @@ export default {
         activity.style.color = '#555555';
         stock.style.color = '#555555';
         competition.style.color = '#555555';
+        invited.style.color = '#555555';
         info.style.color = '#F0C278';
       } else if (to.path === '/pc_industry_list') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
@@ -219,6 +241,7 @@ export default {
         activity.style.color = '#F0C278';
         stock.style.color = '#F0C278';
         competition.style.color = '#555555';
+        invited.style.color = '#555555';
         info.style.color = '#555555';
       } else if (to.path === '/pc_competition') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
@@ -226,6 +249,15 @@ export default {
         activity.style.color = '#F0C278';
         competition.style.color = '#F0C278';
         stock.style.color = '#555555';
+        invited.style.color = '#555555';
+        info.style.color = '#555555';
+      } else if (to.path === '/pc_invited_event') {
+        this.activityImg = require('@/assets/images/my_activity_yellow.svg')
+        this.infoImg = require('@/assets/images/info_grey.svg')
+        activity.style.color = '#F0C278';
+        stock.style.color = '#555555';
+        competition.style.color = '#555555';
+        invited.style.color = '#F0C278';
         info.style.color = '#555555';
       }
     }

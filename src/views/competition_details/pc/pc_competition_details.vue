@@ -49,8 +49,13 @@
 
     <el-row>
       <el-col :span="20" :offset="2" class="my-card mb-20">
-        <el-table :data="page_list" class="my-table">
+        <el-table :data="page_list" class="my-table" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
           <el-table-column prop="name" label="活动名称"></el-table-column>
+          <!-- 特邀 比赛详情目前不加这个标签-->
+          <!-- <el-table-column v-slot="scope">
+            <span v-if="scope.row.is_special" class="pc_invited">特邀</span>
+          </el-table-column> -->
+
           <el-table-column label="活动时间">
             <template  v-slot="scope">
               {{ formatDate(scope.row.start_time) }} ~ {{ formatDate(scope.row.end_time) }}
@@ -222,5 +227,18 @@ export default {
 
 a {
   text-decoration: none;
+}
+
+/* 修改表头颜色 */
+::v-deep.el-table thead {
+  color: #000000;
+}
+
+.pc_invited {
+  color: #fb6770;
+  padding: 2px 4px;
+  font-size: 13px;
+  border: 1px solid #fb6770;
+  border-radius: 5px;
 }
 </style>

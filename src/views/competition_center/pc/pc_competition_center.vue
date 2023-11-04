@@ -49,8 +49,9 @@
     </el-row>
     
     <el-row>
-      <el-col :span="20" :offset="2" class="my-card mb-20">
-        <el-table :data="page_list" class="my-table">
+      <el-col :span="20" :offset="2" class="my-card mb-20 ">
+        <!-- 表头和内容都改为居中 -->
+        <el-table :data="page_list" class="my-table" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
           <el-table-column width="80">
             <template  v-slot="scope">
               <el-image :src="getImagePath(scope.row.event_name)" alt="比赛"
@@ -59,6 +60,11 @@
             </template>
           </el-table-column>
           <el-table-column prop="event_name" label="比赛名称"></el-table-column>
+          <!-- 特邀标签 -->
+          <el-table-column v-slot="scope">
+            <span v-if="scope.row.is_special" class="pc_invited">特邀</span>
+          </el-table-column>
+
           <el-table-column label="比赛时间">
             <template  v-slot="scope">
               {{ formatDate(scope.row.start_time) }} ~ {{ formatDate(scope.row.end_time) }}
@@ -125,7 +131,15 @@ export default {
     page_list(){
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
-      return this.event_list.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1).slice(startIndex, endIndex)
+      const isUserLoggedIn = this.$store.getters.loginStatus.useLoginStatusData;
+      const filteredEventList = this.event_list.filter(item => {
+        const match = item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1;
+        // 判断是否特邀比赛，如果用户未登录，则不展示特邀比赛
+        const isSpecialEvent = item.is_special;
+        // 只返回符合条件的比赛
+        return match && (isUserLoggedIn || !isSpecialEvent);
+      });
+      return filteredEventList.slice(startIndex, endIndex);
     }
   },
   mounted() {
@@ -209,7 +223,8 @@ export default {
 }
 
 .my-card >>> .el-table td, .el-table th.is-leaf{
-  border-bottom: none; /* 去除表格行的底部边框 */
+  /*去除表格行的底部边框 */
+  border-bottom: none; 
 }
 
 .my-card >>> .el-table .cell{
@@ -227,4 +242,21 @@ export default {
 .my-pagination >>> .el-pagination.is-background .el-pager li:hover{
   color:#EF9C19;
 }
+
+/* 特邀标签的边框显示出来 */
+/deep/ .el-table .cell{overflow: unset}
+
+.pc_invited {
+  color: #fb6770;
+  padding: 4px 6px;
+  font-size: 13px;
+  border: 1px solid #fb6770;
+  border-radius: 5px;
+}
+
+/* 修改表头颜色 */
+::v-deep.el-table thead {
+  color: #000000;
+}
+
 </style>

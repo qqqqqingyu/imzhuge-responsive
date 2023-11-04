@@ -26,6 +26,8 @@ export default {
     const store = useStore()
     // 触发数据获取动作
     store.dispatch('eventList/useEventListData')
+    // 获取登录状态
+    store.dispatch('loginStatus/useLoginStatusData')
   },
 }
 </script>

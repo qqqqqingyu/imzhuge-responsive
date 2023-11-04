@@ -51,3 +51,13 @@ export function getMyEvent() {
         url:'/api/selfcenter/my_event'
     })
 }
+
+/**
+ * 个人中心-->特邀比赛 
+ **/
+export function invitedComptition() {
+    return request({
+        method:'get',
+        url:'/api/selfcenter/my_invited_event'
+    })
+}

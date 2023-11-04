@@ -97,8 +97,10 @@
               <p style="margin-top:6px;margin-bottom: 8px">
                 <span class="m-over_state" v-if="competition.status.endsWith('未开始或已结束')">未开始或已结束</span>
                 <span class="m-ing_state" v-else>进行中</span>
+                <!-- 特邀标签 -->
+                <span v-if="competition.is_special" class="m_invited">特邀</span>
               </p>
-
+              
               <p style="color: #AAAAAA;">比赛时间 {{ formatDate(competition.start_time) }} ~
                 {{ formatDate(competition.end_time) }}</p>
               <p style="color: #AAAAAA;">比赛奖金 <span style="color: #ffc848;">{{ competition.award }}</span></p>
@@ -165,8 +167,9 @@ export default {
       return this.$store.getters.eventList.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1)
     },
     // 根据比赛状态筛选并根据条件排序后展示的数据
+    // 把 event_list 改为 page_list 防止未登录出现特邀比赛
     filter_list() {
-      const filteredList = this.event_list.filter((comp) => {
+      const filteredList = this.page_list.filter((comp) => {
         if (this.screen == 0) {
           return comp.status.endsWith('进行中');
         } else if (this.screen == 1) {
@@ -191,7 +194,15 @@ export default {
     page_list() {
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
-      return this.filter_list.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1).slice(startIndex, endIndex)
+      const isUserLoggedIn = this.$store.getters.loginStatus.useLoginStatusData;
+      const filteredEventList = this.event_list.filter(item => {
+        const match = item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1;
+        // 判断是否特邀比赛，如果用户未登录，则不展示特邀比赛
+        const isSpecialEvent = item.is_special;
+        // 只返回符合条件的比赛
+        return match && (isUserLoggedIn || !isSpecialEvent);
+      });
+      return filteredEventList.slice(startIndex, endIndex);
     },
     // 不用
     // loginStatus(){
@@ -439,6 +450,15 @@ export default {
   border-radius: 5px;
   padding: 5px 6px;
   font-size: 13px;
+}
+
+.m_invited {
+  margin-left: 4px;
+  color: #fb6770;
+  border: 1px solid #fb6770;
+  border-radius: 5px;
+  padding: 2px 4px;
+  font-size: 12px;
 }
 
 .el-select-dropdown__item.selected {

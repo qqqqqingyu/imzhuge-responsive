@@ -102,6 +102,8 @@
             <p class="my-tag" style="margin-top:6px;margin-bottom: 8px">
               <span class="m-over_state" v-if="item.status.endsWith('未开始或已结束')">未开始或已结束</span>
               <span class="m-ing_state" v-else>进行中</span>
+              <!-- 特邀标签 目前不加-->
+              <!-- <span v-if="item.is_special" class="m_invited">特邀</span> -->
             </p>
             <p class="info2">活动时间 {{ formatDate(item.start_time) }} ~ {{ formatDate(item.end_time) }}</p>
           </div>
@@ -473,5 +475,14 @@ export default {
 /*复写全局类*/
 .title-box{
   margin-bottom: 10px;
+}
+
+.m_invited {
+  margin-left: 4px;
+  color: #fb6770;
+  border: 1px solid #fb6770;
+  border-radius: 5px;
+  padding: 2px 4px;
+  font-size: 12px;
 }
 </style>

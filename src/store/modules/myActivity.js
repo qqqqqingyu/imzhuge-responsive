@@ -90,105 +90,105 @@ export default {
             //             ]
             //         },
             //     ]
-            // }
+            //}
 
             context.commit('setMyActivity', myActivity)
         },
         async useMyEventData(context){
             // 调用接口取数据
-            const myEvent = await getMyEvent().then((res) =>{
-                return res.data
-            }).catch((res) => {
-                console.log(res);
-            });
+            // const myEvent = await getMyEvent().then((res) =>{
+            //     return res.data
+            // }).catch((res) => {
+            //     console.log(res);
+            // });
 
             // 测试假数据
-            // const myEvent = [
-            //     {
-            //         "event_name": "测试比赛2",
-            //         "event_start_time": "2023-08-05T17:00:00",
-            //         "event_end_time": "2023-08-31T20:00:00",
-            //         "earning_coin": "-0.50062500",
-            //         "act_list": [
-            //             {
-            //                 "act_name": "测试比赛2的活动2",
-            //                 "act_money": "-0.50062500",
-            //                 "project_list": [
-            //                     {
-            //                         "title": "测试比赛2场景2活动1",
-            //                         "status": false,
-            //                         "project_earning": "-0.50062500",
-            //                         "true_contract": "结果待揭晓"
-            //                     },
-            //                     {
-            //                         "title": "测试比赛2场景2活动1",
-            //                         "status": false,
-            //                         "project_earning": "-0.50062500",
-            //                         "true_contract": "结果待揭晓"
-            //                     },
-            //                     {
-            //                         "title": "测试比赛2场景2活动1",
-            //                         "status": false,
-            //                         "project_earning": "-0.50062500",
-            //                         "true_contract": "结果待揭晓"
-            //                     },
-            //                     {
-            //                         "title": "测试比赛2场景2活动1",
-            //                         "status": false,
-            //                         "project_earning": "-0.50062500",
-            //                         "true_contract": "结果待揭晓"
-            //                     }
-            //                 ]
-            //             }
-            //         ],
-            //         "event_earning_cash": "奖金还未分配",
-            //         "event_status": "赛事进行中"
-            //     },
-            //     {
-            //         "event_name": "测试比赛2",
-            //         "event_start_time": "2023-08-05T17:00:00",
-            //         "event_end_time": "2023-08-31T20:00:00",
-            //         "earning_coin": "-0.50062500",
-            //         "act_list": [
-            //             {
-            //                 "act_name": "测试比赛2的活动2",
-            //                 "act_money": "-0.50062500",
-            //                 "project_list": [
-            //                     {
-            //                         "title": "测试比赛2场景2活动1",
-            //                         "status": false,
-            //                         "project_earning": "-0.50062500",
-            //                         "true_contract": "结果待揭晓"
-            //                     }
-            //                 ]
-            //             }
-            //         ],
-            //         "event_earning_cash": "奖金还未分配",
-            //         "event_status": "赛事进行中"
-            //     },
-            //     {
-            //         "event_name": "测试比赛2",
-            //         "event_start_time": "2023-08-05T17:00:00",
-            //         "event_end_time": "2023-08-31T20:00:00",
-            //         "earning_coin": "-0.50062500",
-            //         "act_list": [
-            //             {
-            //                 "act_name": "测试比赛2的活动2",
-            //                 "act_money": "-0.50062500",
-            //                 "project_list": [
-            //                     {
-            //                         "title": "测试比赛2场景2活动1",
-            //                         "status": false,
-            //                         "project_earning": "-0.50062500",
-            //                         "true_contract": "结果待揭晓"
-            //                     }
-            //                 ]
-            //             }
-            //         ],
-            //         "event_earning_cash": "奖金还未分配",
-            //         "event_status": "赛事进行中"
-            //     },
-            // ]
+            const myEvent = [
+                {
+                    "event_name": "测试比赛2",
+                    "event_start_time": "2023-08-05T17:00:00",
+                    "event_end_time": "2023-08-31T20:00:00",
+                    "earning_coin": "-0.50062500",
+                    "act_list": [
+                        {
+                            "act_name": "测试比赛2的活动2",
+                            "act_money": "-0.50062500",
+                            "project_list": [
+                                {
+                                    "title": "测试比赛2场景2活动1",
+                                    "status": false,
+                                    "project_earning": "-0.50062500",
+                                    "true_contract": "结果待揭晓"
+                                },
+                                {
+                                    "title": "测试比赛2场景2活动1",
+                                    "status": false,
+                                    "project_earning": "-0.50062500",
+                                    "true_contract": "结果待揭晓"
+                                },
+                                {
+                                    "title": "测试比赛2场景2活动1",
+                                    "status": false,
+                                    "project_earning": "-0.50062500",
+                                    "true_contract": "结果待揭晓"
+                                },
+                                {
+                                    "title": "测试比赛2场景2活动1",
+                                    "status": false,
+                                    "project_earning": "-0.50062500",
+                                    "true_contract": "结果待揭晓"
+                                }
+                            ]
+                        }
+                    ],
+                    "event_earning_cash": "奖金还未分配",
+                    "event_status": "赛事进行中"
+                },
+                {
+                    "event_name": "测试比赛2",
+                    "event_start_time": "2023-08-05T17:00:00",
+                    "event_end_time": "2023-08-31T20:00:00",
+                    "earning_coin": "-0.50062500",
+                    "act_list": [
+                        {
+                            "act_name": "测试比赛2的活动2",
+                            "act_money": "-0.50062500",
+                            "project_list": [
+                                {
+                                    "title": "测试比赛2场景2活动1",
+                                    "status": false,
+                                    "project_earning": "-0.50062500",
+                                    "true_contract": "结果待揭晓"
+                                }
+                            ]
+                        }
+                    ],
+                    "event_earning_cash": "奖金还未分配",
+                    "event_status": "赛事进行中"
+                },
+                {
+                    "event_name": "测试比赛2",
+                    "event_start_time": "2023-08-05T17:00:00",
+                    "event_end_time": "2023-08-31T20:00:00",
+                    "earning_coin": "-0.50062500",
+                    "act_list": [
+                        {
+                            "act_name": "测试比赛2的活动2",
+                            "act_money": "-0.50062500",
+                            "project_list": [
+                                {
+                                    "title": "测试比赛2场景2活动1",
+                                    "status": false,
+                                    "project_earning": "-0.50062500",
+                                    "true_contract": "结果待揭晓"
+                                }
+                            ]
+                        }
+                    ],
+                    "event_earning_cash": "奖金还未分配",
+                    "event_status": "赛事进行中"
+                },
+            ]
 
             // 为state中的competitionDetail赋值
             context.commit('setMyEvent',myEvent)
