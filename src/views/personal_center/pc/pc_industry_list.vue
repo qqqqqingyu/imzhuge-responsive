@@ -34,13 +34,14 @@ export default {
   data() {
     return {
       industryMapping: {
-        '周度收益率-金融': 'finance',
-        '周度收益率-新能源': 'new-energy',
-        '周度收益率-金融（不含银行）': 'finance2',
-        '周度收益率-房地产': 'real-estate',
-        '周度收益率-传媒': 'media',
-        '周度收益率-消费': 'consumption',
-        '周度收益率-计算机': 'computer',
+        '金融': 'finance',
+        '新能源': 'new-energy',
+        '金融（不含银行）': 'finance2',
+        '房地产': 'real-estate',
+        '传媒': 'media',
+        '消费': 'consumption',
+        '计算机': 'computer',
+        '无匹配':'none-industry'
       }
     }
   },
@@ -60,7 +61,20 @@ export default {
     },
     // 根据行业调用相应图片
     getImagePath(industry) {
-      const englishIndustryName = this.industryMapping[industry];
+
+      // 遍历所有行业名称，查找末尾文字相符的行业名称
+      let matchingIndustry = null;
+      for (const key in this.industryMapping) {
+        if (industry.endsWith(key)) {
+          matchingIndustry = key;
+          break;
+        }
+        else {
+          matchingIndustry = '无匹配'
+        }
+      }
+
+      const englishIndustryName = this.industryMapping[matchingIndustry];
       return require(`@/assets/images/${englishIndustryName}.png`);
     }
   }

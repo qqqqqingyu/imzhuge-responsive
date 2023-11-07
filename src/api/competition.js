@@ -1,12 +1,15 @@
 import request from '@/utils/request'
-import {serverUrl} from "../config";
+// import {serverUrl} from "../config";
 
 /**
  * 赛事中心
  **/
 export function getEventList() {
     return request({
-        url:serverUrl+'/api/event_center/event_list',
+        // 测试服
+        url:'/api/event_center/event_list',
+        // 正式服
+        // url:serverUrl+'/api/event_center/event_list',
         method:'get'
     })
 }
@@ -17,7 +20,10 @@ export function getEventList() {
 export function getEvent(eventId) {
     return request({
         method:'get',
-        url:serverUrl+'/api/event_center/' + eventId
+        // 测试服
+        url:'/api/event_center/' + eventId
+        // 正式服
+        // url:serverUrl+'/api/event_center/' + eventId
     })
 }
 
@@ -27,7 +33,10 @@ export function getEvent(eventId) {
 export function getCompetitionDetail(eventId,activityId) {
     return request({
         method:'get',
-        url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId
+        // 测试服
+        url:'/api/event_center/event_detail/' + eventId +'/' + activityId
+        // 正式服
+        // url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId
     })
 }
 
@@ -37,7 +46,10 @@ export function getCompetitionDetail(eventId,activityId) {
 export function postCompetitionTransaction(eventId,activityId,data) {
     return request({
         method:'post',
-        url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId,
+        // 测试服
+        url:'/api/event_center/event_detail/' + eventId +'/' + activityId,
+        // 正式服
+        // url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId,
         data:data
     })
 }
@@ -48,7 +60,10 @@ export function postCompetitionTransaction(eventId,activityId,data) {
 export function getMyEvent() {
     return request({
         method:'get',
-        url:serverUrl+'/api/selfcenter/my_event'
+        // 测试服
+        url:'/api/selfcenter/my_event'
+        // 正式服
+        // url:serverUrl+'/api/selfcenter/my_event'
     })
 }
 
@@ -58,6 +73,9 @@ export function getMyEvent() {
 export function invitedComptition() {
     return request({
         method:'get',
+        // 测试服
         url:'/api/selfcenter/my_invited_event'
+        // 正式服
+        // url:serverUrl+'/api/selfcenter/my_invited_event'
     })
 }

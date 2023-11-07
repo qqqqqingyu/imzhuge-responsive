@@ -193,7 +193,7 @@ export default {
     page_list() {
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
-      const isUserLoggedIn = this.$store.getters.loginStatus.useLoginStatusData;
+      const isUserLoggedIn = this.$store.getters.loginStatus;
       const filteredEventList = this.event_list.filter(item => {
         const match = item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1;
         // 判断是否特邀比赛，如果用户未登录，则不展示特邀比赛

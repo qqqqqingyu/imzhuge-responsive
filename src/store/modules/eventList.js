@@ -41,11 +41,9 @@ export default {
             });
 
             // 测试假数据
-            // const eventList = {
-            //     "group_id": 1,
-            //     "activity_data": [
+            // const eventList = [
             //         {
-                        
+            //
             //             "event_name": "测试比赛中心的活动",
             //             "start_time": "2023-07-28T03:33:32",
             //             "end_time": "2023-07-28T04:33:35",
@@ -53,7 +51,7 @@ export default {
             //             "status": "活动未开始或已结束",
             //             "is_special": true,
             //         },{
-                        
+            //
             //             "event_name": "测试比赛中心的活动",
             //             "start_time": "2023-07-28T03:33:32",
             //             "end_time": "2023-10-28T04:33:35",
@@ -62,13 +60,12 @@ export default {
             //             "is_special": false,
             //         },
             //     ]
-            // }
 
             // 为state中的eventList赋值
             context.commit('setEventList',eventList)
         },
         async useEventData(context,eventId){
-            调用接口取数据
+            // 调用接口取数据
             const eventData = await getEvent(eventId).then((res) =>{
                 return res.data
             }).catch((res) => {

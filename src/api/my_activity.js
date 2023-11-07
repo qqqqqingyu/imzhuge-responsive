@@ -1,5 +1,6 @@
 import request from '@/utils/request'
-import {serverUrl} from "../config";
+// 正式服
+// import {serverUrl} from "../config";
 
 /**
  * 3.3 我的
@@ -7,7 +8,10 @@ import {serverUrl} from "../config";
 export function getMyActivity() {
     return request({
         method:'get',
-        url:serverUrl+'/api/selfcenter/my_activity'
+        // 测试服
+        url:'/api/selfcenter/my_activity'
+        // 正式服
+        // url:serverUrl+'/api/selfcenter/my_activity'
 
     })
 }
@@ -17,7 +21,10 @@ export function getMyActivity() {
 export function getMyInfoDetails() {
     return request({
         method:'get',
-        url:serverUrl+'/api/selfcenter/my_activity/details'
+        // 测试服
+        url:'/api/selfcenter/my_activity/details'
+        // 正式服
+        // url:serverUrl+'/api/selfcenter/my_activity/details'
     })
 }
 /**
@@ -25,7 +32,10 @@ export function getMyInfoDetails() {
  **/
 export function editMyInfo(data) {
     return request({
-        url:serverUrl+'/api/selfcenter/my_activity/details',
+        // 测试服
+        url:'/api/selfcenter/my_activity/details',
+        // 正式服
+        // url:serverUrl+'/api/selfcenter/my_activity/details',
         method:'post',
         data:data
     })
