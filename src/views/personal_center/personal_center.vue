@@ -22,6 +22,7 @@ export default {
     // 触发myActivity以及myInfoDetails 数据获取动作
     store.dispatch('myActivity/useMyActivityData')
     store.dispatch('myActivity/useMyEventData')
+    store.dispatch('myActivity/useMyInvitedEventData')
     store.dispatch('myInfoDetails/useMyInfoDetailsData')
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :offset="1" :span="20" class="mb-20">
-      <h2 class="personal-title">特邀比赛</h2>
+      <h2 class="personal-title">特邀预测比赛</h2>
     </el-col>
     <el-col :offset="1" :span="23" style="margin-bottom: 15px">
       <el-radio-group v-model="screen">
@@ -15,7 +15,7 @@
       <el-divider></el-divider>
     </el-col>
   
-    <el-col :span="11" :offset="1" class="activity-box" v-for="item in page_my_event" v-bind:key="item.event_name">
+    <el-col :span="11" :offset="1" class="activity-box" v-for="item in page_my_invited_event" v-bind:key="item.event_name">
       <el-row>
         <el-col :span="24">
           <h4 style="margin-bottom: 2px">
@@ -56,7 +56,7 @@
         </el-col>
   
         <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link :to="{path:'/pc_participate',query:{eventName:item.event_name}}">
+          <router-link :to="{path:'/pc_invited_participate',query:{eventName:item.event_name}}">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>
@@ -91,11 +91,11 @@ export default {
     }
   },
   computed: {
-    my_event() {
-      let myEvent = this.$store.getters.myEvent
+    my_invited_event() {
+      let myInvitedEvent = this.$store.getters.myInvitedEvent
 
-      if (myEvent) {
-        return myEvent.filter((item) => {
+      if (myInvitedEvent) {
+        return myInvitedEvent.filter((item) => {
           if (this.screen == 0) {
             return item.event_status.endsWith('进行中');
           } else if (this.screen == 1) {
@@ -106,21 +106,21 @@ export default {
           }
         })
       } else {
-        return this.$store.getters.myEvent
+        return this.$store.getters.myInvitedEvent
       }
     },
-    page_my_event() {
+    page_my_invited_event() {
       try {
-        return this.my_event
+        return this.my_invited_event
             .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
       } catch (error) {
-        console.error('page_my_event报错:', error);
+        console.error('page_my_invited_event报错:', error);
         return [];
       }
     },
     total_num() {
       try {
-        return this.my_event.length;
+        return this.my_invited_event.length;
       } catch (error) {
         console.error('total_num报错:', error);
         return 0;

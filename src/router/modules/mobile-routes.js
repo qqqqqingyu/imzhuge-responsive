@@ -146,6 +146,26 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    // 特邀比赛参与活动
+    {
+        path:'/mobile_invited_participate',
+        name:'mobile_invited_participate',
+        component: () => import('@/views/personal_center/mobile/mobile_invited_participate.vue'),
+        meta: {
+            title: '特邀比赛参与活动',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+    // 特邀比赛任务列表
+    {
+        path:'/mobile_invited_task_list',
+        name:'mobile_invited_task_list',
+        component: () => import('@/views/personal_center/mobile/mobile_invited_task_list.vue'),
+        meta: {
+            title: '特邀比赛任务列表',
+            keepAlive: true, // 需要被缓存
+        }
+    },
 
 
 

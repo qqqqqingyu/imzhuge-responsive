@@ -38,7 +38,7 @@ const store =createStore({
             // 保存到 localStorage 中的 key
             key: 'imzhuge-2',
             // 需要保存的模块
-            paths: ['industryList','industryDetail','myActivity','myInfoDetails','loginStatus']
+            paths: ['industryList','industryDetail','myActivity','myInfoDetails','loginStatus','eventList']
         })
     ]
 

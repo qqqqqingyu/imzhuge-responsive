@@ -2,13 +2,13 @@
   <div>
     <el-row class="mb-10 mt-20">
       <el-col :span="1" :offset="1">
-        <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName}}">
+        <router-link :to="{path:'/mobile_invited_participate',query:{eventName:$route.query.eventName}}">
           <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
         </router-link>
       </el-col>
       <el-col :span="20">
         <el-row class="mobile-title">
-            任务列表
+          任务列表
         </el-row>
       </el-col>
     </el-row>
@@ -17,9 +17,9 @@
     <el-row>
       <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically">
         您当前的位置：
-        <router-link to="/mobile_competition">比赛列表</router-link>
+        <router-link to="/mobile_invited_event">比赛列表</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="20">
-        <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName}}">比赛活动</router-link>
+        <router-link :to="{path:'/mobile_invited_participate',query:{eventName:$route.query.eventName}}">比赛活动</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="20">
         <span class="cur-de">任务列表</span>
       </el-col>
@@ -89,7 +89,7 @@ import {getCSRFToken} from '@/api/token'
 import {useStore} from "vuex";
 
 export default {
-  name: "mobile_task_list",
+  name: "mobile_invited_task_list",
   components:{bottomNav},
   data() {
     return {
@@ -107,12 +107,12 @@ export default {
   },
   computed: {
     my_project_list() {
-      let myEvent = this.$store.getters.myEvent
+      let myInvitedEvent = this.$store.getters.myInvitedEvent
       // 从前页传来的值
       const selectEventName = this.$route.query.eventName;
       const selectActName = this.$route.query.actName
 
-      const selectedAct = myEvent.find(
+      const selectedAct = myInvitedEvent.find(
           (act) => act.event_name === selectEventName
       ).act_list;
 
@@ -157,7 +157,7 @@ export default {
     this.getCSRFTokenMethod()
 
     const store = useStore()
-    store.dispatch('myActivity/useMyEventData')
+    store.dispatch('myActivity/useMyInvitedEventData')
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

@@ -1,5 +1,5 @@
 import {getMyActivity} from '@/api/my_activity'
-import {getMyEvent} from "../../api/competition";
+import {getInvitedEvent, getMyEvent} from "../../api/competition";
 /**
  * 处理个人中心的用户名以及我参与的活动
  */
@@ -9,7 +9,8 @@ export default {
     state:() => {
         return {
             myActivity:'',
-            myEvent:[]
+            myEvent:[],
+            myInvitedEvent:[]
         }
     },
     mutations: {
@@ -21,7 +22,10 @@ export default {
         },
         setMyEvent(state,myEventData){
             state.myEvent = myEventData
-        }
+        },
+        setMyInvitedEvent(state,myInvitedData){
+            state.myInvitedEvent = myInvitedData
+        },
 
     },
     actions: {
@@ -192,6 +196,36 @@ export default {
 
             // 为state中的competitionDetail赋值
             context.commit('setMyEvent',myEvent)
+        },
+        async useMyInvitedEventData(context){
+            // 调用接口取数据
+            const myInvitedEvent = await getInvitedEvent().then((res) =>{
+                return res.data
+            }).catch((res) => {
+                console.log(res);
+            });
+
+            // const myInvitedEvent = [{
+            //     "event_name": "\u56fd\u9645\u7ecf\u6d4e\u4e0e\u653f\u7b56\u9884\u6d4b",
+            //     "event_start_time": "2023-09-14T13:00:00",
+            //     "event_end_time": "2023-12-30T00:00:00",
+            //     "earning_coin": "-2.54726434",
+            //     "act_list": [{
+            //         "act_name": "2030\u5e74\u4e16\u535a\u4f1a\u5c06\u9009\u62e9\u54ea\u4e2a\u57ce\u5e02\u4e3e\u529e\uff1f",
+            //         "act_money": "-2.54726434",
+            //         "project_list": [{
+            //             "title": "2031110\u5e74\u4e16\u535a\u4f1a\u5c06\u9009\u62e9\u54ea\u4e2a\u57ce\u5e02\u4e3e\u529e\uff1f",
+            //             "status": false,
+            //             "project_earning": "-2.54726434",
+            //             "true_contract": "\u7ed3\u679c\u5f85\u63ed\u6653"
+            //         }]
+            //     }],
+            //     "event_earning_cash": "\u5956\u91d1\u8fd8\u672a\u5206\u914d",
+            //     "event_status": "\u8d5b\u4e8b\u8fdb\u884c\u4e2d"
+            // }]
+
+            // 为state中的competitionDetail赋值
+            context.commit('setMyInvitedEvent',myInvitedEvent)
         },
     }
 }

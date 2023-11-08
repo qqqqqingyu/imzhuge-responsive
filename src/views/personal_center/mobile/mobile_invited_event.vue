@@ -8,7 +8,7 @@
         </el-col>
         <el-col :span="20">
           <el-row class="mobile-title mb-10">
-            比赛
+            特邀比赛
           </el-row>
         </el-col>
       </el-row>
@@ -26,7 +26,7 @@
         <el-col :offset="1" :span="22" style="margin-bottom: 15px">
           <el-tabs class="my-tab" v-model="activeName">
             <el-tab-pane v-for="(tab, index) in myTabs" :key="index" :label="tab.label" :name="tab.name">
-              <div class="mb-card half" v-for="item in page_my_event" v-bind:key="item.event_name" >
+              <div class="mb-card half" v-for="item in page_my_invited_event" v-bind:key="item.event_name" >
                 <el-row>
                   <el-col>
                     <h4 style="margin-bottom: 2px">
@@ -67,7 +67,7 @@
                   </el-col>
   
                   <el-col class="mobile-yellow-btn center" style="margin-top: 5px;">
-                    <router-link :to="{path:'/mobile_participate',query:{eventName:item.event_name}}">
+                    <router-link :to="{path:'/mobile_invited_participate',query:{eventName:item.event_name}}">
                       <el-button>查看详情</el-button>
                     </router-link>
                   </el-col>
@@ -116,11 +116,11 @@
       }
     },
     computed: {
-      my_event() {
-        let myEvent = this.$store.getters.myEvent
+      my_invited_event() {
+        let myInvitedEvent = this.$store.getters.myInvitedEvent
   
-        if (myEvent) {
-          return myEvent.filter((item) => {
+        if (myInvitedEvent) {
+          return myInvitedEvent.filter((item) => {
             if (this.activeName == 'onGoing') {
               return item.event_status.endsWith('进行中');
             } else if (this.activeName == 'ended') {
@@ -130,21 +130,21 @@
             }
           })
         } else {
-          return this.$store.getters.myEvent
+          return this.$store.getters.myInvitedEvent
         }
       },
-      page_my_event() {
+      page_my_invited_event() {
         try {
-          return this.my_event
+          return this.my_invited_event
               .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
         } catch (error) {
-          console.error('page_my_event报错:', error);
+          console.error('page_my_invited_event报错:', error);
           return [];
         }
       },
       total_num() {
         try {
-          return this.my_event.length;
+          return this.my_invited_event.length;
         } catch (error) {
           console.error('total_num报错:', error);
           return 0;
@@ -155,7 +155,7 @@
       this.getCSRFTokenMethod()
   
       const store = useStore()
-      store.dispatch('myActivity/useMyEventData')
+      store.dispatch('myActivity/useMyInvitedEventData')
     },
     methods:{
       // 获取csrftoken 确保受保护接口不会响应403

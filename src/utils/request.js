@@ -11,8 +11,8 @@ const request = axios.create({
 // post请求默认请求头
 request.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
-// 添加baseURL，但是也会出现CORS的问题
-// request.defaults.baseURL = 'http://47.108.189.227:8080';
+// 添加baseURL
+// request.defaults.baseURL = 'https://m.imzhuge.com';
 
 // request拦截器
 request.interceptors.request.use(config => {

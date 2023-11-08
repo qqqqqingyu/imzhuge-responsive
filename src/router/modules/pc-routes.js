@@ -59,7 +59,18 @@ export default [
                         name:'pc_invited_event',
                         component: () => import('@/views/personal_center/pc/pc_invited_event'),
                     },
-                    
+                    // 特邀比赛参与
+                    {
+                        path:'/pc_invited_participate',
+                        name:'pc_invited_participate',
+                        component: () => import('@/views/personal_center/pc/pc_invited_participate'),
+                    },
+                    // 特邀比赛任务列表
+                    {
+                        path:'/pc_invited_task_list',
+                        name:'pc_invited_task_list',
+                        component: () => import('@/views/personal_center/pc/pc_invited_task_list'),
+                    },
                 ]
             },
             {
