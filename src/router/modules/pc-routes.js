@@ -127,6 +127,15 @@ export default [
                     keepAlive: true, // 需要被缓存
                 }
             },
+            {
+                path: '/stock_predict',
+                name: 'stock_predict',
+                component: () => import('@/views/stock_predict/stock_predict.vue'),
+                meta: {
+                    title: '股价涨跌预测',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
         ]
     }
 ]

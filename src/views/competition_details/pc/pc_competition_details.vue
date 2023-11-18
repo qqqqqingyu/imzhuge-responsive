@@ -182,7 +182,7 @@ export default {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  padding: 20px 15px 20px;
+  padding: 20px 25px 20px;
   line-height: 25px;
   color:#555555;
   font-size: 17px;

@@ -292,7 +292,7 @@ a {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  padding: 20px 15px 10px;
+  padding: 20px 25px 10px;
   /*line-height: 25px !important;*/
   color:#555555;
   font-size: 17px;

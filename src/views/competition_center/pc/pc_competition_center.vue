@@ -38,12 +38,12 @@
         <!-- 搜索表单 -->
         <el-form :inline="true" class="search-form">
           <el-form-item>
-            <el-input v-model="searchKeyword" size="small" placeholder="请输入比赛名称"
+            <el-input v-model="search" size="mini" placeholder="请输入比赛名称"
                       @keyup.enter="event_list"></el-input>
           </el-form-item>
-<!--          <el-form-item class="yellow-btn" >-->
-<!--            <el-button size="small" @click="handleSearch">搜索</el-button>-->
-<!--          </el-form-item>-->
+          <el-form-item class="yellow-btn" >
+            <el-button size="small" @click="handleSearch">搜索</el-button>
+          </el-form-item>
         </el-form>
       </el-col>
     </el-row>
@@ -113,6 +113,7 @@ export default {
       currentPage: 1,  // 当前页码
       pageNum: 1,
       pageSize: 5,  // 每页显示的条数
+      search:'',
       searchKeyword: "", // 搜索关键词
       compMapping: {
         '国际经济与政策预测': 'comp1'
@@ -148,6 +149,9 @@ export default {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
+    },
+    handleSearch(){
+      this.searchKeyword = this.search
     },
     // 转换数据为时间格式
     formatDate(dateString) {
@@ -186,7 +190,6 @@ export default {
     beforeUnmount() {
       document.body.removeAttribute('style');
     },
-
   };
 
 </script>
@@ -197,7 +200,7 @@ export default {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  padding: 20px 15px 10px;
+  padding: 20px 25px 10px;
   /*line-height: 25px !important;*/
   color:#555555;
   font-size: 17px;

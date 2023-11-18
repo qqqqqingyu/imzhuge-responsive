@@ -34,32 +34,32 @@ export default {
          */
         async useEventListData(context){
             // 调用接口取数据
-            const eventList = await getEventList().then((res) =>{
-                return res.data
-            }).catch((res) => {
-                console.log(res);
-            });
+            // const eventList = await getEventList().then((res) =>{
+            //     return res.data
+            // }).catch((res) => {
+            //     console.log(res);
+            // });
 
             // 测试假数据
-            // const eventList = [
-            //         {
-            //
-            //             "event_name": "测试比赛中心的活动",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-07-28T04:33:35",
-            //             "award": 100,
-            //             "status": "活动未开始或已结束",
-            //             "is_special": true,
-            //         },{
-            //
-            //             "event_name": "测试比赛中心的活动",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-10-28T04:33:35",
-            //             "award": 300,
-            //             "status": "活动进行中",
-            //             "is_special": false,
-            //         },
-            //     ]
+            const eventList = [
+                    {
+
+                        "event_name": "测试比赛中心的活动",
+                        "start_time": "2023-07-28T03:33:32",
+                        "end_time": "2023-07-28T04:33:35",
+                        "award": 100,
+                        "status": "活动未开始或已结束",
+                        "is_special": true,
+                    },{
+
+                        "event_name": "测试比赛中心的活动",
+                        "start_time": "2023-07-28T03:33:32",
+                        "end_time": "2023-10-28T04:33:35",
+                        "award": 300,
+                        "status": "活动进行中",
+                        "is_special": false,
+                    },
+                ]
 
             // 为state中的eventList赋值
             context.commit('setEventList',eventList)
