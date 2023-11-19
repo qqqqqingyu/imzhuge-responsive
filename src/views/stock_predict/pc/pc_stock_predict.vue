@@ -57,7 +57,8 @@
   <el-row>
     <el-col :span="20" :offset="2" class="my-card mb-20 ">
       <!-- 表头和内容都改为居中 -->
-      <el-table :data="stock_list" class="my-table" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
+      <el-table stripe :data="stock_list" class="my-table" :header-cell-style="{'text-align':'center'}"
+                :cell-style="{'text-align':'center'}">
         <el-table-column prop="a" label="股票代码"></el-table-column>
         <el-table-column prop="b" label="股票名称"></el-table-column>
         <el-table-column>
@@ -69,19 +70,20 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-row>
-        <el-col class="center my-pagination" style="margin-bottom: 10px">
-          <el-pagination
-              background
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage"
-              :page-size="pageSize"
-              :total="total_page"
-              layout=" prev, pager, next">
-          </el-pagination>
-        </el-col>
-      </el-row>
+<!--      分页-->
+<!--      <el-row>-->
+<!--        <el-col class="center my-pagination" style="margin-bottom: 10px">-->
+<!--          <el-pagination-->
+<!--              background-->
+<!--              @size-change="handleSizeChange"-->
+<!--              @current-change="handleCurrentChange"-->
+<!--              :current-page="currentPage"-->
+<!--              :page-size="pageSize"-->
+<!--              :total="total_page"-->
+<!--              layout=" prev, pager, next">-->
+<!--          </el-pagination>-->
+<!--        </el-col>-->
+<!--      </el-row>-->
     </el-col>
   </el-row>
 
@@ -111,8 +113,14 @@ export default {
     stock_list()
     {
       return [{
-        "a": "000001",
-        "b": "平安银行"
+        "a": "600519",
+        "b": "贵州茅台"
+      },{
+        "a": "601398",
+        "b": "工商银行"
+      },{
+        "a": "601398",
+        "b": "中国平安"
       }]
     }
   },
@@ -151,7 +159,7 @@ export default {
         center: true, // 居中
         confirmButtonClass:'alert-btn'
       })
-    }
+    },
   },
   // 设置背景
   beforeCreate() {
@@ -193,12 +201,39 @@ export default {
 
 .my-table{
   width: 96%;
-  margin: 10px 2% 20px;
+  margin: 15px 2% 15px;
 }
 
-.my-table >>> .el-table__row:nth-child(odd) {
-  background-color: rgb(254,250,241); /* 自定义奇数行颜色 */
+/*修改element表格样式开始*/
+/*表头颜色*/
+::v-deep .el-table th{
+  background: rgba(245, 154, 36, 0.3);
+  padding: 6px 0 5px;
+  color: rgba(51, 51, 51, 0.93);
 }
+
+/*边框圆角*/
+::v-deep.el-table th:first-child{
+  border-top-left-radius:5px;
+  border-bottom-left-radius:5px;
+}
+
+::v-deep.el-table th:last-child{
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+}
+
+/*表格内容*/
+::v-deep .el-table td, .el-table th{
+  padding: 6px 0;
+  border: none;
+}
+
+/*调整斑马纹颜色*/
+::v-deep .el-table--striped .el-table__body tr.el-table__row--striped td{
+  background-color: rgb(248,248,248);
+}
+/*修改element表格样式结束*/
 
 .details{
   padding-left: 40%;
@@ -217,10 +252,6 @@ export default {
   color:#EF9C19;
 }
 
-/* 修改表头颜色 */
-::v-deep.el-table thead {
-  color: #000000;
-}
 </style>
 <!--一般style会使用scoped，进行一个作用域的限制。这个时候alert-btn给提示框设置class是不会生效的，-->
 <!--    因为跨作用域了。要用不带scope的style设置类-->

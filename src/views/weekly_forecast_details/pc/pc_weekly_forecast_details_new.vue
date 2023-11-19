@@ -412,9 +412,7 @@ export default {
       },
       activeName1: 'first', //用于切换行业el-tabs
       activeName2: 'first', //用于切换行业信息el-tabs
-      barRadio: '价格', //用于切换价格和合约图的图标
       chartOrTable: 'chart', //用于切换图和表的图标
-      priceOrContract: 'price',
       getId: '', //获取从前一界面传来的id
       factorsInfo: factorsJson, // 存储因子解释的json数据
       companyRankData: '', //整体情况表的数据
@@ -487,6 +485,7 @@ export default {
 
   },
   mounted() {
+    // 使用Node.js的require函数引入echarts块。在Node.js环境中，require用于引入模块，包括第三方模块和自己写的模块
     this.echarts = require('echarts')
     this.getCSRFTokenMethod();
     // 展示指标含义
@@ -559,6 +558,7 @@ export default {
       this.factorTitle = choosedFactor.factorCn
       this.factorContent = choosedFactor.content
     },
+
 
     // 提交数据
     submitTransactionApplyMethod() {
@@ -698,7 +698,7 @@ export default {
       return parseFloat(value).toFixed(n)
     },
 
-    //作图方法，还没设置数据
+    //作图方法
     //价格数据作图方法
     myEcharts1() {
       this.$nextTick(() => {
@@ -1642,7 +1642,7 @@ export default {
 
 /*覆盖element原有tab样式结束*/
 
-/*按钮*/
+/*element按钮*/
 .el-button.is-circle {
   padding: 5px;
 }
