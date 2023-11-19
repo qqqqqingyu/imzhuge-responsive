@@ -26,6 +26,9 @@
         <li>
           <router-link to="/competition_center" :class="{'navcurr': currentPage === 'competition'}">赛事中心</router-link>
         </li>
+        <li>
+          <router-link to="/help_center" :class="{'navcurr': currentPage === 'help'}">帮助中心</router-link>
+        </li>
 
         <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn"
                                    style=" visibility: visible;">登录</a>
@@ -107,6 +110,7 @@ a.navregbtn {
   border-radius: 20px;
   animation-name: pulse;
   font-weight: bold;
+  cursor: pointer;
 }
 
 a.navregbtn:hover {

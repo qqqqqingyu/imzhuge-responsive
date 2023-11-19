@@ -28,6 +28,9 @@
             <router-link to="/competition_center">赛事中心</router-link>
           </li>
           <li>
+            <router-link to="/help_center" >帮助中心</router-link>
+          </li>
+          <li>
 <!--            <router-link to="/personal_center" class="navcurr">个人中心</router-link>-->
             <el-popover
                 placement="top-start"

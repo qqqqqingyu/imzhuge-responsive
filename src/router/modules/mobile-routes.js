@@ -175,4 +175,13 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+    {
+        path: '/help_center',
+        name: 'help_center',
+        component: () => import('@/views/help_center/help_center.vue'),
+        meta: {
+            title: '帮助中心',
+            keepAlive: true, // 需要被缓存
+        }
+    },
 ]

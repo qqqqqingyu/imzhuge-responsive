@@ -21,56 +21,6 @@ body {
     padding-bottom: 3px;
 }
 
-.hdnav {
-    position: absolute;
-    right: 0;
-    z-index: 1;
-}
-
-.hdnav li {
-    float: left;
-    width: 140px;
-    height: 40px;
-    line-height: 40px;
-}
-
-.hdnav li a {
-    padding-bottom: 4px;
-    color: #fff;
-    font-size: 16px;
-    /*font-weight: bold;*/
-}
-
-.hdnav li a:hover {
-    border-bottom: solid 2px #fff;
-}
-
-.hdnav li a.navhome {
-    margin-left: 25px;
-}
-
-.hdnav li a.navcurr {
-    border-bottom: solid 2px #fff;
-}
-
-.hdnav li a.navregbtn {
-    color: rgb(239, 156, 25);
-    padding: 0;
-    background: #fff;
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    display: block;
-    border-radius: 20px;
-    animation-name: pulse;
-    font-weight: bold;
-}
-
-.hdnav li a.navregbtn:hover {
-    color: rgb(239, 156, 25);
-    border-bottom: none;
-}
 
 ::selection {
     background-color: #FFDBCE;
