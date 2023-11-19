@@ -137,6 +137,15 @@ export default [
                 }
             },
             {
+                path: '/stock_participate',
+                name: 'stock_participate',
+                component: () => import('@/views/stock_participate/stock_participate.vue'),
+                meta: {
+                    title: '股价涨跌预测-参与交易',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
+            {
                 path: '/help_center',
                 name: 'help_center',
                 component: () => import('@/views/help_center/help_center.vue'),

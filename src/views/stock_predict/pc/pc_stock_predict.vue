@@ -54,7 +54,6 @@
     </el-col>
   </el-row>
 
-
   <el-row>
     <el-col :span="20" :offset="2" class="my-card mb-20 ">
       <!-- 表头和内容都改为居中 -->
@@ -119,6 +118,7 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod();
+    this.open()
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -139,6 +139,19 @@ export default {
     handleCurrentChange(pageNum) {
       this.currentPage = pageNum;
     },
+    // 打开弹窗
+    open() {
+      this.$alert('您有<span style="color: #F59A23">5个关注者</span>，他们同您一样参与了此次比赛。' +
+          '您的<span style="color: #F59A23">交易信息</span>和<span style="color: #F59A23">预测结果</span>会被关注者' +
+          '<span style="color: #F59A23">付费查看</span>。如果您在某次预测任务中<span style="color: #F59A23">盈利</span>，' +
+          '每个关注者将向您支付<span style="color: #F59A23">1个</span>诸葛贝。假设您在3场预测任务中盈利，关注者将向您支付' +
+          '5×3=15个诸葛贝', {
+        confirmButtonText: '确定',
+        dangerouslyUseHTMLString: true, // html片段
+        center: true, // 居中
+        confirmButtonClass:'alert-btn'
+      })
+    }
   },
   // 设置背景
   beforeCreate() {
@@ -207,5 +220,14 @@ export default {
 /* 修改表头颜色 */
 ::v-deep.el-table thead {
   color: #000000;
+}
+</style>
+<!--一般style会使用scoped，进行一个作用域的限制。这个时候alert-btn给提示框设置class是不会生效的，-->
+<!--    因为跨作用域了。要用不带scope的style设置类-->
+<style>
+/*提示框的按钮*/
+.alert-btn{
+  background-color: #F0C27B !important;
+  border-color: #F0C27B !important;
 }
 </style>
