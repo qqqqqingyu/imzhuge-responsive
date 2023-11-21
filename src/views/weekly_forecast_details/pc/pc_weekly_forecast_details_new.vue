@@ -5,7 +5,7 @@
 
 <!--    面包屑导航栏开始-->
     <el-row style="margin-top: 80px">
-      <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
+      <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically" v-on:click="isOpen(index)">
         您当前的位置：
         <router-link to="/weekly_forecast">行业个股收益率预测</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="25">
