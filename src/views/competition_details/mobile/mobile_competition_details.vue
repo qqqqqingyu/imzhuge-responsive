@@ -137,7 +137,7 @@
       </el-col>
     </el-row>
 
-
+    <el-row style="margin-top: 50px;"></el-row>
   </div>
   <bottom-nav></bottom-nav>
 </template>

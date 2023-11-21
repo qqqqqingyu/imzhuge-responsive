@@ -26,9 +26,11 @@
             <a>C股票网页链接</a>
           </p>
           <p class="mt-20 mb-10">
-            <b>您有<span>5个关注者</span>，他们同您一样参与了此次比赛。您的<span>交易信息</span>和<span>预测结果</span>会被关注者<span>付费查看</span>。
-              如果您在某次预测任务中<span>盈利</span>，每个关注者将向您支付<span>1个</span>诸葛贝。假设您在3场预测任务中盈利，关注者将向您支付5×3=15个诸葛贝
-            </b>
+            <ul>
+              <li>您有<span>5个关注者</span>，他们同您一样参与了此次比赛。</li>
+              <li>您的<span>交易信息</span>和<span>预测结果</span>会被关注者<span>付费查看</span>。</li>
+              <li>如果您在某次预测任务中<span>盈利</span>，每个关注者将向您支付<span>1个</span>诸葛贝。假设您在3场预测任务中盈利，关注者将向您支付5×3=15个诸葛贝</li>
+            </ul>
           </p>
         </el-row>
       </div>
@@ -42,7 +44,7 @@
 
     <el-col :span="9" :offset="2" class="right">
       <!-- 搜索表单 -->
-      <el-form :inline="true" class="search-form">
+      <el-form :inline="true" >
         <el-form-item>
           <el-input v-model="search" size="mini" placeholder="请输入股票名称"
                     @keyup.enter="stock_list"></el-input>
@@ -126,7 +128,7 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod();
-    this.open()
+    this.open();
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -175,6 +177,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../assets/CSS/responsive_style.css';
+
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
@@ -199,6 +203,9 @@ export default {
   color: #F59A23;
 }
 
+.introduction ul{
+  margin-left: 100px;
+}
 .my-table{
   width: 96%;
   margin: 15px 2% 15px;
