@@ -116,7 +116,8 @@ export default {
       search:'',
       searchKeyword: "", // 搜索关键词
       compMapping: {
-        '国际经济与政策预测': 'comp1'
+        '国际经济与政策预测': 'comp1.svg',
+        '2023年底全球重要股指预测':'important_stock_predict.jpg'
       }
     };
   },
@@ -166,7 +167,7 @@ export default {
     getImagePath(img) {
       const compName = this.compMapping[img];
       try {
-        return require(`@/assets/images/${compName}.svg`);
+        return require(`@/assets/images/${compName}`);
       } catch (error) {
         return require('@/assets/images/none.svg');
       }

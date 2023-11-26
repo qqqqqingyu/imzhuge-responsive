@@ -90,7 +90,7 @@
             </el-col>
             <el-col class="center-vertically mb-10">
               <img src="@/assets/images/y_point.svg" class="hot-point" height="10" alt="point">
-              <h3>新手攻略</h3>
+              <h3>使用指南</h3>
             </el-col>
             <el-col style="padding-left: 30px;">
               <el-collapse v-model="activeNames" @change="handleChange">
@@ -426,7 +426,7 @@ export default {
         c_id:3,
         c_name:'赛事中心'
       }],
-      activeNames: ['1']
+      activeNames: []
     }
   },
   computed:{

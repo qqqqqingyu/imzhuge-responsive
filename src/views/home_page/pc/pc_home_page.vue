@@ -12,16 +12,15 @@
             <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页
             </router-link>
           </li>
-          <li>
-            <router-link to="/help_center">帮助中心</router-link>
-          </li>
           <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li>
           <li><router-link to="/competition_center">赛事中心</router-link></li>
           <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
           <!--        活动广场不在本页，需跳转-->
 <!--          <li><a v-on:click="toActivitySquare" id="nav_square"  class="hand">活动广场</a></li>-->
-
+          <li>
+            <router-link to="/help_center">帮助中心</router-link>
+          </li>
           <li v-if="!loginStatus"><a v-on:click="homelogin" class="navregbtn wow pulse animated hand"
                                           style=" visibility: visible;">登录</a>
           </li>

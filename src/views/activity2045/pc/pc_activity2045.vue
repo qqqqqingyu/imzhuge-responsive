@@ -96,8 +96,8 @@
           2045年12月31日前，人类是否能开发出像人一样有自我知觉和自我意识，具有学习、推理和解决问题的人工智能？
         </strong>
         <div class="info_date">
-          开始时间：2021-05-14 20:00
-          <br>结束时间：2021-12-31 23:55
+          开始时间：{{ currentYear }}-01-01 00:00
+          <br>结束时间：{{ currentYear }}-12-31 23:59
         </div>
         <div class="info_hits">
           <!--<span>75660</span>-->
@@ -133,6 +133,8 @@ export default {
   components: {TheNav},
   data(){
     return{
+      currentDate:'',
+      currentYear:'',
       button_index:0,
       new_text:[
         "您好呀，欢迎来到'嗨皮诸葛'预测平台，我是小诸葛，下面将由我来为您介绍如何进行合约交易",
@@ -141,6 +143,8 @@ export default {
     }
   },
   mounted() {
+    this.currentDate = new Date();
+    this.currentYear = this.currentDate.getFullYear();
     //进入页面后自动加载的新手引导
     //下一条
     this.button_index=0

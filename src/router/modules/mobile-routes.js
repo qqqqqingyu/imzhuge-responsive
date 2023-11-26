@@ -166,24 +166,24 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
-    {
-        path:'/stock_predict',
-        name:'stock_predict',
-        component: () => import('@/views/stock_predict/stock_predict.vue'),
-        meta: {
-            title: '股价涨跌预测',
-            keepAlive: true, // 需要被缓存
-        }
-    },
-    {
-        path: '/stock_participate',
-        name: 'stock_participate',
-        component: () => import('@/views/stock_participate/stock_participate.vue'),
-        meta: {
-            title: '股价涨跌预测-参与交易',
-            keepAlive: true, // 需要被缓存
-        }
-    },
+    // {
+    //     path:'/stock_predict',
+    //     name:'stock_predict',
+    //     component: () => import('@/views/stock_predict/stock_predict.vue'),
+    //     meta: {
+    //         title: '股价涨跌预测',
+    //         keepAlive: true, // 需要被缓存
+    //     }
+    // },
+    // {
+    //     path: '/stock_participate',
+    //     name: 'stock_participate',
+    //     component: () => import('@/views/stock_participate/stock_participate.vue'),
+    //     meta: {
+    //         title: '股价涨跌预测-参与交易',
+    //         keepAlive: true, // 需要被缓存
+    //     }
+    // },
     {
         path: '/help_center',
         name: 'help_center',
