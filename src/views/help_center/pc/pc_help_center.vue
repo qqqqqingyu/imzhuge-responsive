@@ -80,11 +80,121 @@
             </el-col>
             <el-col class="center-vertically mb-10">
               <img src="@/assets/images/y_point.svg" class="hot-point" height="10">
-              <h3>模拟教程</h3>
+              <h3>模拟交易</h3>
             </el-col>
-            <el-col class="center-vertically">
-              <img src="@/assets/images/y_point.svg" class="hot-point" height="10">
-              <h3>新手视频</h3>
+            <el-col style="margin-bottom: 10px;">
+              <router-link to="/activity2045" class="moni center-vertically">
+                进入模拟交易
+                <img src="@/assets/images/enter.svg" height="15" alt="进入" style="margin-left: 5px">
+              </router-link>
+            </el-col>
+            <el-col class="center-vertically mb-10">
+              <img src="@/assets/images/y_point.svg" class="hot-point" height="10" alt="point">
+              <h3>新手攻略</h3>
+            </el-col>
+            <el-col style="padding-left: 30px;">
+              <el-collapse v-model="activeNames" @change="handleChange">
+                <el-collapse-item name="1">
+                  <template #title>
+                    <span style="font-size: 16px">GET嗨皮预测市场</span>
+                  </template>
+                  <el-row style="font-size: 15px">
+                    <el-col class="center-vertically ques-title">
+                      <img src="@/assets/images/1.svg" class="my-icon" height="30" alt="point">
+                      什么是诸葛贝
+                    </el-col>
+                    <el-col :offset="1" :span="22">
+                      <p class="p-red">初始诸葛贝：</p>
+                      <p class="p-blue mb-5">点击导航栏处“个人中心”，可以查看初始诸葛贝数</p>
+                      <img src="@/assets/images/ques1-1.png" height="160" alt="初始诸葛贝">
+                    </el-col>
+                    <el-col :offset="1" :span="22" >
+                      <p class="p-red">诸葛贝用来做什么：</p>
+                      <p class="p-blue">诸葛贝是嗨皮诸葛平台独有的一种虚拟货币，主要是用来购买合约以及在有奖金的预测比赛中，用户根据净收益的诸葛贝数量来分配奖金。</p>
+                    </el-col>
+
+                    <el-col class="center-vertically ques-title">
+                      <img src="@/assets/images/2.svg" class="my-icon" height="30" alt="point">
+                      什么是嗨皮诸葛市场
+                    </el-col>
+                    <el-col :offset="1" :span="22" >
+                      <p class="p-red">嗨皮诸葛预测市场是什么：</p>
+                      <p class="p-blue mb-5">嗨皮诸葛预测市场”（简称为“诸葛市场”）中，参与人中交易与未来事件相关的合约。合约的收益与对应事件联系在一起：事件结果公布时，参与人持有的合约将清算兑现为虚拟币（诸葛贝）。</p>
+                      <img src="@/assets/images/ques1-2.png" width="600"  alt="初始诸葛贝">
+                    </el-col>
+                  </el-row>
+                </el-collapse-item>
+                <el-collapse-item name="2">
+                <template #title>
+                  <span style="font-size: 16px">GET赚取诸葛贝与奖金分配</span>
+                </template>
+                <el-row style="font-size: 15px">
+                  <el-col class="center-vertically ques-title">
+                    <img src="@/assets/images/1.svg" class="my-icon" height="30" alt="point">
+                    如何赚取诸葛贝
+                  </el-col>
+                  <el-col :offset="1" :span="22" >
+                    <p class="p-red">买卖合约盈利方式有三种：</p>
+                    <p class="p-blue">一：是买入自己认为会发生的结果所对应的合约；</p>
+                    <p class="p-blue">二：是及时卖出自己不看好的结果所对应的合约；</p>
+                    <p class="p-blue">三：是通过低价买入然后再高价卖 出赚取价格差。</p>
+                    <p class="p-red">举个例子：</p>
+                    <p class="p-blue">
+                      在交易阶段，您购买了<span class="p-y">10份</span>看涨合约，假设“看涨合约”发生了，这十份看涨合约会给您带来<span class="p-y">10个诸葛贝</span>收益
+                    </p>
+                    <p class="p-blue">假设您购买合约花费了<span class="p-y">5诸葛贝</span></p>
+                    <p class="p-blue">任务收益：10-5=<span class="p-y">5</span></p>
+                  </el-col>
+
+                  <el-col class="center-vertically ques-title mb-5">
+                    <img src="@/assets/images/2.svg" class="my-icon" height="30" alt="point">
+                    奖金分配规则
+                  </el-col>
+                  <el-col :offset="1" :span="22" >
+                    <img src="@/assets/images/ques2-1.png" width="600" alt="奖金分配">
+                    <p class="p-blue">活动结束后，会按照每个人在该活动中获得的诸葛贝数量进行奖金分配</p>
+                    <p class="p-blue">
+                      <span class="p-red">第一：</span>
+                      如果您在该活动中的净收益诸葛贝<span class="p-y">{{fh}}</span>（即交易亏损），则不参与分配
+                    </p>
+                    <p class="p-blue">
+                      <span class="p-red">第二：</span>
+                      计算现金奖金<span class="p-y">（活动现金奖励*您在该活动中获得的诸葛贝数量/所有参与者获得的诸葛贝总量）</span>。
+                      例如：一个预测活动现金奖励为100元人民币，如果您净收益50个诸葛贝，参与分配的人净收益总额是250个诸葛贝，因此您获得奖金：100*(50/250)=20。
+                    </p>
+                    <p class="p-red">tips:</p>
+                    <p class="p-blue">如果您要提现奖金，在对于页面上传微信收款码，发起提现申请，管理员会及时支付</p>
+                  </el-col>
+
+                </el-row>
+              </el-collapse-item>
+                <el-collapse-item name="3">
+                  <template #title>
+                    <span style="font-size: 16px">GET合约交易</span>
+                  </template>
+                  <el-row style="font-size: 15px">
+                    <el-col class="center-vertically ques-title">
+                      <img src="@/assets/images/1.svg" class="my-icon" height="30" alt="point">
+                      合约交易
+                    </el-col>
+                    <el-col :offset="1" :span="22" >
+                      <p class="p-red">什么是合约：</p>
+                      <p class="p-blue">合约指：预测事件可能发生的结果</p>
+                      <p class="p-blue">合约区别于期货合约：</p>
+                      <p class="p-blue">合约到期后按照“被预测事件”的发生与否进行结算。</p>
+                      <p class="p-red mb-5">合约交易：</p>
+                      <img src="@/assets/images/ques3-1.jpeg" width="600" alt="合约交易">
+                      <p class="p-blue">
+                        参与者预测明日的大盘指数会涨，今天就可以买入“上涨”合约。如果明日结果真是上涨，你到期持有的每份“上涨”合约价值兑现为一个诸葛贝
+                      </p>
+                      <p class="p-red">tips：</p>
+                      <p class="p-blue">
+                        您可以在交易时间内进行多次交易<br>
+                        您的账户余额要大于购买合约的成本才能完成交易哦~</p>
+                    </el-col>
+                  </el-row>
+                </el-collapse-item>
+              </el-collapse>
             </el-col>
           </el-row>
         </el-tab-pane>
@@ -234,6 +344,7 @@ export default {
   name: "pc_help_center",
   data(){
     return{
+      fh:'<=0',
       userName:'',
       helpTabs:'Introduction',
       openOrClose:[], // 判断是否打开问题下拉部分
@@ -314,7 +425,8 @@ export default {
       },{
         c_id:3,
         c_name:'赛事中心'
-      }]
+      }],
+      activeNames: ['1']
     }
   },
   computed:{
@@ -333,6 +445,9 @@ export default {
     window.res_close = this.res_close;
   },
   methods:{
+    handleChange(val) {
+      console.log(val);
+    },
     //登录
     homelogin() {
       window.location.href = config.serverUrl+'/login?from_server=new'
@@ -403,7 +518,14 @@ export default {
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('resize', this.handleResize)
-  }
+    document.body.removeAttribute('style')
+  },
+  // 设置背景
+  beforeCreate() {
+    this.$nextTick(() => {
+      document.body.setAttribute('style', 'background:none');
+    });
+  },
 }
 </script>
 
@@ -514,5 +636,31 @@ a.navregbtn:hover {
 .ques_answer{
   padding: 10px 5%;
   line-height: 25px;
+}
+
+.moni{
+  color: #EF9C19;
+  margin-left: 30px;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.p-red{
+  /*color: rgb(255,87,87);*/
+  color: #282828;
+}
+
+.p-blue{
+  /*color: rgb(77, 170, 236);*/
+  color: #777777;
+}
+
+.p-y{
+  color: #f8a61f;
+}
+
+.ques-title{
+  font-size: 16px;
+  color: #EF9C19;
 }
 </style>

@@ -529,7 +529,7 @@ a.pjbtn:hover {
     background: #fff;
     padding: 20px 0;
     border-radius: 7px;
-    margin: 10px;
+    margin: 20px 0 20px;
 }
 
 .trade_t {
@@ -606,8 +606,7 @@ a.pjbtn:hover {
 
 .zhu_money b {
     /*color: #F9474F;*/
-    color: #0275ff;
-    font-size: 17px;
+    color: #EF9C19;
 }
 
 .zhu_money span {
@@ -644,9 +643,17 @@ a.pjbtn:hover {
 
 .buy_type_r li.buy_type_on {
     /*background: #F9474F;*/
-    background: #0275ff;
+    background: #F7C578;
     color: #fff;
     /*margin-bottom: 10px;*/
+}
+
+.buy_type_r .buy_type_on {
+    /*background: #F9474F;*/
+    background: #F7C578;
+    color: #fff;
+    /*margin-bottom: 10px;*/
+    border: #F7C578;
 }
 
 .trade_price {
@@ -656,7 +663,7 @@ a.pjbtn:hover {
 .trade_price b {
     /*color: #F9474F;*/
     /*color: #3cc8f0;*/
-    color: #0275ff;
+    color: #EF9C19;
 }
 
 .trade_put {
@@ -683,8 +690,8 @@ a.pjbtn:hover {
     border-radius: 15px;
     padding: 2.5px 10px;
     width: 50px;
-    height: 22px;
-    line-height: 22px;
+    margin-top: 5px;
+    line-height: 20px;
 }
 
 #slider_bar {
@@ -824,17 +831,19 @@ a.win_act_edit_btn {
     border-radius: 51px;
     line-height: 30px;
     padding: 6px 0;
+    cursor: pointer;
 }
 
 
 a.win_act_edit_btn {
     box-shadow: none;
     background: #eee;
-    color: #555
+    color: #555;
+    cursor: pointer;
 }
 
 a.win_act_buy_btn:hover, a.win_act_edit_btn:hover {
-    background: #ff0000;
+    background: #F7C578;
     color: #fff;
 }
 

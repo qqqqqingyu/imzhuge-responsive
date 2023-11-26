@@ -154,6 +154,33 @@ export default [
                     keepAlive: true, // 需要被缓存
                 }
             },
+            {
+                path: '/activity2045',
+                name: 'activity2045',
+                component: () => import('@/views/activity2045/activity2045.vue'),
+                meta: {
+                    title: '模拟交易',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
+            {
+                path: '/transaction',
+                name: 'transaction',
+                component: () => import('@/views/transaction/transaction.vue'),
+                meta: {
+                    title: '模拟交易',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
+            {
+                path: '/transaction_success',
+                name: 'transaction_success',
+                component: () => import('@/views/transaction/transaction_success.vue'),
+                meta: {
+                    title: '模拟交易',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
         ]
     }
 ]

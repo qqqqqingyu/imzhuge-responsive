@@ -19,8 +19,8 @@ body {
     font-size: 14px;
     color: #444;
     word-break: break-all;
-    min-width: 350px;
-    max-width: 750px
+    /*min-width: 350px;*/
+    /*max-width: 750px*/
 }
 
 img {
@@ -95,13 +95,13 @@ button {
     display: none
 }
 
-@media screen and (min-width: 750px) {
-    body {
-        width: 750px !important;
-        margin-right: auto;
-        margin-left: auto
-    }
-}
+/*@media screen and (min-width: 750px) {*/
+/*    body {*/
+/*        width: 750px !important;*/
+/*        margin-right: auto;*/
+/*        margin-left: auto*/
+/*    }*/
+/*}*/
 
 input[type="submit"], input[type="reset"], input[type="button"], input[type="text"], input[type="password"], button {
     -webkit-appearance: none
