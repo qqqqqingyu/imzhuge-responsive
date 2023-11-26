@@ -181,6 +181,15 @@ export default [
                     keepAlive: true, // 需要被缓存
                 }
             },
+            {
+                path: '/result',
+                name: 'result',
+                component: () => import('@/views/result/result.vue'),
+                meta: {
+                    title: '模拟交易结果',
+                    keepAlive: true, // 需要被缓存
+                }
+            },
         ]
     }
 ]

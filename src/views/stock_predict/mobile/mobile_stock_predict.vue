@@ -49,12 +49,12 @@
               <a>B股票网页链接、</a>
               <a>C股票网页链接</a>
             </p>
-            <p class="mt-20 mb-10">
-              <ul>
-                <li>您有<span>5个关注者</span>，他们同您一样参与了此次比赛。</li>
-                <li>您的<span>交易信息</span>和<span>预测结果</span>会被关注者<span>付费查看</span>。</li>
-                <li>如果您在某次预测任务中<span>盈利</span>，每个关注者将向您支付<span>1个</span>诸葛贝。假设您在3场预测任务中盈利，关注者将向您支付5×3=15个诸葛贝</li>
-            </ul>
+            <p class="mt-20 mb-10" style="margin-left: 15px;">
+                关注者数量：平台上有<span>5个人</span>关注你。<br>
+                关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。<br>
+                关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。<br>
+                我目前从关注者获得收益：10个诸葛贝
+                  <img src="@/assets/images/stock_predict.png" height="15">
             </p>
           </el-row>
         </div>
@@ -237,7 +237,7 @@ export default {
 }
 
 .introduction ul{
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .my-table{

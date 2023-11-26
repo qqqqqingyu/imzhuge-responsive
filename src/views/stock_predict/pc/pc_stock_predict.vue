@@ -27,9 +27,12 @@
           </p>
           <p class="mt-20 mb-10">
             <ul>
-              <li>您有<span>5个关注者</span>，他们同您一样参与了此次比赛。</li>
-              <li>您的<span>交易信息</span>和<span>预测结果</span>会被关注者<span>付费查看</span>。</li>
-              <li>如果您在某次预测任务中<span>盈利</span>，每个关注者将向您支付<span>1个</span>诸葛贝。假设您在3场预测任务中盈利，关注者将向您支付5×3=15个诸葛贝</li>
+              <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
+              <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
+              <li>关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。</li>
+              <li>我目前从关注者获得收益：10个诸葛贝
+                <img style="margin-right: 5px;" src="@/assets/images/stock_predict.png" height="25">
+              </li>
             </ul>
           </p>
         </el-row>
@@ -151,14 +154,16 @@ export default {
     },
     // 打开弹窗
     open() {
-      this.$alert('您有<span style="color: #F59A23">5个关注者</span>，他们同您一样参与了此次比赛。' +
-          '您的<span style="color: #F59A23">交易信息</span>和<span style="color: #F59A23">预测结果</span>会被关注者' +
-          '<span style="color: #F59A23">付费查看</span>。如果您在某次预测任务中<span style="color: #F59A23">盈利</span>，' +
-          '每个关注者将向您支付<span style="color: #F59A23">1个</span>诸葛贝。假设您在3场预测任务中盈利，关注者将向您支付' +
-          '5×3=15个诸葛贝', {
+      this.$alert(`
+        关注者数量：平台上有<span>5个人</span>关注你。<br>
+        关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。<br>
+        关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。<br>
+        我目前从关注者获得收益：10个诸葛贝<img style="margin-right: 5px;" src="@/assets/images/stock_predict.png" height="15">
+      <ul>
+      `, {
         confirmButtonText: '确定',
         dangerouslyUseHTMLString: true, // html片段
-        center: true, // 居中
+        left: true, // 居中
         confirmButtonClass:'alert-btn'
       })
     },
@@ -259,6 +264,11 @@ export default {
   color:#EF9C19;
 }
 
+li {
+  list-style-type: disc;
+  display: flex;
+  align-items: center; 
+}
 </style>
 <!--一般style会使用scoped，进行一个作用域的限制。这个时候alert-btn给提示框设置class是不会生效的，-->
 <!--    因为跨作用域了。要用不带scope的style设置类-->
