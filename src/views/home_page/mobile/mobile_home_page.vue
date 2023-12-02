@@ -6,11 +6,15 @@
       <el-carousel-item>
         <!--        <img ref="bannerHeight" :src="item.src" style="width:100%" @load="imgLoad" />-->
         <el-row class="head-part">
-          <el-col :offset="1" :span="23">
+          <el-col :offset="1" :span="22">
             <el-row>
               <a href="https://www.imzhuge.com/" title="嗨皮诸葛">
                 <img src="@/assets/images/logo.png" alt="嗨皮诸葛" style="width:60% "/>
               </a>
+              <router-link to="/help_center" class="center-vertically" style="margin-left: auto;">
+                <img src="../../../assets/images/helpcenter2.svg" alt="帮助中心" height="14" style="padding: 1px;">
+                <span style="color: #FFFFFF;">帮助中心</span>
+              </router-link>
             </el-row>
             <el-row style="margin-top: 20px">
               <el-col :span="10">
@@ -46,11 +50,15 @@
       <el-carousel-item>
         <!--        <img ref="bannerHeight" :src="item.src" style="width:100%" @load="imgLoad" />-->
         <el-row class="head-part">
-          <el-col :offset="1" :span="23">
+          <el-col :offset="1" :span="22">
             <el-row>
               <a href="https://www.imzhuge.com/" title="嗨皮诸葛">
                 <img src="@/assets/images/logo.png" alt="嗨皮诸葛" style="width:60% "/>
               </a>
+              <router-link to="/help_center" class="center-vertically" style="margin-left: auto;">
+                <img src="../../../assets/images/helpcenter2.svg" alt="帮助中心" height="14" style="padding: 1px;">
+                <span style="color: #FFFFFF;">帮助中心</span>
+              </router-link>
             </el-row>
             <el-row>
               <el-col :span="14" :offset="1" class="introduction">

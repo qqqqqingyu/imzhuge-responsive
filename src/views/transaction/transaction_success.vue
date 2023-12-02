@@ -1,15 +1,20 @@
 <template>
-  <!--    导航栏-->
-  <TheNav :current-page="'help'"></TheNav>
+  <mobile_transaction v-if="isMobile"></mobile_transaction>
+  <pc_transaction v-else>
+    <!--    导航栏-->
+    <TheNav :current-page="'help'"></TheNav>
+    <el-row style="padding-top: 80px">
+      <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
+        您当前的位置：
+        <router-link to="/help_center">帮助中心</router-link>
+        <img src="@/assets/images/right.svg" alt="下级" height="25">
+        <span class="cur-de">模拟交易</span>
+      </el-col>
+    </el-row>
+  </pc_transaction>
+  
 
-  <el-row style="padding-top: 80px">
-    <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
-      您当前的位置：
-      <router-link to="/help_center">帮助中心</router-link>
-      <img src="@/assets/images/right.svg" alt="下级" height="25">
-      <span class="cur-de">模拟交易</span>
-    </el-col>
-  </el-row>
+  
   <el-row class="center">
     <el-col style="margin-top: 120px;margin-bottom: 15px">
       <img src="@/assets/images/transaction_success.svg" height="170" alt="成功">
@@ -26,12 +31,15 @@
 
 <script>
 import TheNav from "../../components/TheNav";
+import { isMobileTerminal }  from '@/utils/flexible';
+
 export default {
   name: "transaction_success",
   components: {TheNav},
   data(){
     return{
-      choice:this.$route.query.user_choice
+      choice:this.$route.query.user_choice,
+      isMobile:isMobileTerminal.value
     }
   }
 }
