@@ -2,7 +2,7 @@
   <div>
     <el-row style="margin-top: 20px">
       <el-col :span="1" :offset="1">
-        <router-link to="/">
+        <router-link to="/activity2045">
           <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
         </router-link>
       </el-col>

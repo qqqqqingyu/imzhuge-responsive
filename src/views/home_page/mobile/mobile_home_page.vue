@@ -29,7 +29,7 @@
                 <!--            这里写的不太好-->
                 <el-row style="margin-top: 10px;">
                   <el-col :span="19">
-                    <el-button round class="to-activitySquare" size="small" v-on:click="toActivitySquare">
+                    <!-- <el-button round class="to-activitySquare" size="small" v-on:click="toActivitySquare">
                       <el-col :span="16" :offset="2">
                         <el-row class="to-activitySquare-contain">体验预测市场</el-row>
                         <el-row class="to-activitySquare-contain" style="font-size: 12px;margin-top: 5px">（原活动广场）
@@ -38,7 +38,7 @@
                       <el-col :span="4" :offset="2">
                         <img src="@/assets/images/two-right-arrow.svg" alt="前往原活动广场" style="width: 150%;transform: translateY(6px)"/>
                       </el-col>
-                    </el-button>
+                    </el-button> -->
                   </el-col>
 
                 </el-row>
