@@ -5,7 +5,7 @@
  * **/
 import request from '@/utils/request'
 // 正式服
-import {serverUrl} from "../config";
+// import {serverUrl} from "../config";
 
 /**
  * 3.1 获取行业列表
@@ -16,7 +16,7 @@ export function getIndustryList() {
         // 测试服
         // url:'/api/month_predict/industry_list'
         // 正式服
-        url:serverUrl+'/api/month_predict/industry_list'
+        url:'/api/month_predict/industry_list'
     })
 }
 
@@ -29,7 +29,7 @@ export function getIndustryDetail(industryId) {
         // 测试服
         // url:'/api/month_predict/industry_detail/' + industryId
         // 正式服
-        url:serverUrl+'/api/month_predict/industry_detail/' + industryId
+        url:'/api/month_predict/industry_detail/' + industryId
     })
 }
 
@@ -41,7 +41,7 @@ export function submitTransactionApply(industryId, data) {
         // 测试服
         // url:'/api/month_predict/industry_detail/' + industryId,
         // 正式服
-        url:serverUrl+'/api/month_predict/industry_detail/' + industryId,
+        url:'/api/month_predict/industry_detail/' + industryId,
         method:'post',
         data:data
     })

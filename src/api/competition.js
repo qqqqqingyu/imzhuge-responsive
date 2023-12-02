@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import {serverUrl} from "../config";
+// import {serverUrl} from "../config";
 
 /**
  * 赛事中心
@@ -9,7 +9,7 @@ export function getEventList() {
         // 测试服
         // url:'/api/event_center/event_list',
         // 正式服
-        url:serverUrl+'/api/event_center/event_list',
+        url:'/api/event_center/event_list',
         method:'get'
     })
 }
@@ -23,7 +23,7 @@ export function getEvent(eventId) {
         // 测试服
         // url:'/api/event_center/' + eventId
         // 正式服
-        url:serverUrl+'/api/event_center/' + eventId
+        url:'/api/event_center/' + eventId
     })
 }
 
@@ -36,7 +36,7 @@ export function getCompetitionDetail(eventId,activityId) {
         // 测试服
         // url:'/api/event_center/event_detail/' + eventId +'/' + activityId
         // 正式服
-        url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId
+        url:'/api/event_center/event_detail/' + eventId +'/' + activityId
     })
 }
 
@@ -49,7 +49,7 @@ export function postCompetitionTransaction(eventId,activityId,data) {
         // 测试服
         // url:'/api/event_center/event_detail/' + eventId +'/' + activityId,
         // 正式服
-        url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId,
+        url:'/api/event_center/event_detail/' + eventId +'/' + activityId,
         data:data
     })
 }
@@ -63,7 +63,7 @@ export function getMyEvent() {
         // 测试服
         // url:'/api/selfcenter/my_event'
         // 正式服
-        url:serverUrl+'/api/selfcenter/my_event'
+        url:'/api/selfcenter/my_event'
     })
 }
 
@@ -76,6 +76,6 @@ export function getInvitedEvent() {
         // 测试服
         // url:'/api/selfcenter/my_invited_event'
         // 正式服
-        url:serverUrl+'/api/selfcenter/my_invited_event'
+        url:'/api/selfcenter/my_invited_event'
     })
 }

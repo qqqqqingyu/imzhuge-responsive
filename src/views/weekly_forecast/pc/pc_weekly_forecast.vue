@@ -237,11 +237,7 @@ export default {
   align-items: center;
   vertical-align: middle;
 }
-.box-title {
-  margin-top: 20px;
-  font-size: 30px;
-  font-weight: bolder;
-}
+
 /*行业列表部分*/
 .industry{
   margin-top: 20px;

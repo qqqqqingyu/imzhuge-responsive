@@ -7,6 +7,7 @@
 import { isMobileTerminal }  from '@/utils/flexible'
 import mobile_stock_predict from "./mobile/mobile_stock_predict";
 import pc_stock_predict from "./pc/pc_stock_predict";
+import {useStore} from "vuex";
 // import {useStore} from "vuex";
 
 export default {
@@ -14,7 +15,8 @@ export default {
   components: {pc_stock_predict, mobile_stock_predict},
   data(){
     return{
-      isMobile:isMobileTerminal.value
+      isMobile:isMobileTerminal.value,
+      eventId:this.$route.query.eventId
     }
   },
   methods: {
@@ -23,7 +25,9 @@ export default {
     },
   },
   mounted() {
-    // const store = useStore()
+    const store = useStore()
+    // 触发数据获取动作
+    store.dispatch('eventList/useEventData',this.eventId)
   }
 }
 </script>

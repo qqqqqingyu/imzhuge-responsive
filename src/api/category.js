@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 // 正式服
-import {serverUrl} from "../config";
+// import {serverUrl} from "../config";
 
 /**
  * 获取分类列表

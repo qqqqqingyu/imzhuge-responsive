@@ -32,9 +32,9 @@
           AlphaGo与围棋世界冠军李世石的对弈吸引了全世界的目光，也让人工智能再度成为业界讨论的热点话题。人工智能自1943年诞生以来，在几十年的发展历程中经历了多次潮起潮落，人们却从未停止过对人工智能的研究与探索。当下，摩尔定律驱动计算力不断增长，云计算、大数据、移动互联网这些趋势在影响着人类社会的生活与生产方式，也成为人工智能的催化剂，促使着人工智能不断的演进。
           <br>相关新闻链接一：
           <a href="https://www.sohu.com/a/79839436_118766" class="url-a">
-    <span class="url-icon">
-        <img src="@/assets/images/url_img.png" style="height:12px">
-    </span>
+            <span class="url-icon">
+                <img src="@/assets/images/url_img.png" style="height:12px">
+            </span>
             <span class="url-text">网页链接</span>
             <!--        </a>；相关新闻链接二：-->
             <!--        <a href="https://new.qq.com/rain/a/20210513A03I4O00" class="url-a">-->
@@ -49,23 +49,23 @@
           验证资料：<a href='https://news.qq.com/' target='_blank'>腾讯新闻
         </a>：
           <a href="https://news.qq.com/" class="url-a">
-    <span class="url-icon">
-        <img src="@/assets/images/url_img.png" style="height:12px">
-    </span>
+            <span class="url-icon">
+                <img src="@/assets/images/url_img.png" style="height:12px">
+            </span>
             <span class="url-text">网页链接</span>
           </a> ；<a href='https://news.163.com/' target='_blank'>网易新闻
         </a>：
           <a href="https://news.163.com/" class="url-a">
-    <span class="url-icon">
-        <img src="@/assets/images/url_img.png" style="height:12px">
-    </span>
+            <span class="url-icon">
+                <img src="@/assets/images/url_img.png" style="height:12px">
+            </span>
             <span class="url-text">网页链接</span>
           </a>；<a href='http://news.baidu.com/' target='_blank'>百度新闻
         </a>：
           <a href="https://news.baidu.com/" class="url-a">
-    <span class="url-icon">
-        <img src="@/assets/images/url_img.png" style="height:12px">
-    </span>
+            <span class="url-icon">
+                <img src="@/assets/images/url_img.png" style="height:12px">
+            </span>
             <span class="url-text">网页链接</span>
           </a>。
         </div>
