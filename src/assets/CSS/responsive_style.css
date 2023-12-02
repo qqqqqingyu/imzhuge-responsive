@@ -205,7 +205,7 @@
 
 /*大标题*/
 .box-title {
-    font-size: 30px;
+    font-size: 27px;
     font-weight: bolder;
     margin-top: 20px;
 }
@@ -349,3 +349,8 @@ a {
     margin-bottom: 5px;
 }
 /*pc端导航栏部分类结束*/
+
+/*付费型信息分享页面，作为变量的html标签的css，写在全局css中才有效*/
+.alert-text span{
+    color: #F6A030;
+}

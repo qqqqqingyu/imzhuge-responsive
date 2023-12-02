@@ -19,9 +19,9 @@
       </el-col>
     </el-row>
 
-    <el-row style="margin-bottom: 10px;">
+    <el-row>
       <el-col :span="22" :offset="1">
-        <el-row class="chart-and-table pc-card">
+        <el-row class="chart-and-table pc-card" style="margin-bottom: 20px">
   <!--                图标切换圆形按钮-->
               <el-col :span="23" v-if="chartOrTable=='table'" class="right">
                 <el-button type="warning" icon="el-icon-s-data" circle @click="toChart"
@@ -75,6 +75,13 @@
                 </el-row>
               </el-col>
             </el-row>
+      </el-col>
+    </el-row>
+
+    <!--  介绍文字-->
+    <el-row>
+      <el-col :span="22" :offset="1" style="background: #FFFFFF;border-radius: 10px;padding: 10px 7% ">
+        <div v-html="introText"></div>
       </el-col>
     </el-row>
 
@@ -186,6 +193,11 @@ export default {
   data(){
     return{
       echarts:'',
+      group:'experiment',
+      introText:'', //分组介绍的文字
+      informationInt:0, // 对应接口的information，是对应介绍文字中需要变换的数字
+      coinUrl:require('@/assets/images/stock_predict.png'),
+      goodUrl:require('@/assets/images/good.svg'),
       company:'',
       chartOrTable: 'chart', //用于切换图和表的图标
       getId: '', //获取从前一界面传来的id
@@ -205,15 +217,103 @@ export default {
       barContractArr: [],//直方图合约数据
     }
   },
+  computed:{
+    stock_event() {
+      if((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')){
+        return this.$store.getters.eventData;
+      }
+      return []
+    },
+  },
   mounted() {
     this.echarts = require('echarts');
     this.company = this.$route.query.eventId;
     window.scrollTo(0, 0);
+    this.changeIntroText();
   },
   methods:{
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
+    },
+    // 更改介绍文字
+    changeIntroText(){
+      // 获取数据后，赋值获取的组别。没获取到接口数据就显示默认的。
+      if(this.stock_event.length !== 0){
+        this.experiment = this.stock_event.group_info
+        this.informationInt = this.stock_event.information
+      }
+      else {
+        console.log('未获取对应组别。获取内容：',JSON.stringify(this.stock_event))
+      }
+      // 实验组
+      if(this.group === 'experiment'){
+        this.introText = `
+        <ul class="alert-text left">
+            <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
+            <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
+            <li>关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。</li>
+            <li>
+              <div class="center-vertically">
+                你目前从关注者获得收益：`+this.informationInt+`个诸葛贝
+                <img style="margin-left: 2px;" src=`+this.coinUrl+` height="18" alt="诸葛贝">
+              </div>
+            </li>
+        </ul>
+      `
+      }
+      // 控制组1
+      else if(this.group === 'control1')
+        this.introText = `
+          <ul class="alert-text left">
+              <li>系统奖励依据：系统将根据你的交易信息和预测结果决定是否奖励你诸葛贝。</li>
+              <li>系统奖励规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，系统将奖励你<span>5个诸葛贝</span>。否则，不奖励诸葛贝。</li>
+              <li>
+                <div class="center-vertically">
+                  你目前从系统获得奖励：`+this.informationInt+`个诸葛贝
+                  <img style="margin-left: 2px;" src=`+this.coinUrl+` height="18" alt="诸葛贝">
+                </div>
+              </li>
+          </ul>
+        `
+      // 控制组2
+      else if(this.group === 'control2')
+        this.introText = `
+          <ul class="alert-text left">
+              <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
+              <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
+              <li>点赞规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者最多点赞<span>1次</span>。否则，不会点赞。</li>
+              <li>
+                <div class="center-vertically">
+                  你目前获得的点赞数：`+this.informationInt+`次
+                  <img style="margin-left: 2px;" src=`+this.goodUrl+` height="18" alt="诸葛贝">
+                </div>
+              </li>
+          </ul>
+        `
+      // 控制组3
+      else if(this.group === 'control3')
+        this.introText = `
+          <ul class="alert-text left">
+              <li>系统奖励依据：系统对<span>交易活跃</span>的用户奖励诸葛贝。</li>
+              <li>系统奖励规则：如果你在比赛中参与了<span>至少5天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>50个诸葛贝</span>。</li>
+              <li>奖励发放时间：比赛结束时发放诸葛贝奖励</li>
+              <li>你累计参与的天数`+this.informationInt+`天</li>
+          </ul>
+        `
+      // 控制组4
+      else if(this.group === 'control4')
+        this.introText = `
+          <ul class="alert-text left">
+              <li>合约数量：你可以交易2个合约。<span>合约“涨”</span>代表股票收盘价上涨，<span>合约“跌”</span>代表股票收盘价下跌。</li>
+              <li>结算时间：股价涨跌的真实结果会在交易结束当天的下午17点揭晓，同时结算合约收益。</li>
+              <li>结算规则：对于真实发生的合约，每个合约有<span>1个诸葛贝</span>收益；反之，没有收益。</li>
+          </ul>
+        `
+      else {
+        this.introText = ''
+        console.log('当前组名为'+this.group+'，无匹配介绍文字')
+      }
     },
     //切换图表
     toChart() {
