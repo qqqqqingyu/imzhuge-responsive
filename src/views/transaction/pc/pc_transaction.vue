@@ -171,7 +171,6 @@ export default {
     }
   },
   mounted() {
-    //进入页面后自动加载的新手引导
     //下一条
     this.button_index=0
   },
@@ -291,6 +290,9 @@ export default {
   //实例销毁之前钩子，移除body标签的属性style
   beforeUnmount() {
     document.body.removeAttribute('style');
+    this.button_index=0;
+    document.getElementById("guide_bg").style.display = "block";
+    document.getElementById("guide_win").style.display = "block";
   },
 }
 </script>

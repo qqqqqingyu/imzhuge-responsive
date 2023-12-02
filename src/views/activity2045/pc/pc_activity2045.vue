@@ -194,6 +194,7 @@ export default {
   //实例销毁之前钩子，移除body标签的属性style
   beforeUnmount() {
     document.body.removeAttribute('style')
+    this.button_index=0;
   },
 };
 
