@@ -14,8 +14,8 @@
     </el-row>
 
     <el-row>
-      <el-col :span="22" :offset="1" class="my-tab">
-        <el-tabs v-model="helpTabs">
+      <el-col :span="22" :offset="1" class="mb-card my-tab">
+        <el-tabs v-model="helpTabs" class="details">
           <el-tab-pane label="新手攻略" name="Introduction">
             <el-row>
               <el-col class="mb-2">
@@ -532,5 +532,10 @@ export default {
 .title_detail {
   margin-left: 5px;
   font-size: 14px;
+}
+
+.details {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>

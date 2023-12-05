@@ -53,7 +53,7 @@
             <img src="@/assets/images/my_competition.svg" height="22" style="margin-top: 2px" alt="比赛"/>
           </el-col>
           <el-col :offset="1" :span="13">
-            比赛
+            公开比赛
           </el-col>
           <el-col :span="6" class="right">
             <router-link to="/mobile_competition" class="center-vertically">

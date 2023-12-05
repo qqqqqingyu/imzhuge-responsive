@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span="20">
         <el-row class="mobile-title mb-10">
-          比赛
+          公开比赛
         </el-row>
       </el-col>
     </el-row>

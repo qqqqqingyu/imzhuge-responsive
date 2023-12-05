@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :offset="1" :span="20" class="mb-20">
-      <h2 class="personal-title">比赛</h2>
+      <h2 class="personal-title">公开比赛</h2>
     </el-col>
     <el-col :offset="1" :span="23" style="margin-bottom: 15px">
       <el-radio-group v-model="screen">

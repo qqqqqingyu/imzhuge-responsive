@@ -24,6 +24,19 @@
       </el-col>
     </el-row>
 
+    <el-row style="margin-top: 10px; margin-bottom: 10px;" v-if="compDetailDesc">
+      <el-col :span="20" :offset="2">
+        <div class="introduction">
+          <el-row>
+            <p>{{ compDetailDesc }}</p>
+          </el-row>
+          <el-row style="margin-top: 10px">
+              <p></p>
+          </el-row>
+        </div>
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="20" :offset="2" class="my-tab">
         <el-tabs @tab-click="handleClick" v-model="activeName1">
@@ -413,6 +426,7 @@ export default {
         background: "rgba(255, 255, 255, 0)",
         color: "rgba(255, 255, 255, 1)",
       },
+      compDetailDesc: '',
       activeName1: 'first', //用于切换行业el-tabs
       activeName2: 'first', //用于切换行业信息el-tabs
       barRadio: '价格', //用于切换价格和合约图的图标
@@ -643,6 +657,8 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
+
+        this.compDetailDesc = compDetailData.desc
       })
       .catch((res) => {
         console.log(res);
@@ -1550,6 +1566,16 @@ export default {
 .industry-box {
   display: flex;
   align-items: flex-end;
+}
+
+.introduction{
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  padding: 20px 25px 10px;
+  /*line-height: 25px !important;*/
+  color:#555555;
+  font-size: 17px;
+  margin-bottom: 0px;
 }
 
 .industry-month {

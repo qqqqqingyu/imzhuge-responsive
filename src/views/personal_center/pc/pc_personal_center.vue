@@ -101,7 +101,7 @@
 
           <router-link to="/pc_competition" v-if="leftOpen">
             <el-col :span="16" :offset="3" class="center-vertically left-option">
-              <span id="link-competition" class="child-title">比赛</span>
+              <span id="link-competition" class="child-title">公开比赛</span>
             </el-col>
           </router-link>
 

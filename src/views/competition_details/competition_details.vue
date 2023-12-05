@@ -24,11 +24,11 @@ export default {
       isMobileTerminal();
     },
   },
-  mounted() {
-    const store = useStore()
-    // 触发数据获取动作
-    store.dispatch('eventList/useEventData',this.eventId)
-  },
+  // mounted() {
+  //   const store = useStore()
+  //   // 触发数据获取动作
+  //   store.dispatch('eventList/useEventData',this.eventId)
+  // },
 }
 </script>
 
