@@ -105,7 +105,7 @@
           <el-table-column prop="stock" label="股票名称"></el-table-column>
           <el-table-column>
             <template v-slot="scope" >
-              <router-link :to="{path:'/stock_participate',query:{eventId:scope.row.b}}" class="details center-vertically">
+              <router-link :to="{path:'/stock_transaction',query:{eventId:scope.row.b}}" class="details center-vertically">
                 <span class="my-icon">去预测</span>
                 <img src="@/assets/images/enter.svg" height="6" alt="进入">
               </router-link>

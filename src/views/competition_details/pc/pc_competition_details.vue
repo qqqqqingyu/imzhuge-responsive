@@ -14,15 +14,55 @@
 
     <el-row style="margin-top: 20px">
       <el-col :offset="2" :span="9">
-        <p class="box-title">比赛简介</p>
+        <span class="box-title hand" :class="{'box-gray-title': currentPart === 2}" @click="changePart(1)">比赛简介</span>
+        <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"
+              @click="changePart(2)">个人成绩</span>
       </el-col>
     </el-row>
 
     <el-row style="margin-top: 10px; margin-bottom: 10px;">
       <el-col :span="20" :offset="2">
         <div class="introduction">
-          <el-row>
+          <el-row v-if="currentPart===1">
             <p>{{ competition_desc }}</p>
+          </el-row>
+          <el-row v-else>
+            <el-col class="show-grade">
+              <el-row class="center">
+                <el-col :span="8">
+                  <h2>{{ competition_performance.ranking }}</h2>
+                  <span>排名</span>
+                </el-col>
+                <el-col :span="8">
+                  <h2>{{ competition_performance.cash }}</h2>
+                  <span>比赛净收益</span>
+                </el-col>
+                <el-col :span="8">
+                  <h2>{{ competition_performance.net_zhuge }}</h2>
+                  <span>奖金</span>
+                </el-col>
+              </el-row>
+            </el-col>
+            <el-col class="my-tab">
+              <el-tabs v-model="myTabs">
+                <el-tab-pane label="&emsp;收益明细&emsp;" name="detail">
+                </el-tab-pane>
+              </el-tabs>
+            </el-col>
+            <el-col>
+              <el-table :data="competition_performance.activity_rank" class="my-grade-table" :header-cell-style="{'text-align':'center'}"
+                        :cell-style="{'text-align':'center'}">
+                <el-table-column prop="name" label="活动"></el-table-column>
+<!--                <el-table-column prop="" label="任务"></el-table-column>-->
+                <el-table-column label="任务状态">
+                  <template v-slot="scope" >
+                    <span v-if="scope.row.status.endsWith('已结束')" class="over_state">已结束</span>
+                    <span v-else class="ing_state">进行中</span>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="sub_net_zhuge" label="净收益"></el-table-column>
+              </el-table>
+            </el-col>
           </el-row>
         </div>
       </el-col>
@@ -37,12 +77,12 @@
         <!-- 搜索表单 -->
         <el-form :inline="true" class="search-form">
           <el-form-item>
-            <el-input v-model="searchKeyword" size="small" placeholder="请输入比赛名称"
+            <el-input v-model="search" size="small" placeholder="请输入比赛名称"
                       @keyup.enter="competition_event"></el-input>
           </el-form-item>
-          <!--          <el-form-item class="yellow-btn" >-->
-          <!--            <el-button size="small" @click="handleSearch">搜索</el-button>-->
-          <!--          </el-form-item>-->
+          <el-form-item class="yellow-btn" >
+            <el-button size="small" @click="handleSearch">搜索</el-button>
+          </el-form-item>
         </el-form>
       </el-col>
     </el-row>
@@ -62,9 +102,15 @@
             </template>
           </el-table-column>
           <el-table-column prop="status" label="活动状态"></el-table-column>
+<!--          <el-table-column label="活动状态">-->
+<!--            <template v-slot="scope" >-->
+<!--              <span v-if="scope.row.status.endsWith('已结束')" class="over_state">已结束</span>-->
+<!--              <span v-else class="ing_state">进行中</span>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column>
             <template v-slot="scope">
-              <router-link :to="{path:'/competition_translation',query:{eventId:eventIdProp,activityId:scope.row.id}}"
+              <router-link :to="{path:'/competition_transaction',query:{eventId:eventIdProp,activityId:scope.row.id}}"
                            class="details center-vertically" v-if="scope.row.status == '活动进行中'">
                 <span class="my-icon">去交易</span>
                 <img src="@/assets/images/enter.svg" height="13" alt="进入">
@@ -108,16 +154,37 @@ export default {
   },
   data() {
     return {
+      currentPart:1, // 切换比赛简介或个人成绩
       currentPage: 1,  // 当前页码
       pageNum: 1,
       pageSize: 5,  // 每页显示的条数
+      search:"",
       searchKeyword: "", // 搜索关键词
+      myTabs:'detail',
     };
   },
   computed: {
     // 比赛简介
     competition_desc(){
-      return this.$store.getters.eventData.event_desc
+      if(typeof this.$store.getters.eventData.event_desc !== 'undefined'){
+        return this.$store.getters.eventData.event_desc}
+      return ''
+    },
+    // 比赛表现
+    competition_performance(){
+      if(typeof this.$store.getters.eventData.performance !== 'undefined'){
+        return this.$store.getters.eventData.performance}
+      return {
+        ranking: '',
+        net_zhuge: '',
+        cash: '',
+        activity_rank: [{
+          id: '',
+          name: '',
+          status: '',
+          sub_net_zhuge: ''
+        }]
+      }
     },
     competition_event() {
       if((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')){
@@ -142,6 +209,13 @@ export default {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
+    },
+    handleSearch(){
+      this.searchKeyword = this.search
+    },
+    // 切换简介和个人成绩
+    changePart(page){
+      this.currentPart = page
     },
     // 转换数据为时间格式
     formatDate(dateString) {
@@ -182,7 +256,7 @@ export default {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  padding: 20px 25px 20px;
+  padding: 20px 25px 10px;
   line-height: 25px;
   color:#555555;
   font-size: 17px;
@@ -241,4 +315,77 @@ a {
   border: 1px solid #fb6770;
   border-radius: 5px;
 }
+
+.box-gray-title{
+  color: #AAAAAACD;
+}
+
+.show-grade{
+  background-color: rgba(255, 195, 105, 0.07);
+  padding: 18px 0 8px;
+  color: #000000;
+}
+
+.show-grade span{
+  color: #AAAAAA;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.my-grade-table{
+  margin:0 0 15px;
+}
+
+/*修改element表格样式开始*/
+/*表头颜色*/
+
+/*表头颜色*/
+::v-deep .my-grade-table th{
+  background: rgba(215, 215, 215, 0.2);
+  padding: 6px 0 5px;
+  color: rgba(51, 51, 51, 0.93);
+}
+
+/*边框圆角*/
+::v-deep .el-table th:first-child{
+  border-top-left-radius:5px;
+  border-bottom-left-radius:5px;
+}
+
+::v-deep .el-table th:last-child{
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+}
+
+/*表格内容*/
+::v-deep .el-table td, .el-table th{
+  padding: 6px 0;
+}
+
+/*调整斑马纹颜色*/
+::v-deep .el-table--striped .el-table__body tr.el-table__row--striped td{
+  background-color: rgb(248,248,248);
+}
+/*修改element表格样式结束*/
+
+/*修改element原有tab样式开始*/
+/*切换活动项的字体颜色*/
+.my-tab /deep/ .el-tabs__item.is-active {
+  color: #E3B570 !important;
+}
+
+/*切换活动项的字体颜色*/
+.my-tab /deep/ .el-tabs__item:hover {
+  color: #E3B570 !important;
+}
+
+/*切换活动项的长条颜色*/
+.my-tab /deep/ .el-tabs__active-bar {
+  background-color: #F0C27B !important;
+}
+
+.my-tab >>> .el-tabs__item{
+  font-size: 17px;
+}
+/*修改element原有tab样式结束*/
 </style>

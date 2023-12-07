@@ -198,7 +198,7 @@ import bottomNav from "../../../components/bottomNav";
 import {getCSRFToken} from '@/api/token'
 
 export default {
-  name: "mobile_weekly_forecast_details",
+  name: "mobile_weekly_forecast_transaction",
   components: {bottomNav},
   data() {
     return {

@@ -74,7 +74,7 @@
                       <!--                <i class="el-icon-caret-bottom" ></i>-->
                     </el-col>
                     <el-col :span="4" :offset="1">
-                      <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
+                      <router-link :to="{path:'/weekly_forecast_transaction',query:{id:item.id,name:item.name}}">
                         <span style="color: #EF9C19;font-weight: bold;">查看 ></span>
                       </router-link>
                     </el-col>

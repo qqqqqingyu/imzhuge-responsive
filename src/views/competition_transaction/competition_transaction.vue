@@ -1,17 +1,17 @@
 <template>
-  <mobile_competition_translation v-if="isMobile"></mobile_competition_translation>
-  <pc_competition_translation v-else></pc_competition_translation>
+  <mobile_competition_transaction v-if="isMobile"></mobile_competition_transaction>
+  <pc_competition_transaction v-else></pc_competition_transaction>
 </template>
 
 <script>
 import { isMobileTerminal }  from '@/utils/flexible'
-import mobile_competition_translation from "./mobile/mobile_competition_translation";
-import pc_competition_translation from "./pc/pc_competition_translation";
+import mobile_competition_transaction from "./mobile/mobile_competition_transaction";
+import pc_competition_transaction from "./pc/pc_competition_transaction";
 // import {useStore} from "vuex";
 
 export default {
-  name: "competition_translation",
-  components: {pc_competition_translation, mobile_competition_translation},
+  name: "competition_transaction",
+  components: {pc_competition_transaction, mobile_competition_transaction},
   data(){
     return{
       isMobile:isMobileTerminal.value

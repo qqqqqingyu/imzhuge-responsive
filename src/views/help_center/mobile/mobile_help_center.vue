@@ -22,7 +22,7 @@
                 <h1>新手攻略</h1>
               </el-col>
               <el-col class="mb-10">
-                <h3 class="gray" style="margin: 8px;">入门操作轻松掌握</h3>
+                <h3 class="gray">入门操作轻松掌握</h3>
               </el-col>
               <el-col class="center-vertically mb-10">
                 <img src="@/assets/images/y_point.svg" class="hot-point" height="8">
@@ -151,7 +151,7 @@
                 <h1>常见问题</h1>
               </el-col>
               <el-col class="mb-10">
-                <h3 class="gray" style="margin: 8px;">解答常见的操作问题</h3>
+                <h3 class="gray" >解答常见的操作问题</h3>
               </el-col>
               <el-col class="mb-10">
                 <h2>热门问题</h2>

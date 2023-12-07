@@ -74,7 +74,13 @@
           <el-table-column prop="status" label="比赛状态"></el-table-column>
           <el-table-column>
             <template v-slot="scope" >
-              <router-link :to="{path:'/competition_details',query:{eventId:scope.row.event_id}}" class="details center-vertically">
+<!--&lt;!&ndash;              id不为付费型信息分析实验id，进入普通比赛详情页面&ndash;&gt;-->
+<!--              <router-link v-if="scope.row.event_id !== 1" :to="{path:'/competition_details',query:{eventId:scope.row.event_id}}" class="details center-vertically">-->
+<!--                <span class="my-icon">查看详情</span>-->
+<!--                <img src="@/assets/images/enter.svg" height="13" alt="进入">-->
+<!--              </router-link>-->
+<!--              反之，进入实验页面-->
+              <router-link :to="{path:'/stock_predict',query:{eventId:scope.row.event_id}}" class="details center-vertically">
                 <span class="my-icon">查看详情</span>
                 <img src="@/assets/images/enter.svg" height="13" alt="进入">
               </router-link>

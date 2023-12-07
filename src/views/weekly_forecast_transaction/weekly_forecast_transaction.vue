@@ -1,18 +1,18 @@
 <template>
-  <mobile_weekly_forecast_details v-if="isMobile" ></mobile_weekly_forecast_details>
-  <pc_weekly_forecast_details_new v-else></pc_weekly_forecast_details_new>
+  <mobile_weekly_forecast_transaction v-if="isMobile" ></mobile_weekly_forecast_transaction>
+  <pc_weekly_forecast_transaction v-else></pc_weekly_forecast_transaction>
 </template>
 
 <script>
 import {isMobileTerminal} from '@/utils/flexible'
-import mobile_weekly_forecast_details from "./mobile/mobile_weekly_forecast_details";
-import pc_weekly_forecast_details_new from "./pc/pc_weekly_forecast_details_new";
+import mobile_weekly_forecast_transaction from "./mobile/mobile_weekly_forecast_transaction";
+import pc_weekly_forecast_transaction from "./pc/pc_weekly_forecast_transaction";
 // import {useStore} from "vuex";
 
 
 export default {
-  name: "weekly_forecast_details",
-  components:{ mobile_weekly_forecast_details,pc_weekly_forecast_details_new },
+  name: "weekly_forecast_transaction",
+  components:{ mobile_weekly_forecast_transaction,pc_weekly_forecast_transaction },
   data() {
     return {
       isMobile: isMobileTerminal.value

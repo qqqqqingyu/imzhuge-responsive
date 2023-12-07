@@ -5,7 +5,7 @@
  * **/
 import request from '@/utils/request'
 // 正式服
-// import {serverUrl} from "../config";
+import {serverUrl} from "../config";
 
 /**
  * login
@@ -15,7 +15,7 @@ export function login() {
         // 测试服
         // url:'/api/login',
         // 正式服
-        url:'/api/login',
+        url:serverUrl+'/api/login',
         method:'get'
     })
 }
@@ -25,7 +25,7 @@ export function getLoginStatus() {
         // 测试服
         // url:'/api/get_login_status',
         // 正式服
-        url:'/api/get_login_status',
+        url:serverUrl+'/api/get_login_status',
         method:'get'
     })
 }

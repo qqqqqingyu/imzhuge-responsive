@@ -8,7 +8,6 @@ import { isMobileTerminal }  from '@/utils/flexible'
 import mobile_stock_predict from "./mobile/mobile_stock_predict";
 import pc_stock_predict from "./pc/pc_stock_predict";
 import {useStore} from "vuex";
-// import {useStore} from "vuex";
 
 export default {
   name: "stock_predict",

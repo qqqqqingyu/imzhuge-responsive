@@ -108,7 +108,7 @@
             <p class="info2">活动时间 {{ formatDate(item.start_time) }} ~ {{ formatDate(item.end_time) }}</p>
           </div>
           <div class="right-info">
-            <router-link :to="{path:'/competition_translation',query:{eventId:eventIdProp,activityId:item.id}}"
+            <router-link :to="{path:'/competition_transaction',query:{eventId:eventIdProp,activityId:item.id}}"
                          class="details center-vertically" v-if="item.status.endsWith('进行中')">
               <span class="my-icon">去交易</span>
               <img src="@/assets/images/enter.svg" height="13" alt="进入">

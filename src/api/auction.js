@@ -5,7 +5,7 @@
  * **/
 import request from '@/utils/request'
 // 正式服
-// import {serverUrl} from "../config";
+import {serverUrl} from "../config";
 
 /**
  * 4.1 发起活动
@@ -15,7 +15,7 @@ export function startActivity(data) {
         // 测试服
         // url:'/api/startactivity/cda',
         // 正式服
-        url:'/api/startactivity/cda',
+        url:serverUrl+'/api/startactivity/cda',
         method:'post',
         data:data
     })
@@ -29,7 +29,7 @@ export function getCdaActivitySquare() {
         // 测试服
         // url:'/api/activity/cda',
         // 正式服
-        url:'/api/activity/cda',
+        url:serverUrl+'/api/activity/cda',
         method:'get'
     })
 }
@@ -42,7 +42,7 @@ export function startTransaction(activityId, data) {
         // 测试服
         // url:'/api/activity/cda/' + activityId,
         // 正式服
-        url:'/api/activity/cda/' + activityId,
+        url:serverUrl+'/api/activity/cda/' + activityId,
         method:'post',
         data:data
     })
@@ -69,7 +69,7 @@ export function participateActivity(activityId) {
         // 测试服
         // url:'/api/activity/cda/' + activityId + '/join',
         // 正式服
-        url:'/api/activity/cda/' + activityId + '/join',
+        url:serverUrl+'/api/activity/cda/' + activityId + '/join',
         method:'post',
     })
 }
@@ -120,7 +120,7 @@ export function liquidationActivity(activityId, data) {
         // 测试服
         // url:'/api/selfcenter/cda/' + activityId + '/details',
         // 正式服
-        url:'/api/selfcenter/cda/' + activityId + '/details',
+        url:serverUrl+'/api/selfcenter/cda/' + activityId + '/details',
         method:'post',
         data:data
     })

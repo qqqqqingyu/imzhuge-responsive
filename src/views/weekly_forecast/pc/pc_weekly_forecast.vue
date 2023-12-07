@@ -74,7 +74,7 @@
                   </el-rate>
                 </el-col>
                 <el-col :span="2" :offset="6">
-                  <router-link :to="{path:'/weekly_forecast_details',query:{id:item.id,name:item.name}}">
+                  <router-link :to="{path:'/weekly_forecast_transaction',query:{id:item.id,name:item.name}}">
                     <span class="look">查看 ></span>
                   </router-link>
                 </el-col>

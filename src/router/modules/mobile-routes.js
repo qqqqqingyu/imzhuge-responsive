@@ -38,9 +38,9 @@ export default [
         }
     },/*周度收益率预测任务设计，行业个股收益率预测1*/
     {
-        path: '/weekly_forecast_details',
-        name: 'weekly_forecast_details',
-        component: () => import('@/views/weekly_forecast_details/weekly_forecast_details.vue'),
+        path: '/weekly_forecast_transaction',
+        name: 'weekly_forecast_transaction',
+        component: () => import('@/views/weekly_forecast_transaction/weekly_forecast_transaction.vue'),
         meta: {
             title: '行业个股收益率预测详情',
             keepAlive: true, // 需要被缓存
@@ -83,9 +83,9 @@ export default [
         }
     },
     {
-        path: '/competition_translation',
-        name: 'competition_translation',
-        component: () => import('@/views/competition_translation/competition_translation.vue'),
+        path: '/competition_transaction',
+        name: 'competition_transaction',
+        component: () => import('@/views/competition_transaction/competition_transaction.vue'),
         meta: {
             title: '参与交易',
             keepAlive: true, // 需要被缓存
@@ -176,9 +176,9 @@ export default [
         }
     },
     {
-        path: '/stock_participate',
-        name: 'stock_participate',
-        component: () => import('@/views/stock_participate/stock_participate.vue'),
+        path: '/stock_transaction',
+        name: 'stock_transaction',
+        component: () => import('@/views/stock_transaction/stock_transaction.vue'),
         meta: {
             title: '股价涨跌预测-参与交易',
             keepAlive: true, // 需要被缓存

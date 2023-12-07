@@ -66,60 +66,90 @@ export default {
         },
         async useEventData(context,eventId){
             // 调用接口取数据
-            const eventData = await getEvent(eventId).then((res) =>{
-                return res.data
-            }).catch((res) => {
-                console.log(res);
-            });
+            // const eventData = await getEvent(eventId).then((res) =>{
+            //     return res.data
+            // }).catch((res) => {
+            //     console.log(res);
+            // });
 
             // 测试假数据
+            const eventData = {
+                "group_id": 2,
+                "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
+                "performance": {
+                    "ranking": 10,
+                    "net_zhuge": 20,
+                    "cash": 10,
+                    "activity_rank": [{
+                        "id": 1,
+                        "name": "活动1",
+                        "status": "已结束",
+                        "sub_net_zhuge": 20
+                    },
+                        {
+                            "id": 2,
+                            "name": "活动2",
+                            "status": "进行中",
+                            "sub_net_zhuge": "-"
+                        }
+                    ]
+                },
+                "activity_data": [{
+                    "id": 1,
+                    "name": "活动1",
+                    "start_time": "2023-11-25T14:00:00",
+                    "end_time": "2023-12-28T00:00:00",
+                    "status": "已结束"
+                },
+                    {
+                        "id": 2,
+                        "name": "活动2",
+                        "start_time": "2023-11-25T14:00:00",
+                        "end_time": "2023-12-28T00:00:00",
+                        "status": "进行中"
+                    },
+                    {
+                        "id": 3,
+                        "name": "活动3",
+                        "start_time": "2023-11-25T14:00:00",
+                        "end_time": "2023-12-28T00:00:00",
+                        "status": "进行中"
+                    }
+                ]
+            }
+
+            // 测试假数据
+            // 付费型信息共享实验
             // const eventData = {
-            //     "group_id": 1,
+            //     "event_type": "information",
+            //     "group_id": 16,
+            //     "event_desc": null,
             //     "activity_data": [
             //         {
-            //             "id": 114,
-            //             "name": "测试比赛中心特邀",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-07-28T04:33:35",
-            //             "status": "活动未开始或已结束",
-            //             "is_special": true,
-            //         },{
-            //             "id": 114,
-            //             "name": "测试比赛中心的活动",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-10-28T04:33:35",
-            //             "status": "活动进行中",
-            //             "is_special": true,
-            //         },{
-            //             "id": 114,
-            //             "name": "测试比赛中心1",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-09-28T04:33:35",
-            //             "status": "活动未开始或已结束",
-            //             "is_special": false,
-            //         },{
-            //             "id": 114,
-            //             "name": "测试比赛2",
-            //             "start_time": "2023-06-28T03:33:32",
-            //             "end_time": "2023-07-28T04:33:35",
-            //             "status": "活动进行中",
-            //             "is_special": false,
-            //         },{
-            //             "id": 114,
-            //             "name": "测试3",
-            //             "start_time": "2023-07-15T03:33:32",
-            //             "end_time": "2023-07-28T04:33:35",
-            //             "status": "活动未开始或已结束",
-            //             "is_special": false,
-            //         },{
-            //             "id": 114,
-            //             "name": "测试4",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-08-28T04:33:35",
-            //             "status": "活动未开始或已结束",
-            //             "is_special": true,
+            //             "id": 134,
+            //             "name": "12-1\u6d4b\u8bd5\u6d3b\u52a81",
+            //             "start_time": "2023-12-01T21:15:52",
+            //             "end_time": "2023-12-09T21:15:54",
+            //             "status": "\u6d3b\u52a8\u8fdb\u884c\u4e2d"
+            //         },
+            //         {
+            //             "id": 135,
+            //             "name": "12-1\u6d4b\u8bd5\u6d3b\u52a82",
+            //             "start_time": "2023-12-01T21:16:56",
+            //             "end_time": "2023-12-09T21:16:57",
+            //             "status": "\u6d3b\u52a8\u8fdb\u884c\u4e2d"
+            //         },
+            //         {
+            //             "id": 136,
+            //             "name": "12-1\u6d4b\u8bd5\u6d3b\u52a83",
+            //             "start_time": "2023-12-01T21:17:30",
+            //             "end_time": "2023-12-09T21:17:32",
+            //             "status": "\u6d3b\u52a8\u8fdb\u884c\u4e2d"
             //         }
-            //     ]
+            //     ],
+            //     "group_info": "control4",
+            //     "information": 10,
+            //     "first_click": 0
             // }
 
             // 为state中的event赋值

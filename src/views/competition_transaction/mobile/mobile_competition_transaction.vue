@@ -30,6 +30,17 @@
       </el-col>
     </el-row>
 
+
+    <el-row style="margin-top: 10px; margin-bottom: 10px;" v-if="compDetailDesc !== ''">
+      <el-col :span="22" :offset="1" class="mb-card introduction">
+        <el-row>
+          <el-col :offset="1" :span="22">
+            <p>{{ compDetailDesc }}</p>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="22" :offset="1" class="industry-tab">
         <el-tabs @tab-click="handleClick" v-model="activeName">
@@ -206,7 +217,7 @@ import bottomNav from "../../../components/bottomNav";
 import {getCSRFToken} from '@/api/token'
 
 export default {
-  name: "mobile_competition_translation",
+  name: "mobile_competition_transaction",
   components: {bottomNav},
   data() {
     return {
@@ -235,6 +246,7 @@ export default {
       barContractArr: [],//直方图合约数据
       yMin: '', //y轴最低值
       industryDetailData: '',
+      compDetailDesc: '', // 活动描述
     }
   },
   mounted() {
@@ -355,6 +367,10 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
+        // 获取活动描述
+        if(this.compDetailData.desc !== null){
+          this.compDetailDesc = this.compDetailData.desc
+        }
       })
       .catch((res) => {
         console.log(res);
@@ -723,5 +739,11 @@ export default {
 /*复写全局类*/
 .title-box{
   margin-bottom: 10px;
+}
+
+.introduction{
+  color: #555555;
+  line-height: 20px;
+  font-size: 15px;
 }
 </style>
