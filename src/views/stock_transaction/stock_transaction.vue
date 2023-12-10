@@ -7,7 +7,6 @@
 import { isMobileTerminal }  from '@/utils/flexible'
 import pc_stock_transaction from "./pc/pc_stock_transaction";
 import mobile_stock_transaction from "./mobile/mobile_stock_transaction";
-// import {useStore} from "vuex";
 
 export default {
   name: "stock_transaction",

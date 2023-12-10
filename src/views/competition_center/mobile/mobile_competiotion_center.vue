@@ -1,7 +1,7 @@
 <!-- 赛事中心 -->
 <template>
-  <div style="margin-bottom: 50px">
-    <el-row style="margin-top: 20px">
+  <div class="container">
+    <el-row class="title-box">
       <el-col :span="1" :offset="1">
         <router-link to="/">
           <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
@@ -14,7 +14,15 @@
       </el-col>
     </el-row>
 
-    <el-row style="margin-top: 20px">
+    <!--    面包屑导航栏开始-->
+    <el-row>
+      <el-col :span="22" :offset="1" class="m-breadcrumb center-vertically mb-5">
+        您当前的位置：赛事中心
+      </el-col>
+    </el-row>
+    <!--    面包屑导航栏结束-->
+
+    <el-row style="margin-top: 5px">
       <el-col :offset="1" :span="23">
         <p style="font-size: 21px;font-weight: bold;color: #333333">赛事中心简介</p>
       </el-col>
@@ -36,17 +44,25 @@
     </el-row>
 
     <el-row style="margin-top: 20px;max-height: 50px;">
-      <el-col :span="11" :offset="1" style="margin-top: 5px">
+      <el-col :span="8" :offset="1" style="margin-top: 5px">
         <p style="font-size: 21px;font-weight: bold;color: #333333">比赛列表</p>
       </el-col>
-
-      <el-col :span="11" :offset="1" class="right">
-        <!-- 搜索表单 -->
-        <el-form :inline="true">
-          <el-form-item>
-            <el-input v-model="searchKeyword" size="mini" placeholder="请输入比赛名称"
-                      @keyup.enter="filter_list"></el-input>
-          </el-form-item>
+      <!-- 搜索表单 -->
+      <el-col :span="14" class="right">
+        <el-form :inline="true" label-position="right">
+          <el-row>
+            <el-col :span="18">
+              <el-form-item style="margin-left: 5px">
+                <el-input v-model="search" size="mini" placeholder="请输入比赛名称"
+                          @keyup.enter="filter_list"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" >
+              <el-form-item class="yellow-btn" >
+                <el-button size="small" @click="handleSearch">搜索</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </el-col>
     </el-row>
@@ -85,8 +101,9 @@
         </el-row>
 
         <div v-for="competition in page_list" :key="competition.id" class="box-card card-content">
-          <router-link :to="{ path: '/competition_details', query: { eventId: competition.event_id } }"
-                       class="comp-link">
+<!--              活动类型不为information，为付费型信息分析实验，进入实验页面-->
+          <router-link v-if="(competition.event_type == 'information' || competition.event_type == 'information-1')" :to="{ path: '/stock_predict', query: { eventId: competition.event_id } }"
+                       class="comp-link" >
             <!--            @touchstart="handleTouchStart" @touchend="handleTouchEnd"-->
             <!-- 图片和比赛信息放在router-link内部 -->
             <el-image :src="getImagePath(competition.event_name)" alt="比赛" fit="scale-down"
@@ -101,6 +118,28 @@
                 <span v-if="competition.is_special" class="m_invited">特邀</span>
               </p>
               
+              <p style="color: #AAAAAA;">比赛时间 {{ formatDate(competition.start_time) }} ~
+                {{ formatDate(competition.end_time) }}</p>
+              <p style="color: #AAAAAA;">比赛奖金 <span style="color: #ffc848;">{{ competition.award }}</span></p>
+            </div>
+          </router-link>
+<!--              反之，进入普通比赛详情页面-->
+          <router-link v-else :to="{ path: '/competition_details', query: { eventId: competition.event_id } }"
+                       class="comp-link">
+            <!--            @touchstart="handleTouchStart" @touchend="handleTouchEnd"-->
+            <!-- 图片和比赛信息放在router-link内部 -->
+            <el-image :src="getImagePath(competition.event_name)" alt="比赛" fit="scale-down"
+                      class="card-image"></el-image>
+            <!-- 右侧比赛信息 -->
+            <div class="card-info">
+              <p style="font-size: 18px; font-weight: bold; color: #333333">{{ competition.event_name }}</p>
+              <p style="margin-top:6px;margin-bottom: 8px">
+                <span class="m-over_state" v-if="competition.status.endsWith('未开始或已结束')">未开始或已结束</span>
+                <span class="m-ing_state" v-else>进行中</span>
+                <!-- 特邀标签 -->
+                <span v-if="competition.is_special" class="m_invited">特邀</span>
+              </p>
+
               <p style="color: #AAAAAA;">比赛时间 {{ formatDate(competition.start_time) }} ~
                 {{ formatDate(competition.end_time) }}</p>
               <p style="color: #AAAAAA;">比赛奖金 <span style="color: #ffc848;">{{ competition.award }}</span></p>
@@ -148,7 +187,10 @@ export default {
       pageNum: 1,
       pageSize: 5,  // 每页显示的条数
       searchKeyword: "", // 搜索关键词
+      search:"",
       compMapping: {
+        '测试比赛1': 'comp1.svg',
+        '测试比赛2': 'comp2.svg',
         '国际经济与政策预测': 'comp1.svg',
         '2023年底全球重要股指预测':'important_stock_predict.jpg'
       },
@@ -170,9 +212,9 @@ export default {
       return this.$store.getters.eventList.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1)
     },
     // 根据比赛状态筛选并根据条件排序后展示的数据
-    // 把 event_list 改为 page_list 防止未登录出现特邀比赛
+    // 把 event_list 改为 page_list 防止未登录出现特邀比赛（zby：改回来了，不然筛选功能不行）
     filter_list() {
-      const filteredList = this.page_list.filter((comp) => {
+      const filteredList = this.event_list.filter((comp) => {
         if (this.screen == 0) {
           return comp.status.endsWith('进行中');
         } else if (this.screen == 1) {
@@ -198,7 +240,7 @@ export default {
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
       const isUserLoggedIn = this.$store.getters.loginStatus;
-      const filteredEventList = this.event_list.filter(item => {
+      const filteredEventList = this.filter_list.filter(item => {
         const match = item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1;
         // 判断是否特邀比赛，如果用户未登录，则不展示特邀比赛
         const isSpecialEvent = item.is_special;
@@ -221,6 +263,10 @@ export default {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
+    },
+    // 搜索
+    handleSearch(){
+      this.searchKeyword = this.search
     },
     // 转换数据为时间格式
     formatDate(dateString) {
@@ -474,5 +520,15 @@ export default {
 
 .m-ing_state {
   font-size: 12px;
+}
+
+/*修改按钮样式*/
+.yellow-btn .el-button{
+  padding: 7px 10px;
+}
+
+/*复写全局类*/
+.title-box{
+  margin-bottom: 10px;
 }
 </style>

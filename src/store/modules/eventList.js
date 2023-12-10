@@ -66,57 +66,57 @@ export default {
         },
         async useEventData(context,eventId){
             // 调用接口取数据
-            // const eventData = await getEvent(eventId).then((res) =>{
-            //     return res.data
-            // }).catch((res) => {
-            //     console.log(res);
-            // });
+            const eventData = await getEvent(eventId).then((res) =>{
+                return res.data
+            }).catch((res) => {
+                console.log(res);
+            });
 
             // 测试假数据
-            const eventData = {
-                "group_id": 2,
-                "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
-                "performance": {
-                    "ranking": 10,
-                    "net_zhuge": 20,
-                    "cash": 10,
-                    "activity_rank": [{
-                        "id": 1,
-                        "name": "活动1",
-                        "status": "已结束",
-                        "sub_net_zhuge": 20
-                    },
-                        {
-                            "id": 2,
-                            "name": "活动2",
-                            "status": "进行中",
-                            "sub_net_zhuge": "-"
-                        }
-                    ]
-                },
-                "activity_data": [{
-                    "id": 1,
-                    "name": "活动1",
-                    "start_time": "2023-11-25T14:00:00",
-                    "end_time": "2023-12-28T00:00:00",
-                    "status": "已结束"
-                },
-                    {
-                        "id": 2,
-                        "name": "活动2",
-                        "start_time": "2023-11-25T14:00:00",
-                        "end_time": "2023-12-28T00:00:00",
-                        "status": "进行中"
-                    },
-                    {
-                        "id": 3,
-                        "name": "活动3",
-                        "start_time": "2023-11-25T14:00:00",
-                        "end_time": "2023-12-28T00:00:00",
-                        "status": "进行中"
-                    }
-                ]
-            }
+            // const eventData = {
+            //     "group_id": 2,
+            //     "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
+            //     "performance": {
+            //         "ranking": 10,
+            //         "net_zhuge": 20,
+            //         "cash": 10,
+            //         "activity_rank": [{
+            //             "id": 1,
+            //             "name": "活动1",
+            //             "status": "已结束",
+            //             "sub_net_zhuge": 20
+            //         },
+            //             {
+            //                 "id": 2,
+            //                 "name": "活动2",
+            //                 "status": "进行中",
+            //                 "sub_net_zhuge": "-"
+            //             }
+            //         ]
+            //     },
+            //     "activity_data": [{
+            //         "id": 1,
+            //         "name": "活动1",
+            //         "start_time": "2023-11-25T14:00:00",
+            //         "end_time": "2023-12-28T00:00:00",
+            //         "status": "已结束"
+            //     },
+            //         {
+            //             "id": 2,
+            //             "name": "活动2",
+            //             "start_time": "2023-11-25T14:00:00",
+            //             "end_time": "2023-12-28T00:00:00",
+            //             "status": "进行中"
+            //         },
+            //         {
+            //             "id": 3,
+            //             "name": "活动3",
+            //             "start_time": "2023-11-25T14:00:00",
+            //             "end_time": "2023-12-28T00:00:00",
+            //             "status": "进行中"
+            //         }
+            //     ]
+            // }
 
             // 测试假数据
             // 付费型信息共享实验

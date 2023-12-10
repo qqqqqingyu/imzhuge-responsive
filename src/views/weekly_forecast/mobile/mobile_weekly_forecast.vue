@@ -268,7 +268,7 @@ a {
 }
 
 .my-formula{
-  font-size: 9px;
+  font-size: 11px;
   text-align: center;
   margin-top: 5px;
   padding-left: 0;

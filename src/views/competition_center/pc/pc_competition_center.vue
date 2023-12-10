@@ -74,13 +74,13 @@
           <el-table-column prop="status" label="比赛状态"></el-table-column>
           <el-table-column>
             <template v-slot="scope" >
-<!--&lt;!&ndash;              id不为付费型信息分析实验id，进入普通比赛详情页面&ndash;&gt;-->
-<!--              <router-link v-if="scope.row.event_id !== 1" :to="{path:'/competition_details',query:{eventId:scope.row.event_id}}" class="details center-vertically">-->
-<!--                <span class="my-icon">查看详情</span>-->
-<!--                <img src="@/assets/images/enter.svg" height="13" alt="进入">-->
-<!--              </router-link>-->
-<!--              反之，进入实验页面-->
-              <router-link :to="{path:'/stock_predict',query:{eventId:scope.row.event_id}}" class="details center-vertically">
+<!--              活动类型不为information，为付费型信息分析实验，进入实验页面-->
+              <router-link v-if="(scope.row.event_type == 'information' || scope.row.event_type == 'information-1')" :to="{path:'/stock_predict',query:{eventId:scope.row.event_id}}" class="details center-vertically">
+                <span class="my-icon">查看详情</span>
+                <img src="@/assets/images/enter.svg" height="13" alt="进入">
+              </router-link>
+<!--              反之，进入普通比赛详情页面-->
+              <router-link v-else :to="{path:'/competition_details',query:{eventId:scope.row.event_id}}" class="details center-vertically">
                 <span class="my-icon">查看详情</span>
                 <img src="@/assets/images/enter.svg" height="13" alt="进入">
               </router-link>
@@ -122,6 +122,8 @@ export default {
       search:'',
       searchKeyword: "", // 搜索关键词
       compMapping: {
+        '测试比赛1': 'comp1.svg',
+        '测试比赛2': 'comp2.svg',
         '国际经济与政策预测': 'comp1.svg',
         '2023年底全球重要股指预测':'important_stock_predict.jpg'
       }

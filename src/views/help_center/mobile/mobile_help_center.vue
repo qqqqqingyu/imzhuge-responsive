@@ -14,7 +14,7 @@
     </el-row>
 
     <el-row>
-      <el-col :span="22" :offset="1" class="mb-card my-tab">
+      <el-col :span="22" :offset="1" class="mb-card my-tab" :style="{ minHeight: screenHeight-120 + 'px' }">
         <el-tabs v-model="helpTabs" class="details">
           <el-tab-pane label="新手攻略" name="Introduction">
             <el-row>
@@ -417,12 +417,6 @@ export default {
     handleResize() {
       this.screenHeight = window.innerHeight
     },
-  },
-  // 滚动之前重置
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-    window.removeEventListener('resize', this.handleResize)
-    document.body.removeAttribute('style')
   },
   beforeCreate() {
     this.$nextTick(() => {

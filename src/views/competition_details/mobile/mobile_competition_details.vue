@@ -46,17 +46,26 @@
     </el-row>
 
     <el-row style="margin-top: 20px;max-height: 50px;">
-      <el-col :span="11" :offset="1" style="margin-top: 5px">
+      <el-col :span="8" :offset="1" style="margin-top: 5px">
         <p style="font-size: 21px;font-weight: bold;color: #333333">活动列表</p>
       </el-col>
 
-      <el-col :span="11" :offset="1" class="right">
-        <!-- 搜索表单 -->
-        <el-form :inline="true">
-          <el-form-item>
-            <el-input v-model="searchKeyword" size="mini" placeholder="请输入活动名称"
-                      @keyup.enter="filter_list"></el-input>
-          </el-form-item>
+      <!-- 搜索表单 -->
+      <el-col :span="14" class="right">
+        <el-form :inline="true" label-position="right">
+          <el-row>
+            <el-col :span="18">
+              <el-form-item style="margin-left: 5px">
+                <el-input v-model="search" size="mini" placeholder="请输入比赛名称"
+                          @keyup.enter="filter_list"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" >
+              <el-form-item class="yellow-btn" >
+                <el-button size="small" @click="handleSearch">搜索</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </el-col>
     </el-row>
@@ -110,11 +119,11 @@
           <div class="right-info">
             <router-link :to="{path:'/competition_transaction',query:{eventId:eventIdProp,activityId:item.id}}"
                          class="details center-vertically" v-if="item.status.endsWith('进行中')">
-              <span class="my-icon">去交易</span>
+              <span class="my-icon" style="font-size: 14px">去交易</span>
               <img src="@/assets/images/enter.svg" height="13" alt="进入">
             </router-link>
             <div class="gray-details center-vertically" v-else>
-              <span class="my-icon">去交易</span>
+              <span class="my-icon" style="font-size: 14px">去交易</span>
               <img src="@/assets/images/gray-enter.svg" height="13" alt="进入">
             </div>
           </div>
@@ -161,10 +170,7 @@ export default {
       pageNum: 1,
       pageSize: 5,  // 每页显示的条数
       searchKeyword: "", // 搜索关键词
-      compMapping: {
-        '测试比赛1': 'comp1',
-        '测试比赛2': 'comp2'
-      },
+      search:"",
       sortOrder: '', // 默认排序方式为空
       filterOption: 'all',
       FASComp: [],
@@ -229,6 +235,10 @@ export default {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
+    },
+    // 搜索
+    handleSearch(){
+      this.searchKeyword = this.search
     },
     // 转换数据为时间格式
     formatDate(dateString) {
@@ -328,11 +338,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../assets/CSS/responsive_style.css';
-
-.container {
-  margin-bottom: 40px;
-}
 
 .introduction {
   background-color: #FFFFFF;
@@ -391,7 +396,7 @@ export default {
 }
 
 .card-info {
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .left-info {
@@ -484,5 +489,10 @@ export default {
   border-radius: 5px;
   padding: 2px 4px;
   font-size: 12px;
+}
+
+/*修改按钮样式*/
+.yellow-btn .el-button{
+  padding: 7px 10px;
 }
 </style>

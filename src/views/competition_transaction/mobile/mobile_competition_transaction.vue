@@ -122,7 +122,7 @@
     </el-row>
 
     <el-row class="predict-form">
-      <el-col :span="22" :offset="1" class="predict-card mb-card">
+      <el-col :span="22" :offset="1" class="mb-card">
         <el-row>
           <el-col :span="22" :offset="1">
             <span>
@@ -306,7 +306,7 @@ export default {
       if (industry.contract_id.length == 0) {
         this.$message({
           type: 'warning',
-          message: '请选择公司'
+          message: '请选择预测结果'
         });
         return;
       }
@@ -421,7 +421,7 @@ export default {
       this.barPriceArr = barPrice
       this.barContractArr = contract
     },
-    //作图方法，还没设置数据
+    //作图方法
     //价格数据作图方法
     myEcharts1() {
       this.$nextTick(() => {
@@ -606,9 +606,10 @@ export default {
   font-weight: bolder;
 }
 
-.predict-card {
+.predict-form{
   margin-top: 10px;
   margin-bottom: 60px;
+  font-size: 15px;
 }
 
 .predict-form .el-radio {

@@ -4,15 +4,18 @@
   <el-row style="padding-top: 80px">
     <el-col :span="20" :offset="2" class="my-breadcrumb center-vertically">
       您当前的位置：
+      <router-link to="/competition_center">赛事中心</router-link>
+      <img src="@/assets/images/right.svg" alt="下级" height="25">
       <span class="cur-de">股价涨跌预测</span>
     </el-col>
   </el-row>
 
   <el-row style="margin-top: 20px">
     <el-col :offset="2" :span="9">
-      <span class="box-title hand" :class="{'box-gray-title': currentPart === 2}" @click="changePart(1)">比赛简介</span>
-      <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"
-            @click="changePart(2)">个人成绩</span>
+      <span class="box-title" :class="{'box-gray-title': currentPart === 2}" >比赛简介</span>
+<!--     class="hand"  @click="changePart(1)"-->
+<!--      <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"-->
+<!--            @click="changePart(2)">个人成绩</span>-->
     </el-col>
   </el-row>
 
@@ -45,13 +48,12 @@
           </span>
           <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz000002/nc.shtml')">万科A</a>
         </p>
-<!--        <div class="intro-ul" v-html="introText"></div>-->
         <ul class="intro-ul alert-text left" v-if="group === 'experiment'">
           <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
           <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
           <li>关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。</li>
           <li>
-            <div class="center-vertically">
+            <div class="center-vertically" style="flex-wrap:wrap">
               你目前从关注者获得收益
               <el-popover
                   placement="top-start"
@@ -74,7 +76,7 @@
           <li>系统奖励依据：系统将根据你的交易信息和预测结果决定是否奖励你诸葛贝。</li>
           <li>系统奖励规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，系统将奖励你<span>5个诸葛贝</span>。否则，不奖励诸葛贝。</li>
           <li>
-            <div class="center-vertically">
+            <div class="center-vertically" style="flex-wrap:wrap">
               你目前从系统获得奖励
               <el-popover
                   placement="top-start"
@@ -98,25 +100,23 @@
           <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
           <li>点赞规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者最多点赞<span>1次</span>。否则，不会点赞。</li>
           <li>
-            <div class="center-vertically">
+            <div class="center-vertically" style="flex-wrap:wrap">
               你目前获得的点赞数：{{informationInt}}次
-              <img style="margin-left: 2px;" :src=goodUrl height="18" alt="诸葛贝">
+              <img style="margin-left: 2px;" :src=goodUrl height="18" alt="点赞">
             </div>
           </li>
         </ul>
         <ul class="intro-ul alert-text left" v-else-if="group === 'control3'">
           <li>系统奖励依据：系统对<span>交易活跃</span>的用户奖励诸葛贝。</li>
-          <li>系统奖励规则：如果你在比赛中参与了<span>至少5天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>50个诸葛贝</span>。</li>
+          <li>系统奖励规则：如果你在目前这个为期5天的比赛中参与了<span>至少3天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>50个诸葛贝</span>。</li>
           <li>奖励发放时间：比赛结束时发放诸葛贝奖励</li>
           <li>你累计参与的天数{{informationInt}}天</li>
         </ul>
-        <ul class="intro-ul alert-text left" v-else>
+        <ul class="intro-ul alert-text left" v-else-if="group === 'control4'">
           <li>合约数量：你可以交易2个合约。<span>合约“涨”</span>代表股票收盘价上涨，<span>合约“跌”</span>代表股票收盘价下跌。</li>
           <li>结算时间：股价涨跌的真实结果会在交易结束当天的下午17点揭晓，同时结算合约收益。</li>
           <li>结算规则：对于真实发生的合约，每个合约有<span>1个诸葛贝</span>收益；反之，没有收益。</li>
         </ul>
-
-
       </el-row>
       <el-row v-else>
           <el-col class="show-grade">
@@ -151,20 +151,26 @@
 
   <el-row class="mb-10" style="margin-top: 40px">
     <el-col :span="9" :offset="2">
-      <span class="box-title">股票列表</span>
+      <span class="box-title">活动列表</span>
     </el-col>
   </el-row>
 
   <el-row>
     <el-col :span="20" :offset="2" class="my-card mb-20">
       <!-- 表头和内容都改为居中 -->
-      <el-table stripe :data="stock_list" class="my-table" :header-cell-style="{'text-align':'center'}"
+      <el-table stripe :data="stock_event.activity_data" class="my-table" :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}">
-        <el-table-column prop="code" label="股票代码"></el-table-column>
-        <el-table-column prop="stock" label="股票名称"></el-table-column>
+        <el-table-column prop="name" label="活动名称"></el-table-column>
+        <el-table-column label="活动时间">
+          <template  v-slot="scope">
+            {{ formatDate(scope.row.start_time) }} ~ {{ formatDate(scope.row.end_time) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="status" label="活动状态"></el-table-column>
         <el-table-column>
           <template v-slot="scope" >
-            <router-link :to="{path:'/stock_transaction',query:{eventId:scope.row.eventId,groupName:group,infoInt:informationInt}}" class="details center-vertically">
+            <router-link :to="{path:'/stock_transaction',query:{eventId:eventIdProp,activityId:scope.row.id,groupName:group,infoInt:informationInt,name:scope.row.name}}"
+                         class="details center-vertically"  style="flex-wrap:wrap">
               <span class="my-icon">去预测</span>
               <img src="@/assets/images/enter.svg" height="13" alt="进入">
             </router-link>
@@ -189,37 +195,30 @@ export default {
       currentPart:1, // 切换比赛简介或个人成绩
       coinUrl:require('@/assets/images/stock_predict.png'),
       goodUrl:require('@/assets/images/good.svg'),
-      group:'control1',
-      introText:'experiment', //分组介绍的文字
+      introText:'', //分组介绍的文字
       informationInt:0, // 对应接口的information，是对应介绍文字中需要变换的数字
       firstClick:1, // =1需要弹窗，=0不需要
     }
   },
-  computed:{
-    // 股票列表，要改成接口获取
-    stock_list(){
-      return [{
-        "code": "600519",
-        "stock": "贵州茅台",
-        "eventId":""
-      },{
-        "code": "601398",
-        "stock": "工商银行",
-        "eventId":""
-      },{
-        "code": "300059",
-        "stock": "东方财富",
-        "eventId":""
-      },{
-        "code": "300750",
-        "stock": "宁德时代",
-        "eventId":""
-      },{
-        "code": "000002",
-        "stock": "万科A",
-        "eventId":""
-      }]
+  props: {
+    eventIdProp: {
+      required: true
+    }
+  },
+  watch: {
+    group: {
+      immediate: true, // 立即执行一次
+      handler(newGroup, oldGroup) {
+        console.log('old'+oldGroup)
+        console.log('new'+newGroup)
+        if (newGroup !== oldGroup && newGroup !== undefined) {
+          // 在 group 不为空且更新后打开弹窗
+          this.open();
+        }
+      },
     },
+  },
+  computed:{
     competition_performance(){
       if(typeof this.$store.getters.eventData.performance !== 'undefined'){
         return this.$store.getters.eventData.performance}
@@ -237,25 +236,37 @@ export default {
     },
     stock_event() {
       if((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')){
-        console.log(JSON.stringify(this.$store.getters.eventData))
         return this.$store.getters.eventData;
       }
       return []
     },
+    group(){
+      if(typeof this.$store.getters.eventData !== 'undefined'){
+        return this.$store.getters.eventData.group_info
+      }
+      return []
+    }
   },
   mounted() {
     this.getCSRFTokenMethod();
-    // 弹窗
-    this.open();
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
     },
-    // 切换简介和个人成绩
+    // // 切换简介和个人成绩
     changePart(page){
       this.currentPart = page
+    },
+    // 转换数据为时间格式
+    formatDate(dateString) {
+      const dateObj = new Date(dateString);
+      const year = dateObj.getFullYear();
+      const month = ('0' + (dateObj.getMonth() + 1)).slice(-2); //月份从0开始，需要+1
+      const day = ('0' + dateObj.getDate()).slice(-2);
+
+      return `${year}-${month}-${day}`;
     },
     // 打开连接
     openURL(url){
@@ -263,15 +274,16 @@ export default {
     },
     // 打开弹窗
     open() {
-      // 获取数据后，赋值获取的组别。没获取到接口数据就显示默认的。
+      // 获取数据后，赋值获取的组别
       if(this.stock_event.length !== 0){
-        // this.experiment = this.stock_event.group_info
-        // this.informationInt = this.stock_event.information
-        // this.firstClick = this.stock_event.first_click
+        this.informationInt = this.stock_event.information
+        this.firstClick = this.stock_event.first_click
       }
       else {
         console.log('未获取对应组别。获取内容：',JSON.stringify(this.stock_event))
       }
+
+      // 判断是否开弹窗
       if(this.firstClick == 1){
         // 实验组
         if(this.group === 'experiment'){
@@ -281,7 +293,7 @@ export default {
             <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
             <li>关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。</li>
             <li>
-              <div class="center-vertically">
+              <div class="center-vertically" style="flex-wrap:wrap">
                 你目前从关注者获得收益
                 ：`+this.informationInt+`个诸葛贝
                 <img style="margin-left: 2px;" src=`+this.coinUrl+` height="18" alt="诸葛贝">
@@ -291,46 +303,48 @@ export default {
       `
         }
         // 控制组1
-        else if(this.group === 'control1')
+        else if(this.group === 'control1') {
           this.introText = `
           <ul class="alert-text left">
               <li>系统奖励依据：系统将根据你的交易信息和预测结果决定是否奖励你诸葛贝。</li>
               <li>系统奖励规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，系统将奖励你<span>5个诸葛贝</span>。否则，不奖励诸葛贝。</li>
               <li>
-                <div class="center-vertically">
-                  你目前从系统获得奖励：`+this.informationInt+`个诸葛贝
-                  <img style="margin-left: 2px;" src=`+this.coinUrl+` height="18" alt="诸葛贝">
+                <div class="center-vertically" style="flex-wrap:wrap">
+                  你目前从系统获得奖励：` + this.informationInt + `个诸葛贝
+                  <img style="margin-left: 2px;" src=` + this.coinUrl + ` height="18" alt="诸葛贝">
                 </div>
               </li>
           </ul>
-        `
+        `}
         // 控制组2
-        else if(this.group === 'control2')
+        else if(this.group === 'control2') {
           this.introText = `
           <ul class="alert-text left">
               <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
               <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
               <li>点赞规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者最多点赞<span>1次</span>。否则，不会点赞。</li>
               <li>
-                <div class="center-vertically">
-                  你目前获得的点赞数：`+this.informationInt+`次
-                  <img style="margin-left: 2px;" src=`+this.goodUrl+` height="18" alt="诸葛贝">
+                <div class="center-vertically" style="flex-wrap:wrap">
+                  你目前获得的点赞数：` + this.informationInt + `次
+                  <img style="margin-left: 2px;" src=` + this.goodUrl + ` height="18" alt="诸葛贝">
                 </div>
               </li>
           </ul>
         `
+        }
         // 控制组3
-        else if(this.group === 'control3')
+        else if(this.group === 'control3') {
           this.introText = `
           <ul class="alert-text left">
               <li>系统奖励依据：系统对<span>交易活跃</span>的用户奖励诸葛贝。</li>
-              <li>系统奖励规则：如果你在比赛中参与了<span>至少5天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>50个诸葛贝</span>。</li>
+              <li>系统奖励规则：如果你在目前这个为期5天的比赛中参与了<span>至少3天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>50个诸葛贝</span>。</li>
               <li>奖励发放时间：比赛结束时发放诸葛贝奖励</li>
-              <li>你累计参与的天数`+this.informationInt+`天</li>
+              <li>你累计参与的天数` + this.informationInt + `天</li>
           </ul>
         `
+        }
         // 控制组4
-        else if(this.group === 'control4')
+        else if(this.group === 'control4') {
           this.introText = `
           <ul class="alert-text left">
               <li>合约数量：你可以交易2个合约。<span>合约“涨”</span>代表股票收盘价上涨，<span>合约“跌”</span>代表股票收盘价下跌。</li>
@@ -338,11 +352,12 @@ export default {
               <li>结算规则：对于真实发生的合约，每个合约有<span>1个诸葛贝</span>收益；反之，没有收益。</li>
           </ul>
         `
+        }
         else {
           this.introText = ''
           console.log('当前组名为'+this.group+'，无匹配介绍文字')
+          return // 组别无法判断时，跳出if，不显示弹窗
         }
-
         // 打开弹窗
         this.$alert(`<div style="font-size: 15px">`+this.introText+`<div>`, {
           confirmButtonText: '确认',

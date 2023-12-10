@@ -14,9 +14,10 @@
 
     <el-row style="margin-top: 20px">
       <el-col :offset="2" :span="9">
-        <span class="box-title hand" :class="{'box-gray-title': currentPart === 2}" @click="changePart(1)">比赛简介</span>
-        <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"
-              @click="changePart(2)">个人成绩</span>
+        <span class="box-title" :class="{'box-gray-title': currentPart === 2}" >比赛简介</span>
+<!--        class=" hand" @click="changePart(1)"-->
+<!--        <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"-->
+<!--              @click="changePart(2)">个人成绩</span>-->
       </el-col>
     </el-row>
 
@@ -210,6 +211,7 @@ export default {
     getCSRFTokenMethod() {
       getCSRFToken();
     },
+    // 搜索
     handleSearch(){
       this.searchKeyword = this.search
     },

@@ -1,6 +1,6 @@
 <template>
-  <mobile_stock_predict v-if="isMobile"></mobile_stock_predict>
-  <pc_stock_predict v-else></pc_stock_predict>
+  <mobile_stock_predict :eventIdProp="eventId" v-if="isMobile"></mobile_stock_predict>
+  <pc_stock_predict :eventIdProp="eventId" v-else></pc_stock_predict>
 </template>
 
 <script>

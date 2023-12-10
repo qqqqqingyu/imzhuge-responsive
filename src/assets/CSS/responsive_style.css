@@ -167,6 +167,7 @@
     display: flex;
     align-items: center;
     vertical-align: middle;
+    flex-wrap: wrap;
 }
 
 /*图片与文字右间隔距离*/
@@ -353,4 +354,8 @@ a {
 /*付费型信息分享页面，作为变量的html标签的css，写在全局css中才有效*/
 .alert-text span{
     color: #F6A030;
+}
+
+.container {
+    margin-bottom: 40px;
 }

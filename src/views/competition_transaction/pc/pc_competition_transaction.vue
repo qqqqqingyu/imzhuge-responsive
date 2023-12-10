@@ -24,12 +24,6 @@
       </el-col>
     </el-row>
 
-    <el-row style="margin-top: 10px; margin-bottom: 10px;" v-if="compDetailDesc !== ''">
-      <el-col :span="20" :offset="2" class="introduction">
-          <p>{{ compDetailDesc }}</p>
-      </el-col>
-    </el-row>
-
     <el-row>
       <el-col :span="20" :offset="2" class="my-tab">
         <el-tabs @tab-click="handleClick" v-model="activeName1">
@@ -68,7 +62,7 @@
                       label="价格"
                       min-width="70%">
                     <template v-slot="scope">
-                      {{ numFilter(scope.row.price, 4) }}
+                      {{ parseFloat(scope.row.price).toFixed(4) }}
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -96,6 +90,12 @@
             </el-row>
           </el-tab-pane>
         </el-tabs>
+      </el-col>
+    </el-row>
+
+    <el-row style="margin-bottom: 10px;" v-if="compDetailDesc !== ''">
+      <el-col :span="20" :offset="2" class="introduction">
+        <p>{{ compDetailDesc }}</p>
       </el-col>
     </el-row>
 
@@ -309,7 +309,7 @@
         <el-row>
           <el-col :span="24">
             <span>
-              活动可用诸葛贝：{{numFilter(userCurrentMoney,2)}}
+              活动可用诸葛贝：{{parseFloat(userCurrentMoney).toFixed(2)}}
             </span>
           </el-col>
 
@@ -409,11 +409,6 @@ export default {
       eventId:this.$route.query.eventId,
       activityId:this.$route.query.activityId,
       echarts:'',
-      // 导航栏样式
-      headStyle: {
-        background: "rgba(255, 255, 255, 0)",
-        color: "rgba(255, 255, 255, 1)",
-      },
       compDetailDesc: '', // 活动描述
       activeName1: 'first', //用于切换行业el-tabs
       activeName2: 'first', //用于切换行业信息el-tabs
@@ -580,7 +575,7 @@ export default {
       if(industry.contract_id.length==0){
         this.$message({
           type: 'warning',
-          message: '请选择公司'
+          message: '请选择预测结果'
         });
         return;
       }

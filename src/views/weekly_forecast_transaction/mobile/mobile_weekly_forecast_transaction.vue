@@ -102,7 +102,7 @@
 
     <el-row class="predict-form">
       <el-col :span="22" :offset="1">
-        <el-row class="predict-card mb-card">
+        <el-row class="mb-card">
           <el-col :span="22" :offset="1">
             <span>
               活动可用诸葛贝：{{ numFilter(userCurrentMoney, 2) }}
@@ -605,7 +605,8 @@ export default {
   font-size: 15px;
 }
 
-.predict-card {
+.predict-form{
+  font-size: 15px;
   margin-top: 10px;
   margin-bottom: 60px;
 }
