@@ -149,7 +149,7 @@ export default {
             //     ],
             //     "group_info": "control4",
             //     "information": 10,
-            //     "first_click": 0
+            //     "first_click": 1
             // }
 
             // 为state中的event赋值
