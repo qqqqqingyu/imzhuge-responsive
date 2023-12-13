@@ -339,10 +339,10 @@ export default {
         return;
       }
       // 本页面调用接口，提交数据
-      postCompetitionTransaction(this.eventId, this.activityId, industry).then(() => {
+      postCompetitionTransaction(this.eventId, this.activityId, industry).then((res) => {
         this.$message({
           type: 'success',
-          message: '提交成功！'
+          message: res.msg
         });
         //刷新
         location.reload();

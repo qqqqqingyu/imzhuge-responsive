@@ -227,4 +227,7 @@ export default {
   font-size: 15px;
 }
 
+ol, ul {
+  list-style: none
+}
 </style>

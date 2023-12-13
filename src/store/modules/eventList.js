@@ -147,7 +147,7 @@ export default {
             //             "status": "\u6d3b\u52a8\u8fdb\u884c\u4e2d"
             //         }
             //     ],
-            //     "group_info": "control4",
+            //     "group_info": "contro4",
             //     "information": 10,
             //     "first_click": 1
             // }

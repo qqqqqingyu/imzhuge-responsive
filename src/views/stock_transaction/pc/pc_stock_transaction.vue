@@ -405,13 +405,20 @@ export default {
         return;
       }
       // 本页面调用接口，提交数据
-      postCompetitionTransaction(this.eventId,this.activityId, industry).then(() => {
-        this.$message({
-          type: 'success',
-          message: '提交成功！'
-        });
-        //刷新
-        location.reload();
+      postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
+        if(res.msg == '当前活动已经停止交易'){
+          this.$message({
+            type: 'warning',
+            message: res.msg
+          });
+        }else{ // 交易成功
+          this.$message({
+            type: 'success',
+            message: res.msg
+          });
+          //刷新
+          location.reload();
+        }
       }).catch(() => {
         console.log('提交失败')
       })

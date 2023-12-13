@@ -721,4 +721,8 @@ export default {
   color: rgb(239, 156, 25);
   border-bottom: none;
 }
+
+ol, ul {
+  list-style: none
+}
 </style>

@@ -383,4 +383,8 @@ export default {
     border: solid 1px #eee;
     border-radius: 20px;
 }
+
+ol, ul {
+  list-style: none
+}
 </style>

@@ -257,4 +257,8 @@ export default {
     border-radius: 51px;
     cursor: pointer;
 }
+
+ol, ul {
+  list-style: none
+}
 </style>

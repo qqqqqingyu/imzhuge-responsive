@@ -365,4 +365,8 @@ export default {
 .trade_act{
   height: 40px;
 }
+
+ol, ul {
+  list-style: none
+}
 </style>

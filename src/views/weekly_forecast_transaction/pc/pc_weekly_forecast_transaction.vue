@@ -605,10 +605,10 @@ export default {
       }
       this.getId = this.$route.query.id;
       // 本页面调用接口，提交数据
-      submitTransactionApply(this.getId, industry).then(() => {
+      submitTransactionApply(this.getId, industry).then((res) => {
         this.$message({
           type: 'success',
-          message: '提交成功！'
+          message: res.msg
         });
         //刷新
         location.reload();

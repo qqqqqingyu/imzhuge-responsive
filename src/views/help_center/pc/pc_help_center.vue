@@ -287,7 +287,7 @@
   <!--  tabs结束-->
 
   <!--  foot开始-->
-  <el-row class="foot wow bounceIn animated" >
+  <el-row class="foot" >
     <el-col :offset="2" :span="6">
       <h3 class="foot-title">嗨皮诸葛</h3>
       <p>做财经领域高水平的人机融合预测平台</p>
