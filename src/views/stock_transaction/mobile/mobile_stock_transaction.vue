@@ -197,7 +197,7 @@
             </span>
           </el-col>
           <el-col :span="22" :offset="1">
-            <span>【{{ company }}】2023年x月x日收盘价的涨跌预测：</span>
+            <span>{{ company }}：</span>
           </el-col>
           <el-col :span="22" :offset="1" class="center">
             <el-radio-group v-model="inputUpOrDown">
@@ -327,7 +327,6 @@ export default {
   },
   mounted() {
     this.echarts = require('echarts');
-    this.company = this.$route.query.name
     this.group = this.$route.query.groupName
     this.informationInt = this.$route.query.infoInt
     window.scrollTo(0, 0);
@@ -432,6 +431,8 @@ export default {
         this.compDetailData = res.data
         //获取整体情况表的数据
         this.companyRankData = this.compDetailData.company_rank
+        //标题
+        this.company =  this.compDetailData.title
         //活动可用诸葛贝
         this.userCurrentMoney = this.compDetailData.user_current_money
         //获取历史数据表x轴数据

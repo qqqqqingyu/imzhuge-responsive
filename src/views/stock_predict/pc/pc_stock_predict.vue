@@ -22,101 +22,103 @@
   <el-row style="margin-top: 10px;margin-bottom: 10px;">
     <el-col :span="20" :offset="2" class="introduction">
       <el-row v-if="currentPart===1">
-        <el-col :span="22" :offset="1" class="right">
+        <el-col>
+          <p>预测2023年x月x日至2023年x月x日之间每个交易日下列股票的收盘价较上一个交易日的涨跌情况。
+            例如，已知贵州茅台（600519.SH）2023年11月6日收盘价为1811.24，预测2023年11月7日收盘价涨还是跌。每个预测任务交易的起止时间为下午17:00到第二日9:00。</p>
+          <p>验证资料：新浪财经：
+            <span class="url-icon">
+            <img src="@/assets/images/link.svg" height="12" style="height:12px">
+          </span>
+            <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sh600519/nc.shtml')">贵州茅台、</a>
+            <span class="url-icon">
+            <img src="@/assets/images/link.svg" height="12" style="height:12px">
+          </span>
+            <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sh601398/nc.shtml')">工商银行、</a>
+            <span class="url-icon">
+            <img src="@/assets/images/link.svg" height="12" style="height:12px">
+          </span>
+            <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz300059/nc.shtml')">东方财富、</a>
+            <span class="url-icon">
+            <img src="@/assets/images/link.svg" height="12" style="height:12px">
+          </span>
+            <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz300750/nc.shtml')">宁德时代、</a>
+            <span class="url-icon">
+            <img src="@/assets/images/link.svg" height="12" style="height:12px">
+          </span>
+            <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz000002/nc.shtml')">万科A</a>
+          </p>
         </el-col>
-        <p>预测2023年x月x日至2023年x月x日之间每个交易日下列股票的收盘价较上一个交易日的涨跌情况。
-          例如，已知贵州茅台（600519.SH）2023年11月6日收盘价为1811.24，预测2023年11月7日收盘价涨还是跌。</p>
-        <p>验证资料：新浪财经：
-          <span class="url-icon">
-            <img src="@/assets/images/link.svg" height="12" style="height:12px">
-          </span>
-          <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sh600519/nc.shtml')">贵州茅台、</a>
-          <span class="url-icon">
-            <img src="@/assets/images/link.svg" height="12" style="height:12px">
-          </span>
-          <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sh601398/nc.shtml')">工商银行、</a>
-          <span class="url-icon">
-            <img src="@/assets/images/link.svg" height="12" style="height:12px">
-          </span>
-          <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz300059/nc.shtml')">东方财富、</a>
-          <span class="url-icon">
-            <img src="@/assets/images/link.svg" height="12" style="height:12px">
-          </span>
-          <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz300750/nc.shtml')">宁德时代、</a>
-          <span class="url-icon">
-            <img src="@/assets/images/link.svg" height="12" style="height:12px">
-          </span>
-          <a href="#" @click="openURL('https://finance.sina.com.cn/realstock/company/sz000002/nc.shtml')">万科A</a>
-        </p>
-        <ul class="intro-ul alert-text left" v-if="group === 'experiment'">
-          <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
-          <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
-          <li>关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。</li>
-          <li>
-            <div class="center-vertically" style="flex-wrap:wrap">
-              你目前从关注者获得收益
-              <el-popover
-                  placement="top-start"
-                  :width="200"
-                  trigger="hover"
-              >
-                <div>
-                  1.显示的是累计收益 <br> 2.每个预测任务结束时发放本次任务的收益
-                </div>
-                <template #reference>
-                  <img src="@/assets/images/question.png" style="margin: 0 2px 0" height="14" alt="提示">
-                </template>
-              </el-popover>
-              ：{{informationInt}}个诸葛贝
-              <img style="margin-left: 2px;" :src=coinUrl height="18" alt="诸葛贝">
-            </div>
-          </li>
-        </ul>
-        <ul class="intro-ul alert-text left" v-else-if="group === 'control1'">
-          <li>系统奖励依据：系统将根据你的交易信息和预测结果决定是否奖励你诸葛贝。</li>
-          <li>系统奖励规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，系统将奖励你<span>5个诸葛贝</span>。否则，不奖励诸葛贝。</li>
-          <li>
-            <div class="center-vertically" style="flex-wrap:wrap">
-              你目前从系统获得奖励
-              <el-popover
-                  placement="top-start"
-                  :width="200"
-                  trigger="hover"
-              >
-                <div>
-                  1.显示的是累计奖励 <br> 2.每个预测任务结束时发放本次任务的奖励
-                </div>
-                <template #reference>
-                  <img src="@/assets/images/question.png" style="margin: 0 2px 0" height="14" alt="提示">
-                </template>
-              </el-popover>
-              ：{{informationInt}}个诸葛贝
-              <img style="margin-left: 2px;" :src=coinUrl height="18" alt="诸葛贝">
-            </div>
-          </li>
-        </ul>
-        <ul class="intro-ul alert-text left" v-else-if="group === 'control2'">
-          <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
-          <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
-          <li>点赞规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者最多点赞<span>1次</span>。否则，不会点赞。</li>
-          <li>
-            <div class="center-vertically" style="flex-wrap:wrap">
-              你目前获得的点赞数：{{informationInt}}次
-              <img style="margin-left: 2px;" :src=goodUrl height="18" alt="点赞">
-            </div>
-          </li>
-        </ul>
-        <ul class="intro-ul alert-text left" v-else-if="group === 'control3'">
-          <li>系统奖励依据：系统对<span>交易活跃</span>的用户奖励诸葛贝。</li>
-          <li>系统奖励规则：如果你在目前这个为期5天的比赛中参与了<span>至少3天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>10个诸葛贝</span>。</li>
-          <li>奖励发放时间：比赛结束时发放诸葛贝奖励</li>
-          <li>你累计参与的天数{{informationInt}}天</li>
-        </ul>
-        <ul class="intro-ul alert-text left" v-else-if="group === 'control4'">
-          <li>诸葛贝：诸葛贝是嗨皮诸葛平台独有的一种虚拟货币，主要用来购买合约，并且在有奖金的比赛中，参与者的净收益诸葛贝作为奖金分配依据。</li>
-          <li>诸葛贝兑换现金规则：不可以直接用诸葛贝兑换现金。在有奖金的比赛中，系统根据参与者在该比赛中净收益的诸葛贝来分配奖金，分配奖金不会消耗诸葛贝数量。</li>
-          <li>合约交易：指参与者根据自己对事件发生与否的判断进行合约买卖。</li>
-        </ul>
+        <el-col>
+          <ul class="intro-ul alert-text left" v-if="group === 'experiment'">
+            <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
+            <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
+            <li>关注者付费：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者将向你支付<span>1个诸葛贝</span>。否则，不支付诸葛贝。</li>
+            <li>
+              <div class="center-vertically" style="flex-wrap:wrap">
+                你目前从关注者获得收益
+                <el-popover
+                    placement="top-start"
+                    :width="200"
+                    trigger="hover"
+                >
+                  <div>
+                    1.显示的是累计收益 <br> 2.每个预测任务结束时发放本次任务的收益
+                  </div>
+                  <template #reference>
+                    <img src="@/assets/images/question.png" style="margin: 0 2px 0" height="14" alt="提示">
+                  </template>
+                </el-popover>
+                ：{{informationInt}}个诸葛贝
+                <img style="margin-left: 2px;" :src=coinUrl height="18" alt="诸葛贝">
+              </div>
+            </li>
+          </ul>
+          <ul class="intro-ul alert-text left" v-else-if="group === 'control1'">
+            <li>系统奖励依据：系统将根据你的交易信息和预测结果决定是否奖励你诸葛贝。</li>
+            <li>系统奖励规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，系统将奖励你<span>5个诸葛贝</span>。否则，不奖励诸葛贝。</li>
+            <li>
+              <div class="center-vertically" style="flex-wrap:wrap">
+                你目前从系统获得奖励
+                <el-popover
+                    placement="top-start"
+                    :width="200"
+                    trigger="hover"
+                >
+                  <div>
+                    1.显示的是累计奖励 <br> 2.每个预测任务结束时发放本次任务的奖励
+                  </div>
+                  <template #reference>
+                    <img src="@/assets/images/question.png" style="margin: 0 2px 0" height="14" alt="提示">
+                  </template>
+                </el-popover>
+                ：{{informationInt}}个诸葛贝
+                <img style="margin-left: 2px;" :src=coinUrl height="18" alt="诸葛贝">
+              </div>
+            </li>
+          </ul>
+          <ul class="intro-ul alert-text left" v-else-if="group === 'control2'">
+            <li>关注者数量：平台上有<span>5个人</span>关注你。</li>
+            <li>关注者权利：关注者<span>可以查看</span>你的交易信息和预测结果。</li>
+            <li>点赞规则：如果你在某个预测任务中<span>盈利（净收益大于0）</span>，每个关注者最多点赞<span>1次</span>。否则，不会点赞。</li>
+            <li>
+              <div class="center-vertically" style="flex-wrap:wrap">
+                你目前获得的点赞数：{{informationInt}}次
+                <img style="margin-left: 2px;" :src=goodUrl height="18" alt="点赞">
+              </div>
+            </li>
+          </ul>
+          <ul class="intro-ul alert-text left" v-else-if="group === 'control3'">
+            <li>系统奖励依据：系统对<span>交易活跃</span>的用户奖励诸葛贝。</li>
+            <li>系统奖励规则：如果你在目前这个为期5天的比赛中参与了<span>至少3天</span>的预测，且每天交易次数<span>不低于2次</span>，你会得到<span>10个诸葛贝</span>。</li>
+            <li>奖励发放时间：比赛结束时发放诸葛贝奖励</li>
+            <li>你累计参与的天数{{informationInt}}天</li>
+          </ul>
+          <ul class="intro-ul alert-text left" v-else-if="group === 'control4'">
+            <li>诸葛贝：诸葛贝是嗨皮诸葛平台独有的一种虚拟货币，主要用来购买合约，并且在有奖金的比赛中，参与者的净收益诸葛贝作为奖金分配依据。</li>
+            <li>诸葛贝兑换现金规则：不可以直接用诸葛贝兑换现金。在有奖金的比赛中，系统根据参与者在该比赛中净收益的诸葛贝来分配奖金，分配奖金不会消耗诸葛贝数量。</li>
+            <li>合约交易：指参与者根据自己对事件发生与否的判断进行合约买卖。</li>
+          </ul>
+        </el-col>
       </el-row>
       <el-row v-else>
           <el-col class="show-grade">
@@ -169,7 +171,7 @@
         <el-table-column prop="status" label="活动状态"></el-table-column>
         <el-table-column>
           <template v-slot="scope" >
-            <router-link :to="{path:'/stock_transaction',query:{eventId:eventIdProp,activityId:scope.row.id,groupName:group,infoInt:informationInt,name:scope.row.name}}"
+            <router-link :to="{path:'/stock_transaction',query:{eventId:eventIdProp,activityId:scope.row.id,groupName:group,infoInt:informationInt}}"
                          class="details center-vertically"  style="flex-wrap:wrap">
               <span class="my-icon">去预测</span>
               <img src="@/assets/images/enter.svg" height="13" alt="进入">
