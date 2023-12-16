@@ -126,7 +126,7 @@ export default {
         '测试比赛2': 'comp2.svg',
         '国际经济与政策预测': 'comp1.svg',
         '2023年底全球重要股指预测':'important_stock_predict.jpg',
-        '股价涨跌预测':'fufei.jpg'
+        '股价涨跌预测':'fufei.webp'
       }
     };
   },
