@@ -14,10 +14,10 @@
 
     <el-row style="margin-top: 20px">
       <el-col :offset="2" :span="9">
-        <span class="box-title" :class="{'box-gray-title': currentPart === 2}" >比赛简介</span>
-<!--        class=" hand" @click="changePart(1)"-->
-<!--        <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"-->
-<!--              @click="changePart(2)">个人成绩</span>-->
+        <span class="box-title hand" @click="changePart(1)" :class="{'box-gray-title': currentPart === 2}" >比赛简介</span>
+
+        <span class="box-title hand" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px"
+              @click="changePart(2)">个人成绩</span>
       </el-col>
     </el-row>
 
@@ -35,11 +35,11 @@
                   <span>排名</span>
                 </el-col>
                 <el-col :span="8">
-                  <h2>{{ competition_performance.cash }}</h2>
+                  <h2>{{ competition_performance.net_zhuge.toFixed(2) }}</h2>
                   <span>比赛净收益</span>
                 </el-col>
                 <el-col :span="8">
-                  <h2>{{ competition_performance.net_zhuge }}</h2>
+                  <h2>{{ competition_performance.cash.toFixed(2) }}</h2>
                   <span>奖金</span>
                 </el-col>
               </el-row>
@@ -53,8 +53,8 @@
             <el-col>
               <el-table :data="competition_performance.activity_rank" class="my-grade-table" :header-cell-style="{'text-align':'center'}"
                         :cell-style="{'text-align':'center'}">
-                <el-table-column prop="name" label="活动"></el-table-column>
-<!--                <el-table-column prop="" label="任务"></el-table-column>-->
+                <el-table-column prop="act_name" label="活动"></el-table-column>
+                <el-table-column prop="pro_name" label="任务" v-if="competition_performance.table_style == 4"></el-table-column>
                 <el-table-column label="任务状态">
                   <template v-slot="scope" >
                     <span v-if="scope.row.status.endsWith('已结束')" class="over_state">已结束</span>
@@ -158,7 +158,7 @@ export default {
       currentPart:1, // 切换比赛简介或个人成绩
       currentPage: 1,  // 当前页码
       pageNum: 1,
-      pageSize: 5,  // 每页显示的条数
+      pageSize: 15,  // 每页显示的条数
       search:"",
       searchKeyword: "", // 搜索关键词
       myTabs:'detail',
@@ -189,7 +189,11 @@ export default {
     },
     competition_event() {
       if((typeof this.$store.getters.eventData !== 'undefined') && (typeof this.$store.getters.eventData.activity_data !== 'undefined')){
-        return this.$store.getters.eventData.activity_data.filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1);
+        return this.$store.getters.eventData.activity_data
+            .filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1)
+            .slice().sort((a, b) => {
+              return new Date(b.end_time) - new Date(a.end_time);
+            });
       }
       return []
     },
@@ -200,7 +204,9 @@ export default {
     page_list(){
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
-      return this.competition_event.filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1).slice(startIndex, endIndex)
+      return this.competition_event
+          .filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1)
+          .slice(startIndex, endIndex)
     }
   },
   mounted() {

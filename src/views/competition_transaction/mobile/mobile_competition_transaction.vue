@@ -31,7 +31,7 @@
     </el-row>
 
 
-    <el-row style="margin-top: 10px; margin-bottom: 10px;" v-if="compDetailDesc !== ''">
+    <el-row style="margin-top: 10px;" v-if="compDetailDesc !== ''">
       <el-col :span="22" :offset="1" class="mb-card introduction">
         <el-row>
           <el-col :offset="1" :span="22">
@@ -202,7 +202,7 @@
           </el-col>
 
           <el-col :span="24" class="submit-btn">
-            <el-button type="warning" @click="postCompTransactionMethod">提交</el-button>
+            <el-button type="warning" :disabled="isDisabled"  @click="postCompTransactionMethod">提交</el-button>
           </el-col>
         </el-row>
       </el-col>
@@ -223,6 +223,7 @@ export default {
     return {
       eventId:this.$route.query.eventId,
       activityId:this.$route.query.activityId,
+      isDisabled: false,
       echarts:'',
       activeName: 'first', //用于切换el-tabs
       barRadio: '价格', //用于切换价格和合约图的图标
@@ -338,6 +339,8 @@ export default {
         });
         return;
       }
+      // 设置按钮不可用
+      this.isDisabled = true
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId, this.activityId, industry).then((res) => {
         this.$message({
@@ -346,6 +349,7 @@ export default {
         });
         //刷新
         location.reload();
+        this.isDisabled = false
       }).catch(() => {
         console.log('提交失败')
       })
@@ -390,11 +394,11 @@ export default {
           areaStyle: {}
         })
         // 图例的转化
-        legendstr += item.contract_text + ",";
+        legendstr += item.contract_text + "|";
       }
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
-      this.historyLegend = legendstr.split(",");
+      this.historyLegend = legendstr.split("|");
     },
     // 直方图及表格的价格数据转换
     barPriceChange() {

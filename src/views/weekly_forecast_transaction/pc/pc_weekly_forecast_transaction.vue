@@ -376,7 +376,7 @@
             </el-col>
 
             <el-col :span="24" class="submit-btn">
-              <el-button type="warning" @click="submitTransactionApplyMethod">
+              <el-button :disabled="isDisabled"  type="warning" @click="submitTransactionApplyMethod">
                 提交
               </el-button>
             </el-col>
@@ -401,6 +401,7 @@ export default {
   data() {
     return {
       echarts:'',
+      isDisabled: false,
       // 导航栏样式
       headStyle: {
         background: "rgba(255, 255, 255, 0)",
@@ -603,6 +604,8 @@ export default {
         });
         return;
       }
+      // 设置按钮不可用
+      this.isDisabled = true
       this.getId = this.$route.query.id;
       // 本页面调用接口，提交数据
       submitTransactionApply(this.getId, industry).then((res) => {
@@ -612,6 +615,7 @@ export default {
         });
         //刷新
         location.reload();
+        this.isDisabled = false
       }).catch(() => {
         // this.$message({
         //   type: 'info',
@@ -658,11 +662,11 @@ export default {
           areaStyle: {}
         })
         // 图例的转化
-        legendstr += item.contract_text + ",";
+        legendstr += item.contract_text + "|";
       }
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
-      this.historyLegend = legendstr.split(",");
+      this.historyLegend = legendstr.split("|");
     },
     // 直方图及表格的价格数据转换
     barPriceChange() {

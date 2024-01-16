@@ -105,7 +105,7 @@
     data() {
       return {
         activeName: 'all', //用于切换el-tabs
-        pageSize: 6, //单页数目
+        pageSize: 10, //单页数目
         pageNum: 1,
         currentPage: 1,
         myTabs: [

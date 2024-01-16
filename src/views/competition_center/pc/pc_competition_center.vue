@@ -9,7 +9,7 @@
         <span class="cur-de">赛事中心</span>
       </el-col>
     </el-row>
-  
+
     <el-row style="margin-top: 20px">
       <el-col :offset="2" :span="9">
         <p class="box-title">赛事中心简介</p>
@@ -47,7 +47,7 @@
         </el-form>
       </el-col>
     </el-row>
-    
+
     <el-row>
       <el-col :span="20" :offset="2" class="my-card mb-20 ">
         <!-- 表头和内容都改为居中 -->
@@ -113,12 +113,12 @@ import TheNav from "../../../components/TheNav";
 export default {
   name: "pc_competition_center",
   components: {TheNav},
-  
+
   data() {
     return {
       currentPage: 1,  // 当前页码
       pageNum: 1,
-      pageSize: 5,  // 每页显示的条数
+      pageSize: 15,  // 每页显示的条数
       search:'',
       searchKeyword: "", // 搜索关键词
       compMapping: {
@@ -130,13 +130,17 @@ export default {
       }
     };
   },
-  
+
   computed: {
     total_page() {
       return this.event_list.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1).length
     },
     event_list(){
-      return this.$store.getters.eventList.filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1)
+      return this.$store.getters.eventList
+          .filter(item => item.event_name.toLowerCase().indexOf(this.searchKeyword) !== -1)
+          .slice().sort((a, b) => {
+            return new Date(b.end_time) - new Date(a.end_time);
+          });
     },
     page_list(){
       const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -236,7 +240,7 @@ export default {
 
 .my-card >>> .el-table td, .el-table th.is-leaf{
   /*去除表格行的底部边框 */
-  border-bottom: none; 
+  border-bottom: none;
 }
 
 .my-card >>> .el-table .cell{

@@ -24,6 +24,12 @@
       </el-col>
     </el-row>
 
+    <el-row style="margin-bottom: 10px;" v-if="compDetailDesc !== ''">
+      <el-col :span="20" :offset="2" class="introduction">
+        <p>{{ compDetailDesc }}</p>
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="20" :offset="2" class="my-tab">
         <el-tabs @tab-click="handleClick" v-model="activeName1">
@@ -90,12 +96,6 @@
             </el-row>
           </el-tab-pane>
         </el-tabs>
-      </el-col>
-    </el-row>
-
-    <el-row style="margin-bottom: 10px;" v-if="compDetailDesc !== ''">
-      <el-col :span="20" :offset="2" class="introduction">
-        <p>{{ compDetailDesc }}</p>
       </el-col>
     </el-row>
 
@@ -381,7 +381,7 @@
           </el-col>
 
           <el-col :span="24" class="submit-btn">
-            <el-button type="warning" @click="postCompTransactionMethod">
+            <el-button :disabled="isDisabled" type="warning" @click="postCompTransactionMethod">
               提交
             </el-button>
           </el-col>
@@ -409,6 +409,7 @@ export default {
       eventId:this.$route.query.eventId,
       activityId:this.$route.query.activityId,
       echarts:'',
+      isDisabled: false,
       compDetailDesc: '', // 活动描述
       activeName1: 'first', //用于切换行业el-tabs
       activeName2: 'first', //用于切换行业信息el-tabs
@@ -607,6 +608,8 @@ export default {
         });
         return;
       }
+      // 设置按钮不可用
+      this.isDisabled = true
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
         this.$message({
@@ -615,11 +618,8 @@ export default {
         });
         //刷新
         location.reload();
+        this.isDisabled = false
       }).catch(() => {
-        // this.$message({
-        //   type: 'info',
-        //   message: '提交失败，请重试'
-        // });
         console.log('提交失败')
       })
     },
@@ -640,6 +640,7 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
+        console.log('compDetailData.desc:'+this.compDetailData.desc)
         // 获取活动描述
         if(this.compDetailData.desc !== null){
           this.compDetailDesc = this.compDetailData.desc
@@ -664,11 +665,11 @@ export default {
           areaStyle: {}
         })
         // 图例的转化
-        legendstr += item.contract_text + ",";
+        legendstr += item.contract_text + "|";
       }
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
-      this.historyLegend = legendstr.split(",");
+      this.historyLegend = legendstr.split("|");
     },
     // 直方图及表格的价格数据转换
     barPriceChange() {

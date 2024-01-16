@@ -183,7 +183,7 @@
           </el-col>
 
           <el-col :span="24" class="submit-btn">
-            <el-button type="warning" @click="submitTransactionApplyMethod">提交</el-button>
+            <el-button :disabled="isDisabled"   type="warning" @click="submitTransactionApplyMethod">提交</el-button>
           </el-col>
         </el-row>
       </el-col>
@@ -202,6 +202,7 @@ export default {
   components: {bottomNav},
   data() {
     return {
+      isDisabled: false,
       activeName: 'first', //用于切换el-tabs
       barRadio: '价格', //用于切换价格和合约图的图标
       chartOrTable: 'chart', //用于切换图和表的图标
@@ -325,6 +326,8 @@ export default {
         });
         return;
       }
+      // 设置按钮不可用
+      this.isDisabled = true
       this.getId = this.$route.query.id;
       // 本页面调用接口，提交数据
       submitTransactionApply(this.getId, industry).then((res) => {
@@ -334,11 +337,8 @@ export default {
         });
         //刷新
         location.reload();
+        this.isDisabled = false
       }).catch(() => {
-        // this.$message({
-        //   type: 'info',
-        //   message: '提交失败，请重试'
-        // });
         console.log('提交失败')
       })
     },
@@ -387,13 +387,13 @@ export default {
           areaStyle: {}
         })
         // 图例的转化
-        legendstr += item.contract_text + ",";
+        legendstr += item.contract_text + "|";
       }
       // 为获得更好的作图效果，用y最小值的85%作为y轴最小值
       this.yMin = (this.yMin * 0.85).toFixed(2)
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
-      this.historyLegend = legendstr.split(",");
+      this.historyLegend = legendstr.split("|");
     },
     // 直方图及表格的价格数据转换
     barPriceChange() {

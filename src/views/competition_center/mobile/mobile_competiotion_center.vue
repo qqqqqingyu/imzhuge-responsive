@@ -75,8 +75,8 @@
             <el-form v-on:click="sortByDate" class="myform">
               <el-form-item>
                 <el-select v-model="sortOrder" placeholder="选择排序方式" size="mini">
-                  <el-option label="按开始日期排序" value="start_time"></el-option>
                   <el-option label="按结束日期排序" value="end_time"></el-option>
+                  <el-option label="按开始日期排序" value="start_time"></el-option>
                   <el-option label="按首字母排序" value="Capitalize"></el-option>
                 </el-select>
               </el-form-item>
@@ -110,7 +110,7 @@
                       class="card-image"></el-image>
             <!-- 右侧比赛信息 -->
             <div class="card-info">
-              <p style="font-size: 18px; font-weight: bold; color: #333333">{{ competition.event_name }}</p>
+              <p style="font-size: 16px; font-weight: bold; color: #333333">{{ competition.event_name }}</p>
               <p style="margin-top:6px;margin-bottom: 8px">
                 <span class="m-over_state" v-if="competition.status.endsWith('未开始或已结束')">未开始或已结束</span>
                 <span class="m-ing_state" v-else>进行中</span>
@@ -132,7 +132,7 @@
                       class="card-image"></el-image>
             <!-- 右侧比赛信息 -->
             <div class="card-info">
-              <p style="font-size: 18px; font-weight: bold; color: #333333">{{ competition.event_name }}</p>
+              <p style="font-size: 16px; font-weight: bold; color: #333333">{{ competition.event_name }}</p>
               <p style="margin-top:6px;margin-bottom: 8px">
                 <span class="m-over_state" v-if="competition.status.endsWith('未开始或已结束')">未开始或已结束</span>
                 <span class="m-ing_state" v-else>进行中</span>
@@ -185,7 +185,7 @@ export default {
     return {
       currentPage: 1,  // 当前页码
       pageNum: 1,
-      pageSize: 5,  // 每页显示的条数
+      pageSize: 15,  // 每页显示的条数
       searchKeyword: "", // 搜索关键词
       search:"",
       compMapping: {
@@ -195,7 +195,7 @@ export default {
         '2023年底全球重要股指预测':'important_stock_predict.jpg',
         '股价涨跌预测':'fufei.webp'
       },
-      sortOrder: '',
+      sortOrder: 'end_time',
       filterOption: 'all',
       FASComp: [],
       // 设置筛选为全选，未开始或已结束还是进行中，对应2，1，0
@@ -319,11 +319,11 @@ export default {
     sortByDate(myList) {
       if (this.sortOrder === 'start_time') {
         return myList.slice().sort((a, b) => {
-          return new Date(a.start_time) - new Date(b.start_time);
+          return new Date(b.start_time) - new Date(a.start_time);
         });
       } else if (this.sortOrder === 'end_time') {
         return myList.slice().sort((a, b) => {
-          return new Date(a.end_time) - new Date(b.end_time);
+          return new Date(b.end_time) - new Date(a.end_time);
         });
       } else if (this.sortOrder === 'Capitalize') {
         return myList.slice().sort((a, b) => {
@@ -451,7 +451,7 @@ export default {
   margin-left: 0;
   margin-right: 8px;
   padding: 0;
-  width: 130px;
+  width: 120px;
   height: 95px;
 }
 

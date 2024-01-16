@@ -260,7 +260,7 @@
           </el-col>
 
           <el-col :span="24" class="submit-btn yellow-btn">
-            <el-button type="warning" @click="postCompTransactionMethod">
+            <el-button :disabled="isDisabled" type="warning" @click="postCompTransactionMethod">
               提交
             </el-button>
           </el-col>
@@ -291,6 +291,7 @@ export default {
       eventId:this.$route.query.eventId,
       activityId:this.$route.query.activityId,
       echarts:'',
+      isDisabled: false,
       group:'',
       informationInt:'', // 对应接口的information，是对应介绍文字中需要变换的数字
       coinUrl:require('@/assets/images/stock_predict.png'),
@@ -413,6 +414,8 @@ export default {
         });
         return;
       }
+      // 设置按钮不可用
+      this.isDisabled = true
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
         if(res.msg == '当前活动已经停止交易'){
@@ -427,6 +430,7 @@ export default {
           });
           //刷新
           location.reload();
+          this.isDisabled = false
         }
       }).catch(() => {
         console.log('提交失败')
@@ -470,11 +474,11 @@ export default {
           areaStyle: {}
         })
         // 图例的转化
-        legendstr += item.contract_text + ",";
+        legendstr += item.contract_text + "|";
       }
 
       legendstr = legendstr.substring(0, legendstr.length - 1);
-      this.historyLegend = legendstr.split(",");
+      this.historyLegend = legendstr.split("|");
     },
     // 直方图及表格的价格数据转换
     barPriceChange() {

@@ -42,23 +42,24 @@ export default {
 
             // 测试假数据
             // const eventList = [
-            //         {
+            //     {
             //
-            //             "event_name": "测试比赛中心的活动",
-            //             "start_time": "2023-07-28T03:33:32",
-            //             "end_time": "2023-07-28T04:33:35",
-            //             "award": 100,
-            //             "status": "活动未开始或已结束",
-            //             "is_special": true,
-            //         },{
-            //
-            //             "event_name": "测试比赛中心的活动",
+            //             "event_name": "股价涨跌预测",
             //             "start_time": "2023-07-28T03:33:32",
             //             "end_time": "2023-10-28T04:33:35",
             //             "award": 300,
             //             "status": "活动进行中",
             //             "is_special": false,
             //         },
+            //     {
+            //
+            //         "event_name": "股价涨跌预测",
+            //         "start_time": "2023-07-28T03:33:32",
+            //         "end_time": "2023-12-28T04:33:35",
+            //         "award": 300,
+            //         "status": "活动进行中",
+            //         "is_special": false,
+            //     }
             //     ]
 
             // 为state中的eventList赋值
@@ -71,52 +72,6 @@ export default {
             }).catch((res) => {
                 console.log(res);
             });
-
-            // 测试假数据
-            // const eventData = {
-            //     "group_id": 2,
-            //     "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
-            //     "performance": {
-            //         "ranking": 10,
-            //         "net_zhuge": 20,
-            //         "cash": 10,
-            //         "activity_rank": [{
-            //             "id": 1,
-            //             "name": "活动1",
-            //             "status": "已结束",
-            //             "sub_net_zhuge": 20
-            //         },
-            //             {
-            //                 "id": 2,
-            //                 "name": "活动2",
-            //                 "status": "进行中",
-            //                 "sub_net_zhuge": "-"
-            //             }
-            //         ]
-            //     },
-            //     "activity_data": [{
-            //         "id": 1,
-            //         "name": "活动1",
-            //         "start_time": "2023-11-25T14:00:00",
-            //         "end_time": "2023-12-28T00:00:00",
-            //         "status": "已结束"
-            //     },
-            //         {
-            //             "id": 2,
-            //             "name": "活动2",
-            //             "start_time": "2023-11-25T14:00:00",
-            //             "end_time": "2023-12-28T00:00:00",
-            //             "status": "进行中"
-            //         },
-            //         {
-            //             "id": 3,
-            //             "name": "活动3",
-            //             "start_time": "2023-11-25T14:00:00",
-            //             "end_time": "2023-12-28T00:00:00",
-            //             "status": "进行中"
-            //         }
-            //     ]
-            // }
 
             // 测试假数据
             // 付费型信息共享实验
@@ -152,6 +107,47 @@ export default {
             //     "first_click": 1
             // }
 
+            // 测试假数据
+            // const eventData = {
+            //     "group_id": 2,
+            //     "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
+            //     "performance": {
+            //     "table_style": 4,
+            //         "ranking": 10,
+            //         "net_zhuge": 20,
+            //         "cash": 10,
+            //         "activity_rank": [{
+            //         "act_name": "活动1",
+            //         "pro_name": "任务1",
+            //         "status": "已结束",
+            //         "sub_net_zhuge": 20
+            //     },
+            // ]
+            // },
+            //     "activity_data": [{
+            //     "id": 1,
+            //     "name": "活动1",
+            //     "start_time": "2023-11-25T14:00:00",
+            //     "end_time": "2023-12-28T00:00:00",
+            //     "status": "已结束"
+            // },
+            //     {
+            //         "id": 2,
+            //         "name": "活动2",
+            //         "start_time": "2023-11-25T14:00:00",
+            //         "end_time": "2023-12-28T00:00:00",
+            //         "status": "进行中"
+            //     },
+            //     {
+            //         "id": 3,
+            //         "name": "活动3",
+            //         "start_time": "2023-11-25T14:00:00",
+            //         "end_time": "2023-12-28T00:00:00",
+            //         "status": "进行中"
+            //     }
+            // ]
+            // }
+            
             // 为state中的event赋值
             context.commit('setEvent',eventData)
         },

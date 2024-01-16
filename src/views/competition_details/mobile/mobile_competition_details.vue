@@ -26,28 +26,66 @@
     <!--    面包屑导航栏结束-->
 
     <el-row style="margin-top: 5px">
-      <el-col :offset="1" :span="23">
-        <p style="font-size: 21px;font-weight: bold;color: #333333">比赛简介</p>
+      <el-col :offset="1" :span="22">
+        <span class="m-box-title hand" @click="changePart(1)" :class="{'box-gray-title': currentPart === 2}">比赛简介</span>
+
+        <span class="m-box-title hand" @click="changePart(2)" :class="{'box-gray-title': currentPart === 1}" style="margin-left: 20px">个人成绩</span>
       </el-col>
     </el-row>
     <el-row style="margin-top: 10px; margin-bottom: 10px;">
-      <el-col :span="22" :offset="1">
-        <div class="introduction">
-          <el-row class="introduction-content">
-            <el-col>
-              <p>{{ competition_desc }}</p>
-            </el-col>
-          </el-row>
-          <el-row style="margin-top: 10px">
-            <p></p>
-          </el-row>
-        </div>
+      <el-col :span="22" :offset="1" class="introduction">
+        <el-row>
+          <el-col :span="22" :offset="1" class="introduction-content" v-if="currentPart===1">
+            <p>{{ competition_desc }}</p>
+          </el-col>
+          <el-col :span="22" :offset="1" v-else>
+            <el-row>
+              <el-col class="show-grade">
+                <el-row class="center">
+                  <el-col :span="8">
+                    <h2>{{ competition_performance.ranking }}</h2>
+                    <span>排名</span>
+                  </el-col>
+                  <el-col :span="8">
+                    <h2>{{ competition_performance.net_zhuge.toFixed(2) }}</h2>
+                    <span>比赛净收益</span>
+                  </el-col>
+                  <el-col :span="8">
+                    <h2>{{ competition_performance.cash.toFixed(2) }}</h2>
+                    <span>奖金</span>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col class="my-tab">
+                <el-tabs v-model="myTabs">
+                  <el-tab-pane label="&emsp;收益明细&emsp;" name="detail">
+                  </el-tab-pane>
+                </el-tabs>
+              </el-col>
+              <el-col>
+                <el-table :data="competition_performance.activity_rank" class="my-grade-table" :header-cell-style="{'text-align':'center'}"
+                          :cell-style="{'text-align':'center'}">
+                  <el-table-column prop="act_name" label="活动"></el-table-column>
+                  <el-table-column prop="pro_name" label="任务" v-if="competition_performance.table_style == 4"></el-table-column>
+                  <el-table-column label="任务状态">
+                    <template v-slot="scope" >
+                      <span v-if="scope.row.status.endsWith('已结束')" class="over_state">已结束</span>
+                      <span v-else class="ing_state">进行中</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="sub_net_zhuge" label="净收益"></el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
+
       </el-col>
     </el-row>
 
     <el-row style="margin-top: 20px;max-height: 50px;">
       <el-col :span="8" :offset="1" style="margin-top: 5px">
-        <p style="font-size: 21px;font-weight: bold;color: #333333">活动列表</p>
+        <p class="m-box-title">活动列表</p>
       </el-col>
 
       <!-- 搜索表单 -->
@@ -77,8 +115,8 @@
             <el-form :inline="true" v-on:click="sortByDate" class="myform input-height">
               <el-form-item>
                 <el-select v-model="sortOrder" placeholder="选择排序方式" size="mini">
-                  <el-option label="按开始日期排序" value="start_time"></el-option>
                   <el-option label="按结束日期排序" value="end_time"></el-option>
+                  <el-option label="按开始日期排序" value="start_time"></el-option>
                   <el-option label="按首字母排序" value="Capitalize"></el-option>
                 </el-select>
               </el-form-item>
@@ -105,8 +143,6 @@
 
         <div v-for="(item, index) in page_list" :key="index" class="box-card card-content card-info">
           <div class="left-info">
-<!--            活动名是接口给的，不是前端命名-->
-<!--            <p class="info1">活动{{ index + 1 }}</p>-->
             <p class="info1">{{ item.name }}</p>
             <p class="my-tag" style="margin-top:6px;margin-bottom: 8px">
               <span class="m-over_state" v-if="item.status.endsWith('未开始或已结束')">未开始或已结束</span>
@@ -166,16 +202,18 @@ export default {
 
   data() {
     return {
+      currentPart:1, // 切换比赛简介或个人成绩
       currentPage: 1,  // 当前页码
       pageNum: 1,
-      pageSize: 5,  // 每页显示的条数
+      pageSize: 15,  // 每页显示的条数
       searchKeyword: "", // 搜索关键词
       search:"",
-      sortOrder: '', // 默认排序方式为空
+      sortOrder: "end_time", // 默认排序按结束日期
       filterOption: 'all',
       FASComp: [],
       // 设置筛选为全选，未开始或已结束还是进行中，对应2，1，0
-      screen: 2
+      screen: 2,
+      myTabs:'detail',
     };
   },
 
@@ -227,6 +265,22 @@ export default {
       const endIndex = startIndex + this.pageSize;
       return this.filter_list.filter(item => item.name.toLowerCase().indexOf(this.searchKeyword) !== -1).slice(startIndex, endIndex)
     },
+    // 比赛表现
+    competition_performance(){
+      if(typeof this.$store.getters.eventData.performance !== 'undefined'){
+        return this.$store.getters.eventData.performance}
+      return {
+        ranking: '',
+        net_zhuge: '',
+        cash: '',
+        activity_rank: [{
+          id: '',
+          name: '',
+          status: '',
+          sub_net_zhuge: ''
+        }]
+      }
+    },
   },
   mounted() {
     this.getCSRFTokenMethod();
@@ -235,6 +289,10 @@ export default {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
+    },
+    // 切换简介和个人成绩
+    changePart(page){
+      this.currentPart = page
     },
     // 搜索
     handleSearch(){
@@ -278,11 +336,11 @@ export default {
     sortByDate(myList) {
       if (this.sortOrder === 'start_time') {
         return myList.slice().sort((a, b) => {
-          return new Date(a.start_time) - new Date(b.start_time);
+          return new Date(b.start_time) - new Date(a.start_time);
         });
       } else if (this.sortOrder === 'end_time') {
         return myList.slice().sort((a, b) => {
-          return new Date(a.end_time) - new Date(b.end_time);
+          return new Date(b.end_time) - new Date(a.end_time);
         });
       } else if (this.sortOrder === 'Capitalize') {
         return myList.slice().sort((a, b) => {
@@ -345,12 +403,12 @@ export default {
   color: #555555;
   font-size: 15px;
   margin-bottom: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .introduction-content {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
+  padding: 10px;
 }
 
 .mybtn {
@@ -494,5 +552,84 @@ export default {
 /*修改按钮样式*/
 .yellow-btn .el-button{
   padding: 7px 10px;
+}
+
+.m-box-title{
+  font-size: 21px;
+  font-weight: bold;
+  color: rgb(51, 51, 51);
+}
+
+.box-gray-title{
+  color: #AAAAAACD;
+}
+
+
+/*修改element表格样式开始*/
+/*表头颜色*/
+
+/*表头颜色*/
+::v-deep .my-grade-table th{
+  background: rgba(215, 215, 215, 0.2);
+  padding: 6px 0 5px;
+  color: rgba(51, 51, 51, 0.93);
+}
+
+/*边框圆角*/
+::v-deep .el-table th:first-child{
+  border-top-left-radius:5px;
+  border-bottom-left-radius:5px;
+}
+
+::v-deep .el-table th:last-child{
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+}
+
+/*表格内容*/
+::v-deep .el-table td, .el-table th{
+  padding: 6px 0;
+}
+
+/*调整斑马纹颜色*/
+::v-deep .el-table--striped .el-table__body tr.el-table__row--striped td{
+  background-color: rgb(248,248,248);
+}
+/*修改element表格样式结束*/
+
+/*修改element原有tab样式开始*/
+/*切换活动项的字体颜色*/
+.my-tab /deep/ .el-tabs__item.is-active {
+  color: #E3B570 !important;
+  height: 33px;
+  font-size: 14px;
+}
+
+/*切换活动项的字体颜色*/
+.my-tab /deep/ .el-tabs__item:hover {
+  color: #E3B570 !important;
+}
+
+/*切换活动项的长条颜色*/
+.my-tab /deep/ .el-tabs__active-bar {
+  background-color: #F0C27B !important;
+}
+
+.my-tab >>> .el-tabs__item{
+  font-size: 17px;
+}
+/*修改element原有tab样式结束*/
+
+
+.show-grade{
+  background-color: rgba(255, 195, 105, 0.07);
+  padding: 13px 0 8px;
+  color: #000000;
+}
+
+.show-grade span{
+  color: #AAAAAA;
+  font-size: 12px;
+  margin-top: 5px;
 }
 </style>

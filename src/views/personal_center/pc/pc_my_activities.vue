@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       screen: 2, //2表示全部
-      pageSize: 6, //单页数目
+      pageSize: 10, //单页数目
       pageNum: 1,
       currentPage: 1,
     }
