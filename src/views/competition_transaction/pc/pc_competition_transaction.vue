@@ -24,7 +24,7 @@
       </el-col>
     </el-row>
 
-    <el-row style="margin-bottom: 10px;" v-if="compDetailDesc !== ''">
+    <el-row style="margin-top: 10px;" v-if="compDetailDesc !== ''">
       <el-col :span="20" :offset="2" class="introduction">
         <p>{{ compDetailDesc }}</p>
       </el-col>

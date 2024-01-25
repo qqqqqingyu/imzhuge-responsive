@@ -35,11 +35,11 @@
                   <span>排名</span>
                 </el-col>
                 <el-col :span="8">
-                  <h2>{{ competition_performance.net_zhuge.toFixed(2) }}</h2>
+                  <h2>{{ numFilter(competition_performance.net_zhuge) }}</h2>
                   <span>比赛净收益</span>
                 </el-col>
                 <el-col :span="8">
-                  <h2>{{ competition_performance.cash.toFixed(2) }}</h2>
+                  <h2>{{ numFilter(competition_performance.cash) }}</h2>
                   <span>奖金</span>
                 </el-col>
               </el-row>
@@ -220,6 +220,16 @@ export default {
     // 搜索
     handleSearch(){
       this.searchKeyword = this.search
+    },
+    // 转两位小数
+    numFilter(str){
+      let n = parseFloat(str)
+      if(isNaN(n)){
+        return str
+      }
+      else{
+        return n.toFixed(2)
+      }
     },
     // 切换简介和个人成绩
     changePart(page){
