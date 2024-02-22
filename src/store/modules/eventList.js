@@ -65,6 +65,7 @@ export default {
             // 为state中的eventList赋值
             context.commit('setEventList',eventList)
         },
+        // 两个页面在用，一个是付费型信息共享实验页面，一个是普通的比赛页面
         async useEventData(context,eventId){
             // 调用接口取数据
             const eventData = await getEvent(eventId).then((res) =>{
@@ -74,7 +75,7 @@ export default {
             });
 
             // 测试假数据
-            // 付费型信息共享实验
+            // 付费型信息共享实验页面的数据，没加个人成绩，页面也没加
             // const eventData = {
             //     "event_type": "information",
             //     "group_id": 16,
@@ -108,6 +109,7 @@ export default {
             // }
 
             // 测试假数据
+            // 普通比赛页面的数据，加了个人成绩
             // const eventData = {
             //     "group_id": 2,
             //     "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
