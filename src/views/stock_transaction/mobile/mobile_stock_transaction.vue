@@ -381,6 +381,7 @@ export default {
       // 数据校验，若不符合条件则终止
       if(industry.contract_id.length==0){
         this.$message({
+          customClass: 'ChoiceMsg',
           type: 'warning',
           message: '请选择上涨或下跌'
         });
@@ -395,6 +396,7 @@ export default {
       }
       if(industry.trade_type.length==0){
         this.$message({
+          customClass: 'ChoiceMsg',
           type: 'warning',
           message: '请选择交易类型'
         });
@@ -402,6 +404,7 @@ export default {
       }
       if(industry.trade_confidence.length == 0){
         this.$message({
+          customClass: 'ChoiceMsg',
           type: 'warning',
           message: '请选择四种自信程度其中的一种'
         });
@@ -409,6 +412,7 @@ export default {
       }
       if(industry.note.length < 5){
         this.$message({
+          customClass: 'ChoiceMsg',
           type: 'warning',
           message: '请至少输入5个字的描述内容！'
         });
@@ -418,21 +422,37 @@ export default {
       this.isDisabled = true
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
-        if(res.msg == '当前活动已经停止交易'){
-          this.$message({
-            type: 'warning',
-            message: res.msg
-          });
-        }else{ // 交易成功
-          this.$message({
-            type: 'success',
-            message: res.msg
-          });
-          //刷新
-          location.reload();
-          this.isDisabled = false
+        const statusCode = res.data.code;
+        let message;
+        let title;
+        if(statusCode === '200'){
+          message = '';
+          title = '交易成功';
+          // this.$message({
+          //   type: 'success',
+          //   message: '交易成功'
+          // });
+        } else {
+          message = res.msg;
+          title = '交易失败';
+          // this.$alert(res.msg, '交易失败', {
+          //   confirmButtonText: '确定',
+          //   customClass: 'AlertBox'
+          // });
         }
-      }).catch(() => {
+        this.$alert(message, title, {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox'
+        });
+          //刷新
+        location.reload();
+        this.isDisabled = false;
+        }).catch((error) => {
+        this.$alert('提交失败，请重试', '发生错误', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox'
+        });
+        this.isDisabled = false
         console.log('提交失败')
       })
     },
@@ -883,4 +903,8 @@ export default {
   color: #F0C27B !important;
 }
 /*覆盖element原有的样式结束*/
+</style>
+
+<style>
+@import '../../../assets/CSS/MessageBox.css';
 </style>

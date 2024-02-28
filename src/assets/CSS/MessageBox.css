@@ -1,0 +1,22 @@
+/* message 弹窗样式 */
+/* 不可以放在 scoped 里面 */
+@media screen and (max-width: 750px) {
+  .el-message-box {
+    width: 60% !important;
+    height: 20%;
+  }
+
+  .ChoiceMsg {
+    min-width: 280px;
+  }
+}
+
+.AlertBox {
+  /* 自动换行 */
+  word-break: break-all !important;
+}
+
+.AlertBox button:nth-child(1) {
+  background-color: #F7C578 !important;
+  border: 0;
+}

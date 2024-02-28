@@ -121,7 +121,7 @@
           <img src="@/assets/images/fanhui.svg" class="hand" style="float: left;padding-left: 10px;height: 20px;margin-top: 5px"
                @click="guide_text_return()">
           <div class="guide_win_t">交易引导</div>
-          <div class="center-vertically">
+          <div class="center-vertically" style="flex-wrap: nowrap;">
             <div style="padding-top: 20px;float: left;margin-bottom: 20px;">
               <img src="@/assets/images/web_logo.png" height="60" alt="zhuge" style="margin-left: 8px">
             </div>

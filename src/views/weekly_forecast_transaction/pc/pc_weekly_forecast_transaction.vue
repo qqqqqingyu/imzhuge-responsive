@@ -609,18 +609,37 @@ export default {
       this.getId = this.$route.query.id;
       // 本页面调用接口，提交数据
       submitTransactionApply(this.getId, industry).then((res) => {
-        this.$message({
-          type: 'success',
-          message: res.msg
+        const statusCode = res.data.code;
+        let message;
+        let title;
+        if(statusCode === '200'){
+          message = '';
+          title = '交易成功';
+          // this.$message({
+          //   type: 'success',
+          //   message: '交易成功'
+          // });
+        } else {
+          message = res.msg;
+          title = '交易失败';
+          // this.$alert(res.msg, '交易失败', {
+          //   confirmButtonText: '确定',
+          //   customClass: 'AlertBox'
+          // });
+        }
+        this.$alert(message, title, {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox'
         });
-        //刷新
+          //刷新
         location.reload();
+        this.isDisabled = false;
+        }).catch((error) => {
+        this.$alert('提交失败，请重试', '发生错误', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox'
+        });
         this.isDisabled = false
-      }).catch(() => {
-        // this.$message({
-        //   type: 'info',
-        //   message: '提交失败，请重试'
-        // });
         console.log('提交失败')
       })
     },
@@ -1855,4 +1874,8 @@ export default {
   color: #EF9C19;
 }
 
+</style>
+
+<style>
+@import '../../../assets/CSS/MessageBox.css';
 </style>

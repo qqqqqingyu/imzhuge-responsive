@@ -155,6 +155,7 @@ export default {
         info.email === this.myInfoDetails.email &&
         info.invite_code === this.myInfoDetails.invite_code){
         this.$message({
+          customClass: 'ChoiceMsg',
           type: 'warning',
           message: '请修改后提交'
         });
@@ -189,6 +190,7 @@ export default {
       else {
         editMyInfo(info).then(() => {
           this.$message({
+            customClass: 'ChoiceMsg',
             type: 'success',
             message: '修改成功！'
           });
@@ -243,4 +245,8 @@ export default {
 .btn-box{
   text-align: center;
 }
+</style>
+
+<style>
+@import '../../../assets/CSS/MessageBox.css';
 </style>
