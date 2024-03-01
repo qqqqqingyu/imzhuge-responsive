@@ -318,7 +318,7 @@
 </template>
 
 <script>
-import {WOW} from 'wowjs'
+// import {WOW} from 'wowjs'
 import {getCSRFToken} from '@/api/token'
 import config from '@/config'
 import {useStore} from "vuex";
@@ -428,18 +428,18 @@ export default {
     // 监听页面滚动
     window.addEventListener('scroll', this.handleScroll)
 
-    new WOW().init();
-    //声明一个对象来配置动画效果参数
-    var wow = new WOW(
-        {
-          boxClass: 'wow',      // default
-          animateClass: 'animated', // default
-          offset: 150,          // default
-          mobile: false,       // default
-          live: false        // default
-        }
-    )
-    wow.init();
+    // new WOW().init();
+    // //声明一个对象来配置动画效果参数
+    // var wow = new WOW(
+    //     {
+    //       boxClass: 'wow',      // default
+    //       animateClass: 'animated', // default
+    //       offset: 150,          // default
+    //       mobile: false,       // default
+    //       live: false        // default
+    //     }
+    // )
+    // wow.init();
   }
 }
 </script>

@@ -358,11 +358,12 @@ export default {
           //   type: 'success',
           //   message: '交易成功'
           // });
+          this.$alert(message, title, {
+            confirmButtonText: '确定',
+            customClass: 'AlertBox'
+          });
         }
-        this.$alert(message, title, {
-          confirmButtonText: '确定',
-          customClass: 'AlertBox'
-        });
+        
           //刷新
         location.reload();
         this.isDisabled = false;
