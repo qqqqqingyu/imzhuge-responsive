@@ -625,11 +625,16 @@ export default {
           this.$alert(message, title, {
             confirmButtonText: '确定',
             customClass: 'AlertBox'
+            ,callback: action => {
+              if (action === 'confirm') {
+                // 在点击确认按钮后刷新页面
+                location.reload();
+                this.isDisabled = false;
+              }
+            }
           });
         }
-          //刷新
-        location.reload();
-        this.isDisabled = false;
+
         })
     },
     //获取数据
