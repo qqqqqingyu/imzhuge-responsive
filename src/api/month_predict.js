@@ -14,9 +14,9 @@ export function getIndustryList() {
     return request({
         method:'get',
         // 测试服
-        // url: '/api/month_predict/industry_list'
+        url: '/api/month_predict/industry_list'
         // 正式服
-        url:serverUrl+'/api/month_predict/industry_list'
+        // url:serverUrl+'/api/month_predict/industry_list'
     })
 }
 
@@ -27,9 +27,9 @@ export function getIndustryDetail(industryId) {
     return request({
         method:'get',
         // 测试服
-        // url: '/api/month_predict/industry_detail/' + industryId
+        url: '/api/month_predict/industry_detail/' + industryId
         // 正式服
-        url:serverUrl+'/api/month_predict/industry_detail/' + industryId
+        // url:serverUrl+'/api/month_predict/industry_detail/' + industryId
     })
 }
 
@@ -39,9 +39,9 @@ export function getIndustryDetail(industryId) {
 export function submitTransactionApply(industryId, data) {
     return request({
         // 测试服
-        // url: '/api/month_predict/industry_detail/' + industryId,
+        url: '/api/month_predict/industry_detail/' + industryId,
         // 正式服
-        url:serverUrl+'/api/month_predict/industry_detail/' + industryId,
+        // url:serverUrl+'/api/month_predict/industry_detail/' + industryId,
         method:'post',
         data:data
     })

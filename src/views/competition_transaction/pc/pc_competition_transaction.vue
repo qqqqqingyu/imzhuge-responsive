@@ -612,22 +612,15 @@ export default {
       this.isDisabled = true
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
-        const statusCode = res.data.code;
+        const statusCode = res.code;
         let message;
         let title;
-        if(statusCode === '200'){
+        if(statusCode === '200' || statusCode === 20000){
           message = '';
           title = '交易成功';
           // this.$message({
           //   type: 'success',
           //   message: '交易成功'
-          // });
-        } else {
-          message = res.msg;
-          title = '交易失败';
-          // this.$alert(res.msg, '交易失败', {
-          //   confirmButtonText: '确定',
-          //   customClass: 'AlertBox'
           // });
         }
         this.$alert(message, title, {
@@ -637,14 +630,7 @@ export default {
           //刷新
         location.reload();
         this.isDisabled = false;
-        }).catch((error) => {
-        this.$alert('提交失败，请重试', '发生错误', {
-          confirmButtonText: '确定',
-          customClass: 'AlertBox'
-        });
-        this.isDisabled = false
-        console.log('提交失败')
-      })
+        })
     },
     //获取数据
     getCompetitionDetailMethod() {
