@@ -8,8 +8,8 @@ import {serverUrl} from "../config";
 export const getCategory = () => {
     return request({
         // 测试服
-        url: '/api/activity/cda'
+        // url: '/api/activity/cda'
         // 正式服
-        // url:serverUrl+'/api/activity/cda'
+        url:serverUrl+'/api/activity/cda'
     })
 }

@@ -410,7 +410,7 @@ export default {
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
         const statusMsg = res.msg;
-        if(statusMsg === '交易成功'){
+        if(statusMsg === '交易成功！'){
           this.$alert('恭喜您，交易成功！', '交易成功', {
             confirmButtonText: '确定',
             customClass: 'AlertBox',
