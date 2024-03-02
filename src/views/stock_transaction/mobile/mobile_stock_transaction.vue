@@ -422,17 +422,21 @@ export default {
       this.isDisabled = true
       // 本页面调用接口，提交数据
       postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
-        const statusCode = res.code;
-        let message;
-        let title;
-        if(statusCode === '200' || statusCode === 20000){
-          message = '';
-          title = '交易成功';
-          // this.$message({
-          //   type: 'success',
-          //   message: '交易成功'
-          // });
-          this.$alert(message, title, {
+        const statusMsg = res.msg;
+        if(statusMsg === '交易成功'){
+          this.$alert('恭喜您，交易成功！', '交易成功', {
+            confirmButtonText: '确定',
+            customClass: 'AlertBox',
+            callback: action => {
+              if (action === 'confirm') {
+                // 在点击确认按钮后刷新页面
+                location.reload();
+                this.isDisabled = false;
+              }
+            }
+          });
+        } else {
+          this.$alert(res.msg, '交易失败', {
             confirmButtonText: '确定',
             customClass: 'AlertBox',
             callback: action => {
@@ -444,7 +448,9 @@ export default {
             }
           });
         }
-      })
+      }).catch((error) => {
+        this.isDisabled = false;
+      });
     },
     //获取数据
     getCompetitionDetailMethod() {

@@ -447,7 +447,7 @@ export default {
 <style scoped>
 @import '../../../assets/CSS/homepage_style.css';
 @import '../../../assets/CSS/homepage_common.css';
-@import 'https://cdn.dowebok.com/98/css/animate.min.css';
+/* @import 'https://cdn.dowebok.com/98/css/animate.min.css'; */
 
 .carousel {
   margin-top: 78px;
