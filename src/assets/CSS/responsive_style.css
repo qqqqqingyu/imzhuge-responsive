@@ -351,9 +351,18 @@ a {
 }
 /*pc端导航栏部分类结束*/
 
-/*付费型信息分享页面，作为变量的html标签的css，写在全局css中才有效*/
+/*需要用v-html显示的文本的css*/
 .alert-text span{
     color: #F6A030;
+}
+
+.alert-text a{
+    color: #F6A030;
+}
+
+
+.alert-text a:hover{
+    color: rgb(234, 176, 85);
 }
 
 .container {

@@ -25,9 +25,7 @@
     </el-row>
 
     <el-row style="margin-top: 10px;" v-if="compDetailDesc !== ''">
-      <el-col :span="20" :offset="2" class="introduction">
-        <p>{{ compDetailDesc }}</p>
-      </el-col>
+      <el-col :span="20" :offset="2" class="introduction alert-text" v-html="compDetailDesc"></el-col>
     </el-row>
 
     <el-row>
@@ -409,6 +407,7 @@ export default {
       eventId:this.$route.query.eventId,
       activityId:this.$route.query.activityId,
       echarts:'',
+      linkUrl:require('@/assets/images/link.svg'),
       isDisabled: false,
       compDetailDesc: '', // 活动描述
       activeName1: 'first', //用于切换行业el-tabs

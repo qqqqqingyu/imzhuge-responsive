@@ -34,9 +34,7 @@
     <el-row style="margin-top: 10px;" v-if="compDetailDesc !== ''">
       <el-col :span="22" :offset="1" class="mb-card introduction">
         <el-row>
-          <el-col :offset="1" :span="22">
-            <p>{{ compDetailDesc }}</p>
-          </el-col>
+          <el-col :offset="1" :span="22" class="alert-text" v-html="compDetailDesc"></el-col>
         </el-row>
       </el-col>
     </el-row>
@@ -225,6 +223,7 @@ export default {
       activityId:this.$route.query.activityId,
       isDisabled: false,
       echarts:'',
+      linkUrl:require('@/assets/images/link.svg'),
       activeName: 'first', //用于切换el-tabs
       barRadio: '价格', //用于切换价格和合约图的图标
       chartOrTable: 'chart', //用于切换图和表的图标
