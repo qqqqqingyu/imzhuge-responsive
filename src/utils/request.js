@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { isMobileTerminal } from './flexible'
 import { ElMessage } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
+import '../assets/CSS/MessageBox.css'
 
 // 创建axios实例
 const request = axios.create({
@@ -71,16 +73,14 @@ request.interceptors.response.use(
             if (res.code !== '200' && res.code !== 20000) {
                 console.log('res.code:'+res.code+',res.msg:'+res.msg)
                 if(res.msg === undefined){
-                    // 后期可优化为响应一个MessageBox
-                    ElMessage({
-                        type: 'warning',
-                        message: 'res.code:'+res.code
+                    ElMessageBox.alert('res.code:'+res.code, "未知错误", {
+                        confirmButtonText: '确定',
+                        customClass: 'AlertBox',
                     });
                 } else{
-                    // 后期可优化为响应一个MessageBox
-                    ElMessage({
-                        type: 'warning',
-                        message: res.msg
+                    ElMessageBox.alert(res.msg, "交易失败", {
+                        confirmButtonText: '确定',
+                        customClass: 'AlertBox',
                     });
                 }
                 // window.alert(res.msg)
