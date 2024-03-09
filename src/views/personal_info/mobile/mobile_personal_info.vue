@@ -154,10 +154,14 @@ export default {
         info.phone_number === this.myInfoDetails.phone_number &&
         info.email === this.myInfoDetails.email &&
         info.invite_code === this.myInfoDetails.invite_code){
-        this.$message({
-          customClass: 'ChoiceMsg',
-          type: 'warning',
-          message: '请修改后提交'
+        // this.$message({
+        //   customClass: 'ChoiceMsg',
+        //   type: 'warning',
+        //   message: '请修改后提交'
+        // });
+        this.$alert('请修改后提交', '提交失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
         });
         this.modifiedStatus = 1;
       }

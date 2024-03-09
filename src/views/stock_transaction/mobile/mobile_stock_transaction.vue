@@ -380,41 +380,37 @@ export default {
 
       // 数据校验，若不符合条件则终止
       if(industry.contract_id.length==0){
-        this.$message({
-          customClass: 'ChoiceMsg',
-          type: 'warning',
-          message: '请选择上涨或下跌'
+        this.$alert('请选择预测结果', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
         });
         return;
       }
       if(industry.count.length==0){
-        this.$message({
-          type: 'warning',
-          message: '请输入交易份额'
+        this.$alert('请输入交易份额', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
         });
         return;
       }
       if(industry.trade_type.length==0){
-        this.$message({
-          customClass: 'ChoiceMsg',
-          type: 'warning',
-          message: '请选择交易类型'
+        this.$alert('请选择交易类型', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
         });
         return;
       }
       if(industry.trade_confidence.length == 0){
-        this.$message({
-          customClass: 'ChoiceMsg',
-          type: 'warning',
-          message: '请选择四种自信程度其中的一种'
+        this.$alert('请选择四种自信程度其中的一种', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
         });
         return;
       }
       if(industry.note.length < 5){
-        this.$message({
-          customClass: 'ChoiceMsg',
-          type: 'warning',
-          message: '请至少输入5个字的描述内容！'
+        this.$alert('请至少输入5个字的描述内容！', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
         });
         return;
       }
