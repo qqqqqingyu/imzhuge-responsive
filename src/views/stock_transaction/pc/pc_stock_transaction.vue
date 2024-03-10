@@ -368,6 +368,7 @@ export default {
       industry.trade_type = this.tradeType
       industry.trade_confidence = this.tradeConfidence
       industry.note = this.note
+      industry.contract_price = this.companyRankData.find(rank => rank.company_contract_id === this.inputNo1).price
 
       // 数据校验，若不符合条件则终止
       if(industry.contract_id.length==0){

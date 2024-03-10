@@ -570,49 +570,48 @@ export default {
       industry.trade_type = this.tradeType
       industry.trade_confidence = this.tradeConfidence
       industry.note = this.note
-      industry.contract_price = this.companyRankData.company_rank.find(rank => rank.company_name === this.inputNo1).price
-      console.log(industry.contract_price)
+      industry.contract_price = this.companyRankData.find(rank => rank.company_contract_id === this.inputNo1).price
 
       // 数据校验，若不符合条件则终止
-      // if(industry.contract_id.length==0){
-      //   this.$alert('请选择预测结果', '交易失败', {
-      //     confirmButtonText: '确定',
-      //     customClass: 'AlertBox',
-      //   });
-      //   return;
-      // }
-      // if(industry.count.length==0){
-      //   this.$alert('请输入交易份额', '交易失败', {
-      //     confirmButtonText: '确定',
-      //     customClass: 'AlertBox',
-      //   });
-      //   return;
-      // }
-      // if(industry.trade_type.length==0){
-      //   this.$alert('请选择交易类型', '交易失败', {
-      //     confirmButtonText: '确定',
-      //     customClass: 'AlertBox',
-      //   });
-      //   return;
-      // }
-      // if(industry.trade_confidence.length == 0){
-      //   this.$alert('请选择四种自信程度其中的一种', '交易失败', {
-      //     confirmButtonText: '确定',
-      //     customClass: 'AlertBox',
-      //   });
-      //   return;
-      // }
-      // if(industry.note.length < 5){
-      //   this.$alert('请至少输入5个字的描述内容！', '交易失败', {
-      //     confirmButtonText: '确定',
-      //     customClass: 'AlertBox',
-      //   });
-      //   return;
-      // }
+      if(industry.contract_id.length==0){
+        this.$alert('请选择预测结果', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
+        });
+        return;
+      }
+      if(industry.count.length==0){
+        this.$alert('请输入交易份额', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
+        });
+        return;
+      }
+      if(industry.trade_type.length==0){
+        this.$alert('请选择交易类型', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
+        });
+        return;
+      }
+      if(industry.trade_confidence.length == 0){
+        this.$alert('请选择四种自信程度其中的一种', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
+        });
+        return;
+      }
+      if(industry.note.length < 5){
+        this.$alert('请至少输入5个字的描述内容！', '交易失败', {
+          confirmButtonText: '确定',
+          customClass: 'AlertBox',
+        });
+        return;
+      }
       // 设置按钮不可用
-      // this.isDisabled = true
+      this.isDisabled = true
       // 本页面调用接口，提交数据
-      // postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
+      postCompetitionTransaction(this.eventId,this.activityId, industry).then((res) => {
         const statusMsg = res.msg;
         if(statusMsg === '交易成功！'){
           this.$alert('恭喜您，交易成功！', '交易成功', {
@@ -639,215 +638,217 @@ export default {
             }
           });
         }
-      // }).catch((error) => {
-      //   this.isDisabled = false;
-      // });
+      }).catch((error) => {
+        this.isDisabled = false;
+      });
     },
     //获取数据
     getCompetitionDetailMethod() {
-      // getCompetitionDetail(this.eventId,this.activityId).then((res) => {
-        this.compDetailData = {
-                                "title": "美国 2024：哪个政党将赢得总统选举？",
-                                "desc": "<p>美国 2024：哪个政党将赢得总统选举？</p>",
-                                "user_current_money": 23.91609295,
-                                "graph_x": [
-                                  "2023-09-14 13:12:11",
-                                  "2023-09-14 13:12:11",
-                                  "2023-09-14 15:34:45",
-                                  "2023-09-15 15:59:24",
-                                  "2023-09-15 16:07:01",
-                                  "2023-09-16 15:41:12",
-                                  "2023-09-16 18:24:51",
-                                  "2023-09-21 08:18:52",
-                                  "2023-10-12 13:17:31",
-                                  "2023-10-12 13:22:42",
-                                  "2023-10-13 20:05:19",
-                                  "2023-10-13 20:05:22",
-                                  "2023-10-18 19:35:44",
-                                  "2023-10-20 00:29:26",
-                                  "2023-10-20 14:54:03",
-                                  "2023-10-20 18:39:45",
-                                  "2023-10-21 10:26:22",
-                                  "2023-10-24 13:06:59",
-                                  "2023-10-26 10:11:40",
-                                  "2023-10-26 16:11:41",
-                                  "2023-11-05 18:57:07",
-                                  "2023-11-05 18:58:29",
-                                  "2023-11-06 21:33:46",
-                                  "2023-11-14 13:50:51",
-                                  "2023-11-16 12:06:46",
-                                  "2023-11-22 00:07:36",
-                                  "2023-11-22 00:07:37",
-                                  "2023-11-22 00:21:21",
-                                  "2023-11-22 17:29:58",
-                                  "2023-11-29 12:55:06",
-                                  "2023-12-02 09:41:42",
-                                  "2023-12-07 17:51:59",
-                                  "2023-12-09 21:26:51",
-                                  "2023-12-12 16:00:47",
-                                  "2023-12-12 22:13:08",
-                                  "2023-12-20 19:38:20",
-                                  "2023-12-22 19:00:25",
-                                  "2023-12-22 19:00:39"
-                                ],
-                                "graph_y": [
-                                  {
-                                    "contract_id": 1428,
-                                    "contract_price": [
-                                      0.333,
-                                      0.339,
-                                      0.458,
-                                      0.457,
-                                      0.457,
-                                      0.456,
-                                      0.456,
-                                      0.337,
-                                      0.342,
-                                      0.337,
-                                      0.331,
-                                      0.325,
-                                      0.319,
-                                      0.325,
-                                      0.307,
-                                      0.301,
-                                      0.237,
-                                      0.232,
-                                      0.238,
-                                      0.301,
-                                      0.295,
-                                      0.292,
-                                      0.286,
-                                      0.279,
-                                      0.286,
-                                      0.279,
-                                      0.273,
-                                      0.286,
-                                      0.282,
-                                      0.314,
-                                      0.307,
-                                      0.318,
-                                      0.318,
-                                      0.307,
-                                      0.31,
-                                      0.304,
-                                      0.303,
-                                      0.305
-                                    ],
-                                    "contract_text": "民主党",
-                                    "machine_list": []
-                                  },
-                                  {
-                                    "contract_id": 1429,
-                                    "contract_price": [
-                                      0.333,
-                                      0.331,
-                                      0.271,
-                                      0.272,
-                                      0.272,
-                                      0.273,
-                                      0.274,
-                                      0.333,
-                                      0.331,
-                                      0.333,
-                                      0.345,
-                                      0.356,
-                                      0.367,
-                                      0.364,
-                                      0.4,
-                                      0.412,
-                                      0.536,
-                                      0.547,
-                                      0.535,
-                                      0.411,
-                                      0.423,
-                                      0.429,
-                                      0.441,
-                                      0.454,
-                                      0.441,
-                                      0.454,
-                                      0.466,
-                                      0.441,
-                                      0.447,
-                                      0.387,
-                                      0.399,
-                                      0.393,
-                                      0.392,
-                                      0.398,
-                                      0.392,
-                                      0.404,
-                                      0.404,
-                                      0.403
-                                    ],
-                                    "contract_text": "共和党",
-                                    "machine_list": []
-                                  },
-                                  {
-                                    "contract_id": 1430,
-                                    "contract_price": [
-                                      0.333,
-                                      0.331,
-                                      0.271,
-                                      0.271,
-                                      0.272,
-                                      0.271,
-                                      0.271,
-                                      0.33,
-                                      0.327,
-                                      0.33,
-                                      0.324,
-                                      0.319,
-                                      0.313,
-                                      0.311,
-                                      0.293,
-                                      0.287,
-                                      0.227,
-                                      0.221,
-                                      0.227,
-                                      0.288,
-                                      0.282,
-                                      0.279,
-                                      0.273,
-                                      0.267,
-                                      0.273,
-                                      0.267,
-                                      0.261,
-                                      0.273,
-                                      0.27,
-                                      0.3,
-                                      0.294,
-                                      0.289,
-                                      0.29,
-                                      0.295,
-                                      0.298,
-                                      0.292,
-                                      0.293,
-                                      0.293
-                                    ],
-                                    "contract_text": "其它政党",
-                                    "machine_list": []
-                                  }
-                                ],
-                                "company_rank": [
-                                  {
-                                    "company_name": "民主党",
-                                    "company_contract_id": 1428,
-                                    "predict_share": 0,
-                                    "price": "0.30451419"
-                                  },
-                                  {
-                                    "company_name": "共和党",
-                                    "company_contract_id": 1429,
-                                    "predict_share": 0,
-                                    "price": "0.40291180"
-                                  },
-                                  {
-                                    "company_name": "其它政党",
-                                    "company_contract_id": 1430,
-                                    "predict_share": 0,
-                                    "price": "0.29257401"
-                                  }
-                                ]
-        }                       
+      getCompetitionDetail(this.eventId,this.activityId).then((res) => {
+        this.compDetailData = res.data
+        // 测试假数据
+        // this.compDetailData = {
+        //                         "title": "美国 2024：哪个政党将赢得总统选举？",
+        //                         "desc": "<p>美国 2024：哪个政党将赢得总统选举？</p>",
+        //                         "user_current_money": 23.91609295,
+        //                         "graph_x": [
+        //                           "2023-09-14 13:12:11",
+        //                           "2023-09-14 13:12:11",
+        //                           "2023-09-14 15:34:45",
+        //                           "2023-09-15 15:59:24",
+        //                           "2023-09-15 16:07:01",
+        //                           "2023-09-16 15:41:12",
+        //                           "2023-09-16 18:24:51",
+        //                           "2023-09-21 08:18:52",
+        //                           "2023-10-12 13:17:31",
+        //                           "2023-10-12 13:22:42",
+        //                           "2023-10-13 20:05:19",
+        //                           "2023-10-13 20:05:22",
+        //                           "2023-10-18 19:35:44",
+        //                           "2023-10-20 00:29:26",
+        //                           "2023-10-20 14:54:03",
+        //                           "2023-10-20 18:39:45",
+        //                           "2023-10-21 10:26:22",
+        //                           "2023-10-24 13:06:59",
+        //                           "2023-10-26 10:11:40",
+        //                           "2023-10-26 16:11:41",
+        //                           "2023-11-05 18:57:07",
+        //                           "2023-11-05 18:58:29",
+        //                           "2023-11-06 21:33:46",
+        //                           "2023-11-14 13:50:51",
+        //                           "2023-11-16 12:06:46",
+        //                           "2023-11-22 00:07:36",
+        //                           "2023-11-22 00:07:37",
+        //                           "2023-11-22 00:21:21",
+        //                           "2023-11-22 17:29:58",
+        //                           "2023-11-29 12:55:06",
+        //                           "2023-12-02 09:41:42",
+        //                           "2023-12-07 17:51:59",
+        //                           "2023-12-09 21:26:51",
+        //                           "2023-12-12 16:00:47",
+        //                           "2023-12-12 22:13:08",
+        //                           "2023-12-20 19:38:20",
+        //                           "2023-12-22 19:00:25",
+        //                           "2023-12-22 19:00:39"
+        //                         ],
+        //                         "graph_y": [
+        //                           {
+        //                             "contract_id": 1428,
+        //                             "contract_price": [
+        //                               0.333,
+        //                               0.339,
+        //                               0.458,
+        //                               0.457,
+        //                               0.457,
+        //                               0.456,
+        //                               0.456,
+        //                               0.337,
+        //                               0.342,
+        //                               0.337,
+        //                               0.331,
+        //                               0.325,
+        //                               0.319,
+        //                               0.325,
+        //                               0.307,
+        //                               0.301,
+        //                               0.237,
+        //                               0.232,
+        //                               0.238,
+        //                               0.301,
+        //                               0.295,
+        //                               0.292,
+        //                               0.286,
+        //                               0.279,
+        //                               0.286,
+        //                               0.279,
+        //                               0.273,
+        //                               0.286,
+        //                               0.282,
+        //                               0.314,
+        //                               0.307,
+        //                               0.318,
+        //                               0.318,
+        //                               0.307,
+        //                               0.31,
+        //                               0.304,
+        //                               0.303,
+        //                               0.305
+        //                             ],
+        //                             "contract_text": "民主党",
+        //                             "machine_list": []
+        //                           },
+        //                           {
+        //                             "contract_id": 1429,
+        //                             "contract_price": [
+        //                               0.333,
+        //                               0.331,
+        //                               0.271,
+        //                               0.272,
+        //                               0.272,
+        //                               0.273,
+        //                               0.274,
+        //                               0.333,
+        //                               0.331,
+        //                               0.333,
+        //                               0.345,
+        //                               0.356,
+        //                               0.367,
+        //                               0.364,
+        //                               0.4,
+        //                               0.412,
+        //                               0.536,
+        //                               0.547,
+        //                               0.535,
+        //                               0.411,
+        //                               0.423,
+        //                               0.429,
+        //                               0.441,
+        //                               0.454,
+        //                               0.441,
+        //                               0.454,
+        //                               0.466,
+        //                               0.441,
+        //                               0.447,
+        //                               0.387,
+        //                               0.399,
+        //                               0.393,
+        //                               0.392,
+        //                               0.398,
+        //                               0.392,
+        //                               0.404,
+        //                               0.404,
+        //                               0.403
+        //                             ],
+        //                             "contract_text": "共和党",
+        //                             "machine_list": []
+        //                           },
+        //                           {
+        //                             "contract_id": 1430,
+        //                             "contract_price": [
+        //                               0.333,
+        //                               0.331,
+        //                               0.271,
+        //                               0.271,
+        //                               0.272,
+        //                               0.271,
+        //                               0.271,
+        //                               0.33,
+        //                               0.327,
+        //                               0.33,
+        //                               0.324,
+        //                               0.319,
+        //                               0.313,
+        //                               0.311,
+        //                               0.293,
+        //                               0.287,
+        //                               0.227,
+        //                               0.221,
+        //                               0.227,
+        //                               0.288,
+        //                               0.282,
+        //                               0.279,
+        //                               0.273,
+        //                               0.267,
+        //                               0.273,
+        //                               0.267,
+        //                               0.261,
+        //                               0.273,
+        //                               0.27,
+        //                               0.3,
+        //                               0.294,
+        //                               0.289,
+        //                               0.29,
+        //                               0.295,
+        //                               0.298,
+        //                               0.292,
+        //                               0.293,
+        //                               0.293
+        //                             ],
+        //                             "contract_text": "其它政党",
+        //                             "machine_list": []
+        //                           }
+        //                         ],
+        //                         "company_rank": [
+        //                           {
+        //                             "company_name": "民主党",
+        //                             "company_contract_id": 1428,
+        //                             "predict_share": 0,
+        //                             "price": "0.30451419"
+        //                           },
+        //                           {
+        //                             "company_name": "共和党",
+        //                             "company_contract_id": 1429,
+        //                             "predict_share": 0,
+        //                             "price": "0.40291180"
+        //                           },
+        //                           {
+        //                             "company_name": "其它政党",
+        //                             "company_contract_id": 1430,
+        //                             "predict_share": 0,
+        //                             "price": "0.29257401"
+        //                           }
+        //                         ]
+        // }                       
         //获取整体情况表的数据
         this.companyRankData = this.compDetailData.company_rank
         //活动可用诸葛贝
@@ -866,10 +867,10 @@ export default {
         if(this.compDetailData.desc !== null){
           this.compDetailDesc = this.compDetailData.desc
         }
-      // })
-      // .catch((res) => {
-      //   console.log(res);
-      // });
+      })
+      .catch((res) => {
+        console.log(res);
+      });
     },
 
     // 数据转换方法
