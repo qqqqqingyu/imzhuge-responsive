@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { isMobileTerminal } from './flexible'
-import { ElMessage } from 'element-plus'
 import { ElMessageBox } from 'element-plus'
 import '../assets/CSS/MessageBox.css'
 
