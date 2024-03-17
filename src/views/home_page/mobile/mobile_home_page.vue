@@ -158,7 +158,7 @@
             <h3>赛事中心</h3>
           </el-col>
           <el-col style="margin-top: 10px;" :span="22" :offset="1" >
-            <span style="font-size:14px;color: #555555;">简介</span>
+            <!-- <span style="font-size:14px;color: #555555;">简介</span> -->
           </el-col>
           <el-col style="margin-top: 10px">
             <el-button class="to-competition" size="small" @click="$router.push({path: '/competition_center'})">
