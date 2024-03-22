@@ -71,16 +71,30 @@ request.interceptors.response.use(
         } else {
             if (res.code !== '200' && res.code !== 20000) {
                 console.log('res.code:'+res.code+',res.msg:'+res.msg)
-                if(res.msg === undefined){
-                    ElMessageBox.alert('res.code:'+res.code, "未知错误", {
+                if(res.code == '500000'){ // 出现500000时要刷新
+                    ElMessageBox.alert(res.msg, '交易失败', {
                         confirmButtonText: '确定',
                         customClass: 'AlertBox',
-                    });
+                        callback: action => {
+                            if (action === 'confirm') {
+                                // 在点击确认按钮后刷新页面
+                                location.reload();
+                                this.isDisabled = false;
+                            }
+                        }
+                    })
                 } else{
-                    ElMessageBox.alert(res.msg, "交易失败", {
-                        confirmButtonText: '确定',
-                        customClass: 'AlertBox',
-                    });
+                    if(res.msg === undefined){
+                        ElMessageBox.alert('res.code:'+res.code, "未知错误", {
+                            confirmButtonText: '确定',
+                            customClass: 'AlertBox',
+                        });
+                    } else{
+                        ElMessageBox.alert(res.msg, "交易失败", {
+                            confirmButtonText: '确定',
+                            customClass: 'AlertBox',
+                        });
+                    }
                 }
                 // window.alert(res.msg)
                 return Promise.reject('error')

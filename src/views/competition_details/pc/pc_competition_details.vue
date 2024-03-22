@@ -24,8 +24,7 @@
     <el-row style="margin-top: 10px; margin-bottom: 10px;">
       <el-col :span="20" :offset="2">
         <div class="introduction">
-          <el-row v-if="currentPart===1">
-            <p>{{ competition_desc }}</p>
+          <el-row v-if="currentPart===1" class="alert-text" v-html="competition_desc">
           </el-row>
           <el-row v-else>
             <el-col class="show-grade">
@@ -162,6 +161,7 @@ export default {
       search:"",
       searchKeyword: "", // 搜索关键词
       myTabs:'detail',
+      linkUrl:require('@/assets/images/link.svg'),
     };
   },
   computed: {
@@ -274,7 +274,7 @@ export default {
 .introduction{
   background-color: #FFFFFF;
   border-radius: 18px;
-  padding: 20px 25px 10px;
+  padding: 15px 25px 15px;
   line-height: 25px;
   color:#555555;
   font-size: 17px;

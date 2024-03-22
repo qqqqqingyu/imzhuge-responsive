@@ -35,8 +35,7 @@
     <el-row style="margin-top: 10px; margin-bottom: 10px;">
       <el-col :span="22" :offset="1" class="introduction">
         <el-row>
-          <el-col :span="22" :offset="1" class="introduction-content" v-if="currentPart===1">
-            <p>{{ competition_desc }}</p>
+          <el-col :span="22" :offset="1" class="introduction-content alert-text" v-if="currentPart===1" v-html="competition_desc">
           </el-col>
           <el-col :span="22" :offset="1" v-else>
             <el-row>
@@ -413,8 +412,8 @@ export default {
   color: #555555;
   font-size: 15px;
   margin-bottom: 0px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .introduction-content {

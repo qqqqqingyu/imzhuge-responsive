@@ -572,6 +572,8 @@ export default {
       industry.note = this.note
       industry.contract_price = this.companyRankData.find(rank => rank.company_contract_id === this.inputNo1).price
 
+      console.log('price:'+industry.contract_price)
+
       // 数据校验，若不符合条件则终止
       if(industry.contract_id.length==0){
         this.$alert('请选择预测结果', '交易失败', {
