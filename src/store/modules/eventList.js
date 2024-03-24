@@ -116,13 +116,13 @@ export default {
             //     "performance": {
             //     "table_style": 4,
             //         "ranking": 10,
-            //         "net_zhuge": 20,
+            //         "net_zhuge": 40,
             //         "cash": 10,
             //         "activity_rank": [{
             //         "act_name": "活动1",
             //         "pro_name": "任务1",
             //         "status": "已结束",
-            //         "sub_net_zhuge": 20
+            //         "sub_net_zhuge": 1E5
             //     },
             // ]
             // },
