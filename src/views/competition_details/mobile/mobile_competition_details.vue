@@ -72,7 +72,11 @@
                       <span v-else class="ing_state">进行中</span>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="sub_net_zhuge" label="净收益"></el-table-column>
+                  <el-table-column prop="sub_net_zhuge" label="净收益">
+                  <template v-slot="scope">
+                    {{ numFilter(scope.row.sub_net_zhuge) }}
+                  </template>
+                </el-table-column>
                 </el-table>
               </el-col>
             </el-row>
