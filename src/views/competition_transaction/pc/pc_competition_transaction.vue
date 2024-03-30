@@ -298,11 +298,12 @@
 
     <el-row>
       <el-col :span="20" :offset="2" class="box-title">
-        <span >参与交易</span>
+        <span v-if="activityStatus!=='活动已结束'">参与交易</span>
+        <span class="gray-details" v-else>参与交易</span>
       </el-col>
     </el-row>
 
-    <el-row class="predict-form">
+    <el-row  class="predict-form" :class="{ 'gray-details': activityStatus === '活动已结束' }">
       <el-col :span="20" :offset="2" class="pc-card my-card-pd">
         <el-row>
           <el-col :span="24">
@@ -315,7 +316,7 @@
             <span>请选择您的预测结果：</span>
           </el-col>
           <el-col :span="8" :offset="1">
-            <el-select v-model="inputNo1" placeholder="请选择" class="company-select">
+            <el-select v-model="inputNo1" placeholder="请选择" class="company-select" :disabled="activityStatus === '活动已结束'">
               <el-option
                   v-for="item in companyRankData"
                   :key="item.company_contract_id"
@@ -332,7 +333,8 @@
             </span>
           </el-col>
           <el-col :span="8" :offset="1" style="width: 100%">
-            <el-slider v-model.number="tradeProb" class="predict-slider"></el-slider>
+            <el-slider v-model.number="tradeProb" class="predict-slider" 
+            :disabled="activityStatus === '活动已结束'"></el-slider>
           </el-col>
 
           <el-col :span="8">
@@ -340,6 +342,7 @@
           </el-col>
           <el-col :span="8" :offset="1">
             <el-input type="text" v-model.number="tradeCount"
+                      :disabled="activityStatus === '活动已结束'"
                       placeholder="请输入正数"
                       oninput="value=value.replace(/[^\d]/g,'')"
                       class="input-bar"></el-input>
@@ -349,7 +352,7 @@
             <span>交易类型：</span>
           </el-col>
           <el-col :span="8" :offset="1">
-            <el-radio-group v-model="tradeType">
+            <el-radio-group v-model="tradeType" :disabled="activityStatus === '活动已结束'">
               <el-radio class="predict-radio" label="buy">买入</el-radio>
               <el-radio class="predict-radio" label="sell">卖出</el-radio>
             </el-radio-group>
@@ -359,7 +362,7 @@
             <span>请问您对上述判断的信心如何？</span>
           </el-col>
           <el-col :offset="9" :span="16">
-            <el-radio-group v-model="tradeConfidence">
+            <el-radio-group v-model="tradeConfidence" :disabled="activityStatus === '活动已结束'">
               <el-row>
                 <el-radio class="predict-radio" label="完全瞎猜"></el-radio>
                 <el-radio class="predict-radio" label="有点瞎猜"></el-radio>
@@ -375,11 +378,13 @@
             <span>交易理由：</span>
           </el-col>
           <el-col :span="24">
-            <el-input :rows="3" type="textarea" v-model="note" placeholder="可以说说您为什么要这么交易吗"/>
+            <el-input :rows="3" :disabled="activityStatus === '活动已结束'"
+            type="textarea" v-model="note" placeholder="可以说说您为什么要这么交易吗"/>
           </el-col>
 
           <el-col :span="24" class="submit-btn">
-            <el-button :disabled="isDisabled" type="warning" @click="postCompTransactionMethod">
+            <!-- <el-button :disabled="isDisabled" type="warning" @click="postCompTransactionMethod"> -->
+            <el-button :disabled="isDisabled || activityStatus==='活动已结束'" type="warning" @click="postCompTransactionMethod">
               提交
             </el-button>
           </el-col>
@@ -406,6 +411,7 @@ export default {
     return {
       eventId:this.$route.query.eventId,
       activityId:this.$route.query.activityId,
+      activityStatus:this.$route.query.activityStatus,
       echarts:'',
       linkUrl:require('@/assets/images/link.svg'),
       isDisabled: false,
@@ -2096,6 +2102,23 @@ export default {
   color: #EF9C19;
 }
 
+.gray-details{
+  color: #AAAAAA;
+}
+
+.gray-details .submit-btn .el-button {
+  border-color: #f0f0f0;
+  background-color: #f0f0f0; 
+  color: #AAAAAA; 
+}
+
+.gray-details .predict-slider >>> .el-slider__bar {
+  background: #E4E7ED;
+}
+
+.gray-details .predict-slider >>> .el-slider__button {
+  border: 2px solid #f0f0f0;
+}
 </style>
 
 <style>

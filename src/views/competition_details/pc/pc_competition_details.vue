@@ -114,15 +114,24 @@
 <!--          </el-table-column>-->
           <el-table-column>
             <template v-slot="scope">
-              <router-link :to="{path:'/competition_transaction',query:{eventId:eventIdProp,activityId:scope.row.id}}"
-                           class="details center-vertically" v-if="scope.row.status == '活动进行中'">
+              <router-link :to="{path:'/competition_transaction',
+                            query:{eventId:eventIdProp,activityId:scope.row.id,activityStatus:scope.row.status}}"
+                            class="details center-vertically" v-if="scope.row.status == '活动进行中'">
                 <span class="my-icon">去交易</span>
                 <img src="@/assets/images/enter.svg" height="13" alt="进入">
               </router-link>
-              <div class="gray-details center-vertically" v-else>
+              <div class="gray-details center-vertically" v-else-if="scope.row.status == '活动未开始'">
                 <span class="my-icon">去交易</span>
                 <img src="@/assets/images/gray-enter.svg" height="13" alt="进入">
               </div>
+              <router-link :to="{path:'/competition_transaction',
+                            query:{eventId:eventIdProp,activityId:scope.row.id,activityStatus:scope.row.status}}"
+                            class="details center-vertically" v-else>
+              <!-- <div class="details center-vertically" v-else> -->
+                <span class="my-icon">查看详情</span>
+                <img src="@/assets/images/enter.svg" height="13" alt="进入">
+              <!-- </div> -->
+              </router-link>
             </template>
           </el-table-column>
         </el-table>
