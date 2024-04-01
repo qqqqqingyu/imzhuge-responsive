@@ -154,11 +154,6 @@ export default {
         info.phone_number === this.myInfoDetails.phone_number &&
         info.email === this.myInfoDetails.email &&
         info.invite_code === this.myInfoDetails.invite_code){
-        // this.$message({
-        //   customClass: 'ChoiceMsg',
-        //   type: 'warning',
-        //   message: '请修改后提交'
-        // });
         this.$alert('请修改后提交', '提交失败', {
           confirmButtonText: '确定',
           customClass: 'AlertBox',
@@ -193,18 +188,27 @@ export default {
       // }
       else {
         editMyInfo(info).then(() => {
-          this.$message({
-            customClass: 'ChoiceMsg',
-            type: 'success',
-            message: '修改成功！'
+          this.$alert('恭喜您，修改成功！', '修改成功', {
+            confirmButtonText: '确定',
+            customClass: 'AlertBox',
+            callback: action => {
+              if (action === 'confirm') {
+                // 在点击确认按钮后刷新页面
+                location.reload();
+              }
+            }
           });
-          //刷新
-          location.reload();
         }).catch(() => {
-          // this.$message({
-          //   type: 'info',
-          //   message: '修改失败，请重试'
-          // });
+          this.$alert('修改失败，请重试！', '修改失败', {
+            confirmButtonText: '确定',
+            customClass: 'AlertBox',
+            callback: action => {
+              if (action === 'confirm') {
+                // 在点击确认按钮后刷新页面
+                location.reload();
+              }
+            }
+          });
           console.log('提交失败')
         })
       }
