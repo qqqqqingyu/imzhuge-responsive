@@ -127,10 +127,8 @@
               <router-link :to="{path:'/competition_transaction',
                             query:{eventId:eventIdProp,activityId:scope.row.id,activityStatus:scope.row.status}}"
                             class="details center-vertically" v-else>
-              <!-- <div class="details center-vertically" v-else> -->
                 <span class="my-icon">查看详情</span>
                 <img src="@/assets/images/enter.svg" height="13" alt="进入">
-              <!-- </div> -->
               </router-link>
             </template>
           </el-table-column>
