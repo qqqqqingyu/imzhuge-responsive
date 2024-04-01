@@ -189,8 +189,9 @@ export default {
       searchKeyword: "", // 搜索关键词
       search:"",
       compMapping: {
-        '测试比赛1': 'comp1.svg',
-        '测试比赛2': 'comp2.svg',
+        '《行为金融学》预测比赛': 'xwjrx.jpg',
+        '上海原油期货月度结算参考价预测': 'comp2.svg',
+        '财经指标预测':'cjzb.jpg',
         '国际经济与政策预测': 'comp1.svg',
         '2023年底全球重要股指预测':'important_stock_predict.jpg',
         '股价涨跌预测':'fufei.webp'
