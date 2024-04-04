@@ -460,6 +460,7 @@ export default {
       onlyOneFactorChart:{},//存放选择一个指标时的图表
       companyCloseList:[],//存放不同公司股票收盘价数据
       closeCharts:[],
+      timerId:null
       
     }
   },
@@ -515,7 +516,12 @@ export default {
   //实例销毁之前钩子，移除body标签的属性style
   beforeUnmount() {
     document.body.removeAttribute('style')
+    // 清除定时器
+    if(this.timerId) {
+      clearInterval(this.timerId)
+    }
   },
+  
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
@@ -875,11 +881,38 @@ export default {
         if(this.compDetailData.desc !== null){
           this.compDetailDesc = this.compDetailData.desc
         }
-      })
+        // 设置定时器，每隔4秒更新数据
+        this.timerId = setInterval(() =>{
+          this.updateData()
+        }, 4000);
+        
+      }
+      
+      
+      )
       .catch((res) => {
         console.log(res);
       });
     },
+
+    // 检测数据更新
+    updateData() {
+      console.log('数据更新了')
+      getCompetitionDetail(this.eventId,this.activityId).then((res) => {
+        if (this.compDetailData != res.data) this.compDetailData = res.data
+        if (this.companyRankData != this.compDetailData.company_rank) this.companyRankData = this.compDetailData.company_rank
+        if (this.userCurrentMoney != this.compDetailData.user_current_money) this.userCurrentMoney = this.compDetailData.user_current_money
+        if (this.graphX != this.compDetailData.graph_x) this.graphX = this.compDetailData.graph_x
+        //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
+        this.graphYChange(this.compDetailData.graph_y)
+        //价格直方图数据转换
+        this.barPriceChange();
+        if(this.compDetailData.desc !== null){
+          this.compDetailDesc = this.compDetailData.desc
+        }
+      })
+    },
+
 
     // 数据转换方法
     // 历史数据图y轴数据对应的对象数组样式转换

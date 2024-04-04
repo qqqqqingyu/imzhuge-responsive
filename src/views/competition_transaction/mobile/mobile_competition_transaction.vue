@@ -250,6 +250,7 @@ export default {
       yMin: '', //y轴最低值
       industryDetailData: '',
       compDetailDesc: '', // 活动描述
+      timerId: null //定时器id
     }
   },
   mounted() {
@@ -257,6 +258,12 @@ export default {
     this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
     this.getCompetitionDetailMethod();
+  },
+  // 组件销毁时清除定时器
+  beforeUnmount() {
+    if (this.timerId){
+      clearInterval(this.timerId)
+    }
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -397,10 +404,31 @@ export default {
         if(this.compDetailData.desc !== null){
           this.compDetailDesc = this.compDetailData.desc
         }
+        // 设置定时器，每隔4秒更新数据
+        this.timerId = setInterval(() =>{
+          this.updateData()
+        }, 4000);  
+
       })
       .catch((res) => {
         console.log(res);
       });
+    },
+        // 检测数据更新
+        updateData() {
+      getCompetitionDetail(this.eventId,this.activityId).then((res) => {
+        if (this.compDetailData != res.data) this.compDetailData = res.data
+        if (this.companyRankData != this.compDetailData.company_rank) this.companyRankData = this.compDetailData.company_rank
+        if (this.userCurrentMoney != this.compDetailData.user_current_money) this.userCurrentMoney = this.compDetailData.user_current_money
+        if (this.graphX != this.compDetailData.graph_x) this.graphX = this.compDetailData.graph_x
+        //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
+        this.graphYChange(this.compDetailData.graph_y)
+        //价格直方图数据转换
+        this.barPriceChange();
+        if(this.compDetailData.desc !== null){
+          this.compDetailDesc = this.compDetailData.desc
+        }
+      })
     },
     // 数据转换方法
     // 历史数据图y轴数据对应的对象数组样式转换
