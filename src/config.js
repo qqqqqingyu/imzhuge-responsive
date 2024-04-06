@@ -4,7 +4,7 @@ if (configJson.ISTESTSERVER == true) {
     //测试服
     config = {
         serverUrl: 'http://47.108.189.227:8080',
-        APIURL:'http://47.108.189.227:8080'
+        APIURL:''
     }
 }
 else{
