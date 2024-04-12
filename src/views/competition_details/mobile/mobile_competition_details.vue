@@ -148,7 +148,8 @@
           <div class="left-info">
             <p class="info1">{{ item.name }}</p>
             <p class="my-tag" style="margin-top:6px;margin-bottom: 8px">
-              <span class="m-over_state" v-if="item.status.endsWith('未开始或已结束')">未开始或已结束</span>
+              <span class="m-over_state" v-if="item.status.endsWith('未开始')">未开始</span>
+              <span class="m-over_state" v-else-if="item.status.endsWith('已结束')">已结束</span>
               <span class="m-ing_state" v-else>进行中</span>
               <!-- 特邀标签 目前不加-->
               <!-- <span v-if="item.is_special" class="m_invited">特邀</span> -->
