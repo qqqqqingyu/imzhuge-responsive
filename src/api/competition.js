@@ -1,16 +1,13 @@
 import request from '@/utils/request'
 // 正式服
-import {serverUrl} from "../config";
+const config = require('../config.js')
 
 /**
  * 赛事中心
  **/
 export function getEventList() {
     return request({
-        // 测试服
-        // url: '/api/event_center/event_list',
-        // 正式服
-        url:serverUrl+'/api/event_center/event_list',
+        url:config.APIURL+'/api/event_center/event_list',
         method:'get'
     })
 }
@@ -21,10 +18,7 @@ export function getEventList() {
 export function getEvent(eventId) {
     return request({
         method:'get',
-        // 测试服
-        // url: '/api/event_center/' + eventId
-        // 正式服
-        url:serverUrl+'/api/event_center/' + eventId
+        url:config.APIURL+'/api/event_center/' + eventId
     })
 }
 
@@ -37,7 +31,7 @@ export function getCompetitionDetail(eventId,activityId) {
         // 测试服
         // url: '/api/event_center/event_detail/' + eventId +'/' + activityId
         // 正式服
-        url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId
+        url:config.APIURL+'/api/event_center/event_detail/' + eventId +'/' + activityId
     })
 }
 
@@ -50,7 +44,7 @@ export function postCompetitionTransaction(eventId,activityId,data) {
         // 测试服
         // url: '/api/event_center/event_detail/' + eventId +'/' + activityId,
         // 正式服
-        url:serverUrl+'/api/event_center/event_detail/' + eventId +'/' + activityId,
+        url:config.APIURL+'/api/event_center/event_detail/' + eventId +'/' + activityId,
         data:data
     })
 }
@@ -64,7 +58,7 @@ export function getMyEvent() {
         // 测试服
         // url: '/api/selfcenter/my_event'
         // 正式服
-        url:serverUrl+'/api/selfcenter/my_event'
+        url:config.APIURL+'/api/selfcenter/my_event'
     })
 }
 
@@ -77,6 +71,6 @@ export function getInvitedEvent() {
         // 测试服
         // url: '/api/selfcenter/my_invited_event'
         // 正式服
-        url:serverUrl+'/api/selfcenter/my_invited_event'
+        url:config.APIURL+'/api/selfcenter/my_invited_event'
     })
 }

@@ -449,6 +449,10 @@ export default {
       onlyOneFactorChart:{},//存放选择一个指标时的图表
       companyCloseList:[],//存放不同公司股票收盘价数据
       closeCharts:[],
+      timerId:null,  //计时器
+      myChart1:null, //价格作图
+      myChart2:null, //合约作图
+      myChart3:null, //历史走势
 
     }
   },
@@ -505,6 +509,9 @@ export default {
   //实例销毁之前钩子，移除body标签的属性style
   beforeUnmount() {
     document.body.removeAttribute('style')
+    if(this.timerId) {
+      clearInterval(this.timerId)
+    }
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -658,10 +665,34 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
+        // 设置定时器，每隔4秒更新数据
+        this.timerId = setInterval(() =>{
+          this.updateData()
+        }, 4000);
       })
+
       .catch((res) => {
         console.log(res);
       });
+    },
+    // 检测数据更新
+    updateData() {
+      getIndustryDetail(this.getId).then((res) => {
+        // 发现数据不相等时，更新数据
+        if (this.industryDetailData != res.data) {
+          this.industryDetailData = res.data
+          if (this.companyRankData != this.industryDetailData.company_rank) this.companyRankData = this.industryDetailData.company_rank
+          if (this.userCurrentMoney != this.industryDetailData.user_current_money)  this.userCurrentMoney =  this.industryDetailData.user_current_money
+          if (this.graphX != this.industryDetailData.graph_x) this.graphX = this.industryDetailData.graph_x
+          //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
+          this.graphYChange(this.industryDetailData.graph_y)
+          //价格直方图数据转换
+          this.barPriceChange();
+          this.upMyEcharts1()
+          this.upMyEcharts3()
+        }else{
+        }
+      })
     },
 
     // 数据转换方法
@@ -713,7 +744,38 @@ export default {
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)
     },
-
+    //更新价格图
+    upMyEcharts1() {
+      var option1 = {
+          yAxis: {
+            data: this.barCompanyArr
+          },
+          series: [{
+            data: this.barPriceArr,
+          },
+          ],
+        };
+          // 使用刚指定的配置项和数据显示图表。
+          this.myChart1.setOption(option1);
+          
+    },
+    //更新历史数据图
+    upMyEcharts3(){
+      var option3 = {
+        // 图例
+        legend: {
+          data: this.historyLegend
+        },
+        // 图表移动位置
+        xAxis: {
+          // boundaryGap: false,
+          data: this.graphX,
+        },
+        series: this.graphY,
+      };
+      // 使用刚指定的配置项和数据显示图表。
+      this.myChart3.setOption(option3);
+    },
     //作图方法
     //价格数据作图方法
     myEcharts1() {
@@ -725,7 +787,7 @@ export default {
         barBox.removeAttribute('_echarts_instance_');
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart1 = this.echarts.init(document.getElementById('priceBar'));
+        this.myChart1 = this.echarts.init(document.getElementById('priceBar'));
         var option1 = {
           xAxis: {
             type: 'value',
@@ -765,7 +827,7 @@ export default {
           ],
         };
         // 使用刚指定的配置项和数据显示图表。
-        myChart1.setOption(option1);
+        this.myChart1.setOption(option1);
       })
     },
     //合约数量作图方法
@@ -831,7 +893,7 @@ export default {
       historyBox.removeAttribute('_echarts_instance_');
 
       // 基于准备好的dom，初始化echarts实例
-      var myChart3 = this.echarts.init(document.getElementById('history'));
+      this.myChart3 = this.echarts.init(document.getElementById('history'));
       var option3 = {
         // 鼠标对应的交叉线
         tooltip: {
@@ -875,7 +937,7 @@ export default {
         series: this.graphY,
       };
       // 使用刚指定的配置项和数据显示图表。
-      myChart3.setOption(option3);
+      this.myChart3.setOption(option3);
     },
     // 热力图作图方法
     myHeatMap(){
