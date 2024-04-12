@@ -34,33 +34,33 @@ export default {
          */
         async useEventListData(context){
             // 调用接口取数据
-            // const eventList = await getEventList().then((res) =>{
-            //     return res.data
-            // }).catch((res) => {
-            //     console.log(res);
-            // });
+            const eventList = await getEventList().then((res) =>{
+                return res.data
+            }).catch((res) => {
+                console.log(res);
+            });
 
             // 测试假数据
-            const eventList = [
-                {
+            // const eventList = [
+            //     {
             
-                        "event_name": "股价涨跌预测",
-                        "start_time": "2023-07-28T03:33:32",
-                        "end_time": "2024-10-28T04:33:35",
-                        "award": 300,
-                        "status": "活动进行中",
-                        "is_special": false,
-                    },
-                {
+            //             "event_name": "股价涨跌预测",
+            //             "start_time": "2023-07-28T03:33:32",
+            //             "end_time": "2024-10-28T04:33:35",
+            //             "award": 300,
+            //             "status": "活动进行中",
+            //             "is_special": false,
+            //         },
+            //     {
             
-                    "event_name": "股价涨跌预测2",
-                    "start_time": "2023-07-28T03:33:32",
-                    "end_time": "2024-12-28T04:33:35",
-                    "award": 300,
-                    "status": "活动进行中",
-                    "is_special": false,
-                }
-                ]
+            //         "event_name": "股价涨跌预测2",
+            //         "start_time": "2023-07-28T03:33:32",
+            //         "end_time": "2024-12-28T04:33:35",
+            //         "award": 300,
+            //         "status": "活动进行中",
+            //         "is_special": false,
+            //     }
+            //     ]
 
             // 为state中的eventList赋值
             context.commit('setEventList',eventList)
@@ -68,11 +68,11 @@ export default {
         // 两个页面在用，一个是付费型信息共享实验页面，一个是普通的比赛页面
         async useEventData(context,eventId){
             // 调用接口取数据
-            // const eventData = await getEvent(eventId).then((res) =>{
-            //     return res.data
-            // }).catch((res) => {
-            //     console.log(res);
-            // });
+            const eventData = await getEvent(eventId).then((res) =>{
+                return res.data
+            }).catch((res) => {
+                console.log(res);
+            });
 
             // 测试假数据
             // 付费型信息共享实验页面的数据，没加个人成绩，页面也没加
@@ -110,45 +110,45 @@ export default {
 
             // 测试假数据
             // 普通比赛页面的数据，加了个人成绩
-            const eventData = {
-                "group_id": 2,
-                "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
-                "performance": {
-                "table_style": 4,
-                    "ranking": 10,
-                    "net_zhuge": 40,
-                    "cash": 10,
-                    "activity_rank": [{
-                    "act_name": "活动1",
-                    "pro_name": "任务1",
-                    "status": "已结束",
-                    "sub_net_zhuge": 1E5
-                },
-            ]
-            },
-                "activity_data": [{
-                "id": 1,
-                "name": "活动1",
-                "start_time": "2023-11-25T14:00:00",
-                "end_time": "2024-12-28T00:00:00",
-                "status": "活动已结束"
-            },
-                {
-                    "id": 2,
-                    "name": "活动2",
-                    "start_time": "2023-11-25T14:00:00",
-                    "end_time": "2024-12-28T00:00:00",
-                    "status": "活动进行中"
-                },
-                {
-                    "id": 3,
-                    "name": "活动3",
-                    "start_time": "2023-11-25T14:00:00",
-                    "end_time": "2024-12-28T00:00:00",
-                    "status": "活动未开始"
-                }
-            ]
-            }
+            // const eventData = {
+            //     "group_id": 2,
+            //     "event_desc": "\u80a1\u5e02\u6307\u6570\uff08\u4f8b ",
+            //     "performance": {
+            //     "table_style": 4,
+            //         "ranking": 10,
+            //         "net_zhuge": 40,
+            //         "cash": 10,
+            //         "activity_rank": [{
+            //         "act_name": "活动1",
+            //         "pro_name": "任务1",
+            //         "status": "已结束",
+            //         "sub_net_zhuge": 1E5
+            //     },
+            // ]
+            // },
+            //     "activity_data": [{
+            //     "id": 1,
+            //     "name": "活动1",
+            //     "start_time": "2023-11-25T14:00:00",
+            //     "end_time": "2024-12-28T00:00:00",
+            //     "status": "活动已结束"
+            // },
+            //     {
+            //         "id": 2,
+            //         "name": "活动2",
+            //         "start_time": "2023-11-25T14:00:00",
+            //         "end_time": "2024-12-28T00:00:00",
+            //         "status": "活动进行中"
+            //     },
+            //     {
+            //         "id": 3,
+            //         "name": "活动3",
+            //         "start_time": "2023-11-25T14:00:00",
+            //         "end_time": "2024-12-28T00:00:00",
+            //         "status": "活动未开始"
+            //     }
+            // ]
+            // }
             
             // 为state中的event赋值
             context.commit('setEvent',eventData)
