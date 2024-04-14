@@ -232,6 +232,7 @@ export default {
       chartOrTable: 'chart', //用于切换图和表的图标
       priceOrContract: 'price',
       getId: '', //获取从前一界面传来的id
+      lastDetailData:'', //上一次的数据
       compDetailData: '',
       companyRankData: '', //整体情况表的数据
       userCurrentMoney: '', //活动可用诸葛贝
@@ -409,20 +410,28 @@ export default {
         }
         // 设置定时器，每隔4秒更新数据
         this.timerId = setInterval(() =>{
+          
           this.updateData()
         }, 4000);  
 
       })
       .catch((res) => {
         console.log(res);
+        
+
       });
     },
     // 检测数据更新
     updateData() {
       getCompetitionDetail(this.eventId,this.activityId).then((res) => {
         // 发现数据不相等时，更新数据
-        if (this.compDetailData != res.data) {
-          this.compDetailData = res.data
+        console.log('this.compDetailData为:',this.compDetailData)
+        console.log('res.data为:',res.data)
+        this.compDetailData = res.data
+        if (this.lastDetailData !== this.compDetailData) {
+          console.log('数据更新了')
+          console.log('this.lastDetailData为:',this.lastDetailData)
+          console.log('this.compDetailData为:',this.compDetailData)
           if (this.companyRankData != this.compDetailData.company_rank) this.companyRankData = this.compDetailData.company_rank
           if (this.userCurrentMoney != this.compDetailData.user_current_money) this.userCurrentMoney = this.compDetailData.user_current_money
           if (this.graphX != this.compDetailData.graph_x) this.graphX = this.compDetailData.graph_x
@@ -435,6 +444,7 @@ export default {
           }
           this.upMyEcharts1()
           this.upMyEcharts3()
+          console.log('数据更新完毕')
         }else{
         }
 
@@ -498,6 +508,7 @@ export default {
           };
           // 使用刚指定的配置项和数据显示图表。
           this.myChart1.setOption(option1);
+          console.log('价格图更新完毕')
           
     },
     //更新历史数据图
@@ -510,6 +521,7 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       this.myChart3.setOption(option3);
+      console.log('历史数据图更新完毕')
     },
     
     //作图方法

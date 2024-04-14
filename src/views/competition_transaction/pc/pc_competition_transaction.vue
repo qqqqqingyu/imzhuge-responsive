@@ -403,7 +403,7 @@ import {getCSRFToken} from '@/api/token'
 import factorsJson from '@/assets/factors.json'
 import axios from 'axios';
 import TheNav from "../../../components/TheNav";
-
+import { toRaw } from 'vue';
 export default {
   name: "pc_competition_transaction",
   components: {TheNav},
@@ -440,6 +440,7 @@ export default {
       factorTitle:'开盘价', // 选择查看含义的指标
       factorEng:'SMA', //指标英文
       factorContent:'',
+      lastDetailData:'',
       compDetailData:'',
       heatFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10'],
       heatShowFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10','ema_20','K_5',
@@ -886,8 +887,10 @@ export default {
         }
         // 设置定时器，每隔4秒更新数据
         this.timerId = setInterval(() =>{
+          this.lastDetailData = this.compDetailData
+          console.log('已经将当前的值赋值给last:',this.lastDetailData)
           this.updateData()
-        }, 4000);
+        }, 20000);
         
       }
       )
@@ -898,24 +901,42 @@ export default {
 
     // 检测数据更新
     updateData() {
-      getCompetitionDetail(this.eventId,this.activityId).then((res) => {
-        // 发现数据不相等时，更新数据
-        if (this.compDetailData != res.data) {
+        getCompetitionDetail(this.eventId,this.activityId).then((res) => {
           this.compDetailData = res.data
-          if (this.companyRankData != this.compDetailData.company_rank) this.companyRankData = this.compDetailData.company_rank
-          if (this.userCurrentMoney != this.compDetailData.user_current_money) this.userCurrentMoney = this.compDetailData.user_current_money
-          if (this.graphX != this.compDetailData.graph_x) this.graphX = this.compDetailData.graph_x
-          //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
-          this.graphYChange(this.compDetailData.graph_y)
-          //价格直方图数据转换
-          this.barPriceChange();
-          if(this.compDetailData.desc !== null){
-            this.compDetailDesc = this.compDetailData.desc
+          if (JSON.stringify(this.compDetailData.company_rank) != JSON.stringify(this.lastDetailData.company_rank) 
+              || JSON.stringify(this.compDetailData.user_current_money) != JSON.stringify(this.lastDetailData.user_current_money)
+              || JSON.stringify(this.compDetailData.graph_x) != JSON.stringify(this.lastDetailData.graph_x)
+              || JSON.stringify(this.compDetailData.graph_y) != JSON.stringify(this.lastDetailData.graph_y))
+              {
+            console.log('数据发生了变化')
+            if (JSON.stringify(this.compDetailData.company_rank) != JSON.stringify(this.lastDetailData.company_rank)){
+              console.log('公司排名数据发生了变化',JSON.stringify(this.compDetailData.company_rank),JSON.stringify(this.lastDetailData.company_rank))
+            }
+            if (JSON.stringify(this.compDetailData.user_current_money) != JSON.stringify(this.lastDetailData.user_current_money)){
+              console.log('活动可用诸葛贝数据发生了变化',JSON.stringify(this.compDetailData.user_current_money),JSON.stringify(this.lastDetailData.user_current_money))
+            }
+            if (JSON.stringify(this.compDetailData.graph_x) != JSON.stringify(this.lastDetailData.graph_x)){
+              console.log('x轴数据发生了变化',JSON.stringify(this.compDetailData.graph_x),JSON.stringify(this.lastDetailData.graph_x))
+            }
+            if (this.compDetailData.graph_y != this.lastDetailData.graph_y){
+              console.log('y轴数据发生了变化',JSON.stringify(this.compDetailData.graph_y),JSON.stringify(this.lastDetailData.graph_y))
+            }
+            this.companyRankData = this.compDetailData.company_rank
+            this.userCurrentMoney = this.compDetailData.user_current_money
+            this.graphX = this.compDetailData.graph_x
+            //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
+            this.graphYChange(this.compDetailData.graph_y)
+            //价格直方图数据转换
+            this.barPriceChange();
+            if(this.compDetailData.desc !== null){
+              this.compDetailDesc = this.compDetailData.desc
+            }
+            this.upMyEcharts1()
+            this.upMyEcharts3()
+            console.log('数据更新完毕')
+          }else{
+            console.log('数据没有发生变化')
           }
-          this.upMyEcharts1()
-          this.upMyEcharts3()
-        }else{
-        }
       })
     },
 
@@ -983,6 +1004,7 @@ export default {
           };
           // 使用刚指定的配置项和数据显示图表。
           this.myChart1.setOption(option1);
+          console.log('价格图更新完毕')
           
     },
     //更新历史数据图
@@ -998,6 +1020,7 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       this.myChart3.setOption(option3);
+      console.log('历史数据图更新完毕')
     },
 
     //作图方法，还没设置数据
