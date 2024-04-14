@@ -323,14 +323,14 @@
               </el-select>
             </el-col>
 
-            <el-col :span="8">
+            <!-- <el-col :span="8">
             <span>
               预测的概率：
             </span>
             </el-col>
             <el-col :span="8" :offset="1" style="width: 100%">
               <el-slider v-model.number="tradeProb" class="predict-slider"></el-slider>
-            </el-col>
+            </el-col> -->
 
             <el-col :span="8">
               <span>交易份额：</span>
@@ -429,6 +429,7 @@ export default {
       factorTitle:'开盘价', // 选择查看含义的指标
       factorEng:'SMA', //指标英文
       factorContent:'',
+      lastDetailData:'',
       industryDetailData:'',
       heatFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10'],
       heatShowFactors:['sma_10', 'sma_5', 'sma_20', 'macd_1','macd_2','macd_3','ema_5','ema_10','ema_20','K_5',
@@ -652,6 +653,7 @@ export default {
       this.getId=this.$route.query.id;
       getIndustryDetail(this.getId).then((res) => {
         this.industryDetailData = res.data
+        this.lastDetailData = JSON.stringify(this.industryDetailData)
         //获取整体情况表的数据
         this.companyRankData = this.industryDetailData.company_rank
         //活动可用诸葛贝
@@ -668,7 +670,7 @@ export default {
         // 设置定时器，每隔4秒更新数据
         this.timerId = setInterval(() =>{
           this.updateData()
-        }, 4000);
+        }, 5000);
       })
 
       .catch((res) => {
@@ -679,18 +681,21 @@ export default {
     updateData() {
       getIndustryDetail(this.getId).then((res) => {
         // 发现数据不相等时，更新数据
-        if (this.industryDetailData != res.data) {
-          this.industryDetailData = res.data
-          if (this.companyRankData != this.industryDetailData.company_rank) this.companyRankData = this.industryDetailData.company_rank
-          if (this.userCurrentMoney != this.industryDetailData.user_current_money)  this.userCurrentMoney =  this.industryDetailData.user_current_money
-          if (this.graphX != this.industryDetailData.graph_x) this.graphX = this.industryDetailData.graph_x
+        this.industryDetailData = res.data
+        if (this.lastDetailData != JSON.stringify(this.industryDetailData)) {
+          this.lastDetailData = JSON.stringify(this.industryDetailData)
+          this.companyRankData = this.industryDetailData.company_rank
+          this.userCurrentMoney =  this.industryDetailData.user_current_money
+          this.graphX = this.industryDetailData.graph_x
           //历史数据表，把取到的数据放入自定义方法graphYChange中，转换成所需格式的y轴数据graphY和图例数据historyLegend
           this.graphYChange(this.industryDetailData.graph_y)
           //价格直方图数据转换
           this.barPriceChange();
           this.upMyEcharts1()
+          this.upMyEcharts2()
           this.upMyEcharts3()
         }else{
+          //console.log('数据未更新')
         }
       })
     },
@@ -744,37 +749,46 @@ export default {
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)
     },
-    //更新价格图
-    upMyEcharts1() {
-      var option1 = {
-          yAxis: {
-            data: this.barCompanyArr
-          },
-          series: [{
-            data: this.barPriceArr,
-          },
-          ],
-        };
+  //更新价格图
+  upMyEcharts1() {
+          var option1 = {
+            yAxis: {
+              data: this.barCompanyArr
+            },
+            series: [{
+              data: this.barPriceArr,
+            },
+            ],
+          };
           // 使用刚指定的配置项和数据显示图表。
           this.myChart1.setOption(option1);
+         // console.log('价格图更新完毕')
           
+    },
+    //更新合约图
+    upMyEcharts2(){
+      var option2 = {
+          yAxis: {
+            data: this.barCompanyArr
+          }
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        this.myChart2.setOption(option2);
     },
     //更新历史数据图
     upMyEcharts3(){
       var option3 = {
-        // 图例
         legend: {
           data: this.historyLegend
         },
-        // 图表移动位置
         xAxis: {
-          // boundaryGap: false,
           data: this.graphX,
         },
         series: this.graphY,
       };
       // 使用刚指定的配置项和数据显示图表。
       this.myChart3.setOption(option3);
+     // console.log('历史数据图更新完毕')
     },
     //作图方法
     //价格数据作图方法
@@ -839,7 +853,7 @@ export default {
 
         contractBarBox.removeAttribute('_echarts_instance_');
         // 基于准备好的dom，初始化echarts实例
-        var myChart2 = this.echarts.init(document.getElementById('contractBar'));
+        this.myChart2 = this.echarts.init(document.getElementById('contractBar'));
         var option2 = {
           legend: {
             show:true,
@@ -880,7 +894,7 @@ export default {
           ]
         };
         // 使用刚指定的配置项和数据显示图表。
-        myChart2.setOption(option2);
+        this.myChart2.setOption(option2);
       })
     },
     //历史数据图作图方法

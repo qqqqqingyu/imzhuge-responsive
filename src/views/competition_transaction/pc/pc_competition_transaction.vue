@@ -327,7 +327,7 @@
             </el-select>
           </el-col>
 
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <span>
               预测的概率：
             </span>
@@ -335,7 +335,7 @@
           <el-col :span="8" :offset="1" style="width: 100%">
             <el-slider v-model.number="tradeProb" class="predict-slider" 
             :disabled="activityStatus === '活动已结束'"></el-slider>
-          </el-col>
+          </el-col> -->
 
           <el-col :span="8">
             <span>交易份额：</span>
@@ -403,7 +403,6 @@ import {getCSRFToken} from '@/api/token'
 import factorsJson from '@/assets/factors.json'
 import axios from 'axios';
 import TheNav from "../../../components/TheNav";
-import { toRaw } from 'vue';
 export default {
   name: "pc_competition_transaction",
   components: {TheNav},
@@ -664,6 +663,7 @@ export default {
     getCompetitionDetailMethod() {
       getCompetitionDetail(this.eventId,this.activityId).then((res) => {
         this.compDetailData = res.data
+        this.lastDetailData = JSON.stringify(res.data)
         // 测试假数据
         // this.compDetailData = {
         //                         "title": "美国 2024：哪个政党将赢得总统选举？",
@@ -887,11 +887,8 @@ export default {
         }
         // 设置定时器，每隔4秒更新数据
         this.timerId = setInterval(() =>{
-          this.lastDetailData = this.compDetailData
-          console.log('已经将当前的值赋值给last:',this.lastDetailData)
           this.updateData()
-        }, 20000);
-        
+        }, 5000);
       }
       )
       .catch((res) => {
@@ -903,24 +900,9 @@ export default {
     updateData() {
         getCompetitionDetail(this.eventId,this.activityId).then((res) => {
           this.compDetailData = res.data
-          if (JSON.stringify(this.compDetailData.company_rank) != JSON.stringify(this.lastDetailData.company_rank) 
-              || JSON.stringify(this.compDetailData.user_current_money) != JSON.stringify(this.lastDetailData.user_current_money)
-              || JSON.stringify(this.compDetailData.graph_x) != JSON.stringify(this.lastDetailData.graph_x)
-              || JSON.stringify(this.compDetailData.graph_y) != JSON.stringify(this.lastDetailData.graph_y))
-              {
-            console.log('数据发生了变化')
-            if (JSON.stringify(this.compDetailData.company_rank) != JSON.stringify(this.lastDetailData.company_rank)){
-              console.log('公司排名数据发生了变化',JSON.stringify(this.compDetailData.company_rank),JSON.stringify(this.lastDetailData.company_rank))
-            }
-            if (JSON.stringify(this.compDetailData.user_current_money) != JSON.stringify(this.lastDetailData.user_current_money)){
-              console.log('活动可用诸葛贝数据发生了变化',JSON.stringify(this.compDetailData.user_current_money),JSON.stringify(this.lastDetailData.user_current_money))
-            }
-            if (JSON.stringify(this.compDetailData.graph_x) != JSON.stringify(this.lastDetailData.graph_x)){
-              console.log('x轴数据发生了变化',JSON.stringify(this.compDetailData.graph_x),JSON.stringify(this.lastDetailData.graph_x))
-            }
-            if (this.compDetailData.graph_y != this.lastDetailData.graph_y){
-              console.log('y轴数据发生了变化',JSON.stringify(this.compDetailData.graph_y),JSON.stringify(this.lastDetailData.graph_y))
-            }
+          if (this.lastDetailData != JSON.stringify(this.compDetailData)){
+            this.lastDetailData = JSON.stringify(this.compDetailData)
+          //  console.log('数据发生了变化')
             this.companyRankData = this.compDetailData.company_rank
             this.userCurrentMoney = this.compDetailData.user_current_money
             this.graphX = this.compDetailData.graph_x
@@ -932,10 +914,11 @@ export default {
               this.compDetailDesc = this.compDetailData.desc
             }
             this.upMyEcharts1()
+            this.upMyEcharts2()
             this.upMyEcharts3()
-            console.log('数据更新完毕')
+            //console.log('数据更新完毕')
           }else{
-            console.log('数据没有发生变化')
+           // console.log('数据没有发生变化')
           }
       })
     },
@@ -1004,8 +987,19 @@ export default {
           };
           // 使用刚指定的配置项和数据显示图表。
           this.myChart1.setOption(option1);
-          console.log('价格图更新完毕')
+         // console.log('价格图更新完毕')
           
+    },
+    //更新合约图
+    upMyEcharts2(){
+      var option2 = {
+          yAxis: {
+            data: this.barCompanyArr
+          }
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        this.myChart2.setOption(option2);
+      //console.log('合约图更新完毕')
     },
     //更新历史数据图
     upMyEcharts3(){
@@ -1020,7 +1014,7 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       this.myChart3.setOption(option3);
-      console.log('历史数据图更新完毕')
+     // console.log('历史数据图更新完毕')
     },
 
     //作图方法，还没设置数据
@@ -1989,7 +1983,7 @@ export default {
 }
 
 /*图标*/
-/*.company-select >>> .el-input__icon {*/
+/*.company-select >>> .el-input__icon {ls*/
 /*  height: 35px;*/
 /*}*/
 
