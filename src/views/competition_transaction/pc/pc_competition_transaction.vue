@@ -464,6 +464,7 @@ export default {
       myChart1:null, //价格作图
       myChart2:null, //合约作图
       myChart3:null, //历史走势
+      tabIndex:0,
       
     }
   },
@@ -542,11 +543,14 @@ export default {
     //点击切换行业tab时调用该方法
     handleClick(tab) {
       if (tab.index == '0'){
+        this.tabIndex = 0
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
       }
       else if(tab.index == '1'){
+        this.tabIndex = 1
         this.myEcharts3();
+        this.myEcharts3()
       }
     },
     //点击切换行业信息tab时调用该方法
@@ -880,7 +884,8 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
-        console.log('compDetailData.desc:'+this.compDetailData.desc)
+        this.myEcharts3()//历史走势作图
+        //console.log('compDetailData.desc:'+this.compDetailData.desc)
         // 获取活动描述
         if(this.compDetailData.desc !== null){
           this.compDetailDesc = this.compDetailData.desc
@@ -913,11 +918,17 @@ export default {
             if(this.compDetailData.desc !== null){
               this.compDetailDesc = this.compDetailData.desc
             }
-            this.upMyEcharts1()
+
+            if (this.tabIndex == 0){
+            this.upMyEcharts1()//价格作图
             this.upMyEcharts2()
+          }
+          else if(this.tabIndex == 1){
             this.upMyEcharts3()
+          }
             //console.log('数据更新完毕')
           }else{
+
            // console.log('数据没有发生变化')
           }
       })
@@ -1003,12 +1014,48 @@ export default {
     },
     //更新历史数据图
     upMyEcharts3(){
+      if (this.myChart3 ==null){
+        this.myChart3 = this.echarts.init(document.getElementById('history'));
+      }
       var option3 = {
+        // 鼠标对应的交叉线
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          },
+          // 将提示框限制在图表的区域内
+          confine: true,
+        },
+        // 图例
         legend: {
           data: this.historyLegend
         },
+        // 图表移动位置
+        grid: {
+          left: '3%',
+          right: '3%',
+          bottom: '1%',
+          top:'20%',
+          containLabel: true
+        },
         xAxis: {
+          type: 'category',
+          // boundaryGap: false,
           data: this.graphX,
+        },
+        yAxis: {
+          type: 'value',
+          splitLine: { //修改背景线条样式
+            show: true,//是否展示
+            lineStyle: {
+              color: "#BFC2C7",//线条颜色
+              // type:"dashed"//线条样式，默认实线，dashed虚线
+            }
+          },
         },
         series: this.graphY,
       };
@@ -1134,7 +1181,10 @@ export default {
       historyBox.removeAttribute('_echarts_instance_');
 
       // 基于准备好的dom，初始化echarts实例
-      this.myChart3 = this.echarts.init(document.getElementById('history'));
+      if (this.myChart3 ==null){
+        //console.log('Mychart3为空，重新初始化')
+        this.myChart3 = this.echarts.init(document.getElementById('history'));
+      }
       var option3 = {
         // 鼠标对应的交叉线
         tooltip: {
@@ -1150,6 +1200,7 @@ export default {
         },
         // 图例
         legend: {
+          selectedMode: true, // 是否允许点击
           data: this.historyLegend
         },
         // 图表移动位置
@@ -1179,6 +1230,7 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       this.myChart3.setOption(option3);
+      //console.log('Mychart3被调用了，现在的图为:',this.myChart3)
     },
     // 热力图作图方法
     myHeatMap(){
