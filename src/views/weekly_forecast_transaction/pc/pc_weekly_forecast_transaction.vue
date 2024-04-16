@@ -451,9 +451,6 @@ export default {
       companyCloseList:[],//存放不同公司股票收盘价数据
       closeCharts:[],
       timerId:null,  //计时器
-      myChart1:null, //价格作图
-      myChart2:null, //合约作图
-      myChart3:null, //历史走势
       tabIndex:0, //tab切换
 
     }
@@ -490,6 +487,9 @@ export default {
   mounted() {
     // 使用Node.js的require函数引入echarts块。在Node.js环境中，require用于引入模块，包括第三方模块和自己写的模块
     this.echarts = require('echarts')
+    this.myChart1 = null, //价格作图
+    this.myChart2 = null, //合约作图
+    this.myChart3 = null, //历史走势
     this.getCSRFTokenMethod();
     // 展示指标含义
     // this.changeFactor()

@@ -252,14 +252,14 @@ export default {
       industryDetailData: '',
       compDetailDesc: '', // 活动描述
       timerId:null,  //计时器
-      myChart1:null, //价格作图
-      myChart2:null, //合约作图
-      myChart3:null, //历史走势
       tabIndex: 0,
     }
   },
   mounted() {
     this.echarts = require('echarts')
+    this.myChart1 = null, //价格作图
+    this.myChart2 = null, //合约作图
+    this.myChart3 = null, //历史走势
     this.getCSRFTokenMethod();
     // 获取数据的方法。数据转化及作图的方法在该方法中
     this.getCompetitionDetailMethod();

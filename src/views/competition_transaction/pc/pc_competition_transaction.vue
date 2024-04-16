@@ -461,9 +461,6 @@ export default {
       companyCloseList:[],//存放不同公司股票收盘价数据
       closeCharts:[],
       timerId:null,  //计时器
-      myChart1:null, //价格作图
-      myChart2:null, //合约作图
-      myChart3:null, //历史走势
       tabIndex:0,
       
     }
@@ -499,6 +496,9 @@ export default {
   },
   mounted() {
     this.echarts = require('echarts')
+    this.myChart1 = null, //价格作图
+    this.myChart2 = null, //合约作图
+    this.myChart3 = null, //历史走势
     this.getCSRFTokenMethod();
     // 展示指标含义
     // this.changeFactor()
@@ -550,7 +550,6 @@ export default {
       else if(tab.index == '1'){
         this.tabIndex = 1
         this.myEcharts3();
-        this.myEcharts3()
       }
     },
     //点击切换行业信息tab时调用该方法
@@ -1179,11 +1178,10 @@ export default {
 
       // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       historyBox.removeAttribute('_echarts_instance_');
-
       // 基于准备好的dom，初始化echarts实例
-      if (this.myChart3 ==null){
+      if (this.myChart3 == null){
         //console.log('Mychart3为空，重新初始化')
-        this.myChart3 = this.echarts.init(document.getElementById('history'));
+         this.myChart3 = this.echarts.init(document.getElementById('history'));
       }
       var option3 = {
         // 鼠标对应的交叉线
