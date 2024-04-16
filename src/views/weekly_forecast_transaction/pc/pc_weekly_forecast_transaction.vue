@@ -454,6 +454,7 @@ export default {
       myChart1:null, //价格作图
       myChart2:null, //合约作图
       myChart3:null, //历史走势
+      tabIndex:0, //tab切换
 
     }
   },
@@ -531,10 +532,12 @@ export default {
     //点击切换行业tab时调用该方法
     handleClick(tab) {
       if (tab.index == '0'){
+        this.tabIndex = 0
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
       }
       else if(tab.index == '1'){
+        this.tabIndex = 1
         this.myEcharts3();
       }
     },
@@ -667,6 +670,7 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
+        this.myEcharts3()//历史走势作图
         // 设置定时器，每隔4秒更新数据
         this.timerId = setInterval(() =>{
           this.updateData()
@@ -691,9 +695,12 @@ export default {
           this.graphYChange(this.industryDetailData.graph_y)
           //价格直方图数据转换
           this.barPriceChange();
-          this.upMyEcharts1()
-          this.upMyEcharts2()
-          this.upMyEcharts3()
+          if (this.tabIndex == 0){
+            this.upMyEcharts1()
+            this.upMyEcharts2()
+          }else{
+              this.upMyEcharts3()
+          }
         }else{
           //console.log('数据未更新')
         }
@@ -777,12 +784,51 @@ export default {
     },
     //更新历史数据图
     upMyEcharts3(){
+      if (this.myChart3 == null) {
+              // 基于准备好的dom，初始化echarts实例
+      this.myChart3 = this.echarts.init(document.getElementById('history'));
+      }
+
       var option3 = {
+        // 鼠标对应的交叉线
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          },
+          // 将提示框限制在图表的区域内
+          confine: true,
+        },
+        // 图例
         legend: {
+          selectedMode: true, // 是否允许点击
           data: this.historyLegend
         },
+        // 图表移动位置
+        grid: {
+          left: '3%',
+          right: '3%',
+          bottom: '1%',
+          top:'20%',
+          containLabel: true
+        },
         xAxis: {
+          type: 'category',
+          // boundaryGap: false,
           data: this.graphX,
+        },
+        yAxis: {
+          type: 'value',
+          splitLine: { //修改背景线条样式
+            show: true,//是否展示
+            lineStyle: {
+              color: "#BFC2C7",//线条颜色
+              // type:"dashed"//线条样式，默认实线，dashed虚线
+            }
+          },
         },
         series: this.graphY,
       };
@@ -905,9 +951,11 @@ export default {
 
       // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       historyBox.removeAttribute('_echarts_instance_');
-
-      // 基于准备好的dom，初始化echarts实例
+      if (this.myChart3 == null) {
+              // 基于准备好的dom，初始化echarts实例
       this.myChart3 = this.echarts.init(document.getElementById('history'));
+      }
+
       var option3 = {
         // 鼠标对应的交叉线
         tooltip: {
@@ -923,6 +971,7 @@ export default {
         },
         // 图例
         legend: {
+          selectedMode: true, // 是否允许点击
           data: this.historyLegend
         },
         // 图表移动位置

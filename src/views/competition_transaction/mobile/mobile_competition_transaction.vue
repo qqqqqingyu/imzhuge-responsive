@@ -255,6 +255,7 @@ export default {
       myChart1:null, //价格作图
       myChart2:null, //合约作图
       myChart3:null, //历史走势
+      tabIndex: 0,
     }
   },
   mounted() {
@@ -297,8 +298,11 @@ export default {
     },
     //点击切换tab时调用该方法
     handleClick(tab) {
-      if (tab.index == '1')
-        this.myEcharts3();
+      if (tab.index == '1'){
+          this.tabIndex = 1
+        this.myEcharts3();}else{
+          this.tabIndex = 0
+        }
     },
     tdstyle({rowIndex}) {
       if (rowIndex === 0) {
@@ -405,6 +409,7 @@ export default {
         //价格，合约作图
         this.myEcharts1()//价格作图
         this.myEcharts2()//合约作图
+        this.myEcharts3()//历史走势作图
         // 获取活动描述
         if(this.compDetailData.desc !== null){
           this.compDetailDesc = this.compDetailData.desc
@@ -438,11 +443,17 @@ export default {
             if(this.compDetailData.desc !== null){
               this.compDetailDesc = this.compDetailData.desc
             }
-            this.upMyEcharts1()
+
+            if (this.tabIndex == 0){
+            this.upMyEcharts1()//价格作图
             this.upMyEcharts2()
+          }
+          else if(this.tabIndex == 1){
             this.upMyEcharts3()
+          }
             //console.log('数据更新完毕')
           }else{
+
            // console.log('数据没有发生变化')
           }
       })
@@ -521,14 +532,52 @@ export default {
     },
     //更新历史数据图
     upMyEcharts3(){
-      var option3 = {
-        xAxis: {
-          data: this.graphX,
+      if (this.myChart3 == null) {
+          this.myChart3 = echarts.init(document.getElementById('history'));
+        }
+        var option3 = {
+        // 鼠标对应的交叉线
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          },
+          // 将提示框限制在图表的区域内
+          confine: true,
         },
-        series: this.graphY,
+        // 图例
         legend: {
+          selectedMode: true, // 是否允许点击
           data: this.historyLegend
         },
+        // 图表移动位置
+        grid: {
+          left: '3%',
+          right: '3%',
+          bottom: '1%',
+          top: '37%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          // boundaryGap: false,
+          data: this.graphX
+        },
+        yAxis: {
+          type: 'value',
+          // min:this.yMin, //设置y轴最小值
+          splitLine: { //修改背景线条样式
+            show: true,//是否展示
+            lineStyle: {
+              color: "#BFC2C7",//线条颜色
+              // type:"dashed"//线条样式，默认实线，dashed虚线
+            }
+          },
+        },
+        series: this.graphY,
       };
       // 使用刚指定的配置项和数据显示图表。
       this.myChart3.setOption(option3);
@@ -645,9 +694,9 @@ export default {
 
       // 让指定id的div的_echarts_instance_属性值为空状态。新加载页面时，图也重新加载。
       historyBox.removeAttribute('_echarts_instance_');
-
-      // 基于准备好的dom，初始化echarts实例
-      this.myChart3 = echarts.init(document.getElementById('history'));
+        if (this.myChart3 == null) {
+          this.myChart3 = echarts.init(document.getElementById('history'));
+        }
       var option3 = {
         // 鼠标对应的交叉线
         tooltip: {
@@ -663,6 +712,7 @@ export default {
         },
         // 图例
         legend: {
+          selectedMode: true, // 是否允许点击
           data: this.historyLegend
         },
         // 图表移动位置
