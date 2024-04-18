@@ -26,7 +26,7 @@
         <el-col :offset="1" :span="22" style="margin-bottom: 15px">
           <el-tabs class="my-tab" v-model="activeName">
             <el-tab-pane v-for="(tab, index) in myTabs" :key="index" :label="tab.label" :name="tab.name">
-              <div class="mb-card half" v-for="item in page_my_invited_event" v-bind:key="item.event_name" >
+              <el-col :span="24" class="mb-card half" v-for="item in page_my_invited_event" v-bind:key="item.event_name" >
                 <el-row>
                   <el-col>
                     <h4 style="margin-bottom: 2px">
@@ -72,7 +72,7 @@
                     </router-link>
                   </el-col>
                 </el-row>
-              </div>
+              </el-col>
             </el-tab-pane>
           </el-tabs>
         </el-col>
@@ -234,7 +234,7 @@
   }
   
   .half:nth-child(odd){
-    width: 43%;
+    width: 100%;
     margin-right: 1%;
     display: inline-block;
     padding-left: 3%;
