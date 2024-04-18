@@ -100,7 +100,36 @@
       </el-col>
     </el-row>
 
+    <!--    消息订阅-->
+    <el-row>
+      <el-col :offset="2" :span="20" style="margin-top: 20px;margin-bottom: 15px">
+        <span style="font-size:19px;font-weight: bolder;color: #2e2e2e">比赛订阅</span>
+      </el-col>
+      <el-col :offset="1" :span="22" class="mb-card participation">
+        <el-row>
+          <el-col :offset="1" :span="2">
+            <!-- 图片好像还没有，先用比赛的图片 -->
+            <img src="@/assets/images/my_competition.svg" height="22" style="margin-top: 2px" alt="特邀比赛"/>
+          </el-col>
+          <el-col :offset="1" :span="13">
+            比赛订阅
+          </el-col>
+          <el-col :span="6" class="right">
+            <router-link to="/mobile_competition_subscribe" class="center-vertically">
+              查看详情
+              <img src="@/assets/images/enter.svg" height="13" alt="进入">
+            </router-link>
+          </el-col>
+        </el-row>
+      </el-col>
+
+
+
+    </el-row>
+
+
   </div>
+
   <bottom-nav :current-page="'personal'"></bottom-nav>
 </template>
 

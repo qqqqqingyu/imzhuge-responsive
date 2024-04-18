@@ -56,7 +56,7 @@
         </el-col>
 
         <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link :to="{path:'/pc_participate',query:{eventName:item.event_name}}">
+          <router-link :to="{path:'/pc_participate',query:{eventName:item.event_name,eventId:item.event_id}}">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>
@@ -129,6 +129,7 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+      //console.log('my_event', this.my_event)
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

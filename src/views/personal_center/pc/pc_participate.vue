@@ -27,9 +27,13 @@
           </span>
         </el-col>
 
-        <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link :to="{path:'/pc_task_list',query:{eventName:$route.query.eventName,actName:item.act_name}}">
+        <el-col class="yellow-btn link" style="margin-top: 10px;">
+          <router-link :to="{path:'/pc_task_list',query:{eventName:$route.query.eventName,actName:item.act_name,eventId:$route.query.eventId}}">
             <el-button>查看详情</el-button>
+          </router-link>
+          <router-link :to="{path:'/competition_transaction',
+                            query:{eventId:$route.query.eventId,activityId:item.activity_id}}">
+            <el-button>交易页面</el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -127,5 +131,9 @@ export default {
 
 .my-pagination >>> .el-pagination.is-background .el-pager li:hover{
   color:#EF9C19;
+}
+.link{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

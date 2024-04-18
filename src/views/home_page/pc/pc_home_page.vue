@@ -1,12 +1,12 @@
 <template>
   <div class="homepage_header">
     <el-row class="pgw hdbar" :style="topBannerNavBg">
-      <el-col :span="2" :offset="2">
+      <el-col :xs="{ span: 2, offset: 1 }" :md="{ span: 2, offset: 1 }" :lg="{ span: 2, offset: 2 }">
         <a href="https://www.imzhuge.com/" class="logobox" title="嗨皮诸葛" style="margin-left: 2.5%">
           <img src="@/assets/images/logo.png" alt="嗨皮诸葛" height="40"/>
         </a>
       </el-col>
-      <el-col :span="19" style="position: relative">
+      <el-col :xs="{ span: 21 }" :md="{ span: 21 }" :lg="{ span: 19 }" style="position: relative">
         <ul class="hdnav clear">
           <li>
             <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页

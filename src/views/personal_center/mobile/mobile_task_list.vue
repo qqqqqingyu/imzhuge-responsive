@@ -2,7 +2,7 @@
   <div>
     <el-row class="mb-10 mt-20">
       <el-col :span="1" :offset="1">
-        <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName}}">
+        <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName,eventId:$route.query.eventId}}">
           <img src="../../../assets/images/return.svg" alt="返回" height="18" style="float: left;padding: 1px;">
         </router-link>
       </el-col>
@@ -19,7 +19,7 @@
         您当前的位置：
         <router-link to="/mobile_competition">比赛列表</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="20">
-        <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName}}">比赛活动</router-link>
+        <router-link :to="{path:'/mobile_participate',query:{eventName:$route.query.eventName,eventId:$route.query.eventId}}">比赛活动</router-link>
         <img src="@/assets/images/right.svg" alt="下级" height="20">
         <span class="cur-de">任务列表</span>
       </el-col>

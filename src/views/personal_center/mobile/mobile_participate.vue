@@ -45,11 +45,16 @@
                 </el-col>
               </el-row>
             </el-col>
-            <el-col :span="6" class="right center-vertically">
-              <router-link :to="{path:'/mobile_task_list',query:{eventName:$route.query.eventName,actName:item.act_name}}" class="yellow-link center-vertically">
+            <el-col :span="6" class="right link">
+              <router-link :to="{path:'/mobile_task_list',query:{eventName:$route.query.eventName,actName:item.act_name,eventId:$route.query.eventId}}" class="yellow-link center-vertically">
                 <span class="my-icon" style="font-size: 14px">查看详情</span>
                 <img src="@/assets/images/enter.svg" height="11" alt="进入">
               </router-link>
+              <router-link :to="{path:'/competition_transaction',
+                            query:{eventId:$route.query.eventId,activityId:item.activity_id}}"
+                            class="yellow-link center-vertically">
+                <span class="my-icon" style="font-size: 14px">交易页面</span>
+            </router-link>
             </el-col>
           </el-row>
         </div>
@@ -190,5 +195,9 @@ a.yellow-link{
 
 .my-pagination >>> .el-pagination.is-background .el-pager li:hover{
   color:#EF9C19;
+}
+.link{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

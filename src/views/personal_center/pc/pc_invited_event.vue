@@ -10,11 +10,11 @@
         <el-radio-button class="filter-radio" label=1>未开始或已结束</el-radio-button>
       </el-radio-group>
     </el-col>
-  
+
     <el-col :offset="1" :span="23" class="line">
       <el-divider></el-divider>
     </el-col>
-  
+
     <el-col :span="11" :offset="1" class="activity-box" v-for="item in page_my_invited_event" v-bind:key="item.event_name">
       <el-row>
         <el-col :span="24">
@@ -27,7 +27,7 @@
           <span class="ing_state" v-else>进行中</span>
           <span class="pc_invited">特邀</span>
         </el-col>
-  
+
         <el-col :span="8" class="mb-5">
           <span class="gray-text">比赛收益</span>
         </el-col>
@@ -36,7 +36,7 @@
             {{ parseFloat(item.earning_coin).toFixed(2) }}&nbsp;诸葛贝
           </span>
         </el-col>
-  
+
         <el-col :span="8" class="mb-5">
             <span class="gray-text">比赛时间</span>
         </el-col>
@@ -45,7 +45,7 @@
             {{ formatDate(item.event_start_time) }} ~ {{ formatDate(item.event_end_time) }}
           </span>
         </el-col>
-  
+
         <el-col :span="8" class="mb-5">
           <span class="gray-text">获得奖金</span>
         </el-col>
@@ -54,15 +54,15 @@
             {{ changeCash(item.event_earning_cash) }}
           </span>
         </el-col>
-  
+
         <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link :to="{path:'/pc_invited_participate',query:{eventName:item.event_name}}">
+          <router-link :to="{path:'/pc_invited_participate',query:{eventName:item.event_name,eventId:item.event_id}}">
             <el-button>查看详情</el-button>
           </router-link>
         </el-col>
       </el-row>
     </el-col>
-  
+
     <el-col class="center my-pagination">
       <el-pagination
           background
@@ -76,7 +76,7 @@
     </el-col>
   </el-row>
 </template>
-  
+
 <script>
 import {getCSRFToken} from '@/api/token'
 
@@ -129,6 +129,7 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+      //console.log('my_invited_event', this.my_invited_event)
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403
@@ -183,7 +184,7 @@ export default {
     padding: 8px 15px;
 
   }
-    修改按钮激活样式 
+    修改按钮激活样式
   .el-radio-button__orig-radio:checked + .el-radio-button__inner {
       color: #FFAA2A;
       background-color: rgba(255, 195, 105, 0.2);
@@ -207,7 +208,7 @@ export default {
   border-radius: 8px;
   padding: 8px 15px;
 }
-  
+
 .my-pagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active{
   background-color:#F0C27B;
 }
