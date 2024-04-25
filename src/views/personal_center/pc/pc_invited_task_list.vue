@@ -3,7 +3,7 @@
     <el-col :offset="1" :span="20" class="center-vertically mb-20">
       <router-link to="/pc_invited_event" class="personal-title-a">特邀预测比赛</router-link>
       <img src="@/assets/images/right.svg" alt="下级" height="25">
-      <router-link :to="{path:'/pc_invited_participate',query:{eventName:$route.query.eventName}}"
+      <router-link :to="{path:'/pc_invited_participate',query:{eventName:$route.query.eventName,eventId:$route.query.eventId}}"
                    class="personal-title-a">参与活动</router-link>
       <img src="@/assets/images/right.svg" alt="下级" height="25">
       <span class="personal-title">任务列表</span>

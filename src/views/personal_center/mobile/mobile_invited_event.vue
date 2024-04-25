@@ -67,7 +67,7 @@
                   </el-col>
   
                   <el-col class="mobile-yellow-btn center" style="margin-top: 5px;">
-                    <router-link :to="{path:'/mobile_invited_participate',query:{eventName:item.event_name}}">
+                    <router-link :to="{path:'/mobile_invited_participate',query:{eventName:item.event_name,eventId:item.event_id}}">
                       <el-button>查看详情</el-button>
                     </router-link>
                   </el-col>
@@ -242,8 +242,8 @@
   }
   
   .half:nth-child(even){
-    width: 43%;
-    margin-left: 1%;
+    width: 100%;
+    margin-right: 1%;
     display: inline-block;
     padding-left: 3%;
     padding-right: 3%;

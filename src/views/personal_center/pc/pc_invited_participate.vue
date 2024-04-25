@@ -27,9 +27,13 @@
           </span>
         </el-col>
 
-        <el-col class="yellow-btn center" style="margin-top: 10px;">
-          <router-link :to="{path:'/pc_invited_task_list',query:{eventName:$route.query.eventName,actName:item.act_name}}">
+        <el-col class="yellow-btn link" style="margin-top: 10px;">
+          <router-link :to="{path:'/pc_invited_task_list',query:{eventName:$route.query.eventName,actName:item.act_name,eventId:$route.query.eventId}}">
             <el-button>查看详情</el-button>
+          </router-link>
+          <router-link :to="{path:'/competition_transaction',
+                            query:{eventId:$route.query.eventId,activityId:item.activity_id}}">
+            <el-button>交易页面</el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -70,7 +74,8 @@ export default {
       const selectedAct = myInvitedEvent.find(
           (act) => act.event_name === selectEventName
       );
-
+      
+      
       if (selectedAct) {
         return selectedAct.act_list
       } else {
@@ -98,8 +103,11 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+    
+     // console.log('act_list', this.act_list)
   },
   methods: {
+
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();
@@ -127,5 +135,9 @@ export default {
 
 .my-pagination >>> .el-pagination.is-background .el-pager li:hover{
   color:#EF9C19;
+}
+.link{
+  display: flex;
+  justify-content: space-between;
 }
 </style>
