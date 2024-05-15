@@ -129,7 +129,7 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
-      console.log('my_invited_event', this.my_invited_event)
+      //console.log('my_invited_event', this.my_invited_event)
   },
   methods: {
     // 获取csrftoken 确保受保护接口不会响应403

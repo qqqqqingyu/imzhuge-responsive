@@ -28,7 +28,7 @@
         </el-col>
 
         <el-col class="yellow-btn link" style="margin-top: 10px;">
-          <router-link :to="{path:'/pc_task_list',query:{eventName:$route.query.eventName,actName:item.act_name}}">
+          <router-link :to="{path:'/pc_task_list',query:{eventName:$route.query.eventName,actName:item.act_name,eventId:$route.query.eventId}}">
             <el-button>查看详情</el-button>
           </router-link>
           <router-link :to="{path:'/competition_transaction',
