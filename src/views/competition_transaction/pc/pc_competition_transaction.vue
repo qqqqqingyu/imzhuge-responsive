@@ -1198,8 +1198,8 @@ export default {
         },
         // 图例
         legend: {
+          data: this.historyLegend,
           selectedMode: true, // 是否允许点击
-          data: this.historyLegend
         },
         // 图表移动位置
         grid: {
