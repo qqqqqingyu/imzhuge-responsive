@@ -71,6 +71,12 @@ export default [
                         name:'pc_invited_task_list',
                         component: () => import('@/views/personal_center/pc/pc_invited_task_list'),
                     },
+                    // 比赛订阅
+                    {
+                        path:'/pc_competition_subscribe',
+                        name:'pc_competition_subscribe',
+                        component: () => import('@/views/personal_center/pc/pc_competition_subscribe'),
+                    }
                 ]
             },
             {
@@ -154,6 +160,15 @@ export default [
                     keepAlive: true, // 需要被缓存
                 }
             },
+            // {
+            //     path:'test',
+            //     name:'test',
+            //     component: () => import('@/views/personal_center/pc/test'),
+            //     meta: {
+            //         title: '测试',
+            //         keepAlive: true, // 需要被缓存
+            //     }
+            // },
             {
                 path: '/activity2045',
                 name: 'activity2045',

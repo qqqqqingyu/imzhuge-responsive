@@ -47,6 +47,7 @@
               </div>
               <router-link class="popover-link" to="/personal_center">我参与的</router-link>
               <router-link class="popover-link" to="/pc_personal_info">个人信息</router-link>
+              <router-link class="popocer-link" to="/pc_competition_subscribe">比赛订阅</router-link>
             </el-popover>
           </li>
         </ul>
@@ -126,6 +127,14 @@
               <span id="link-info" class="left-content">个人信息</span>
             </el-col>
           </router-link>
+
+          <router-link to="/pc_competition_subscribe">
+            <el-col :span="16" :offset="3" class="center-vertically left-option">
+              <img :src="infoImg" alt="比赛订阅" width="21">
+              <span id="link-info" class="left-content">比赛订阅</span>
+            </el-col>
+          </router-link>
+          
         </el-row>
       </el-col>
       <!--      左部导航栏结束-->
@@ -266,10 +275,10 @@ export default {
   },
 
   methods: {
-    // 获取csrftoken 确保受保护接口不会响应403
-    getCSRFTokenMethod() {
-      getCSRFToken();
-    },
+    // // 获取csrftoken 确保受保护接口不会响应403
+    // getCSRFTokenMethod() {
+    //   getCSRFToken();
+    // },
     // 保留n位小数
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)

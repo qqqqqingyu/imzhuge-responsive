@@ -146,6 +146,7 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+
     // 特邀比赛参与活动
     {
         path:'/mobile_invited_participate',
@@ -163,6 +164,16 @@ export default [
         component: () => import('@/views/personal_center/mobile/mobile_invited_task_list.vue'),
         meta: {
             title: '特邀比赛任务列表',
+            keepAlive: true, // 需要被缓存
+        }
+    },
+    // 比赛订阅
+    {
+        path:'/mobile_competition_subscribe',
+        name:'mobile_competition_subscribe',
+        component: () => import('@/views/personal_center/mobile/mobile_competition_subscribe.vue'),
+        meta: {
+            title: '比赛订阅',
             keepAlive: true, // 需要被缓存
         }
     },
@@ -184,6 +195,7 @@ export default [
             keepAlive: true, // 需要被缓存
         }
     },
+
     {
         path: '/help_center',
         name: 'help_center',
