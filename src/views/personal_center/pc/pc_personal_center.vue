@@ -150,7 +150,7 @@
 <script>
 import {getCSRFToken} from '../../../api/token'
 import config from '@/config'
-import { getSubscribe,subscribeCompetition } from '@/api/competition';
+import { getSubscribe,subscribeCompetition } from '../../api/competition';
 export default {
   name: "pc_personal_center",
   computed: {

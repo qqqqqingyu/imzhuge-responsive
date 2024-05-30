@@ -332,7 +332,7 @@
       this.filteredTableData = this.tableData;
       this.selectedStock = 'all';
       this.$bus.addEventListener('subscribeStatus', this.handleDataFetched);
-      this.getSubscribe();
+      // this.getSubscribe();
     },
     beforeUnmount() {
   this.$bus.removeEventListener('subscribeStatus', this.handleDataFetched);
@@ -341,18 +341,18 @@
       handleDataFetched(event) {
         this.isSubscribe = event.detail; // 使用event.detail访问传递的数据
   },
-      getSubscribe() {
-        getSubscribe().then(res => {
-          if (res.code == '200') {
-            this.isSubscribe = true;
-            return;
-          }else if(res.code == '201'){
-            this.isSubscribe = false;
-            return;
-          }
+      // getSubscribe() {
+      //   getSubscribe().then(res => {
+      //     if (res.code == '200') {
+      //       this.isSubscribe = true;
+      //       return;
+      //     }else if(res.code == '201'){
+      //       this.isSubscribe = false;
+      //       return;
+      //     }
           
-        });
-      },
+      //   });
+      // },
       querySearch(queryString, cb) {
         if (queryString.length === 0) {
           cb([]);
