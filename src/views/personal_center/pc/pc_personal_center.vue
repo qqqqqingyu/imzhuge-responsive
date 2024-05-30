@@ -168,7 +168,7 @@ export default {
       },
       activityImg: require('@/assets/images/my_activity_yellow.svg'),
       infoImg: require('@/assets/images/info_grey.svg'),
-      subImg:require('@/assets/images/subscribe.svg'),
+      subImg:require('@/assets/images/subscribe_grey.svg'),
       // 导航栏样式
       headStyle: {
         background: "rgba(255, 255, 255, 0)",
@@ -235,16 +235,18 @@ export default {
       let invited = document.querySelector('#link-invited');
       let stock = document.querySelector('#link-stock');
       let sub = document.querySelector('#link-sub');
-
+      
       if (to.path === '/pc_my_activities') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
+        this.subImg = require('@/assets/images/subscribe_grey.svg')
         activity.style.color = '#F0C278';
         info.style.color = '#555555';
         sub.style.color = '#555555';
       } else if (to.path === '/pc_personal_info') {
         this.activityImg = require('@/assets/images/my_activity_grey.svg')
         this.infoImg = require('@/assets/images/info_yellow.svg')
+        this.subImg = require('@/assets/images/subscribe_grey.svg')
         activity.style.color = '#555555';
         stock.style.color = '#555555';
         competition.style.color = '#555555';
@@ -254,6 +256,7 @@ export default {
       } else if (to.path === '/pc_industry_list') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
+        this.subImg = require('@/assets/images/subscribe_grey.svg')
         activity.style.color = '#F0C278';
         stock.style.color = '#F0C278';
         competition.style.color = '#555555';
@@ -263,6 +266,7 @@ export default {
       } else if (to.path === '/pc_competition') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
+        this.subImg = require('@/assets/images/subscribe_grey.svg')
         activity.style.color = '#F0C278';
         competition.style.color = '#F0C278';
         stock.style.color = '#555555';
@@ -272,6 +276,7 @@ export default {
       } else if (to.path === '/pc_invited_event') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
+        this.subImg = require('@/assets/images/subscribe_grey.svg')
         activity.style.color = '#F0C278';
         stock.style.color = '#555555';
         competition.style.color = '#555555';

@@ -105,7 +105,6 @@
         filteredTableData: [],
         currentPage: 1,
         pageSize: 25,
-        isSubscribe:'',
         tableData: [
   {
     "state": "已结束",
@@ -332,10 +331,10 @@
     methods: {
       getSubscribe() {
         getSubscribe().then(res => {
-          if (res.code == 200) {
+          if (res.code == '200') {
             this.isSubscribe = true;
             return;
-          }else if(res.code == 201){
+          }else if(res.code == '201'){
             this.isSubscribe = false;
             return;
           }
