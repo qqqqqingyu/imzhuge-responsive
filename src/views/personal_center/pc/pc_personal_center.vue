@@ -131,7 +131,7 @@
           <router-link to="/pc_competition_subscribe">
             <el-col :span="16" :offset="3" class="center-vertically left-option">
               <img :src="subImg" alt="比赛订阅" width="21">
-              <span id="link-info" class="left-content">比赛订阅</span>
+              <span id="link-sub" class="left-content">比赛订阅</span>
             </el-col>
           </router-link>
           
@@ -234,11 +234,14 @@ export default {
       // 特邀比赛
       let invited = document.querySelector('#link-invited');
       let stock = document.querySelector('#link-stock');
+      let sub = document.querySelector('#link-sub');
+
       if (to.path === '/pc_my_activities') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
         activity.style.color = '#F0C278';
         info.style.color = '#555555';
+        sub.style.color = '#555555';
       } else if (to.path === '/pc_personal_info') {
         this.activityImg = require('@/assets/images/my_activity_grey.svg')
         this.infoImg = require('@/assets/images/info_yellow.svg')
@@ -247,6 +250,7 @@ export default {
         competition.style.color = '#555555';
         invited.style.color = '#555555';
         info.style.color = '#F0C278';
+        sub.style.color = '#555555';
       } else if (to.path === '/pc_industry_list') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
@@ -255,6 +259,7 @@ export default {
         competition.style.color = '#555555';
         invited.style.color = '#555555';
         info.style.color = '#555555';
+        sub.style.color = '#555555';
       } else if (to.path === '/pc_competition') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
@@ -263,6 +268,7 @@ export default {
         stock.style.color = '#555555';
         invited.style.color = '#555555';
         info.style.color = '#555555';
+        sub.style.color = '#555555';
       } else if (to.path === '/pc_invited_event') {
         this.activityImg = require('@/assets/images/my_activity_yellow.svg')
         this.infoImg = require('@/assets/images/info_grey.svg')
@@ -271,6 +277,18 @@ export default {
         competition.style.color = '#555555';
         invited.style.color = '#F0C278';
         info.style.color = '#555555';
+        sub.style.color = '#555555';
+      }
+      else if (to.path === '/pc_competition_subscribe') {
+        this.activityImg = require('@/assets/images/my_activity_grey.svg')
+        this.infoImg = require('@/assets/images/info_grey.svg')
+        this.subImg = require('@/assets/images/subscribe.svg')
+        activity.style.color = '#555555';
+        stock.style.color = '#555555';
+        competition.style.color = '#555555';
+        invited.style.color = '#555555';
+        info.style.color = '#555555';
+        sub.style.color = '#F0C278';
       }
     }
   },

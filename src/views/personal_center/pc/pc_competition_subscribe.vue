@@ -3,8 +3,8 @@
       <div class="header">
         <h2 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h2>
       </div>
-      <h2 :v-if="isSubscribe==false">你还没有订阅该服务</h2>
-      <el-row :v-if="isSubscribe==true" class="content">
+      <h2 v-if="!isSubscribe">你还没有订阅该服务</h2>
+      <el-row v-if="isSubscribe" class="content">
         <el-col :span="22" :offset="1" class="form">
           <el-row>
             <el-col :span="22" :offset="1">
