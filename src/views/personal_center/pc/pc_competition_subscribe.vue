@@ -1,11 +1,11 @@
 <template>
-    <div class="all">
+    <div class="all" style="margin-top: -15px;margin-right: -2%;">
       <div class="header">
-        <h1 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h1>
+        <h2 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h2>
       </div>
   
       <el-row class="content">
-        <el-col :span="20" :offset="2" class="form">
+        <el-col :span="22" :offset="1" class="form">
           <el-row>
             <el-col :span="22" :offset="1">
               <el-row style="margin-top: 40px;">
@@ -103,7 +103,7 @@
         selectedStock: '',
         filteredTableData: [],
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 25,
         tableData: [
   {
     "state": "已结束",
@@ -389,7 +389,7 @@
     background-color: #F7F7F7 !important;
   }
   .all {
-    background-color: #FAFAFA;
+    background-color: white;
   }
   .header {
     display: flex;
