@@ -3,8 +3,12 @@
       <div class="header">
         <h2 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h2>
       </div>
-      <h2 v-if="!isSubscribe">你还没有订阅该服务</h2>
-      <el-row v-if="isSubscribe" class="content">
+      <div v-if="!isSubscribe" style="display: flex;justify-content: center;">
+        <h2>
+          你还没有订阅该服务
+        </h2>
+      </div>
+      <el-row v-else class="content">
         <el-col :span="22" :offset="1" class="form">
           <el-row>
             <el-col :span="22" :offset="1">
@@ -95,7 +99,7 @@
   </template>
   
   <script>
-  import { getSubscribe,subscribeCompetition } from '@/api/competition';
+  import { getSubscribeStatus } from '../../../api/competition';
   export default {
     name: "pc_competition_subscribe",
     data() {
@@ -105,6 +109,7 @@
         filteredTableData: [],
         currentPage: 1,
         pageSize: 25,
+        isSubscribe: false,
         tableData: [
   {
     "state": "已结束",
@@ -329,8 +334,9 @@
       this.getSubscribe();
     },
     methods: {
+
       getSubscribe() {
-        getSubscribe().then(res => {
+        getSubscribeStatus().then(res => {
           if (res.code == '200') {
             this.isSubscribe = true;
             return;
@@ -338,7 +344,6 @@
             this.isSubscribe = false;
             return;
           }
-          
         });
       },
       querySearch(queryString, cb) {

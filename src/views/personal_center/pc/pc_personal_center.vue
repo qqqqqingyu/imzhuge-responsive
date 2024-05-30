@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import {getCSRFToken} from '@/api/token'
+import {getCSRFToken} from '../../../api/token'
 import config from '@/config'
 
 export default {
@@ -299,10 +299,10 @@ export default {
   },
 
   methods: {
-    // // 获取csrftoken 确保受保护接口不会响应403
-    // getCSRFTokenMethod() {
-    //   getCSRFToken();
-    // },
+    // 获取csrftoken 确保受保护接口不会响应403
+    getCSRFTokenMethod() {
+      getCSRFToken();
+    },
     // 保留n位小数
     numFilter(value, n) {
       return parseFloat(value).toFixed(n)
