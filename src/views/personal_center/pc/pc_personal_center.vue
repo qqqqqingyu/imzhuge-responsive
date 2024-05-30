@@ -151,6 +151,7 @@
 import {getCSRFToken} from '../../../api/token'
 import config from '@/config'
 import { getSubscribe,subscribeCompetition } from '../../api/competition';
+import { getSubscribeStatus } from '../../../api/competition';
 export default {
   name: "pc_personal_center",
   computed: {
@@ -301,7 +302,7 @@ export default {
 
   methods: {
     getSubscribe() {
-        getSubscribe().then(res => {
+        getSubscribeStatus().then(res => {
           if (res.code == '200') {
             this.isSubscribe = true;
             return;
