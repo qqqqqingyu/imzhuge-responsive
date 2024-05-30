@@ -74,3 +74,21 @@ export function getInvitedEvent() {
         url:config.APIURL+'/api/selfcenter/my_invited_event'
     })
 }
+export function getSubscribeStatus() {
+    return request({
+        method:'get',
+        // 测试服
+        // url: '/api/selfcenter/my_event'
+        // 正式服
+        url:config.APIURL+'/api/sh50/sh50_user_subscribe/'
+    })
+}
+export function SubscribeCompetition() {
+    return request({
+        method:'post',
+        // 测试服
+        // url: '/api/selfcenter/my_event'
+        // 正式服
+        url:config.APIURL+'/api/sh50/sh50_user_subscribe/'
+    })
+}

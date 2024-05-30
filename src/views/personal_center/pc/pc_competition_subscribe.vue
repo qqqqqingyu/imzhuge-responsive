@@ -3,8 +3,8 @@
       <div class="header">
         <h2 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h2>
       </div>
-  
-      <el-row class="content">
+      <h2 :v-if="isSubscribe==false">你还没有订阅该服务</h2>
+      <el-row :v-if="isSubscribe==true" class="content">
         <el-col :span="22" :offset="1" class="form">
           <el-row>
             <el-col :span="22" :offset="1">
@@ -43,58 +43,59 @@
               </el-row>
             </el-col>
           </el-row>
-<!-- 表格内容 -->
-<el-row style="margin-top: 30px;">
-  <el-col :span="22" :offset="1" class="my-card mb-20">
-    <!-- 表头和内容都改为居中 -->
-    <el-table 
-      :data="paginatedData" 
-      class="my-table" 
-      :header-cell-style="{'text-align':'center'}" 
-      :cell-style="{'text-align':'center'}">
-      <el-table-column prop="state" label="状态">
-        <template #default="scope">
-          <span v-if="scope.row.state.endsWith('已结束')" class="finished">已结束</span>
-          <span class="unfinished" v-else>进行中</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="code" sortable label="股票代码"></el-table-column>
-      <el-table-column prop="name" sortable label="股票名称"></el-table-column>
-      <el-table-column prop="start" sortable label="开始日期">
-        <template #default="scope">
-          <span class="date">{{scope.row.start}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="end" sortable label="目标日期">
-        <template #default="scope">
-          <span class="date">{{scope.row.end}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="possibility" sortable label="上涨概率"></el-table-column>
-      <el-table-column prop="result" label="真实结果"></el-table-column>
-    </el-table>
-    <!--底部分页栏 -->
-    <el-row>
-      <el-col class="center my-pagination" style="margin-bottom: 10px">
-        <el-pagination
-          background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-size="pageSize"
-          :total="totalPage"
-          layout="prev, pager, next">
-        </el-pagination>
+    <!-- 表格内容 -->
+    <el-row style="margin-top: 30px;">
+      <el-col :span="22" :offset="1" class="my-card mb-20">
+        <!-- 表头和内容都改为居中 -->
+        <el-table 
+          :data="paginatedData" 
+          class="my-table" 
+          :header-cell-style="{'text-align':'center'}" 
+          :cell-style="{'text-align':'center'}">
+          <el-table-column prop="state" label="状态">
+            <template #default="scope">
+              <span v-if="scope.row.state.endsWith('已结束')" class="finished">已结束</span>
+              <span class="unfinished" v-else>进行中</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="code" sortable label="股票代码"></el-table-column>
+          <el-table-column prop="name" sortable label="股票名称"></el-table-column>
+          <el-table-column prop="start" sortable label="开始日期">
+            <template #default="scope">
+              <span class="date">{{scope.row.start}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="end" sortable label="目标日期">
+            <template #default="scope">
+              <span class="date">{{scope.row.end}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="possibility" sortable label="上涨概率"></el-table-column>
+          <el-table-column prop="result" label="真实结果"></el-table-column>
+        </el-table>
+        <!--底部分页栏 -->
+        <el-row>
+          <el-col class="center my-pagination" style="margin-bottom: 10px">
+            <el-pagination
+              background
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="currentPage"
+              :page-size="pageSize"
+              :total="totalPage"
+              layout="prev, pager, next">
+            </el-pagination>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
-  </el-col>
-</el-row>
         </el-col>
       </el-row>
     </div>
   </template>
   
   <script>
+  import { getSubscribe,subscribeCompetition } from '@/api/competition';
   export default {
     name: "pc_competition_subscribe",
     data() {
@@ -104,6 +105,7 @@
         filteredTableData: [],
         currentPage: 1,
         pageSize: 25,
+        isSubscribe:'',
         tableData: [
   {
     "state": "已结束",
@@ -325,8 +327,21 @@
     mounted() {
       this.filteredTableData = this.tableData;
       this.selectedStock = 'all';
+      this.getSubscribe();
     },
     methods: {
+      getSubscribe() {
+        getSubscribe().then(res => {
+          if (res.code == 200) {
+            this.isSubscribe = true;
+            return;
+          }else if(res.code == 201){
+            this.isSubscribe = false;
+            return;
+          }
+          
+        });
+      },
       querySearch(queryString, cb) {
         if (queryString.length === 0) {
           cb([]);
