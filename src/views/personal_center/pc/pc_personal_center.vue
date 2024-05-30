@@ -130,7 +130,7 @@
 
           <router-link to="/pc_competition_subscribe">
             <el-col :span="16" :offset="3" class="center-vertically left-option">
-              <img :src="infoImg" alt="比赛订阅" width="21">
+              <img :src="subImg" alt="比赛订阅" width="21">
               <span id="link-info" class="left-content">比赛订阅</span>
             </el-col>
           </router-link>
@@ -168,6 +168,7 @@ export default {
       },
       activityImg: require('@/assets/images/my_activity_yellow.svg'),
       infoImg: require('@/assets/images/info_grey.svg'),
+      subImg:require('@/assets/images/subscribe.svg'),
       // 导航栏样式
       headStyle: {
         background: "rgba(255, 255, 255, 0)",
