@@ -99,6 +99,7 @@
   </template>
   
   <script>
+import { useSubScribeStore } from '../../../store/pinia/subScribeStatus';
   // import { getSubscribe,subscribeCompetition } from '@/api/competition';
   export default {
     name: "pc_competition_subscribe",
@@ -109,7 +110,7 @@
         filteredTableData: [],
         currentPage: 1,
         pageSize: 25,
-        isSubscribe: false,
+        isSubscribe: null,
         tableData: [
   {
     "state": "已结束",
@@ -331,28 +332,16 @@
     mounted() {
       this.filteredTableData = this.tableData;
       this.selectedStock = 'all';
-      this.$bus.addEventListener('subscribeStatus', this.handleDataFetched);
+      this.getSubscribe();
       // this.getSubscribe();
     },
-    beforeUnmount() {
-  this.$bus.removeEventListener('subscribeStatus', this.handleDataFetched);
-},
+   
     methods: {
-      handleDataFetched(event) {
-        this.isSubscribe = event.detail; // 使用event.detail访问传递的数据
-  },
-      // getSubscribe() {
-      //   getSubscribe().then(res => {
-      //     if (res.code == '200') {
-      //       this.isSubscribe = true;
-      //       return;
-      //     }else if(res.code == '201'){
-      //       this.isSubscribe = false;
-      //       return;
-      //     }
-          
-      //   });
-      // },
+      
+      getSubscribe() {
+          const store = useSubScribeStore();
+          this.isSubscribe = store.subScribeStatus;
+      },
       querySearch(queryString, cb) {
         if (queryString.length === 0) {
           cb([]);

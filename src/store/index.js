@@ -6,7 +6,7 @@ import myActivity from "./modules/myActivity"
 import myInfoDetails from "./modules/myInfoDetails"
 import loginStatus from "./modules/loginStatus";
 import eventList from "./modules/eventList";
-
+import subScribeStatus from "./modules/subScribeStatus";
 import createPersistedState from 'vuex-persistedstate'
 
 const store =createStore({
@@ -29,7 +29,8 @@ const store =createStore({
         myInfoDetails,
         myActivity,
         loginStatus,
-        eventList
+        eventList,
+        subScribeStatus
     },
     actions: {},
     //如果数据修改之后，没有及时更新，可能是这里的原因
@@ -38,7 +39,7 @@ const store =createStore({
             // 保存到 localStorage 中的 key
             key: 'imzhuge-2',
             // 需要保存的模块
-            paths: ['industryList','industryDetail','myActivity','myInfoDetails','loginStatus','eventList']
+            paths: ['industryList','industryDetail','myActivity','myInfoDetails','loginStatus','eventList','subScribeStatus']
         })
     ]
 

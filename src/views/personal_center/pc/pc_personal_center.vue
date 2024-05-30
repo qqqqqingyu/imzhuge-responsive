@@ -150,8 +150,7 @@
 <script>
 import {getCSRFToken} from '../../../api/token'
 import config from '@/config'
-import { getSubscribe,subscribeCompetition } from '../../api/competition';
-import { getSubscribeStatus } from '../../../api/competition';
+import {useSubScribeStore} from "../../../stores/subScribeStatus"
 export default {
   name: "pc_personal_center",
   computed: {
@@ -302,16 +301,8 @@ export default {
 
   methods: {
     getSubscribe() {
-        getSubscribeStatus().then(res => {
-          if (res.code == '200') {
-            this.isSubscribe = true;
-            return;
-          }else if(res.code == '201'){
-            this.isSubscribe = false;
-            return;
-          }
-          this.$bus.dispatchEvent(new CustomEvent('subscribeStatus', { detail: this.isSubscribe }));
-        });
+        const subscribeStore = useSubScribeStore()
+        subscribeStore.setSubScribeStatus()
       },
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
