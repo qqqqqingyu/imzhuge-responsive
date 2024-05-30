@@ -150,7 +150,7 @@
 <script>
 import {getCSRFToken} from '../../../api/token'
 import config from '@/config'
-
+import { getSubscribe,subscribeCompetition } from '@/api/competition';
 export default {
   name: "pc_personal_center",
   computed: {
@@ -163,6 +163,7 @@ export default {
   },
   data() {
     return {
+      isSubscribe: null,
       topBannerNavBg: {
         backgroundColor: ''
       },
@@ -182,7 +183,7 @@ export default {
     this.getCSRFTokenMethod();
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
-
+    this.getSubscribe();
     // 初始加载时判断左侧按钮选择的样式
     let activity = document.querySelector('#link-my');
     let competition = document.querySelector('#link-competition');
@@ -299,6 +300,18 @@ export default {
   },
 
   methods: {
+    getSubscribe() {
+        getSubscribe().then(res => {
+          if (res.code == '200') {
+            this.isSubscribe = true;
+            return;
+          }else if(res.code == '201'){
+            this.isSubscribe = false;
+            return;
+          }
+          this.$bus.dispatchEvent(new CustomEvent('subscribeStatus', { detail: this.isSubscribe }));
+        });
+      },
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();

@@ -99,7 +99,7 @@
   </template>
   
   <script>
-  import { getSubscribeStatus } from '../../../api/competition';
+  // import { getSubscribe,subscribeCompetition } from '@/api/competition';
   export default {
     name: "pc_competition_subscribe",
     data() {
@@ -331,12 +331,18 @@
     mounted() {
       this.filteredTableData = this.tableData;
       this.selectedStock = 'all';
+      this.$bus.addEventListener('subscribeStatus', this.handleDataFetched);
       this.getSubscribe();
     },
+    beforeUnmount() {
+  this.$bus.removeEventListener('subscribeStatus', this.handleDataFetched);
+},
     methods: {
-
+      handleDataFetched(event) {
+        this.isSubscribe = event.detail; // 使用event.detail访问传递的数据
+  },
       getSubscribe() {
-        getSubscribeStatus().then(res => {
+        getSubscribe().then(res => {
           if (res.code == '200') {
             this.isSubscribe = true;
             return;
@@ -344,6 +350,7 @@
             this.isSubscribe = false;
             return;
           }
+          
         });
       },
       querySearch(queryString, cb) {
