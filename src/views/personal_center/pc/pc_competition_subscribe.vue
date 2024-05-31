@@ -1,9 +1,12 @@
 <template>
     <div class="all" style="margin-top: -15px;margin-right: -2%;">
-      <div class="header">
-        <h2 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h2>
+      <div class="myHeader" style="margin-top: 30px; margin-bottom: 20px;">
+        <h2 style="margin-top: 30px; margin-bottom: 20px; margin:0 auto" class="centered-element">上证50股票涨跌预测</h2>
+        <div style="display: flex; justify-content: right;" class="right-element">
+          <el-button size="mini" @click="handleSubScribe"  type="warning" >{{subScribe}}</el-button>
+        </div>
       </div>
-      <div v-if="!isSubscribe" style="display: flex;justify-content: center;">
+      <div v-if="subScribeStatus.subScribeStatus === false" style="display: flex;justify-content: center;">
         <h2>
           你还没有订阅该服务
         </h2>
@@ -99,7 +102,8 @@
   </template>
   
   <script>
-import { useSubScribeStore } from '../../../store/pinia/subScribeStatus';
+import { mapState ,mapActions} from 'vuex';
+import { ElMessageBox } from 'element-plus';
   // import { getSubscribe,subscribeCompetition } from '@/api/competition';
   export default {
     name: "pc_competition_subscribe",
@@ -110,7 +114,6 @@ import { useSubScribeStore } from '../../../store/pinia/subScribeStatus';
         filteredTableData: [],
         currentPage: 1,
         pageSize: 25,
-        isSubscribe: null,
         tableData: [
   {
     "state": "已结束",
@@ -310,6 +313,15 @@ import { useSubScribeStore } from '../../../store/pinia/subScribeStatus';
   },
 
     computed: {
+      ...mapState(['subScribeStatus',['subScribeStatus']]),
+      subScribe(){
+        if (this.subScribeStatus.subScribeStatus === false){
+          return "订阅";
+      }
+      else{
+        return "取消订阅";
+      }
+    },
         totalPage() {
       return this.filteredTableData.length;
     },
@@ -332,15 +344,45 @@ import { useSubScribeStore } from '../../../store/pinia/subScribeStatus';
     mounted() {
       this.filteredTableData = this.tableData;
       this.selectedStock = 'all';
-      this.getSubscribe();
       // this.getSubscribe();
     },
    
     methods: {
-      
-      getSubscribe() {
-          const store = useSubScribeStore();
-          this.isSubscribe = store.subScribeStatus;
+      ...mapActions('subScribeStatus',['changeMySubScribeStatus']),
+      handleSubScribe(){
+      // 弹出确认框
+      if (this.subScribe === '订阅'){
+        ElMessageBox.confirm(
+        '你确定要订阅吗？', 
+        '确认操作', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        
+        this.changeMySubScribeStatus();
+      }).catch(() => {
+
+      });
+      }
+      else{
+        ElMessageBox.confirm(
+        '你确定取消订阅状态吗？', 
+        '确认操作', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        
+        this.changeMySubScribeStatus();
+      }).catch(() => {
+
+      });
+      }
+ 
+
       },
       querySearch(queryString, cb) {
         if (queryString.length === 0) {
@@ -406,9 +448,10 @@ import { useSubScribeStore } from '../../../store/pinia/subScribeStatus';
   .all {
     background-color: white;
   }
-  .header {
+  .myHeader {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
   }
   .form {
     background-color: #FFFFFF;

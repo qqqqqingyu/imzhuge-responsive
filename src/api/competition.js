@@ -83,7 +83,7 @@ export function getSubscribeStatus() {
         url:config.APIURL+'/api/sh50/sh50_user_subscribe/'
     })
 }
-export function SubscribeCompetition() {
+export function changeSubscribeStatus() {
     return request({
         method:'post',
         // 测试服

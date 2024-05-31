@@ -47,7 +47,7 @@
               </div>
               <router-link class="popover-link" to="/personal_center">我参与的</router-link>
               <router-link class="popover-link" to="/pc_personal_info">个人信息</router-link>
-              <router-link class="popocer-link" to="/pc_competition_subscribe">比赛订阅</router-link>
+              <router-link class="popover-link" to="/pc_competition_subscribe">比赛订阅</router-link>
             </el-popover>
           </li>
         </ul>
@@ -150,7 +150,7 @@
 <script>
 import {getCSRFToken} from '../../../api/token'
 import config from '@/config'
-import {useSubScribeStore} from "../../../stores/subScribeStatus"
+import { mapActions } from 'vuex'
 export default {
   name: "pc_personal_center",
   computed: {
@@ -183,7 +183,7 @@ export default {
     this.getCSRFTokenMethod();
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
-    this.getSubscribe();
+    this.useMySubScribeStatus();
     // 初始加载时判断左侧按钮选择的样式
     let activity = document.querySelector('#link-my');
     let competition = document.querySelector('#link-competition');
@@ -300,10 +300,7 @@ export default {
   },
 
   methods: {
-    getSubscribe() {
-        const subscribeStore = useSubScribeStore()
-        subscribeStore.setSubScribeStatus()
-      },
+    ...mapActions('subScribeStatus',['useMySubScribeStatus']), 
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();

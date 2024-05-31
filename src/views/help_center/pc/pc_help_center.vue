@@ -51,6 +51,7 @@
             </div>
             <router-link class="popover-link" to="/personal_center">我参与的</router-link>
             <router-link class="popover-link" to="/pc_personal_info">个人信息</router-link>
+            <router-link class="popover-link" to="/pc_competition_subscribe">比赛订阅</router-link>
           </el-popover>
         </li>
       </ul>

@@ -109,7 +109,7 @@
         <el-row>
           <el-col :offset="1" :span="2">
             <!-- 图片好像还没有，先用比赛的图片 -->
-            <img src="@/assets/images/my_competition.svg" height="22" style="margin-top: 2px" alt="特邀比赛"/>
+            <img src="@/assets/images/subscribe_grey.svg" height="22" style="margin-top: 2px" alt="比赛订阅"/>
           </el-col>
           <el-col :offset="1" :span="13">
             比赛订阅
@@ -137,7 +137,7 @@
 import config from '@/config'
 import bottomNav from "../../../components/bottomNav";
 import {getCSRFToken} from '@/api/token'
-
+import { mapActions } from 'vuex'
 export default {
   name: "mobile_personal_center",
   components: {bottomNav},
@@ -151,8 +151,10 @@ export default {
   },
   mounted() {
     this.getCSRFTokenMethod()
+    this.useMySubScribeStatus();
   },
   methods: {
+    ...mapActions('subScribeStatus',['useMySubScribeStatus']), 
     // 获取csrftoken 确保受保护接口不会响应403
     getCSRFTokenMethod() {
       getCSRFToken();

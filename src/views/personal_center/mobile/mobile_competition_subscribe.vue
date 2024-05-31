@@ -1,10 +1,18 @@
 <template>
   <div class="all" style="margin-top: -15px;margin-right: -2%;">
-    <div class="header">
-      <h2 style="margin-top: 30px; margin-bottom: 20px;">上证50股票涨跌预测</h2>
-    </div>
+    <div class="myHeader" style="margin-top: 30px; margin-bottom: 20px;">
+        <h2 style=" margin:0 auto" class="centered-element">上证50股票涨跌预测</h2>
+        <div style="display: flex; justify-content: right;" class="right-element">
+          <el-button size="mini" @click="handleSubScribe"  type="warning" >{{subScribe}}</el-button>
+        </div>
+      </div>
+      <div v-if="subScribeStatus.subScribeStatus === false" style="display: flex;justify-content: center;">
+        <h2>
+          你还没有订阅该服务
+        </h2>
+      </div>
 
-    <el-row class="content">
+    <el-row v-else class="content">
       <el-col :span="22" :offset="1" class="form">
         <el-row>
           <el-col :span="22" :offset="1">
@@ -93,6 +101,8 @@
 </template>
 
 <script>
+import { mapState ,mapActions} from 'vuex';
+import { ElMessageBox } from 'element-plus';
 export default {
   name: "mobile_competition_subscribe",
   data() {
@@ -301,6 +311,15 @@ export default {
 },
 
   computed: {
+    ...mapState(['subScribeStatus',['subScribeStatus']]),
+      subScribe(){
+        if (this.subScribeStatus.subScribeStatus === false){
+          return "订阅";
+      }
+      else{
+        return "取消订阅";
+      }
+    },
       totalPage() {
     return this.filteredTableData.length;
   },
@@ -325,6 +344,40 @@ export default {
     this.selectedStock = 'all';
   },
   methods: {
+    ...mapActions('subScribeStatus',['changeMySubScribeStatus']),
+      handleSubScribe(){
+      // 弹出确认框
+      if (this.subScribe === '订阅'){
+        ElMessageBox.confirm(
+        '你确定要订阅吗？', 
+        '确认操作', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        
+        this.changeMySubScribeStatus();
+      }).catch(() => {
+
+      });
+      }
+      else{
+        ElMessageBox.confirm(
+        '你确定取消订阅状态吗？', 
+        '确认操作', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        
+        this.changeMySubScribeStatus();
+      }).catch(() => {
+
+      });
+      }
+    },
     querySearch(queryString, cb) {
       if (queryString.length === 0) {
         cb([]);
@@ -389,10 +442,11 @@ export default {
 .all {
   background-color: white;
 }
-.header {
-  display: flex;
-  justify-content: center;
-}
+.myHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 .form {
   background-color: #FFFFFF;
 }
