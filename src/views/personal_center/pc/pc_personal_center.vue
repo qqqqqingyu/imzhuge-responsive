@@ -18,7 +18,7 @@
                 trigger="hover"
             >
               <template #reference>
-                <router-link to="" style="cursor: default">典型应用</router-link>
+                <router-link to="" style="cursor: default">实验场景</router-link>
               </template>
               <router-link class="popover-link" to="/weekly_forecast">企业收益率排序预测</router-link>
               <div class="expect">敬请期待</div>
