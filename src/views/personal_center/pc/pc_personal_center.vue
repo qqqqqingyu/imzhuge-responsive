@@ -67,8 +67,8 @@
       </el-col>
       <el-col :span="3" class="info-box right-line">
         <p class="center-vertically">
-          <span>个人财富</span>
-          <button class="cash-withdrawal-btn" v-on:click="toWithdraw">提现</button>
+          <span>个人积分</span>
+          <!-- <button class="cash-withdrawal-btn" v-on:click="toWithdraw">提现</button> -->
         </p>
         <p><span class="value">{{ numFilter(myActivity.coin, 2) }}</span> <span class="unit">诸葛贝</span></p>
       </el-col>
@@ -77,7 +77,7 @@
         <img src="@/assets/images/transactions.svg" height="40" alt="交易次数">
       </el-col>
       <el-col :span="3" class="info-box" style="padding-left: 4%;">
-        <p>交易次数</p>
+        <p>参与次数</p>
         <p><span class="value">{{ myActivity.trade_times }}</span></p>
       </el-col>
     </el-row>
