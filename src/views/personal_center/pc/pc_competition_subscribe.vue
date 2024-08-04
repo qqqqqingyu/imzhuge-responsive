@@ -61,7 +61,7 @@
           :cell-style="{'text-align':'center'}"
           @sortChange="handleSortChange"
           >
-          <el-table-column prop="state" label="状态" >
+          <el-table-column prop="status" label="状态" >
             <template #default="scope">
               <span v-if="scope.row.status.endsWith('已结束')" class="finished">已结束</span>
               <span class="unfinished" v-else>进行中</span>
@@ -394,9 +394,12 @@ import { getSubscribeData } from '../../../api/competition';
     },
       getTableData(){
         if (this.subScribeStatus.subScribeStatus === false){
+          console.log("未订阅，不获取数据");
           return;
         }
+        console.log("开始获取数据了");
         getSubscribeData().then(res => {
+          console.log("获取成功",res);
           this.tableData = res.data;
           this.filteredTableData = this.tableData.sort((a, b) => {
             const aDate = new Date(a.end);
@@ -405,6 +408,8 @@ import { getSubscribeData } from '../../../api/competition';
           }
           );
           this.selectedStock = 'all';
+        }).catch(err => {
+          console.log("获取失败",err);
         });
       },
       handleSubScribe(){

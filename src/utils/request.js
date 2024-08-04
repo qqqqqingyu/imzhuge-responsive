@@ -6,7 +6,7 @@ import '../assets/CSS/MessageBox.css'
 // 创建axios实例
 const request = axios.create({
     withCredentials: true,
-    timeout: 15000
+    timeout: 30000
 })
 
 // post请求默认请求头
@@ -55,7 +55,6 @@ request.interceptors.request.use(config => {
     }
     return config
 }, error => {
-    console.log('err: ' + error)
     return Promise.reject(error)
 })
 
