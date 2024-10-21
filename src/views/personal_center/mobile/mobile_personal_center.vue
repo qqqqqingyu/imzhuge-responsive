@@ -19,7 +19,7 @@
               </el-row>
               <el-row style="margin-top: 10px">
                 <el-col :span="5">
-                  <span>个人财富 </span>
+                  <span>个人积分 </span>
                 </el-col>
                 <el-col :span="9">
                   <span
@@ -27,14 +27,14 @@
                   <span> 诸葛贝</span>
                 </el-col>
                 <el-col :span="9">
-                  <span style="margin-left: 5px">交易次数 </span>
+                  <span style="margin-left: 5px">参与次数 </span>
                   <span style="color: #2e2e2e;font-weight: bold;font-size: medium ">{{ myActivity.trade_times }}</span>
                 </el-col>
               </el-row>
               <el-row style="margin-top: 10px">
-                <el-button class="withdraw" size="small" v-on:click="toWithdraw">
+                <!-- <el-button class="withdraw" size="small" v-on:click="toWithdraw">
                   <span style="color: #FFFFFF;font-size: 14px">提现</span>
-                </el-button>
+                </el-button> -->
               </el-row>
             </el-col>
           </el-row>

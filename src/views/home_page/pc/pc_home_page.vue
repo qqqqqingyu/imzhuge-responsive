@@ -12,7 +12,8 @@
             <router-link to="/" id="nav_top" onclick="showUnderline(this.id,'hp')" class="navhome navcurr hand">首页
             </router-link>
           </li>
-          <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li>
+          <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">实验场景</a></li>
+          <!-- <li><a id="nav_typical" onclick="showUnderline(this.id,'typical_use')" class="hand">典型应用</a></li> -->
           <li><router-link to="/competition_center">赛事中心</router-link></li>
           <li><a id="nav_about_us" onclick="showUnderline(this.id,'about_us')" class="hand">关于我们</a></li>
           <li><a id="nav_coop" onclick="showUnderline(this.id,'coop')" class="hand">合作交流</a></li>
@@ -55,7 +56,7 @@
   <el-row>
 <!--    banner开始-->
     <el-col :span="24" class="my-banner">
-      <h1>做财经领域高水平的人机融合预测平台</h1>
+      <h1>做高水平的人机融合教学科研平台</h1>
     </el-col>
 <!--    banner结束-->
 
@@ -90,7 +91,8 @@
 <!--      典型应用开始-->
         <div id="typical_use"></div>
         <el-row>
-          <el-col :span="24" class="part_title">典型应用</el-col>
+          <el-col :span="24" class="part_title">实验场景</el-col>
+          <!-- <el-col :span="24" class="part_title">典型应用</el-col> -->
           <el-col :span="24" style="text-align: center">
             <el-radio-group v-model="typical_filter" class="my-radio-group">
               <el-radio-button class="filter-radio" label=0>企业收益率排序预测</el-radio-button>
@@ -103,7 +105,8 @@
               <el-col :span="10" :offset="1" class="typical_content wow bounceInLeft animated">
                 <p>基于人机融合</p>
                 <p>做细分行业收益率排序</p>
-                <el-button type="warning" class="more" v-on:click="more">立即使用</el-button>
+                <el-button type="info" class="disabled-btn" disabled>敬请期待</el-button>
+                <!-- <el-button type="warning" class="more" v-on:click="more">立即使用</el-button> -->
               </el-col>
               <el-col :span="11" class="wow bounceInRight animated" style="position: relative">
                 <img src="@/assets/images/yield.png" alt="收益率排序预测" width="600">
@@ -145,7 +148,8 @@
     <!--        使命-->
     <el-col :span="11" :offset="2" style="padding-top: 100px">
       <el-row>
-        <strong class="part_title">做财经领域高水平的<br>人机融合预测平台</strong>
+        <strong class="part_title">做高水平的人机融合<br>教学科研平台</strong>
+        <!-- <strong class="part_title">做财经领域高水平的<br>人机融合预测平台</strong> -->
       </el-row>
       <el-row class="left" style="margin-top: 50px;color:#606266; font-size: 18px">
         采用市场机制融合人机智慧，提供精准、快速、高效的财经预测服务。
@@ -218,7 +222,7 @@
         <strong class="part_title">研究团队</strong>
         <el-row style="margin-top: 35px;">
           <el-col :span="20" :offset="2" class="teaminfo">
-            <p>“嗨皮诸葛”的使命是：做财经领域高水平的人机融合预测平台。致力于利用人工智能与人类集体智慧，提升预测的准确性和可靠性。平台目前的典型应用包括金融市场预测和国际经济不确定性预测。</p>
+            <p>“嗨皮诸葛”的使命是：做高水平的人机融合教学科研平台。致力于利用人工智能与人类集体智慧，提升预测的准确性和可靠性。平台目前的实验场景包括金融市场预测和国际经济不确定性预测。</p>
             <p>为了实现该使命，我们组建了具备丰富的学术背景和实践经验的研究团队，主要成员来自西南财经大学、太原理工大学、复旦大学、苏州大学、南开大学、重庆大学等。在群体智慧与人机融合预测系统方向，我们开展多项科研项目与实验研究。在信息系统与决策科学高水平期刊MIS Quarterly、Information Systems Journal、Decision Support Systems等发表了多篇论文。我们目前与多家研究机构和企业建立了合作关系，共同开展相关研究项目，开发财经领域高水平的人机融合预测平台。</p>
             <p>我们坚信“嗨皮诸葛”将在预测领域中发挥更加重要的作用，为财经领域的决策者提供有力支持。</p>
           </el-col>
@@ -272,7 +276,7 @@
   <el-row class="foot wow bounceIn animated" >
     <el-col :offset="2" :span="6">
       <h3 class="foot-title">嗨皮诸葛</h3>
-      <p>做财经领域高水平的人机融合预测平台</p>
+      <p>做高水平的人机融合教学科研平台</p>
     </el-col>
     <el-col :span="5">
       <h3 class="foot-title">合作伙伴</h3>
@@ -289,11 +293,11 @@
         <img src="@/assets/images/contactus.png" height="85">
       </el-row>
     </el-col>
-    <el-col :span="3">
+    <!-- <el-col :span="3">
       <h3 class="foot-title">关注我们</h3>
       <img src="@/assets/images/gzh.png" height="85">
       <p class="gzh">微信公众号</p>
-    </el-col>
+    </el-col> -->
     <el-col class="center" style="margin-top: 40px">
       <p> 爱诸葛，知未来 |
         <span class="res_deceleration" @click="toBeiAn()">蜀ICP备2020026052号</span> |
