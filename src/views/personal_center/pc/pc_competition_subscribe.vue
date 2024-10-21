@@ -415,23 +415,18 @@ import { getSubscribeData } from '../../../api/competition';
       handleSubScribe(){
       // 弹出确认框
       if (this.subScribe === '订阅'){
-        ElMessageBox.confirm(
-        '你确定要订阅吗？', 
-        '确认操作', {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
+        ElMessageBox.alert(
+        '订阅该服务请联系haichao@swufe.edu.cn', 
       ).then(() => {
         
-        this.changeMySubScribeStatus();
+        // this.changeMySubScribeStatus();
       }).catch(() => {
 
       });
       }
       else{
         ElMessageBox.confirm(
-        '你确定取消订阅状态吗？', 
+        '你确定取消订阅状态吗？该操作不可逆转。', 
         '确认操作', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
