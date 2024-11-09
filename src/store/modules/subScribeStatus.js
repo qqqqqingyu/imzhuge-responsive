@@ -15,9 +15,11 @@ export default {
     actions: {
         async useMySubScribeStatus(context) {
             const response = await getSubscribeStatus();
-            if (response.code === '200' && response.msg === '您已订阅当前页面。') {
+            if (response.data == true) {
                 context.commit('setSubScribeStatus', true);
-            } else if (response.code === '201' || response.msg === '您已取消订阅当前页面。') {
+            } else if (response.data == false ) {
+                context.commit('setSubScribeStatus', false);
+            }else{
                 context.commit('setSubScribeStatus', false);
             }
         },

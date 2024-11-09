@@ -6,7 +6,7 @@
           <el-button size="mini" @click="handleSubScribe"  type="warning" >{{subScribe}}</el-button>
         </div>
       </div>
-      <div v-if="subScribeStatus.subScribeStatus === false" style="display: flex;justify-content: center;">
+      <div v-if="subScribeStatus.subScribeStatus == false" style="display: flex;justify-content: center;">
         <h2>
           你还没有订阅该服务
         </h2>
@@ -320,7 +320,7 @@ import { getSubscribeData } from '../../../api/competition';
     computed: {
       ...mapState(['subScribeStatus',['subScribeStatus']]),
       subScribe(){
-        if (this.subScribeStatus.subScribeStatus === false){
+        if (this.subScribeStatus.subScribeStatus == false || this.subScribeStatus.subScribeStatus == null){
           return "订阅";
       }
       else{
@@ -393,7 +393,8 @@ import { getSubscribeData } from '../../../api/competition';
       this.paginatedData = this.filteredTableData.slice(start, start + this.pageSize);
     },
       getTableData(){
-        if (this.subScribeStatus.subScribeStatus === false){
+        console.log(this.subScribeStatus.subScribeStatus);
+        if (this.subScribeStatus.subScribeStatus == false || this.subScribeStatus.subScribeStatus == null){
           console.log("未订阅，不获取数据");
           return;
         }
