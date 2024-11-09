@@ -4,7 +4,7 @@ export default {
     namespaced:true,
     state:() => {
         return {
-            subScribeStatus:null,
+            subScribeStatus:false,
         }
     },
     mutations: {

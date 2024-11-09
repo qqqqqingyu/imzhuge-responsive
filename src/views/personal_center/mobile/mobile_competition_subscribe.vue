@@ -6,7 +6,7 @@
           <el-button size="mini" @click="handleSubScribe"  type="warning" >{{subScribe}}</el-button>
         </div>
       </div>
-      <div v-if="subScribeStatus.subScribeStatus == false" style="display: flex;justify-content: center;">
+      <div v-if="subScribeStatus.subScribeStatus == false || subScribeStatus.subScribeStatus == null" style="display: flex;justify-content: center;">
         <h2>
           你还没有订阅该服务
         </h2>
