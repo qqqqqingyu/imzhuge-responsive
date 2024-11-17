@@ -127,7 +127,8 @@ export default {
         '财经指标预测':'cjzb.jpg',
         '国际经济与政策预测': 'comp1.svg',
         '2023年底全球重要股指预测':'important_stock_predict.jpg',
-        '股价涨跌预测':'fufei.webp'
+        '股价涨跌预测':'fufei.webp',
+        '上证50成分股5日股价涨跌预测':'sh50.png'
       }
     };
   },
